@@ -1,0 +1,16 @@
+resolvers:
+  - implementation: etwpipeline.declarative.resolvers:EnvironmentResolver
+  
+extractor:
+  implementation: akamai_property_cacher.pipeline:AkamaiPropertyExtractor
+  arguments:
+    base_url: env://base_url
+    client_token: env://client_token
+    client_secret: env://client_secret
+    access_token: env://access_token
+
+writers:
+  - implementation: etwpipeline.writers:LoggerWriter
+  - implementation: etwpipeline.writers:JsonFileWriter
+    arguments:
+      file_name: akamai.json
