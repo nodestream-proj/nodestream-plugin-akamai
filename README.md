@@ -3,7 +3,7 @@ This repo contains the scripts necessary to ingest Akamai property and redirect 
 and ingest them into Neo4j.  It is a starting point to help visualize your external attack surface
 within Akamai.
 
-Blog post: https://www.linkedin.com/pulse/neo4j-akamai-mapping-your-external-attack-surface-chad-cloes/?published=t&trackingId=ucgj3ZLISy6RW78UL0iYxQ%3D%3D
+[LinkedIn Blog post](https://www.linkedin.com/pulse/neo4j-akamai-mapping-your-external-attack-surface-chad-cloes/?published=t&trackingId=ucgj3ZLISy6RW78UL0iYxQ%3D%3D)
 
 # Setup Neo4j
 1. Download and install Neo4j: https://neo4j.com/docs/desktop-manual/current/installation/download-installation/
