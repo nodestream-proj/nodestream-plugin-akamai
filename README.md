@@ -1,5 +1,5 @@
 # Overview
-This repo contains the scripts necessary to ingest Akamai property and redirect configs
+This repo contains the scripts necessary to parse Akamai property and redirect configs
 and ingest them into Neo4j.  It is a starting point to help visualize your external attack surface
 within Akamai.
 
