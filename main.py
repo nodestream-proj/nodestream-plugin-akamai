@@ -1,13 +1,16 @@
 import logging
 import os
 
-import akamai_property_cacher, akamai_redirect_cacher, akamai_gtm_cacher, neo4j_property_loader, neo4j_redirect_loader
+import akamai_property_cacher, akamai_redirect_cacher, akamai_gtm_cacher, akamai_netstorage_cacher, akamai_appsec_cacher, akamai_siteshield_cacher, neo4j_property_loader, neo4j_redirect_loader
 
 SELECTED_PIPELINES = os.environ["SELECTED_PIPELINES"].split(",")
 PIPELINE_FACTORIES = {
     "akamai_property_cacher": akamai_property_cacher.make_pipeline,
     "akamai_redirect_cacher": akamai_redirect_cacher.make_pipeline,
     "akamai_gtm_cacher": akamai_gtm_cacher.make_pipeline,
+    "akamai_netstorage_cacher": akamai_netstorage_cacher.make_pipeline,
+    "akamai_appsec_cacher": akamai_appsec_cacher.make_pipeline,
+    "akamai_siteshield_cacher": akamai_siteshield_cacher.make_pipeline,
     "neo4j_property_loader": neo4j_property_loader.make_pipeline,
     "neo4j_redirect_loader": neo4j_redirect_loader.make_pipeline,
 }
