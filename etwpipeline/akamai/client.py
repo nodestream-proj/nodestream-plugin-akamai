@@ -140,6 +140,32 @@ class AkamaiApiClient:
         response.raise_for_status()
         # raise for status only handles: 400 <= status_code < 600
         raise Exception(f"response.status_code: {response.status_code}", response.text)
+    
+    def _post_api_from_relative_path(self, path, body, params=None, headers=None):
+        full_url = urljoin(self.base_url, path)
+        logger.info("Exec: %s", full_url)
+
+        # Insert account switch key
+        if self.account_key is not None:
+            if params is None:
+                params = {}
+            params['accountSwitchKey'] = self.account_key
+
+        for sleepy_seconds in range(5):
+            if sleepy_seconds:
+                time.sleep(sleepy_seconds)
+            response = self.session.post(full_url, params=params, headers=headers, data=body)
+            if response.status_code == 200:
+                return response.json()
+            self.error_count += 1
+            logger.error(
+                "response.status_code: %s, response.text: %s",
+                response.status_code,
+                response.text,
+            )
+        response.raise_for_status()
+        # raise for status only handles: 400 <= status_code < 600
+        raise Exception(f"response.status_code: {response.status_code}", response.text)
 
     def contracts_by_group(self) -> List[Tuple[str, str]]:
         groups_list_api_path = "/papi/v1/groups"
@@ -252,6 +278,28 @@ class AkamaiApiClient:
         return PropertyDescription(
             id=property_id, name=property_name, origins=list(origins), edge_hosts=list(edge_hosts)
         )
+    
+    def search_all_properties(self):
+        query = '$.name'
+        search_path = '/papi/v1/bulk/rules-search-requests-synch'
+        request_body = {
+            'bulkSearchQuery': {
+                'syntax': 'JSONPATH',
+                'match': query
+            } 
+        }
+        return self._post_api_from_relative_path(search_path, request_body)
+    
+    def list_all_properties(self):
+        try:
+            search = self.search_all_properties()
+        except Exception as err:
+            logger.info("Failed to search for properties: %s", err)
+        
+        raw_property_ids = [p['propertyId'] for p in search['results']]
+        # DeDupe list
+        property_ids = [set(raw_property_ids)]
+        
 
     ## GTM functions
     def list_gtm_domains(self):
