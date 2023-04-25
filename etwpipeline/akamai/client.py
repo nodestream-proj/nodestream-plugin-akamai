@@ -151,10 +151,19 @@ class AkamaiApiClient:
                 params = {}
             params['accountSwitchKey'] = self.account_key
 
+        request_headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+
+        if isinstance(headers, dict):
+            for header in headers.keys():
+                request_headers[header] = headers[header]
+
         for sleepy_seconds in range(5):
             if sleepy_seconds:
                 time.sleep(sleepy_seconds)
-            response = self.session.post(full_url, params=params, headers=headers, data=body)
+            response = self.session.post(full_url, params=params, headers=request_headers, json=body)
             if response.status_code == 200:
                 return response.json()
             self.error_count += 1
@@ -279,6 +288,13 @@ class AkamaiApiClient:
             id=property_id, name=property_name, origins=list(origins), edge_hosts=list(edge_hosts)
         )
     
+    def describe_property_by_dict(self, property: dict) -> PropertyDescription:
+        origins, edge_hosts = self.pull_host_entries(property['propertyId'], {property['productionVersion'], property['stagingVersion']})
+
+        return PropertyDescription(
+            id=property['propertyId'], name=property['propertyName'], origins=list(origins), edge_hosts=list(edge_hosts)
+        )
+    
     def search_all_properties(self):
         query = '$.name'
         search_path = '/papi/v1/bulk/rules-search-requests-synch'
@@ -288,19 +304,49 @@ class AkamaiApiClient:
                 'match': query
             } 
         }
-        return self._post_api_from_relative_path(search_path, request_body)
+        return self._post_api_from_relative_path(path=search_path, body=request_body)
     
     def list_all_properties(self):
         try:
             search = self.search_all_properties()
         except Exception as err:
             logger.info("Failed to search for properties: %s", err)
+            return
         
         raw_property_ids = [p['propertyId'] for p in search['results']]
         # DeDupe list
-        property_ids = [set(raw_property_ids)]
-        
+        property_ids = list(set(raw_property_ids))
+        results = []
+        for property_id in property_ids:
+            matching_properties = [p for p in search['results'] if p['propertyId'] == property_id]
+            sorted_matching_properties = sorted(matching_properties, key=lambda d: d['propertyVersion'], reverse=True) 
+            latest_property_version = sorted_matching_properties[0]
+            production_version = None
+            staging_version = None
 
+            # Determine production version
+            production_property_version = [p for p in sorted_matching_properties if p['productionStatus'] == 'ACTIVE']
+            if len(production_property_version) > 0:
+                production_version = production_property_version[0]['propertyVersion']
+
+            # Determine staging version
+            staging_property_version = [p for p in sorted_matching_properties if p['stagingStatus'] == 'ACTIVE']
+            if len(staging_property_version) > 0:
+                staging_version = staging_property_version[0]['propertyVersion']
+
+            result_property = {
+                'propertyId': latest_property_version['propertyId'],
+                'propertyName': latest_property_version['propertyName'],
+                'propertyType': latest_property_version['propertyType'],
+                'latestVersion': latest_property_version['propertyVersion'],
+                'stagingVersion': staging_version,
+                'productionVersion': production_version
+            }
+
+            results.append(result_property)
+
+        return results
+        
     ## GTM functions
     def list_gtm_domains(self):
         gtm_domains_path = "/config-gtm/v1/domains"
