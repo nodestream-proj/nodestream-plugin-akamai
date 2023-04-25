@@ -102,7 +102,7 @@ def search_akamai_ruleset_for_outbound_hosts(rule_tree):
 
 
 class AkamaiApiClient:
-    def __init__(self, base_url, client_token, client_secret, access_token):
+    def __init__(self, base_url, client_token, client_secret, access_token, account_key = None):
         self.base_url = base_url
         self.error_count = 0
         self.page_size = 100
@@ -113,14 +113,22 @@ class AkamaiApiClient:
             access_token=access_token,
             max_body=128 * 1024,  # TODO: Completely Arbitrary Currently
         )
+        self.account_key = account_key
 
-    def _get_api_from_relative_path(self, path, params=None):
+    def _get_api_from_relative_path(self, path, params=None, headers=None):
         full_url = urljoin(self.base_url, path)
         logger.info("Exec: %s", full_url)
+
+        # Insert account switch key
+        if self.account_key is not None:
+            if params is None:
+                params = {}
+            params['accountSwitchKey'] = self.account_key
+
         for sleepy_seconds in range(5):
             if sleepy_seconds:
                 time.sleep(sleepy_seconds)
-            response = self.session.get(full_url, params=params)
+            response = self.session.get(full_url, params=params, headers=headers)
             if response.status_code == 200:
                 return response.json()
             self.error_count += 1
@@ -244,3 +252,14 @@ class AkamaiApiClient:
         return PropertyDescription(
             id=property_id, name=property_name, origins=list(origins), edge_hosts=list(edge_hosts)
         )
+
+    ## GTM functions
+    def list_gtm_domains(self):
+        gtm_domains_path = "/config-gtm/v1/domains"
+        return self._get_api_from_relative_path(gtm_domains_path)['items']
+    
+    def get_gtm_domain(self, domain_name: str):
+        gtm_domain_path = (
+            f"/config-gtm/v1/domains/{domain_name}"
+        )
+        return self._get_api_from_relative_path(gtm_domain_path, headers = {'accept': 'application/vnd.config-gtm.v1.5+json'})

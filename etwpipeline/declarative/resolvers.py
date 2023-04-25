@@ -35,7 +35,7 @@ class RawValueResolver(ArgumentResolver, prefix=None):
 
 class EnvironmentResolver(ArgumentResolver, prefix="env"):
     def resolve_argument(self, raw_value_sans_prefix):
-        return os.environ[raw_value_sans_prefix]
+        return os.environ.get(raw_value_sans_prefix)
 
 
 try:
