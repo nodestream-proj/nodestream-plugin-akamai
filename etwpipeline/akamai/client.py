@@ -263,3 +263,18 @@ class AkamaiApiClient:
             f"/config-gtm/v1/domains/{domain_name}"
         )
         return self._get_api_from_relative_path(gtm_domain_path, headers = {'accept': 'application/vnd.config-gtm.v1.5+json'})
+    
+    ## Netstorage Functions
+    def list_netstorage_groups(self):
+        netstorage_groups_path = "/storage/v1/storage-groups"
+        return self._get_api_from_relative_path(netstorage_groups_path)['items']
+    
+    ## AppSec Functions
+    def get_appsec_hostname_coverage(self):
+        hostname_coverage_path = "/appsec/v1/hostname-coverage"
+        return self._get_api_from_relative_path(hostname_coverage_path)['hostnameCoverage']
+    
+    ## SiteShield Functions
+    def list_siteshield_maps(self):
+        siteshield_maps_path = "/siteshield/v1/maps"
+        return self._get_api_from_relative_path(siteshield_maps_path)['siteShieldMaps']
