@@ -1,8 +1,8 @@
-akamai.json
-akamai_redirect.json
-akamai_gtm.json
+akamai*.json
+!akamai*.json.example
 .DS_Store
 .env*
+!.env.example
 *.swp
 
 # Byte-compiled / optimized / DLL files
