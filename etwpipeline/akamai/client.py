@@ -263,3 +263,13 @@ class AkamaiApiClient:
             f"/config-gtm/v1/domains/{domain_name}"
         )
         return self._get_api_from_relative_path(gtm_domain_path, headers = {'accept': 'application/vnd.config-gtm.v1.5+json'})
+    
+    ## WAF Functions
+    def list_appsec_configs(self):
+        appsec_configs_path = '/appsec/v1/configs'
+        return self._get_api_from_relative_path(appsec_configs_path)['configurations']
+    
+    ## WAF Functions
+    def export_appsec_config(self, config_id: int, config_version: int):
+        export_config_path = f'/appsec/v1/export/configs/{config_id}/versions/{config_version}'
+        return self._get_api_from_relative_path(export_config_path)
