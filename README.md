@@ -27,3 +27,4 @@ NOTE: These values will be used in your `.env`
 * Chad Cloes
 * Bryan Norman
 * Gabe Gallagher
+* Stuart Macleod
