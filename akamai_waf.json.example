@@ -1,0 +1,169 @@
+[
+    {
+        "configId": 11111,
+        "configName": "Sample Config 1",
+        "productionVersion": 10,
+        "policies": [
+            {
+                "policyId": "SAM2_123456",
+                "policyName": "TurboTax Canada",
+                "attackGroupActions": [
+                    {
+                        "group": "POLICY",
+                        "groupName": "Web Policy Violation",
+                        "action": "alert"
+                    },
+                    {
+                        "group": "WAT",
+                        "groupName": "Web Attack Tool",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "PROTOCOL",
+                        "groupName": "Web Protocol Attack",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "SQL",
+                        "groupName": "SQL Injection",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "XSS",
+                        "groupName": "Cross Site Scripting",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "CMD",
+                        "groupName": "Command Injection",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "LFI",
+                        "groupName": "Local File Inclusion",
+                        "action": "deny_custom_12345"
+                    },
+                    {
+                        "group": "RFI",
+                        "groupName": "Remote File Inclusion",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "PLATFORM",
+                        "groupName": "Web Platform Attack",
+                        "action": "deny"
+                    }
+                ]
+            },
+            {
+                "policyId": "SAM2_567890",
+                "policyName": "Sample Policy 2",
+                "attackGroupActions": [
+                    {
+                        "group": "POLICY",
+                        "groupName": "Web Policy Violation",
+                        "action": "alert"
+                    },
+                    {
+                        "group": "WAT",
+                        "groupName": "Web Attack Tool",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "PROTOCOL",
+                        "groupName": "Web Protocol Attack",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "SQL",
+                        "groupName": "SQL Injection",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "XSS",
+                        "groupName": "Cross Site Scripting",
+                        "action": "deny_custom_88659"
+                    },
+                    {
+                        "group": "CMD",
+                        "groupName": "Command Injection",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "LFI",
+                        "groupName": "Local File Inclusion",
+                        "action": "deny_custom_12345"
+                    },
+                    {
+                        "group": "RFI",
+                        "groupName": "Remote File Inclusion",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "PLATFORM",
+                        "groupName": "Web Platform Attack",
+                        "action": "deny_custom_12345"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "configId": 222222,
+        "configName": "Sample Config 2",
+        "productionVersion": 50,
+        "policies": [
+            {
+                "policyId": "SAM3_121212",
+                "policyName": "Sample Policy 3",
+                "attackGroupActions": [
+                    {
+                        "group": "POLICY",
+                        "groupName": "Web Policy Violation",
+                        "action": "alert"
+                    },
+                    {
+                        "group": "WAT",
+                        "groupName": "Web Attack Tool",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "PROTOCOL",
+                        "groupName": "Web Protocol Attack",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "SQL",
+                        "groupName": "SQL Injection",
+                        "action": "alert"
+                    },
+                    {
+                        "group": "XSS",
+                        "groupName": "Cross Site Scripting",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "CMD",
+                        "groupName": "Command Injection",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "LFI",
+                        "groupName": "Local File Inclusion",
+                        "action": "deny"
+                    },
+                    {
+                        "group": "RFI",
+                        "groupName": "Remote File Inclusion",
+                        "action": "alert"
+                    },
+                    {
+                        "group": "PLATFORM",
+                        "groupName": "Web Platform Attack",
+                        "action": "deny"
+                    }
+                ]
+            }
+        ]
+    }
+]

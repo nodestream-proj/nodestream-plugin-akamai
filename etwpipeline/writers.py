@@ -46,7 +46,7 @@ class JsonFileWriter(Writer):
         else:
             self.fp.write(",\n")
 
-        json.dump(item, self.fp, default=str, **self.json_extra_args)
+        json.dump(item, self.fp, default=str, indent=2, **self.json_extra_args)
 
     def finish(self):
         if self.fp is not None:

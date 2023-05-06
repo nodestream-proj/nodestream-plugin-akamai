@@ -2,7 +2,7 @@ resolvers:
   - implementation: etwpipeline.declarative.resolvers:EnvironmentResolver
   
 extractor:
-  implementation: akamai_property_cacher.pipeline:AkamaiPropertyExtractor
+  implementation: akamai_waf_cacher.pipeline:AkamaiWAFExtractor
   arguments:
     base_url: env://base_url
     client_token: env://client_token
@@ -14,4 +14,4 @@ writers:
   - implementation: etwpipeline.writers:LoggerWriter
   - implementation: etwpipeline.writers:JsonFileWriter
     arguments:
-      file_name: akamai.json
+      file_name: akamai_waf.json

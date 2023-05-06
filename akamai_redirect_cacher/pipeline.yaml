@@ -8,6 +8,7 @@ extractor:
     client_token: env://client_token
     client_secret: env://client_secret
     access_token: env://access_token
+    account_key: env://account_key
 
 writers:
   - implementation: etwpipeline.writers:LoggerWriter
