@@ -12,14 +12,17 @@ class AkamaiPropertyExtractor(Extractor):
         self.logger = logging.getLogger(self.__class__.__name__)
 
     def extract_records(self):
-        for group_id, contract_id in self.client.contracts_by_group():
-            for property_id in self.client.property_ids_for_contract_group(
-                group_id, contract_id
-            ):
-                try:
-                    yield self.client.describe_property_by_id(property_id).as_eventbus_json()
-                except Exception:
-                    self.logger.error("Failed to get property: %s", property_id)
+        try:
+            properties = self.client.list_all_properties()
+        except Exception as err:
+            self.logger.error("Failed to list properties: %s", err)
+            return
+
+        for property in properties:
+            try:
+                yield self.client.describe_property_by_dict(property).as_eventbus_json()
+            except Exception as err:
+                self.logger.error("Failed to get property: {p}, {e}".format(p = property['propertyId'], e = err))
 
 
 def make_pipeline() -> Pipeline:
