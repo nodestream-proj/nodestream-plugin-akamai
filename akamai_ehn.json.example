@@ -1,0 +1,63 @@
+[
+    {
+        "edgeHostnameId": 1,
+        "recordName": "www.example.com",
+        "dnsZone": "edgekey.net",
+        "securityType": "ENHANCED-TLS",
+        "useDefaultTtl": true,
+        "useDefaultMap": true,
+        "ipVersionBehavior": "IPV6_IPV4_DUALSTACK",
+        "productId": "DSD",
+        "ttl": 21600,
+        "map": "e;dscb.akamaiedge.net",
+        "slotNumber": 11838,
+        "comments": "Created for example.com"
+    },
+    {
+        "edgeHostnameId": 2,
+        "recordName": "www.examples.com",
+        "dnsZone": "edgesuite.net",
+        "securityType": "STANDARD-TLS",
+        "useDefaultTtl": true,
+        "useDefaultMap": true,
+        "ipVersionBehavior": "IPV4",
+        "productId": "DSA",
+        "ttl": 21600,
+        "map": "a;g.akamai.net",
+        "serialNumber": 140,
+        "comments": "Created for site"
+    },
+    {
+        "edgeHostnameId": 3,
+        "recordName": "www.example-china.com",
+        "dnsZone": "edgesuite.net",
+        "useDefaultTtl": true,
+        "useDefaultMap": true,
+        "securityType": "STANDARD-TLS",
+        "ipVersionBehavior": "IPV4",
+        "productId": "DSA",
+        "ttl": 1800,
+        "map": "a;g.akamai.net",
+        "serialNumber": 2322,
+        "customTarget": "www.example-china.com.edgesuite.net.globalredir.akadns.net",
+        "comments": "Created for China CDN",
+        "chinaCdn": {
+            "isChinaCdn": true
+        }
+    },
+    {
+        "edgeHostnameId": 4,
+        "recordName": "www.example-eip.com",
+        "dnsZone": "edgekey.net",
+        "useDefaultTtl": true,
+        "useDefaultMap": true,
+        "securityType": "ENHANCED-TLS",
+        "ipVersionBehavior": "IPV4",
+        "productId": "DSA",
+        "ttl": 21600,
+        "isEdgeIPBindingEnabled": true,
+        "slotNumber": 2322,
+        "customTarget": "www.example-eip.com.eip.akadns.net",
+        "comments": "Created for EIP"
+    }
+]
