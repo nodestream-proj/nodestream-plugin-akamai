@@ -1,0 +1,34 @@
+resolvers: 
+  - implementation: etwpipeline.declarative.resolvers:EnvironmentResolver
+write_batch_sizes: 10
+
+extractor:
+  implementation: etwpipeline.tools:FixtureFileExtractor
+  arguments:
+    files:
+      - akamai_waf.json
+
+transformers:
+  - implementation: neo4j_ingest.pipeline_components:Interpreter
+    arguments:
+      interpretations:
+        - type: source_node
+          configId: !!python/jmespath configId
+          node_type: wafconfig
+        - type: metadata
+          configName: !!python/jmespath configName
+          status: !!python/jmespath status
+        - type: relationship
+          search: !!python/jmespath policies[*].policyId
+          relationship_node_type: wafpolicy
+          relationship_type: DEFINED_BY
+          relationship_field_name: policyId
+          find_many: true
+            
+
+writers:
+  - implementation: etwpipeline.writers:LoggerWriter
+    arguments:
+      logger_name: "akamai-waf"
+      level: DEBUG
+  - !include ../neo4j_writer.yaml

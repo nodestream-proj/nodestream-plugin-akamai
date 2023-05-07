@@ -1,0 +1,38 @@
+resolvers: 
+  - implementation: etwpipeline.declarative.resolvers:EnvironmentResolver
+write_batch_sizes: 10
+
+extractor:
+  implementation: etwpipeline.tools:FixtureFileExtractor
+  arguments:
+    files:
+      - akamai_cps.json
+
+transformers:
+  - implementation: neo4j_ingest.pipeline_components:Interpreter
+    arguments:
+      interpretations:
+        - type: source_node
+          id: !!python/jmespath id
+          node_type: certificate
+        - type: metadata
+          expiry: !!python/jmespath expiry
+        - type: endpoint
+          match_type: MATCH_ONLY
+          search: !!python/jmespath csr.cn
+          relationship_type: PROTECTED_BY
+          outbound: false
+        - type: endpoint
+          match_type: MATCH_ONLY
+          search: !!python/jmespath csr.sans[*]
+          relationship_type: PROTECTED_BY
+          find_many: true
+          outbound: false
+            
+
+writers:
+  - implementation: etwpipeline.writers:LoggerWriter
+    arguments:
+      logger_name: "akamai-cps"
+      level: DEBUG
+  - !include ../neo4j_writer.yaml

@@ -1,0 +1,6 @@
+from etwpipeline import Pipeline
+from etwpipeline.declarative import DeclarativePipeline
+
+
+def make_pipeline() -> Pipeline:
+    return DeclarativePipeline.from_file("akamai_ehn_loader/akamai-ehn.yaml")
