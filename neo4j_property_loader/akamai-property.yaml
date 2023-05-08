@@ -1,6 +1,6 @@
 resolvers: 
   - implementation: etwpipeline.declarative.resolvers:EnvironmentResolver
-write_batch_sizes: 10
+write_batch_sizes: 100
 
 extractor:
   implementation: etwpipeline.tools:FixtureFileExtractor

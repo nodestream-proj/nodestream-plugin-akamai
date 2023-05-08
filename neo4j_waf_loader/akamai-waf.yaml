@@ -1,6 +1,6 @@
 resolvers: 
   - implementation: etwpipeline.declarative.resolvers:EnvironmentResolver
-write_batch_sizes: 10
+write_batch_sizes: 100
 
 extractor:
   implementation: etwpipeline.tools:FixtureFileExtractor
@@ -19,11 +19,11 @@ transformers:
           configName: !!python/jmespath configName
           status: !!python/jmespath status
         - type: relationship
-          search: !!python/jmespath policies[*].policyId
-          relationship_node_type: wafpolicy
+          iterate_on: !!python/jmespath policies[*]
+          search: !!python/jmespath policyId
+          related_node_type: wafpolicy
           relationship_type: DEFINED_BY
           relationship_field_name: policyId
-          find_many: true
             
 
 writers:

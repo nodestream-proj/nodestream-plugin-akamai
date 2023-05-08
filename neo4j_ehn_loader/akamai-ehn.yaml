@@ -1,6 +1,6 @@
 resolvers: 
   - implementation: etwpipeline.declarative.resolvers:EnvironmentResolver
-write_batch_sizes: 10
+write_batch_sizes: 100
 
 extractor:
   implementation: etwpipeline.tools:FixtureFileExtractor
@@ -20,7 +20,6 @@ transformers:
           dnsZone: !!python/jmespath dnsZone
         - type: endpoint
           search: !!python/jmespath recordName
-          relationship_field: fqdn
           relationship_type: HAS_RECORD
 
 writers:

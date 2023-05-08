@@ -1,6 +1,6 @@
 resolvers: 
   - implementation: etwpipeline.declarative.resolvers:EnvironmentResolver
-write_batch_sizes: 10
+write_batch_sizes: 100
 
 extractor:
   implementation: etwpipeline.tools:FixtureFileExtractor
@@ -21,37 +21,37 @@ transformers:
           domainPrefix: !!python/jmespath domainPrefix
         - type: relationship
           search: !!python/jmespath uploadDomains.ftp
-          relationship_node_type: AkamaiEndpoint
+          related_node_type: AkamaiEndpoint
           relationship_type: HAS_RECORD
           relationship_field_name: fqdn
         - type: relationship
           search: !!python/jmespath uploadDomains.sftp
-          relationship_node_type: AkamaiEndpoint
+          related_node_type: AkamaiEndpoint
           relationship_type: HAS_RECORD
           relationship_field_name: fqdn
         - type: relationship
           search: !!python/jmespath uploadDomains.scp
-          relationship_node_type: AkamaiEndpoint
+          related_node_type: AkamaiEndpoint
           relationship_type: HAS_RECORD
           relationship_field_name: fqdn
         - type: relationship
           search: !!python/jmespath uploadDomains.rsync
-          relationship_node_type: AkamaiEndpoint
+          related_node_type: AkamaiEndpoint
           relationship_type: HAS_RECORD
           relationship_field_name: fqdn
         - type: relationship
           search: !!python/jmespath uploadDomains.ssh
-          relationship_node_type: AkamaiEndpoint
+          related_node_type: AkamaiEndpoint
           relationship_type: HAS_RECORD
           relationship_field_name: fqdn
         - type: relationship
           search: !!python/jmespath uploadDomains.aspera
-          relationship_node_type: AkamaiEndpoint
+          related_node_type: AkamaiEndpoint
           relationship_type: HAS_RECORD
           relationship_field_name: fqdn
         - type: relationship
           search: !!python/jmespath uploadDomains.http
-          relationship_node_type: AkamaiEndpoint
+          related_node_type: AkamaiEndpoint
           relationship_type: HAS_RECORD
           relationship_field_name: fqdn
  

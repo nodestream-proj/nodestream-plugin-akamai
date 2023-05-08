@@ -1,6 +1,6 @@
 resolvers: 
   - implementation: etwpipeline.declarative.resolvers:EnvironmentResolver
-write_batch_sizes: 10
+write_batch_sizes: 100
 
 extractor:
   implementation: etwpipeline.tools:FixtureFileExtractor
@@ -15,19 +15,18 @@ transformers:
         - type: source_node
           id: !!python/jmespath raw.name
           node_type: GTMConfig
-        - type: metadata
-          last_modified: !!python/jmespath raw.lastModifiedBy
-          type: !!python/jmespath raw.type
+        # - type: metadata
+        #   last_modified: !!python/jmespath raw.lastModifiedBy
+        #   type: !!python/jmespath raw.type
         - type: endpoint
           search: !!python/jmespath summary[*].fqdn
           relationship_type: HAS_RECORD
-          find_many: true
         - type: relationship
-          search: !!python/jmespath summary[*].trafficTargets[*].datacenterId
-          relationship_node_type: GTMTarget
+          iterate_on: !!python/jmespath summary[*].trafficTargets[*]
+          search: !!python/jmespath datacenterId
+          related_node_type: GTMTarget
           relationship_type: DEFINED_BY
           relationship_field_name: fqdn
-          find_many: true
             
 
 writers:

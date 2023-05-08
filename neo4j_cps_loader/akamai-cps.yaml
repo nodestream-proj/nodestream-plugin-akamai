@@ -1,6 +1,6 @@
 resolvers: 
   - implementation: etwpipeline.declarative.resolvers:EnvironmentResolver
-write_batch_sizes: 10
+write_batch_sizes: 100
 
 extractor:
   implementation: etwpipeline.tools:FixtureFileExtractor
@@ -18,15 +18,12 @@ transformers:
         - type: metadata
           expiry: !!python/jmespath expiry
         - type: endpoint
-          match_type: MATCH_ONLY
           search: !!python/jmespath csr.cn
           relationship_type: PROTECTED_BY
           outbound: false
         - type: endpoint
-          match_type: MATCH_ONLY
           search: !!python/jmespath csr.sans[*]
           relationship_type: PROTECTED_BY
-          find_many: true
           outbound: false
             
 
