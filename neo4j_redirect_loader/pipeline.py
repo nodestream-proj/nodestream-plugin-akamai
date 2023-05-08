@@ -1,6 +1,4 @@
-import logging
-
-from etwpipeline import Extractor, Pipeline
+from etwpipeline import Pipeline
 from etwpipeline.declarative import DeclarativePipeline
 
 

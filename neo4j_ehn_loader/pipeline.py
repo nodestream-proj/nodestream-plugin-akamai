@@ -3,4 +3,4 @@ from etwpipeline.declarative import DeclarativePipeline
 
 
 def make_pipeline() -> Pipeline:
-    return DeclarativePipeline.from_file("akamai_cps_loader/akamai-cps.yaml")
+    return DeclarativePipeline.from_file("neo4j_ehn_loader/akamai-ehn.yaml")
