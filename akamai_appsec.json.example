@@ -1,5 +1,41 @@
 [
-{"status":"covered","hasMatchTarget":true,"hostname":"hola.example.com.mx","policyNames":["MainStreetCorporationMexico"],"configuration":{"id":57415,"name":"MainStreetCorporationMexico","version":37}},
-{"status":"covered","hasMatchTarget":true,"hostname":"apiwork.example.com","policyNames":["AAGSites"],"configuration":{"id":55851,"name":"WFSLTDandAPIgatewayportal","version":2}},
-{"status":"covered","hasMatchTarget":true,"hostname":"www.example.com","policyNames":["MainStreetCorporationCanada"],"configuration":{"id":74656,"name":"MainStreetCorporationCanada","version":53}}
+    {
+        "status": "covered",
+        "hasMatchTarget": true,
+        "hostname": "hola.example.com.mx",
+        "policyNames": [
+            "MainStreetCorporationMexico"
+        ],
+        "configuration": {
+            "id": 57415,
+            "name": "MainStreetCorporationMexico",
+            "version": 37
+        }
+    },
+    {
+        "status": "covered",
+        "hasMatchTarget": true,
+        "hostname": "common1.edgehost.example.com",
+        "policyNames": [
+            "AAGSites"
+        ],
+        "configuration": {
+            "id": 11111,
+            "name": "WFSLTDandAPIgatewayportal",
+            "version": 2
+        }
+    },
+    {
+        "status": "covered",
+        "hasMatchTarget": true,
+        "hostname": "www.example.com",
+        "policyNames": [
+            "MainStreetCorporationCanada"
+        ],
+        "configuration": {
+            "id": 74656,
+            "name": "MainStreetCorporationCanada",
+            "version": 53
+        }
+    }
 ]
