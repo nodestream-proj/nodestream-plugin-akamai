@@ -1,4 +1,4 @@
-akamai*.json
+*.json
 !akamai*.json.example
 .DS_Store
 .env*
