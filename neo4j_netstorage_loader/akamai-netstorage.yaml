@@ -22,38 +22,38 @@ transformers:
         - type: relationship
           search: !!python/jmespath uploadDomains.ftp
           related_node_type: AkamaiEndpoint
+          related_field_name: fqdn
           relationship_type: HAS_RECORD
-          relationship_field_name: fqdn
         - type: relationship
           search: !!python/jmespath uploadDomains.sftp
           related_node_type: AkamaiEndpoint
+          related_field_name: fqdn
           relationship_type: HAS_RECORD
-          relationship_field_name: fqdn
         - type: relationship
           search: !!python/jmespath uploadDomains.scp
           related_node_type: AkamaiEndpoint
+          related_field_name: fqdn
           relationship_type: HAS_RECORD
-          relationship_field_name: fqdn
         - type: relationship
           search: !!python/jmespath uploadDomains.rsync
           related_node_type: AkamaiEndpoint
+          related_field_name: fqdn
           relationship_type: HAS_RECORD
-          relationship_field_name: fqdn
         - type: relationship
           search: !!python/jmespath uploadDomains.ssh
           related_node_type: AkamaiEndpoint
+          related_field_name: fqdn
           relationship_type: HAS_RECORD
-          relationship_field_name: fqdn
         - type: relationship
           search: !!python/jmespath uploadDomains.aspera
           related_node_type: AkamaiEndpoint
+          related_field_name: fqdn
           relationship_type: HAS_RECORD
-          relationship_field_name: fqdn
         - type: relationship
           search: !!python/jmespath uploadDomains.http
           related_node_type: AkamaiEndpoint
+          related_field_name: fqdn
           relationship_type: HAS_RECORD
-          relationship_field_name: fqdn
  
 writers:
   - implementation: etwpipeline.writers:LoggerWriter

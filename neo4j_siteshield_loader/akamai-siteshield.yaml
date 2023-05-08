@@ -6,29 +6,29 @@ extractor:
   implementation: etwpipeline.tools:FixtureFileExtractor
   arguments:
     files:
-      - akamai_waf.json
+      - akamai_siteshield.json
 
 transformers:
   - implementation: neo4j_ingest.pipeline_components:Interpreter
     arguments:
       interpretations:
         - type: source_node
-          configId: !!python/jmespath configId
-          node_type: wafconfig
+          id: !!python/jmespath id
+          node_type: SiteShield
         - type: metadata
-          configName: !!python/jmespath configName
-          status: !!python/jmespath status
+          acknowledgedBy: !!python/jmespath acknowledgedBy
+          mapAlias: !!python/jmespath mapAlias
+          mcmMapRuleId: !!python/jmespath mcmMapRuleId
         - type: relationship
-          iterate_on: !!python/jmespath policies[*]
-          search: !!python/jmespath policyId
-          related_node_type: wafpolicy
-          related_field_name: policyId
-          relationship_type: DEFINED_BY
-            
+          search: !!python/jmespath currentCidrs[*]
+          related_node_type: cidripv4
+          related_field_name: cidr
+          relationship_type: EGRESS
+          find_many: true
 
 writers:
   - implementation: etwpipeline.writers:LoggerWriter
     arguments:
-      logger_name: "akamai-waf"
+      logger_name: "akamai-siteshield"
       level: DEBUG
   - !include ../neo4j_writer.yaml

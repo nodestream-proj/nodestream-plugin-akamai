@@ -15,9 +15,9 @@ transformers:
         - type: source_node
           id: !!python/jmespath raw.name
           node_type: GTMConfig
-        # - type: metadata
-        #   last_modified: !!python/jmespath raw.lastModifiedBy
-        #   type: !!python/jmespath raw.type
+#        - type: metadata
+#          last_modified: !!python/jmespath raw.lastModifiedBy
+#          type: !!python/jmespath raw.type
         - type: endpoint
           search: !!python/jmespath summary[*].fqdn
           relationship_type: HAS_RECORD
@@ -25,8 +25,8 @@ transformers:
           iterate_on: !!python/jmespath summary[*].trafficTargets[*]
           search: !!python/jmespath datacenterId
           related_node_type: GTMTarget
+          related_field_name: fqdn
           relationship_type: DEFINED_BY
-          relationship_field_name: fqdn
             
 
 writers:
