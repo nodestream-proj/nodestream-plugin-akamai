@@ -14,14 +14,14 @@ transformers:
       interpretations:
         - type: source_node
           configId: !!python/jmespath configId
-          node_type: wafconfig
+          node_type: akamai_waf_config
         - type: metadata
           configName: !!python/jmespath configName
           status: !!python/jmespath status
         - type: relationship
           iterate_on: !!python/jmespath policies[*]
           search: !!python/jmespath policyId
-          related_node_type: wafpolicy
+          related_node_type: akamai_waf_policy
           related_field_name: policyId
           relationship_type: DEFINED_BY
             

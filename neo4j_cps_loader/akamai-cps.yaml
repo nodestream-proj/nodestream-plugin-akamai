@@ -14,7 +14,7 @@ transformers:
       interpretations:
         - type: source_node
           id: !!python/jmespath id
-          node_type: certificate
+          node_type: akamai_certificate
         - type: metadata
           expiry: !!python/jmespath expiry
         - type: endpoint

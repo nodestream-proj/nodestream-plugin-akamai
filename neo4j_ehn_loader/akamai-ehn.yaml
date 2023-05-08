@@ -14,7 +14,7 @@ transformers:
       interpretations:
         - type: source_node
           edgeHostnameId: !!python/jmespath edgeHostnameId
-          node_type: EdgeHost
+          node_type: akamai_edgehost
         - type: metadata
           ipVersionBehavior: !!python/jmespath ipVersionBehavior
           dnsZone: !!python/jmespath dnsZone

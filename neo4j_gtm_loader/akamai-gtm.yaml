@@ -14,7 +14,7 @@ transformers:
       interpretations:
         - type: source_node
           id: !!python/jmespath raw.name
-          node_type: GTMConfig
+          node_type: akamai_gtm_config
 #        - type: metadata
 #          last_modified: !!python/jmespath raw.lastModifiedBy
 #          type: !!python/jmespath raw.type
@@ -24,7 +24,7 @@ transformers:
         - type: relationship
           iterate_on: !!python/jmespath summary[*].trafficTargets[*]
           search: !!python/jmespath datacenterId
-          related_node_type: GTMTarget
+          related_node_type: akamai_gtm_target
           related_field_name: fqdn
           relationship_type: DEFINED_BY
             

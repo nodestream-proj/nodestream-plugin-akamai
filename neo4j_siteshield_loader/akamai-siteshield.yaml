@@ -14,7 +14,7 @@ transformers:
       interpretations:
         - type: source_node
           id: !!python/jmespath id
-          node_type: SiteShield
+          node_type: akamai_siteshield_config
         - type: metadata
           acknowledgedBy: !!python/jmespath acknowledgedBy
           mapAlias: !!python/jmespath mapAlias

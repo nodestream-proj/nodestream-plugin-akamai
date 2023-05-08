@@ -14,7 +14,7 @@ transformers:
       interpretations:
         - type: source_node
           name: !!python/jmespath hostname
-          node_type: wafconfig
+          node_type: akamai_waf_config
         - type: metadata
           configId: !!python/jmespath configuration.id
           version: !!python/jmespath configuration.name

@@ -14,7 +14,7 @@ transformers:
       interpretations:
         - type: source_node
           id: !!python/jmespath id
-          node_type: akamai_property
+          node_type: akamai_property_config
         - type: metadata
           name: !!python/jmespath name
         - type: endpoint
