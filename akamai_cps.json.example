@@ -21,7 +21,7 @@
             "clientMutualAuthentication": null
         },
         "csr": {
-            "cn": "*.example.com",
+            "cn": "common1.example.com",
             "c": "US",
             "st": "CA",
             "l": "San Diego",

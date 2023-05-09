@@ -1,9 +1,10 @@
-akamai*.json
+*.json
 !akamai*.json.example
 .DS_Store
 .env*
 !.env.example
 *.swp
+working_dir
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

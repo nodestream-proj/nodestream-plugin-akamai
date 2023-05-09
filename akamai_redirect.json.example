@@ -1,7 +1,101 @@
 [
-{"policyId": "32773", "network": "prod", "groupId": "76842", "name": "Embargo_Geo_Blocking", "description": "Prod Version with All Embargoed Country and Region Blocking", "createdBy": "user1", "lastModifiedBy": "example1@example.com", "version": "11", "status": "active", "activatedBy": "prashanth_bc@example.com", "id": "akamai_redirect:32773", "inbound_hosts": [], "outbound_hosts": []},
-{"policyId": "32773", "network": "staging", "groupId": "76842", "name": "Embargo_Geo_Blocking", "description": "Prod Version with All Embargoed Country and Region Blocking", "createdBy": "user1", "lastModifiedBy": "example2@example.com", "version": "11", "status": "active", "activatedBy": "example3@example.com", "id": "akamai_redirect:32773", "inbound_hosts": [], "outbound_hosts": []},
-{"policyId": "163894", "network": "prod", "groupId": "131442", "name": "prod_example.com", "description": "Creating new Cloudlet Policy for www_example.com", "createdBy": "example4@example.com", "lastModifiedBy": "example4@example.com", "version": "1", "status": "active", "activatedBy": "example4@example.com", "id": "akamai_redirect:163894", "inbound_hosts": [{"name": "www.example.com"}], "outbound_hosts": [{"name": "sendito.brandmakers.com"}]},
-{"policyId": "163894", "network": "staging", "groupId": "131442", "name": "prod_example.com", "description": "Creating new Cloudlet Policy for www_example.com", "createdBy": "example4@example.com", "lastModifiedBy": "example4@example.com", "version": "1", "status": "active", "activatedBy": "example4@example.com", "id": "akamai_redirect:163894", "inbound_hosts": [{"name": "www.example.com"}], "outbound_hosts": [{"name": "sendito.brandmakers.com"}]},
-{"policyId": "147571", "network": "prod", "groupId": "131442", "name": "prod_example.com", "description": "Creating new Cloudlet policy for pm.example.com", "createdBy": "example5@example.com", "lastModifiedBy": "example5@example.com", "version": "2", "status": "active", "activatedBy": "example6@example.com", "id": "akamai_redirect:147571", "inbound_hosts": [{"name": "pm.example.com"}], "outbound_hosts": [{"name": "sites.example.com"}]}
+    {
+        "policyId": "32773",
+        "network": "prod",
+        "groupId": "76842",
+        "name": "Embargo_Geo_Blocking",
+        "description": "Prod Version with All Embargoed Country and Region Blocking",
+        "createdBy": "user1",
+        "lastModifiedBy": "example1@example.com",
+        "version": "11",
+        "status": "active",
+        "activatedBy": "prashanth_bc@example.com",
+        "id": "akamai_redirect:32773",
+        "inbound_hosts": [],
+        "outbound_hosts": []
+    },
+    {
+        "policyId": "32773",
+        "network": "staging",
+        "groupId": "76842",
+        "name": "Embargo_Geo_Blocking",
+        "description": "Prod Version with All Embargoed Country and Region Blocking",
+        "createdBy": "user1",
+        "lastModifiedBy": "example2@example.com",
+        "version": "11",
+        "status": "active",
+        "activatedBy": "example3@example.com",
+        "id": "akamai_redirect:32773",
+        "inbound_hosts": [],
+        "outbound_hosts": []
+    },
+    {
+        "policyId": "163894",
+        "network": "prod",
+        "groupId": "131442",
+        "name": "prod_example.com",
+        "description": "Creating new Cloudlet Policy for www_example.com",
+        "createdBy": "example4@example.com",
+        "lastModifiedBy": "example4@example.com",
+        "version": "1",
+        "status": "active",
+        "activatedBy": "example4@example.com",
+        "id": "akamai_redirect:163894",
+        "inbound_hosts": [
+            {
+                "name": "common1.example.com"
+            }
+        ],
+        "outbound_hosts": [
+            {
+                "name": "common2.example.com"
+            }
+        ]
+    },
+    {
+        "policyId": "163894",
+        "network": "staging",
+        "groupId": "131442",
+        "name": "prod_example.com",
+        "description": "Creating new Cloudlet Policy for www_example.com",
+        "createdBy": "example4@example.com",
+        "lastModifiedBy": "example4@example.com",
+        "version": "1",
+        "status": "active",
+        "activatedBy": "example4@example.com",
+        "id": "akamai_redirect:163894",
+        "inbound_hosts": [
+            {
+                "name": "www.example.com"
+            }
+        ],
+        "outbound_hosts": [
+            {
+                "name": "sendito.brandmakers.com"
+            }
+        ]
+    },
+    {
+        "policyId": "147571",
+        "network": "prod",
+        "groupId": "131442",
+        "name": "prod_example.com",
+        "description": "Creating new Cloudlet policy for pm.example.com",
+        "createdBy": "example5@example.com",
+        "lastModifiedBy": "example5@example.com",
+        "version": "2",
+        "status": "active",
+        "activatedBy": "example6@example.com",
+        "id": "akamai_redirect:147571",
+        "inbound_hosts": [
+            {
+                "name": "pm.example.com"
+            }
+        ],
+        "outbound_hosts": [
+            {
+                "name": "sites.example.com"
+            }
+        ]
+    }
 ]

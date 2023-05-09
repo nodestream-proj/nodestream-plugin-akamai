@@ -6,7 +6,7 @@ extractor:
   implementation: etwpipeline.tools:FixtureFileExtractor
   arguments:
     files:
-      - akamai.json
+      - akamai_cps.json
 
 transformers:
   - implementation: neo4j_ingest.pipeline_components:Interpreter
@@ -14,20 +14,22 @@ transformers:
       interpretations:
         - type: source_node
           id: !!python/jmespath id
-          node_type: akamai_property_config
+          node_type: akamai_certificate
         - type: metadata
-          name: !!python/jmespath name
+          expiry: !!python/jmespath expiry
         - type: endpoint
-          search: !!python/jmespath edge_hosts[*].name
-          relationship_type: SERVICED_BY
+          search: !!python/jmespath csr.cn
+          relationship_type: PROTECTED_BY
           outbound: false
         - type: endpoint
-          search: !!python/jmespath origins[*].name
-          relationship_type: PROXIES_TO
+          search: !!python/jmespath csr.sans[*]
+          relationship_type: PROTECTED_BY
+          outbound: false
+            
 
 writers:
   - implementation: etwpipeline.writers:LoggerWriter
     arguments:
-      logger_name: "akamai-property"
+      logger_name: "akamai-cps"
       level: DEBUG
   - !include ../neo4j_writer.yaml

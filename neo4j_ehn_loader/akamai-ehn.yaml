@@ -6,28 +6,25 @@ extractor:
   implementation: etwpipeline.tools:FixtureFileExtractor
   arguments:
     files:
-      - akamai.json
+      - akamai_ehn.json
 
 transformers:
   - implementation: neo4j_ingest.pipeline_components:Interpreter
     arguments:
       interpretations:
         - type: source_node
-          id: !!python/jmespath id
-          node_type: akamai_property_config
+          edgeHostnameId: !!python/jmespath edgeHostnameId
+          node_type: akamai_edgehost
         - type: metadata
-          name: !!python/jmespath name
+          ipVersionBehavior: !!python/jmespath ipVersionBehavior
+          dnsZone: !!python/jmespath dnsZone
         - type: endpoint
-          search: !!python/jmespath edge_hosts[*].name
-          relationship_type: SERVICED_BY
-          outbound: false
-        - type: endpoint
-          search: !!python/jmespath origins[*].name
-          relationship_type: PROXIES_TO
+          search: !!python/jmespath recordName
+          relationship_type: HAS_RECORD
 
 writers:
   - implementation: etwpipeline.writers:LoggerWriter
     arguments:
-      logger_name: "akamai-property"
+      logger_name: "akamai-ehn"
       level: DEBUG
   - !include ../neo4j_writer.yaml

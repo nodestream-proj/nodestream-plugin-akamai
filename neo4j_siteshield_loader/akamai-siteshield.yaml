@@ -6,7 +6,7 @@ extractor:
   implementation: etwpipeline.tools:FixtureFileExtractor
   arguments:
     files:
-      - akamai.json
+      - akamai_siteshield.json
 
 transformers:
   - implementation: neo4j_ingest.pipeline_components:Interpreter
@@ -14,20 +14,21 @@ transformers:
       interpretations:
         - type: source_node
           id: !!python/jmespath id
-          node_type: akamai_property_config
+          node_type: akamai_siteshield_config
         - type: metadata
-          name: !!python/jmespath name
-        - type: endpoint
-          search: !!python/jmespath edge_hosts[*].name
-          relationship_type: SERVICED_BY
-          outbound: false
-        - type: endpoint
-          search: !!python/jmespath origins[*].name
-          relationship_type: PROXIES_TO
+          acknowledgedBy: !!python/jmespath acknowledgedBy
+          mapAlias: !!python/jmespath mapAlias
+          mcmMapRuleId: !!python/jmespath mcmMapRuleId
+        - type: relationship
+          search: !!python/jmespath currentCidrs[*]
+          related_node_type: cidripv4
+          related_field_name: cidr
+          relationship_type: EGRESS
+          find_many: true
 
 writers:
   - implementation: etwpipeline.writers:LoggerWriter
     arguments:
-      logger_name: "akamai-property"
+      logger_name: "akamai-siteshield"
       level: DEBUG
   - !include ../neo4j_writer.yaml

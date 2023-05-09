@@ -1,7 +1,7 @@
 [
     {
         "edgeHostnameId": 1,
-        "recordName": "www.example.com",
+        "recordName": "common1.example.com",
         "dnsZone": "edgekey.net",
         "securityType": "ENHANCED-TLS",
         "useDefaultTtl": true,

@@ -1,4 +1,542 @@
 [
-  {"asMaps":[{"assignments":[{"asNumbers":[0],"datacenterId":0,"nickname":"string"}],"defaultDatacenter":{"datacenterId":0,"nickname":"string"},"links":[{"href":"string","rel":"string"}],"name":"string"}],"cidrMaps":[{"assignments":[{"blocks":["string"],"datacenterId":0,"nickname":"string"}],"defaultDatacenter":{"datacenterId":0,"nickname":"string"},"links":[{"href":"string","rel":"string"}],"name":"string"}],"cnameCoalescingEnabled":true,"datacenters":[{"city":"string","cloneOf":0,"cloudServerTargeting":true,"cloudServerHostHeaderOverride":true,"continent":"AF","country":"string","datacenterId":0,"defaultLoadObject":{"loadObject":"string","loadObjectPort":0,"loadServers":["string"]},"latitude":0,"links":[{"href":"string","rel":"string"}],"longitude":0,"nickname":"string","scorePenalty":0,"stateOrProvince":"string","virtual":true}],"defaultErrorPenalty":0,"defaultSslClientCertificate":"string","defaultSslClientPrivateKey":"string","defaultTimeoutPenalty":0,"emailNotificationList":["user@example.com"],"geographicMaps":[{"name":"string","defaultDatacenter":{"datacenterId":0,"nickname":"string"},"assignments":[{"datacenterId":0,"nickname":"string","countries":["string"]}],"links":[{"href":"string","rel":"string"}]}],"lastModified":"2023-04-14T21:37:45.836Z","lastModifiedBy":"string","links":[{"href":"string","rel":"string"}],"loadFeedback":true,"loadImbalancePercentage":0,"modificationComments":"Latestupdate","name":"example1.com.akadns.net","properties":[{"backupCName":"string","backupIp":"string","balanceByDownloadScore":true,"cname":"string","dynamicTTL":0,"failbackDelay":0,"failoverDelay":0,"handoutLimit":0,"handoutMode":"normal","healthMax":0,"healthMultiplier":0,"healthThreshold":0,"ipv6":true,"livenessTests":[{"answersRequired":true,"disabled":true,"disableNonstandardPortWarning":true,"errorPenalty":0,"hostHeader":"string","httpHeaders":[{"name":"string","value":"string"}],"httpError3xx":true,"httpError4xx":true,"httpError5xx":true,"httpMethod":"TRACE","httpRequestBody":"string","name":"string","peerCertificateVerification":true,"recursionRequested":true,"requestString":"string","resourceType":"A","responseString":"string","sslClientCertificate":"string","sslClientPrivateKey":"string","testInterval":0,"testObject":"string","testObjectPassword":"string","testObjectPort":0,"testObjectProtocol":"DNS","testObjectUsername":"string","testTimeout":0,"timeoutPenalty":0}],"loadImbalancePercentage":0,"mapName":"string","minLiveFraction":0,"maxUnreachablePenalty":0,"mxRecords":[{"exchange":"string","preference":0}],"staticRRSets":[{"type":"string","ttl":0,"rdata":["string"]}],"name":"string","scoreAggregationType":"mean","staticTTL":0,"stickinessBonusPercentage":0,"stickinessBonusConstant":0,"trafficTargets":[{"datacenterId":0,"enabled":true,"handoutCName":"string","weight":0,"servers":["string"],"name":"string"}],"type":"static","unreachableThreshold":0,"useComputedTargets":true,"lastModified":"2023-04-14T21:37:45.836Z","links":[{"href":"string","rel":"string"}]}],"resources":[{"aggregationType":"sum","constrainedProperty":"string","decayRate":0,"description":"string","hostHeader":"string","leaderString":"string","leastSquaresDecay":0,"links":[{"href":"string","rel":"string"}],"loadImbalancePercentage":0,"maxUMultiplicativeIncrement":0,"name":"string","resourceInstances":[{"datacenterId":0,"useDefaultLoadObject":true,"loadServers":["string"],"loadObject":"string","loadObjectPort":0}],"type":"XMLloadobjectviaHTTP","upperBound":0}],"type":"failover-only","status":{"changeId":"string","links":[{"href":"string","rel":"string"}],"message":"string","propagationStatus":"DENIED","propagationStatusDate":"2023-04-14T21:37:45.836Z","passingValidation":true}},
-  {"asMaps":[{"assignments":[{"asNumbers":[0],"datacenterId":0,"nickname":"string"}],"defaultDatacenter":{"datacenterId":0,"nickname":"string"},"links":[{"href":"string","rel":"string"}],"name":"string"}],"cidrMaps":[{"assignments":[{"blocks":["string"],"datacenterId":0,"nickname":"string"}],"defaultDatacenter":{"datacenterId":0,"nickname":"string"},"links":[{"href":"string","rel":"string"}],"name":"string"}],"cnameCoalescingEnabled":true,"datacenters":[{"city":"string","cloneOf":0,"cloudServerTargeting":true,"cloudServerHostHeaderOverride":true,"continent":"AF","country":"string","datacenterId":0,"defaultLoadObject":{"loadObject":"string","loadObjectPort":0,"loadServers":["string"]},"latitude":0,"links":[{"href":"string","rel":"string"}],"longitude":0,"nickname":"string","scorePenalty":0,"stateOrProvince":"string","virtual":true}],"defaultErrorPenalty":0,"defaultSslClientCertificate":"string","defaultSslClientPrivateKey":"string","defaultTimeoutPenalty":0,"emailNotificationList":["user@example.com"],"geographicMaps":[{"name":"string","defaultDatacenter":{"datacenterId":0,"nickname":"string"},"assignments":[{"datacenterId":0,"nickname":"string","countries":["string"]}],"links":[{"href":"string","rel":"string"}]}],"lastModified":"2023-04-14T21:37:45.836Z","lastModifiedBy":"string","links":[{"href":"string","rel":"string"}],"loadFeedback":true,"loadImbalancePercentage":0,"modificationComments":"Latestupdate","name":"example2.com.akadns.net","properties":[{"backupCName":"string","backupIp":"string","balanceByDownloadScore":true,"cname":"string","dynamicTTL":0,"failbackDelay":0,"failoverDelay":0,"handoutLimit":0,"handoutMode":"normal","healthMax":0,"healthMultiplier":0,"healthThreshold":0,"ipv6":true,"livenessTests":[{"answersRequired":true,"disabled":true,"disableNonstandardPortWarning":true,"errorPenalty":0,"hostHeader":"string","httpHeaders":[{"name":"string","value":"string"}],"httpError3xx":true,"httpError4xx":true,"httpError5xx":true,"httpMethod":"TRACE","httpRequestBody":"string","name":"string","peerCertificateVerification":true,"recursionRequested":true,"requestString":"string","resourceType":"A","responseString":"string","sslClientCertificate":"string","sslClientPrivateKey":"string","testInterval":0,"testObject":"string","testObjectPassword":"string","testObjectPort":0,"testObjectProtocol":"DNS","testObjectUsername":"string","testTimeout":0,"timeoutPenalty":0}],"loadImbalancePercentage":0,"mapName":"string","minLiveFraction":0,"maxUnreachablePenalty":0,"mxRecords":[{"exchange":"string","preference":0}],"staticRRSets":[{"type":"string","ttl":0,"rdata":["string"]}],"name":"string","scoreAggregationType":"mean","staticTTL":0,"stickinessBonusPercentage":0,"stickinessBonusConstant":0,"trafficTargets":[{"datacenterId":0,"enabled":true,"handoutCName":"string","weight":0,"servers":["string"],"name":"string"}],"type":"static","unreachableThreshold":0,"useComputedTargets":true,"lastModified":"2023-04-14T21:37:45.836Z","links":[{"href":"string","rel":"string"}]}],"resources":[{"aggregationType":"sum","constrainedProperty":"string","decayRate":0,"description":"string","hostHeader":"string","leaderString":"string","leastSquaresDecay":0,"links":[{"href":"string","rel":"string"}],"loadImbalancePercentage":0,"maxUMultiplicativeIncrement":0,"name":"string","resourceInstances":[{"datacenterId":0,"useDefaultLoadObject":true,"loadServers":["string"],"loadObject":"string","loadObjectPort":0}],"type":"XMLloadobjectviaHTTP","upperBound":0}],"type":"failover-only","status":{"changeId":"string","links":[{"href":"string","rel":"string"}],"message":"string","propagationStatus":"DENIED","propagationStatusDate":"2023-04-14T21:37:45.836Z","passingValidation":true}}
+  {
+    "asMaps": [
+      {
+        "assignments": [
+          {
+            "asNumbers": [
+              0
+            ],
+            "datacenterId": 0,
+            "nickname": "string"
+          }
+        ],
+        "defaultDatacenter": {
+          "datacenterId": 0,
+          "nickname": "string"
+        },
+        "links": [
+          {
+            "href": "string",
+            "rel": "string"
+          }
+        ],
+        "name": "string"
+      }
+    ],
+    "cidrMaps": [
+      {
+        "assignments": [
+          {
+            "blocks": [
+              "string"
+            ],
+            "datacenterId": 0,
+            "nickname": "string"
+          }
+        ],
+        "defaultDatacenter": {
+          "datacenterId": 0,
+          "nickname": "string"
+        },
+        "links": [
+          {
+            "href": "string",
+            "rel": "string"
+          }
+        ],
+        "name": "string"
+      }
+    ],
+    "cnameCoalescingEnabled": true,
+    "datacenters": [
+      {
+        "city": "string",
+        "cloneOf": 0,
+        "cloudServerTargeting": true,
+        "cloudServerHostHeaderOverride": true,
+        "continent": "AF",
+        "country": "string",
+        "datacenterId": 0,
+        "defaultLoadObject": {
+          "loadObject": "string",
+          "loadObjectPort": 0,
+          "loadServers": [
+            "string"
+          ]
+        },
+        "latitude": 0,
+        "links": [
+          {
+            "href": "string",
+            "rel": "string"
+          }
+        ],
+        "longitude": 0,
+        "nickname": "string",
+        "scorePenalty": 0,
+        "stateOrProvince": "string",
+        "virtual": true
+      }
+    ],
+    "defaultErrorPenalty": 0,
+    "defaultSslClientCertificate": "string",
+    "defaultSslClientPrivateKey": "string",
+    "defaultTimeoutPenalty": 0,
+    "emailNotificationList": [
+      "user@example.com"
+    ],
+    "geographicMaps": [
+      {
+        "name": "string",
+        "defaultDatacenter": {
+          "datacenterId": 0,
+          "nickname": "string"
+        },
+        "assignments": [
+          {
+            "datacenterId": 0,
+            "nickname": "string",
+            "countries": [
+              "string"
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "string",
+            "rel": "string"
+          }
+        ]
+      }
+    ],
+    "lastModified": "2023-04-14T21:37:45.836Z",
+    "lastModifiedBy": "string",
+    "links": [
+      {
+        "href": "string",
+        "rel": "string"
+      }
+    ],
+    "loadFeedback": true,
+    "loadImbalancePercentage": 0,
+    "modificationComments": "Latestupdate",
+    "name": "example1.com.akadns.net",
+    "properties": [
+      {
+        "backupCName": "string",
+        "backupIp": "string",
+        "balanceByDownloadScore": true,
+        "cname": "string",
+        "dynamicTTL": 0,
+        "failbackDelay": 0,
+        "failoverDelay": 0,
+        "handoutLimit": 0,
+        "handoutMode": "normal",
+        "healthMax": 0,
+        "healthMultiplier": 0,
+        "healthThreshold": 0,
+        "ipv6": true,
+        "livenessTests": [
+          {
+            "answersRequired": true,
+            "disabled": true,
+            "disableNonstandardPortWarning": true,
+            "errorPenalty": 0,
+            "hostHeader": "string",
+            "httpHeaders": [
+              {
+                "name": "string",
+                "value": "string"
+              }
+            ],
+            "httpError3xx": true,
+            "httpError4xx": true,
+            "httpError5xx": true,
+            "httpMethod": "TRACE",
+            "httpRequestBody": "string",
+            "name": "string",
+            "peerCertificateVerification": true,
+            "recursionRequested": true,
+            "requestString": "string",
+            "resourceType": "A",
+            "responseString": "string",
+            "sslClientCertificate": "string",
+            "sslClientPrivateKey": "string",
+            "testInterval": 0,
+            "testObject": "string",
+            "testObjectPassword": "string",
+            "testObjectPort": 0,
+            "testObjectProtocol": "DNS",
+            "testObjectUsername": "string",
+            "testTimeout": 0,
+            "timeoutPenalty": 0
+          }
+        ],
+        "loadImbalancePercentage": 0,
+        "mapName": "string",
+        "minLiveFraction": 0,
+        "maxUnreachablePenalty": 0,
+        "mxRecords": [
+          {
+            "exchange": "string",
+            "preference": 0
+          }
+        ],
+        "staticRRSets": [
+          {
+            "type": "string",
+            "ttl": 0,
+            "rdata": [
+              "string"
+            ]
+          }
+        ],
+        "name": "string",
+        "scoreAggregationType": "mean",
+        "staticTTL": 0,
+        "stickinessBonusPercentage": 0,
+        "stickinessBonusConstant": 0,
+        "trafficTargets": [
+          {
+            "datacenterId": 0,
+            "enabled": true,
+            "handoutCName": "string",
+            "weight": 0,
+            "servers": [
+              "string"
+            ],
+            "name": "string"
+          }
+        ],
+        "type": "static",
+        "unreachableThreshold": 0,
+        "useComputedTargets": true,
+        "lastModified": "2023-04-14T21:37:45.836Z",
+        "links": [
+          {
+            "href": "string",
+            "rel": "string"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "aggregationType": "sum",
+        "constrainedProperty": "string",
+        "decayRate": 0,
+        "description": "string",
+        "hostHeader": "string",
+        "leaderString": "string",
+        "leastSquaresDecay": 0,
+        "links": [
+          {
+            "href": "string",
+            "rel": "string"
+          }
+        ],
+        "loadImbalancePercentage": 0,
+        "maxUMultiplicativeIncrement": 0,
+        "name": "string",
+        "resourceInstances": [
+          {
+            "datacenterId": 0,
+            "useDefaultLoadObject": true,
+            "loadServers": [
+              "string"
+            ],
+            "loadObject": "string",
+            "loadObjectPort": 0
+          }
+        ],
+        "type": "XMLloadobjectviaHTTP",
+        "upperBound": 0
+      }
+    ],
+    "type": "failover-only",
+    "status": {
+      "changeId": "string",
+      "links": [
+        {
+          "href": "string",
+          "rel": "string"
+        }
+      ],
+      "message": "string",
+      "propagationStatus": "DENIED",
+      "propagationStatusDate": "2023-04-14T21:37:45.836Z",
+      "passingValidation": true
+    }
+  },
+  {
+    "asMaps": [
+      {
+        "assignments": [
+          {
+            "asNumbers": [
+              0
+            ],
+            "datacenterId": 0,
+            "nickname": "string"
+          }
+        ],
+        "defaultDatacenter": {
+          "datacenterId": 0,
+          "nickname": "string"
+        },
+        "links": [
+          {
+            "href": "string",
+            "rel": "string"
+          }
+        ],
+        "name": "string"
+      }
+    ],
+    "cidrMaps": [
+      {
+        "assignments": [
+          {
+            "blocks": [
+              "string"
+            ],
+            "datacenterId": 0,
+            "nickname": "string"
+          }
+        ],
+        "defaultDatacenter": {
+          "datacenterId": 0,
+          "nickname": "string"
+        },
+        "links": [
+          {
+            "href": "string",
+            "rel": "string"
+          }
+        ],
+        "name": "string"
+      }
+    ],
+    "cnameCoalescingEnabled": true,
+    "datacenters": [
+      {
+        "city": "string",
+        "cloneOf": 0,
+        "cloudServerTargeting": true,
+        "cloudServerHostHeaderOverride": true,
+        "continent": "AF",
+        "country": "string",
+        "datacenterId": 0,
+        "defaultLoadObject": {
+          "loadObject": "string",
+          "loadObjectPort": 0,
+          "loadServers": [
+            "string"
+          ]
+        },
+        "latitude": 0,
+        "links": [
+          {
+            "href": "string",
+            "rel": "string"
+          }
+        ],
+        "longitude": 0,
+        "nickname": "string",
+        "scorePenalty": 0,
+        "stateOrProvince": "string",
+        "virtual": true
+      }
+    ],
+    "defaultErrorPenalty": 0,
+    "defaultSslClientCertificate": "string",
+    "defaultSslClientPrivateKey": "string",
+    "defaultTimeoutPenalty": 0,
+    "emailNotificationList": [
+      "user@example.com"
+    ],
+    "geographicMaps": [
+      {
+        "name": "string",
+        "defaultDatacenter": {
+          "datacenterId": 0,
+          "nickname": "string"
+        },
+        "assignments": [
+          {
+            "datacenterId": 0,
+            "nickname": "string",
+            "countries": [
+              "string"
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "string",
+            "rel": "string"
+          }
+        ]
+      }
+    ],
+    "lastModified": "2023-04-14T21:37:45.836Z",
+    "lastModifiedBy": "string",
+    "links": [
+      {
+        "href": "string",
+        "rel": "string"
+      }
+    ],
+    "loadFeedback": true,
+    "loadImbalancePercentage": 0,
+    "modificationComments": "Latestupdate",
+    "name": "common1.example.net.akadns.net",
+    "properties": [
+      {
+        "backupCName": "string",
+        "backupIp": "string",
+        "balanceByDownloadScore": true,
+        "cname": "string",
+        "dynamicTTL": 0,
+        "failbackDelay": 0,
+        "failoverDelay": 0,
+        "handoutLimit": 0,
+        "handoutMode": "normal",
+        "healthMax": 0,
+        "healthMultiplier": 0,
+        "healthThreshold": 0,
+        "ipv6": true,
+        "livenessTests": [
+          {
+            "answersRequired": true,
+            "disabled": true,
+            "disableNonstandardPortWarning": true,
+            "errorPenalty": 0,
+            "hostHeader": "string",
+            "httpHeaders": [
+              {
+                "name": "string",
+                "value": "string"
+              }
+            ],
+            "httpError3xx": true,
+            "httpError4xx": true,
+            "httpError5xx": true,
+            "httpMethod": "TRACE",
+            "httpRequestBody": "string",
+            "name": "string",
+            "peerCertificateVerification": true,
+            "recursionRequested": true,
+            "requestString": "string",
+            "resourceType": "A",
+            "responseString": "string",
+            "sslClientCertificate": "string",
+            "sslClientPrivateKey": "string",
+            "testInterval": 0,
+            "testObject": "string",
+            "testObjectPassword": "string",
+            "testObjectPort": 0,
+            "testObjectProtocol": "DNS",
+            "testObjectUsername": "string",
+            "testTimeout": 0,
+            "timeoutPenalty": 0
+          }
+        ],
+        "loadImbalancePercentage": 0,
+        "mapName": "string",
+        "minLiveFraction": 0,
+        "maxUnreachablePenalty": 0,
+        "mxRecords": [
+          {
+            "exchange": "string",
+            "preference": 0
+          }
+        ],
+        "staticRRSets": [
+          {
+            "type": "string",
+            "ttl": 0,
+            "rdata": [
+              "string"
+            ]
+          }
+        ],
+        "name": "string",
+        "scoreAggregationType": "mean",
+        "staticTTL": 0,
+        "stickinessBonusPercentage": 0,
+        "stickinessBonusConstant": 0,
+        "trafficTargets": [
+          {
+            "datacenterId": 0,
+            "enabled": true,
+            "handoutCName": "string",
+            "weight": 0,
+            "servers": [
+              "string"
+            ],
+            "name": "string"
+          }
+        ],
+        "type": "static",
+        "unreachableThreshold": 0,
+        "useComputedTargets": true,
+        "lastModified": "2023-04-14T21:37:45.836Z",
+        "links": [
+          {
+            "href": "string",
+            "rel": "string"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "aggregationType": "sum",
+        "constrainedProperty": "string",
+        "decayRate": 0,
+        "description": "string",
+        "hostHeader": "string",
+        "leaderString": "string",
+        "leastSquaresDecay": 0,
+        "links": [
+          {
+            "href": "string",
+            "rel": "string"
+          }
+        ],
+        "loadImbalancePercentage": 0,
+        "maxUMultiplicativeIncrement": 0,
+        "name": "string",
+        "resourceInstances": [
+          {
+            "datacenterId": 0,
+            "useDefaultLoadObject": true,
+            "loadServers": [
+              "string"
+            ],
+            "loadObject": "string",
+            "loadObjectPort": 0
+          }
+        ],
+        "type": "XMLloadobjectviaHTTP",
+        "upperBound": 0
+      }
+    ],
+    "type": "failover-only",
+    "status": {
+      "changeId": "string",
+      "links": [
+        {
+          "href": "string",
+          "rel": "string"
+        }
+      ],
+      "message": "string",
+      "propagationStatus": "DENIED",
+      "propagationStatusDate": "2023-04-14T21:37:45.836Z",
+      "passingValidation": true
+    }
+  }
 ]

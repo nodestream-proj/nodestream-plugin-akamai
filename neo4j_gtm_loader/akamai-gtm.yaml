@@ -1,0 +1,37 @@
+resolvers: 
+  - implementation: etwpipeline.declarative.resolvers:EnvironmentResolver
+write_batch_sizes: 100
+
+extractor:
+  implementation: etwpipeline.tools:FixtureFileExtractor
+  arguments:
+    files:
+      - akamai_gtm.json
+
+transformers:
+  - implementation: neo4j_ingest.pipeline_components:Interpreter
+    arguments:
+      interpretations:
+        - type: source_node
+          id: !!python/jmespath raw.name
+          node_type: akamai_gtm_config
+#        - type: metadata
+#          last_modified: !!python/jmespath raw.lastModifiedBy
+#          type: !!python/jmespath raw.type
+        - type: endpoint
+          search: !!python/jmespath summary[*].fqdn
+          relationship_type: HAS_RECORD
+        - type: relationship
+          iterate_on: !!python/jmespath summary[*].trafficTargets[*]
+          search: !!python/jmespath datacenterId
+          related_node_type: akamai_gtm_target
+          related_field_name: fqdn
+          relationship_type: DEFINED_BY
+            
+
+writers:
+  - implementation: etwpipeline.writers:LoggerWriter
+    arguments:
+      logger_name: "akamai-gtm"
+      level: DEBUG
+  - !include ../neo4j_writer.yaml
