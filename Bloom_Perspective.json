@@ -1,0 +1,2966 @@
+{
+    "name": "Akamai_Scope",
+    "id": "808fc2c0-f721-11ed-b06a-313ffa64b5d6",
+    "categories": [
+        {
+            "id": 13,
+            "name": "cidripv4",
+            "labels": [
+                "cidripv4"
+            ],
+            "properties": [
+                {
+                    "name": "last_linked_at",
+                    "exclude": false,
+                    "dataType": "LocalDateTime"
+                },
+                {
+                    "name": "cidr",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "indexes",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "constraints",
+                    "exclude": false,
+                    "dataType": "array"
+                }
+            ],
+            "createdAt": 1684596966510,
+            "lastEditedAt": 1684596968147,
+            "color": "#FFE081",
+            "size": 1,
+            "icon": "no-icon",
+            "captionKeys": [
+                "0_CATEGORY_NAME_CAPTION_KEY",
+                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_cidripv4",
+                "cidr"
+            ]
+        },
+        {
+            "id": 12,
+            "name": "Endpoint",
+            "labels": [
+                "Endpoint"
+            ],
+            "properties": [
+                {
+                    "name": "last_linked_at",
+                    "exclude": false,
+                    "dataType": "LocalDateTime"
+                },
+                {
+                    "name": "fqdn",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "indexes",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "constraints",
+                    "exclude": false,
+                    "dataType": "array"
+                }
+            ],
+            "createdAt": 1684596218459,
+            "lastEditedAt": 1684596922539,
+            "color": "#57C7E3",
+            "size": 1,
+            "icon": "no-icon",
+            "captionKeys": [
+                "0_CATEGORY_NAME_CAPTION_KEY",
+                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_Endpoint",
+                "fqdn"
+            ]
+        },
+        {
+            "id": 1,
+            "name": "Pipeline",
+            "labels": [
+                "Pipeline"
+            ],
+            "properties": [
+                {
+                    "name": "pipeline_name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "last_linked_at",
+                    "exclude": false,
+                    "dataType": "LocalDateTime"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "indexes",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "constraints",
+                    "exclude": false,
+                    "dataType": "array"
+                }
+            ],
+            "createdAt": 1684596008106,
+            "lastEditedAt": 1684596922565,
+            "color": "#000000",
+            "size": 1,
+            "icon": "no-icon",
+            "captionKeys": [
+                "0_CATEGORY_NAME_CAPTION_KEY",
+                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_Pipeline",
+                "pipeline_name"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "akamai_redirect_config",
+            "labels": [
+                "akamai_redirect_config"
+            ],
+            "properties": [
+                {
+                    "name": "pipeline_name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "LocalDateTime"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "id",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "indexes",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "constraints",
+                    "exclude": false,
+                    "dataType": "array"
+                }
+            ],
+            "createdAt": 1684596008106,
+            "lastEditedAt": 1684596922591,
+            "color": "#FFE081",
+            "size": 1,
+            "icon": "no-icon",
+            "captionKeys": [
+                "0_CATEGORY_NAME_CAPTION_KEY",
+                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_akamai_redirect_config",
+                "id",
+                "name"
+            ]
+        },
+        {
+            "id": 3,
+            "name": "akamai_property_config",
+            "labels": [
+                "akamai_property_config"
+            ],
+            "properties": [
+                {
+                    "name": "pipeline_name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "LocalDateTime"
+                },
+                {
+                    "name": "id",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "indexes",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "constraints",
+                    "exclude": false,
+                    "dataType": "array"
+                }
+            ],
+            "createdAt": 1684596008106,
+            "lastEditedAt": 1684596922618,
+            "color": "#F79767",
+            "size": 1,
+            "icon": "no-icon",
+            "captionKeys": [
+                "0_CATEGORY_NAME_CAPTION_KEY",
+                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_akamai_property_config",
+                "id",
+                "name"
+            ]
+        },
+        {
+            "id": 4,
+            "name": "akamai_gtm_config",
+            "labels": [
+                "akamai_gtm_config"
+            ],
+            "properties": [
+                {
+                    "name": "pipeline_name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "LocalDateTime"
+                },
+                {
+                    "name": "id",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "indexes",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "constraints",
+                    "exclude": false,
+                    "dataType": "array"
+                }
+            ],
+            "createdAt": 1684596008106,
+            "lastEditedAt": 1684596922644,
+            "color": "#3b6799",
+            "size": 1,
+            "icon": "no-icon",
+            "captionKeys": [
+                "0_CATEGORY_NAME_CAPTION_KEY",
+                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_akamai_gtm_config",
+                "id"
+            ]
+        },
+        {
+            "id": 5,
+            "name": "akamai_netstorage_config",
+            "labels": [
+                "akamai_netstorage_config"
+            ],
+            "properties": [
+                {
+                    "name": "storageGroupName",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "estimatedUsageGB",
+                    "exclude": false,
+                    "dataType": "number"
+                },
+                {
+                    "name": "pipeline_name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "LocalDateTime"
+                },
+                {
+                    "name": "domainPrefix",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "storageGroupId",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "indexes",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "constraints",
+                    "exclude": false,
+                    "dataType": "array"
+                }
+            ],
+            "createdAt": 1684596008106,
+            "lastEditedAt": 1684596922669,
+            "color": "#F16667",
+            "size": 1,
+            "icon": "no-icon",
+            "captionKeys": [
+                "0_CATEGORY_NAME_CAPTION_KEY",
+                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_akamai_netstorage_config",
+                "domainPrefix",
+                "storageGroupName"
+            ]
+        },
+        {
+            "id": 6,
+            "name": "akamai_endpoint",
+            "labels": [
+                "akamai_endpoint"
+            ],
+            "properties": [
+                {
+                    "name": "last_linked_at",
+                    "exclude": false,
+                    "dataType": "LocalDateTime"
+                },
+                {
+                    "name": "fqdn",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "indexes",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "constraints",
+                    "exclude": false,
+                    "dataType": "array"
+                }
+            ],
+            "createdAt": 1684596008106,
+            "lastEditedAt": 1684596922696,
+            "color": "#48a4ba",
+            "size": 1,
+            "icon": "no-icon",
+            "captionKeys": [
+                "0_CATEGORY_NAME_CAPTION_KEY",
+                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_akamai_endpoint",
+                "fqdn"
+            ]
+        },
+        {
+            "id": 7,
+            "name": "akamai_waf_config",
+            "labels": [
+                "akamai_waf_config"
+            ],
+            "properties": [
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "LocalDateTime"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "pipeline_name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "configId",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "version",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "configName",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "indexes",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "constraints",
+                    "exclude": false,
+                    "dataType": "array"
+                }
+            ],
+            "createdAt": 1684596008106,
+            "lastEditedAt": 1684596922723,
+            "color": "#8DCC93",
+            "size": 1,
+            "icon": "no-icon",
+            "captionKeys": [
+                "0_CATEGORY_NAME_CAPTION_KEY",
+                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_akamai_waf_config",
+                "configId",
+                "configName",
+                "name"
+            ]
+        },
+        {
+            "id": 8,
+            "name": "akamai_siteshield_config",
+            "labels": [
+                "akamai_siteshield_config"
+            ],
+            "properties": [
+                {
+                    "name": "pipeline_name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "LocalDateTime"
+                },
+                {
+                    "name": "mapAlias",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "id",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "acknowledgedBy",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "mcmMapRuleId",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "indexes",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "constraints",
+                    "exclude": false,
+                    "dataType": "array"
+                }
+            ],
+            "createdAt": 1684596008106,
+            "lastEditedAt": 1684596922750,
+            "color": "#ECB5C9",
+            "size": 1,
+            "icon": "no-icon",
+            "captionKeys": [
+                "0_CATEGORY_NAME_CAPTION_KEY",
+                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_akamai_siteshield_config",
+                "id",
+                "mapAlias"
+            ]
+        },
+        {
+            "id": 9,
+            "name": "akamai_edgehost",
+            "labels": [
+                "akamai_edgehost"
+            ],
+            "properties": [
+                {
+                    "name": "pipeline_name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "LocalDateTime"
+                },
+                {
+                    "name": "edgeHostnameId",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "ipVersionBehavior",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "dnsZone",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "indexes",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "constraints",
+                    "exclude": false,
+                    "dataType": "array"
+                }
+            ],
+            "createdAt": 1684596008106,
+            "lastEditedAt": 1684596922778,
+            "color": "#4C8EDA",
+            "size": 1,
+            "icon": "no-icon",
+            "captionKeys": [
+                "0_CATEGORY_NAME_CAPTION_KEY",
+                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_akamai_edgehost",
+                "edgeHostnameId"
+            ]
+        },
+        {
+            "id": 10,
+            "name": "akamai_certificate",
+            "labels": [
+                "akamai_certificate"
+            ],
+            "properties": [
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "LocalDateTime"
+                },
+                {
+                    "name": "id",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "pipeline_name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "expiry",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "indexes",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "constraints",
+                    "exclude": false,
+                    "dataType": "array"
+                }
+            ],
+            "createdAt": 1684596008106,
+            "lastEditedAt": 1684596922804,
+            "color": "#FFC454",
+            "size": 1,
+            "icon": "no-icon",
+            "captionKeys": [
+                "0_CATEGORY_NAME_CAPTION_KEY",
+                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_akamai_certificate",
+                "id"
+            ]
+        },
+        {
+            "id": 11,
+            "name": "akamai_waf_policy",
+            "labels": [
+                "akamai_waf_policy"
+            ],
+            "properties": [
+                {
+                    "name": "policyId",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "last_linked_at",
+                    "exclude": false,
+                    "dataType": "LocalDateTime"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "indexes",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "constraints",
+                    "exclude": false,
+                    "dataType": "array"
+                }
+            ],
+            "createdAt": 1684596008106,
+            "lastEditedAt": 1684596922831,
+            "color": "#DA7194",
+            "size": 1,
+            "icon": "no-icon",
+            "captionKeys": [
+                "0_CATEGORY_NAME_CAPTION_KEY",
+                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_akamai_waf_policy",
+                "name",
+                "policyId"
+            ]
+        }
+    ],
+    "labels": {
+        "Pipeline": [
+            {
+                "propertyKey": "pipeline_name",
+                "type": "Pipeline",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_linked_at",
+                "type": "Pipeline",
+                "dataType": "LocalDateTime"
+            }
+        ],
+        "Endpoint": [
+            {
+                "propertyKey": "last_linked_at",
+                "type": "Endpoint",
+                "dataType": "LocalDateTime"
+            },
+            {
+                "propertyKey": "fqdn",
+                "type": "Endpoint",
+                "dataType": "string"
+            }
+        ],
+        "cidripv4": [
+            {
+                "propertyKey": "last_linked_at",
+                "type": "cidripv4",
+                "dataType": "LocalDateTime"
+            },
+            {
+                "propertyKey": "cidr",
+                "type": "cidripv4",
+                "dataType": "string"
+            }
+        ],
+        "akamai_redirect_config": [
+            {
+                "propertyKey": "pipeline_name",
+                "type": "akamai_redirect_config",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "akamai_redirect_config",
+                "dataType": "LocalDateTime"
+            },
+            {
+                "propertyKey": "name",
+                "type": "akamai_redirect_config",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "id",
+                "type": "akamai_redirect_config",
+                "dataType": "string"
+            }
+        ],
+        "akamai_property_config": [
+            {
+                "propertyKey": "pipeline_name",
+                "type": "akamai_property_config",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "akamai_property_config",
+                "dataType": "LocalDateTime"
+            },
+            {
+                "propertyKey": "id",
+                "type": "akamai_property_config",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "name",
+                "type": "akamai_property_config",
+                "dataType": "string"
+            }
+        ],
+        "akamai_gtm_config": [
+            {
+                "propertyKey": "pipeline_name",
+                "type": "akamai_gtm_config",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "akamai_gtm_config",
+                "dataType": "LocalDateTime"
+            },
+            {
+                "propertyKey": "id",
+                "type": "akamai_gtm_config",
+                "dataType": "string"
+            }
+        ],
+        "akamai_netstorage_config": [
+            {
+                "propertyKey": "storageGroupName",
+                "type": "akamai_netstorage_config",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "estimatedUsageGB",
+                "type": "akamai_netstorage_config",
+                "dataType": "number"
+            },
+            {
+                "propertyKey": "pipeline_name",
+                "type": "akamai_netstorage_config",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "akamai_netstorage_config",
+                "dataType": "LocalDateTime"
+            },
+            {
+                "propertyKey": "domainPrefix",
+                "type": "akamai_netstorage_config",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "storageGroupId",
+                "type": "akamai_netstorage_config",
+                "dataType": "bigint"
+            }
+        ],
+        "akamai_endpoint": [
+            {
+                "propertyKey": "last_linked_at",
+                "type": "akamai_endpoint",
+                "dataType": "LocalDateTime"
+            },
+            {
+                "propertyKey": "fqdn",
+                "type": "akamai_endpoint",
+                "dataType": "string"
+            }
+        ],
+        "akamai_waf_config": [
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "akamai_waf_config",
+                "dataType": "LocalDateTime"
+            },
+            {
+                "propertyKey": "name",
+                "type": "akamai_waf_config",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "pipeline_name",
+                "type": "akamai_waf_config",
+                "dataType": "string"
+            }
+        ],
+        "akamai_siteshield_config": [
+            {
+                "propertyKey": "pipeline_name",
+                "type": "akamai_siteshield_config",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "akamai_siteshield_config",
+                "dataType": "LocalDateTime"
+            },
+            {
+                "propertyKey": "mapAlias",
+                "type": "akamai_siteshield_config",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "id",
+                "type": "akamai_siteshield_config",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "acknowledgedBy",
+                "type": "akamai_siteshield_config",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "mcmMapRuleId",
+                "type": "akamai_siteshield_config",
+                "dataType": "bigint"
+            }
+        ],
+        "akamai_edgehost": [
+            {
+                "propertyKey": "pipeline_name",
+                "type": "akamai_edgehost",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "akamai_edgehost",
+                "dataType": "LocalDateTime"
+            },
+            {
+                "propertyKey": "edgeHostnameId",
+                "type": "akamai_edgehost",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "ipVersionBehavior",
+                "type": "akamai_edgehost",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "dnsZone",
+                "type": "akamai_edgehost",
+                "dataType": "string"
+            }
+        ],
+        "akamai_certificate": [
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "akamai_certificate",
+                "dataType": "LocalDateTime"
+            },
+            {
+                "propertyKey": "id",
+                "type": "akamai_certificate",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "pipeline_name",
+                "type": "akamai_certificate",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "expiry",
+                "type": "akamai_certificate",
+                "dataType": "string"
+            }
+        ],
+        "akamai_waf_policy": [
+            {
+                "propertyKey": "policyId",
+                "type": "akamai_waf_policy",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_linked_at",
+                "type": "akamai_waf_policy",
+                "dataType": "LocalDateTime"
+            }
+        ],
+        "DevportalProject": [],
+        "Employee": [],
+        "JiraProject": [],
+        "BusinessUnit": [],
+        "Asset": [],
+        "GithubRepo": [],
+        "CNAME": [],
+        "Zone": [],
+        "A": [],
+        "NS": [],
+        "DNSEndpoint": [],
+        "elb": [],
+        "TargetGroup": [],
+        "AwsResourceTag": [],
+        "cloudfront": [],
+        "transit_gateway": [],
+        "rds_cluster": [],
+        "rds": [],
+        "apigw_deployment": [],
+        "sg": [],
+        "cidripv6": [],
+        "wafv2": [],
+        "apigw_stage": [],
+        "Cve": [],
+        "Dependency": [],
+        "IksNamespace": [],
+        "IksCluster": [],
+        "Deployment": [],
+        "Artifact": [],
+        "IamRole": [],
+        "SourceCodeRevision": [],
+        "JenkinsBuild": [],
+        "GithubUser": [],
+        "CityMapCapability": [],
+        "AwsAccount": [],
+        "Boxset": [],
+        "CDDDeployment": [],
+        "CDDJob": [],
+        "Ipv4": [],
+        "Port": [],
+        "CustomerManagedPolicy": [],
+        "s3": [],
+        "ec2": [],
+        "KubernetesIngressController": [],
+        "KubernetestPod": [],
+        "KubernetesPod": [],
+        "SnowId": [],
+        "lambda": [],
+        "Vulnerability": [],
+        "CAA": [],
+        "AAAA": [],
+        "Ipv6": [],
+        "DNSDirective": [],
+        "es": [],
+        "WizProject": [],
+        "LibraryKeyword": [],
+        "LibrariesIO": [],
+        "License": []
+    },
+    "relationshipTypes": [
+        {
+            "properties": [],
+            "name": "MANAGES_PROJECT",
+            "id": "MANAGES_PROJECT",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "TRACKED_IN",
+            "id": "TRACKED_IN",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "OPERATED_BY",
+            "id": "OPERATED_BY",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "MAPS_TO",
+            "id": "MAPS_TO",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "ASSET_OF",
+            "id": "ASSET_OF",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "SOURCE_CODE_IN",
+            "id": "SOURCE_CODE_IN",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [
+                {
+                    "propertyKey": "pipeline_name",
+                    "type": "HAS_RECORD",
+                    "dataType": "string"
+                },
+                {
+                    "propertyKey": "last_ingested_at",
+                    "type": "HAS_RECORD",
+                    "dataType": "LocalDateTime"
+                }
+            ],
+            "name": "HAS_RECORD",
+            "id": "HAS_RECORD",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [
+                {
+                    "propertyKey": "pipeline_name",
+                    "type": "DEFINED_BY",
+                    "dataType": "string"
+                },
+                {
+                    "propertyKey": "last_ingested_at",
+                    "type": "DEFINED_BY",
+                    "dataType": "LocalDateTime"
+                }
+            ],
+            "name": "DEFINED_BY",
+            "id": "DEFINED_BY",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "CONTAINED_IN",
+            "id": "CONTAINED_IN",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "RESOLVES_TO",
+            "id": "RESOLVES_TO",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "OWNED_BY",
+            "id": "OWNED_BY",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [
+                {
+                    "propertyKey": "pipeline_name",
+                    "type": "SERVICED_BY",
+                    "dataType": "string"
+                },
+                {
+                    "propertyKey": "last_ingested_at",
+                    "type": "SERVICED_BY",
+                    "dataType": "LocalDateTime"
+                }
+            ],
+            "name": "SERVICED_BY",
+            "id": "SERVICED_BY",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "LOAD_BALANCES_TO",
+            "id": "LOAD_BALANCES_TO",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "IS_TAGGED_WITH",
+            "id": "IS_TAGGED_WITH",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [
+                {
+                    "propertyKey": "pipeline_name",
+                    "type": "PROXIES_TO",
+                    "dataType": "string"
+                },
+                {
+                    "propertyKey": "last_ingested_at",
+                    "type": "PROXIES_TO",
+                    "dataType": "LocalDateTime"
+                }
+            ],
+            "name": "PROXIES_TO",
+            "id": "PROXIES_TO",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "CONNECTED_TO",
+            "id": "CONNECTED_TO",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "CONTROLLED_BY",
+            "id": "CONTROLLED_BY",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "INGRESS",
+            "id": "INGRESS",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [
+                {
+                    "propertyKey": "pipeline_name",
+                    "type": "EGRESS",
+                    "dataType": "string"
+                },
+                {
+                    "propertyKey": "last_ingested_at",
+                    "type": "EGRESS",
+                    "dataType": "LocalDateTime"
+                }
+            ],
+            "name": "EGRESS",
+            "id": "EGRESS",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "INGRESS_SG",
+            "id": "INGRESS_SG",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "INGRESS_IPV6",
+            "id": "INGRESS_IPV6",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [
+                {
+                    "propertyKey": "pipeline_name",
+                    "type": "PROTECTED_BY",
+                    "dataType": "string"
+                },
+                {
+                    "propertyKey": "last_ingested_at",
+                    "type": "PROTECTED_BY",
+                    "dataType": "LocalDateTime"
+                }
+            ],
+            "name": "PROTECTED_BY",
+            "id": "PROTECTED_BY",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "HAS_CVE",
+            "id": "HAS_CVE",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "INTRODUCED_THROUGH",
+            "id": "INTRODUCED_THROUGH",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "DEPLOYED",
+            "id": "DEPLOYED",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "ASSOCIATED_ROLE",
+            "id": "ASSOCIATED_ROLE",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "BUILT_BY",
+            "id": "BUILT_BY",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "HAS_REVISION",
+            "id": "HAS_REVISION",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "OPERATES_IN",
+            "id": "OPERATES_IN",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "PART_OF_RESOLUTION_PATH_FOR",
+            "id": "PART_OF_RESOLUTION_PATH_FOR",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "DNS_QUERY_RESOLVED_TO",
+            "id": "DNS_QUERY_RESOLVED_TO",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "HAS_PORT",
+            "id": "HAS_PORT",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "INSTANCE_ROLE",
+            "id": "INSTANCE_ROLE",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "HAS_PERMISSIONS_POLICY",
+            "id": "HAS_PERMISSIONS_POLICY",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "ASSOCIATED_TO",
+            "id": "ASSOCIATED_TO",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "EGRESS_SG",
+            "id": "EGRESS_SG",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "HAS_NODE",
+            "id": "HAS_NODE",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "HAS_PERMISSIONS_BOUNDARY",
+            "id": "HAS_PERMISSIONS_BOUNDARY",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "EGRESS_IPV6",
+            "id": "EGRESS_IPV6",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "CONTROLS_INGRESS_TO",
+            "id": "CONTROLS_INGRESS_TO",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "INGRESS_THROUGH",
+            "id": "INGRESS_THROUGH",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "RUNNING_IMAGE",
+            "id": "RUNNING_IMAGE",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "EXECUTING_POD",
+            "id": "EXECUTING_POD",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "EXECUTING_ON",
+            "id": "EXECUTING_ON",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "DEPLOYED_INTO",
+            "id": "DEPLOYED_INTO",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "SOURCE_CODE_FROM",
+            "id": "SOURCE_CODE_FROM",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "HAS_VULNERABILITY",
+            "id": "HAS_VULNERABILITY",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "DEVELOPS_PROJECT",
+            "id": "DEVELOPS_PROJECT",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "OPERATES_PROJECT",
+            "id": "OPERATES_PROJECT",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "ADMINISTERS_PROJECT",
+            "id": "ADMINISTERS_PROJECT",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "HAS_DIRECTIVE",
+            "id": "HAS_DIRECTIVE",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "RANKED_BY",
+            "id": "RANKED_BY",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "LICENSED_BY",
+            "id": "LICENSED_BY",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [],
+            "name": "KEYWORD_IN",
+            "id": "KEYWORD_IN",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [
+                {
+                    "propertyKey": "pipeline_name",
+                    "type": "DISCOVERED_BY",
+                    "dataType": "string"
+                },
+                {
+                    "propertyKey": "last_ingested_at",
+                    "type": "DISCOVERED_BY",
+                    "dataType": "LocalDateTime"
+                }
+            ],
+            "name": "DISCOVERED_BY",
+            "id": "DISCOVERED_BY",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [
+                {
+                    "propertyKey": "pipeline_name",
+                    "type": "REDIRECTS_HANDLED_BY",
+                    "dataType": "string"
+                },
+                {
+                    "propertyKey": "last_ingested_at",
+                    "type": "REDIRECTS_HANDLED_BY",
+                    "dataType": "LocalDateTime"
+                }
+            ],
+            "name": "REDIRECTS_HANDLED_BY",
+            "id": "REDIRECTS_HANDLED_BY",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        },
+        {
+            "properties": [
+                {
+                    "propertyKey": "pipeline_name",
+                    "type": "REDIRECTS_TO",
+                    "dataType": "string"
+                },
+                {
+                    "propertyKey": "last_ingested_at",
+                    "type": "REDIRECTS_TO",
+                    "dataType": "LocalDateTime"
+                }
+            ],
+            "name": "REDIRECTS_TO",
+            "id": "REDIRECTS_TO",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [
+                "0_REL_TYPE_CAPTION_KEY"
+            ]
+        }
+    ],
+    "palette": {
+        "colors": [
+            "#FFE081",
+            "#C990C0",
+            "#F79767",
+            "#57C7E3",
+            "#F16667",
+            "#D9C8AE",
+            "#8DCC93",
+            "#ECB5C9",
+            "#4C8EDA",
+            "#FFC454",
+            "#DA7194",
+            "#569480",
+            "#848484",
+            "#D9D9D9"
+        ],
+        "currentIndex": 15
+    },
+    "createdAt": 1684595878124,
+    "lastEditedAt": 1684595878124,
+    "templates": [
+        {
+            "name": "This shows the nodes and relationships in the graph (the schema)",
+            "id": "tmpl:1684596855504",
+            "createdAt": 1684596855504,
+            "text": "show schema",
+            "cypher": "CALL db.schema.visualization() YIELD nodes, relationships\nUNWIND nodes as node\nwith node, relationships\nWHERE apoc.node.labels(node) <> [\"Bloom_Perspective\"]\nRETURN collect(node) AS nodes, relationships",
+            "isUpdateQuery": null,
+            "params": [],
+            "hasCypherErrors": false
+        },
+        {
+            "name": "This will show an endpoint",
+            "id": "tmpl:1684596313976",
+            "createdAt": 1684596313976,
+            "text": "show endpoint $fqdn",
+            "cypher": "MATCH (e:Endpoint{fqdn: $fqdn})\nCALL apoc.path.spanningTree(e, {\n   minLevel: 1,\n   maxLevel: 2\n})\nYIELD path\nRETURN path",
+            "isUpdateQuery": null,
+            "params": [
+                {
+                    "name": "$fqdn",
+                    "dataType": "String",
+                    "collapsed": false,
+                    "suggestionLabel": null,
+                    "suggestionProp": null,
+                    "suggestionBoolean": false,
+                    "cypher": null
+                }
+            ],
+            "hasCypherErrors": false
+        },
+        {
+            "name": "Search phrase that returns a sample of your data",
+            "id": "tmpl:1684595878710",
+            "createdAt": 1684595878710,
+            "text": "show akamai graph",
+            "cypher": "MATCH p=()-->() RETURN p ",
+            "isUpdateQuery": null,
+            "params": [],
+            "hasCypherErrors": false
+        }
+    ],
+    "sceneActions": [],
+    "hiddenRelationshipTypes": [],
+    "hiddenCategories": [],
+    "hideUncategorisedData": false,
+    "isAuto": false,
+    "parentPerspectiveId": null,
+    "metadata": {
+        "pathSegments": [
+            {
+                "source": "Pipeline",
+                "relationshipType": "DISCOVERED_BY",
+                "target": "akamai_siteshield_config"
+            },
+            {
+                "source": "Pipeline",
+                "relationshipType": "DISCOVERED_BY",
+                "target": "akamai_edgehost"
+            },
+            {
+                "source": "Pipeline",
+                "relationshipType": "DISCOVERED_BY",
+                "target": "akamai_gtm_config"
+            },
+            {
+                "source": "Pipeline",
+                "relationshipType": "DISCOVERED_BY",
+                "target": "akamai_property_config"
+            },
+            {
+                "source": "Pipeline",
+                "relationshipType": "DISCOVERED_BY",
+                "target": "akamai_waf_config"
+            },
+            {
+                "source": "Pipeline",
+                "relationshipType": "DISCOVERED_BY",
+                "target": "akamai_netstorage_config"
+            },
+            {
+                "source": "Pipeline",
+                "relationshipType": "DISCOVERED_BY",
+                "target": "akamai_certificate"
+            },
+            {
+                "source": "Pipeline",
+                "relationshipType": "DISCOVERED_BY",
+                "target": "akamai_redirect_config"
+            },
+            {
+                "source": "Endpoint",
+                "relationshipType": "PROTECTED_BY",
+                "target": "akamai_certificate"
+            },
+            {
+                "source": "Endpoint",
+                "relationshipType": "PROTECTED_BY",
+                "target": "akamai_waf_config"
+            },
+            {
+                "source": "akamai_netstorage_config",
+                "relationshipType": "HAS_RECORD",
+                "target": "akamai_endpoint"
+            },
+            {
+                "source": "akamai_netstorage_config",
+                "relationshipType": "HAS_RECORD",
+                "target": "Endpoint"
+            },
+            {
+                "source": "akamai_gtm_config",
+                "relationshipType": "HAS_RECORD",
+                "target": "akamai_endpoint"
+            },
+            {
+                "source": "akamai_edgehost",
+                "relationshipType": "HAS_RECORD",
+                "target": "akamai_endpoint"
+            },
+            {
+                "source": "akamai_edgehost",
+                "relationshipType": "HAS_RECORD",
+                "target": "Endpoint"
+            },
+            {
+                "source": "akamai_gtm_config",
+                "relationshipType": "HAS_RECORD",
+                "target": "Endpoint"
+            },
+            {
+                "source": "akamai_siteshield_config",
+                "relationshipType": "EGRESS",
+                "target": "cidripv4"
+            },
+            {
+                "source": "akamai_redirect_config",
+                "relationshipType": "REDIRECTS_TO",
+                "target": "Endpoint"
+            },
+            {
+                "source": "akamai_property_config",
+                "relationshipType": "PROXIES_TO",
+                "target": "Endpoint"
+            },
+            {
+                "source": "Endpoint",
+                "relationshipType": "REDIRECTS_HANDLED_BY",
+                "target": "akamai_redirect_config"
+            },
+            {
+                "source": "Endpoint",
+                "relationshipType": "SERVICED_BY",
+                "target": "akamai_property_config"
+            },
+            {
+                "source": "akamai_waf_config",
+                "relationshipType": "DEFINED_BY",
+                "target": "akamai_waf_policy"
+            }
+        ],
+        "indexes": [
+            {
+                "label": "AAAA",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "A",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "Artifact",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "path",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "Asset",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "archived",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "asset_id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "AwsAccount",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "number",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "AwsResourceTag",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "key",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "Boxset",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "BusinessUnit",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "CAA",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "CDDDeployment",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "cdddeployguid",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "CDDJob",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "cddjobguid",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "CNAME",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "CityMapCapability",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "CustomerManagedPolicy",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "Cve",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "cve",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "DNSDirective",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "DNSEndpoint",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "Dependency",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "Deployment",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "audit_entry_id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "DevportalProject",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "asset_alias",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "lifecycle",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "asset_id",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "visibility",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "Employee",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "primary_email",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "Endpoint",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "fqdn",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "GithubRepo",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "url",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "GithubUser",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "user_id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "IamRole",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "IksCluster",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "IksNamespace",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "Ipv4",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "address",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "Ipv6",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "address",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "JenkinsBuild",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "url",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "JiraProject",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "key",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "KubernetesIngressController",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "KubernetesPod",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "KubernetestPod",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "LibrariesIO",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "LibraryKeyword",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "value",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "License",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "license",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "NS",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "Port",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "port",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "SnowId",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "SourceCodeRevision",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "commit",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "TargetGroup",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "Vulnerability",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "WizProject",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "asset_alias",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "Zone",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "apigw_deployment",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "apigw_stage",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "cidripv4",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "cidr",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "last_linked_at",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "cidripv6",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "cidr",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "cloudfront",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "ec2",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "elb",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "es",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": null,
+                "type": "native",
+                "propertyKeys": []
+            },
+            {
+                "label": "lambda",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "rds_cluster",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "rds",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "s3",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "sg",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "transit_gateway",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "wafv2",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "Pipeline",
+                "type": "native",
+                "isMetadataPropIndex": true,
+                "propertyKeys": [
+                    {
+                        "key": "pipeline_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_linked_at",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "akamai_property_config",
+                "type": "native",
+                "isMetadataPropIndex": true,
+                "propertyKeys": [
+                    {
+                        "key": "pipeline_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "akamai_gtm_config",
+                "type": "native",
+                "isMetadataPropIndex": true,
+                "propertyKeys": [
+                    {
+                        "key": "pipeline_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "akamai_netstorage_config",
+                "type": "native",
+                "isMetadataPropIndex": true,
+                "propertyKeys": [
+                    {
+                        "key": "pipeline_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "storageGroupId",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "storageGroupName",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "domainPrefix",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "estimatedUsageGB",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "akamai_endpoint",
+                "type": "native",
+                "isMetadataPropIndex": true,
+                "propertyKeys": [
+                    {
+                        "key": "last_linked_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "fqdn",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "akamai_siteshield_config",
+                "type": "native",
+                "isMetadataPropIndex": true,
+                "propertyKeys": [
+                    {
+                        "key": "pipeline_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "mapAlias",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "acknowledgedBy",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "mcmMapRuleId",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "akamai_edgehost",
+                "type": "native",
+                "isMetadataPropIndex": true,
+                "propertyKeys": [
+                    {
+                        "key": "pipeline_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "dnsZone",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "edgeHostnameId",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "ipVersionBehavior",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "akamai_certificate",
+                "type": "native",
+                "isMetadataPropIndex": true,
+                "propertyKeys": [
+                    {
+                        "key": "pipeline_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "expiry",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "akamai_waf_policy",
+                "type": "native",
+                "isMetadataPropIndex": true,
+                "propertyKeys": [
+                    {
+                        "key": "last_linked_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "policyId",
+                        "metadataProp": true
+                    }
+                ]
+            }
+        ],
+        "stats": {
+            "labels": {},
+            "relationshipTypes": {
+                "ADMINISTERS_PROJECT": 0,
+                "ASSET_OF": 0,
+                "ASSOCIATED_ROLE": 0,
+                "ASSOCIATED_TO": 0,
+                "BUILT_BY": 0,
+                "CONNECTED_TO": 0,
+                "CONTAINED_IN": 0,
+                "CONTROLLED_BY": 0,
+                "CONTROLS_INGRESS_TO": 0,
+                "DEFINED_BY": 314,
+                "DEPLOYED": 0,
+                "DEPLOYED_INTO": 0,
+                "DEVELOPS_PROJECT": 0,
+                "DISCOVERED_BY": 5727,
+                "DNS_QUERY_RESOLVED_TO": 0,
+                "EGRESS": 183,
+                "EGRESS_IPV6": 0,
+                "EGRESS_SG": 0,
+                "EXECUTING_ON": 0,
+                "EXECUTING_POD": 0,
+                "HAS_CVE": 0,
+                "HAS_DIRECTIVE": 0,
+                "HAS_NODE": 0,
+                "HAS_PERMISSIONS_BOUNDARY": 0,
+                "HAS_PERMISSIONS_POLICY": 0,
+                "HAS_PORT": 0,
+                "HAS_RECORD": 1954,
+                "HAS_REVISION": 0,
+                "HAS_VULNERABILITY": 0,
+                "INGRESS": 0,
+                "INGRESS_IPV6": 0,
+                "INGRESS_SG": 0,
+                "INGRESS_THROUGH": 0,
+                "INSTANCE_ROLE": 0,
+                "INTRODUCED_THROUGH": 0,
+                "IS_TAGGED_WITH": 0,
+                "KEYWORD_IN": 0,
+                "LICENSED_BY": 0,
+                "LOAD_BALANCES_TO": 0,
+                "MANAGES_PROJECT": 0,
+                "MAPS_TO": 0,
+                "OPERATED_BY": 0,
+                "OPERATES_IN": 0,
+                "OPERATES_PROJECT": 0,
+                "OWNED_BY": 0,
+                "PART_OF_RESOLUTION_PATH_FOR": 0,
+                "PROTECTED_BY": 3796,
+                "PROXIES_TO": 1062,
+                "RANKED_BY": 0,
+                "REDIRECTS_HANDLED_BY": 1796,
+                "REDIRECTS_TO": 2413,
+                "RESOLVES_TO": 0,
+                "RUNNING_IMAGE": 0,
+                "SERVICED_BY": 3291,
+                "SOURCE_CODE_FROM": 0,
+                "SOURCE_CODE_IN": 0,
+                "TRACKED_IN": 0
+            }
+        }
+    },
+    "version": "2.7.1"
+}
