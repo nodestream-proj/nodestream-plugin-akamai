@@ -13,15 +13,21 @@ transformers:
     arguments:
       interpretations:
         - type: source_node
-          name: !!python/jmespath hostname
+          configId: !!python/jmespath configuration.id
           node_type: akamai_waf_config
         - type: metadata
-          configId: !!python/jmespath configuration.id
-          version: !!python/jmespath configuration.name
+          version: !!python/jmespath configuration.version
+          configName: !!python/jmespath configuration.name
         - type: endpoint
           search: !!python/jmespath hostname
           relationship_type: PROTECTED_BY
           outbound: false
+        - type: relationship
+          search: !!python/jmespath policyNames[*]
+          related_node_type: akamai_waf_policy
+          related_field_name: policyName
+          relationship_type: DEFINED_BY
+          find_many: true
             
 
 writers:
