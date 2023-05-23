@@ -6,7 +6,7 @@ extractor:
   implementation: etwpipeline.tools:FixtureFileExtractor
   arguments:
     files:
-      - akamai.json
+      - akamai_property.json
 
 transformers:
   - implementation: neo4j_ingest.pipeline_components:Interpreter
@@ -18,12 +18,15 @@ transformers:
         - type: metadata
           name: !!python/jmespath name
         - type: endpoint
-          search: !!python/jmespath edge_hosts[*].name
+          search: !!python/jmespath hostnames[*].name
           relationship_type: SERVICED_BY
           outbound: false
         - type: endpoint
           search: !!python/jmespath origins[*].name
           relationship_type: PROXIES_TO
+        - type: endpoint
+          search: !!python/jmespath edge_redirector_policies[*].policyId
+          relationship_type: REDIRECTS_IN
 
 writers:
   - implementation: etwpipeline.writers:LoggerWriter

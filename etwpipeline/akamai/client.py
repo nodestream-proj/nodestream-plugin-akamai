@@ -12,6 +12,10 @@ from etwpipeline.akamai.model import EdgeHost, Origin, PropertyDescription
 logger = logging.getLogger(__name__)
 
 ORIGIN_BEHAVIOR_NAME = "origin"
+EDGE_REDIRECTOR_BEHAVIOR_NAME = 'edgeRedirector'
+IVM_IMAGES_BEHAVIOR_NAME = 'imageManager'
+IVM_VIDEO_BEHAVIOR_NAME = 'imageManagerVideo'
+SITESHIELD_BEHAVIOR_NAME = 'siteShield'
 
 def keep_first(iterable, key=None):
     if key is None:
@@ -43,6 +47,34 @@ def search_akamai_rule_tree_for_origins(rule_tree) -> List[Origin]:
 
     # TODO: Maybe find a less terrible way to get unique list of origins - check as you go?
     return list(set(origins))
+
+def search_akamai_rule_tree_for_edge_redirector(rule_tree):
+    policies = []
+    for child in rule_tree['children']:
+        policies.append(search_akamai_rule_tree_for_edge_redirector(child))
+    for behavior in rule_tree['behaviors']:
+        if behavior.get("name") == EDGE_REDIRECTOR_BEHAVIOR_NAME:
+            if behavior['options'].get('isSharedPolicy'):
+                policy_id = behavior['options']['cloudletSharedPolicy']
+            else:
+                policy_id = behavior['options']['cloudletPolicy']['id']
+            policies.append(str(policy_id))
+
+    # TODO: Maybe find a less terrible way to get unique list of origins - check as you go?
+    return list(set(policies))
+
+def search_akamai_rule_tree_for_siteshield(rule_tree):
+    siteshield_map = None
+    for child in rule_tree['children']:
+        siteshield_map = search_akamai_rule_tree_for_edge_redirector(child)
+        if siteshield_map is not None:
+            break
+    for behavior in rule_tree['behaviors']:
+        if behavior.get("name") == SITESHIELD_BEHAVIOR_NAME:
+           siteshield_map = behavior['options']['ssmap']['value']
+           break
+
+    return siteshield_map
 
 
 def extract_active_akamai_redirect_policy_versions(policy_tree):
@@ -216,6 +248,23 @@ class AkamaiApiClient:
             continue_query = len(response_json) == page_size
 
         return {policy["policyId"] for policy in returned_policies}
+    
+    def list_cloudlets_v2(self) -> List[int]:
+        cloudlet_list_api_path = "/cloudlets/api/v2/policies"
+        offset = 0
+        returned_policies = []
+        page_size = 1000
+        continue_query = True
+        while continue_query:
+            query_params = {"offset": offset}
+            response_json = self._get_api_from_relative_path(
+                cloudlet_list_api_path, params=query_params
+            )
+            returned_policies = returned_policies + response_json
+            offset += page_size
+            continue_query = len(response_json) == page_size
+
+        return returned_policies
 
     def extract_akamai_ruleset_version(self, policy_id: str, version: str):
         policy_tree_api_path = (
@@ -246,15 +295,14 @@ class AkamaiApiClient:
             logger.info("No version found in: %s", policy["policyId"])
 
         return policy_list
-
-    def describe_property_origins(self, property_id: str, version: int):
+    
+    def get_rule_tree(self, property_id: str, version: int):
         rule_tree_api_path = (
             f"/papi/v1/properties/{property_id}/versions/{version}/rules"
         )
-        rule_tree = self._get_api_from_relative_path(rule_tree_api_path)["rules"]
-        return search_akamai_rule_tree_for_origins(rule_tree)
+        return self._get_api_from_relative_path(rule_tree_api_path)["rules"]
 
-    def describe_property_edge_hosts(self, property_id: str, version: int):
+    def describe_property_hostnames(self, property_id: str, version: int):
         hosts_api_path = (
             f"/papi/v1/properties/{property_id}/versions/{version}/hostnames"
         )
@@ -266,13 +314,16 @@ class AkamaiApiClient:
 
     def pull_host_entries(self, property_id: str, versions: set):
         origins = set()
-        edge_hosts = set()
+        edge_redirector_policies = set()
+        hostnames = set()
         for version in versions:
             if version is None:
                 continue
-            origins.update(self.describe_property_origins(property_id, version))
-            edge_hosts.update(self.describe_property_edge_hosts(property_id, version))
-        return origins, edge_hosts
+            rule_tree = self.get_rule_tree(property_id, version)
+            origins.update(search_akamai_rule_tree_for_origins(rule_tree))
+            edge_redirector_policies.update()
+            hostnames.update(self.describe_property_hostnames(property_id, version))
+        return origins, edge_redirector_policies, hostnames
 
     def describe_property_by_id(self, property_id: str) -> PropertyDescription:
         describe_property_api_path = f"/papi/v1/properties/{property_id}"
@@ -282,17 +333,30 @@ class AkamaiApiClient:
         property_name = property_description["propertyName"]
         production_version_number = property_description["productionVersion"]
         staging_version_number = property_description["stagingVersion"]
-        origins, edge_hosts = self.pull_host_entries(property_id, {production_version_number, staging_version_number})
+        origins, hostnames = self.pull_host_entries(property_id, {production_version_number, staging_version_number})
 
         return PropertyDescription(
-            id=property_id, name=property_name, origins=list(origins), edge_hosts=list(edge_hosts)
+            id=property_id, name=property_name, origins=list(origins), hostnames=list(hostnames)
         )
     
     def describe_property_by_dict(self, property: dict) -> PropertyDescription:
-        origins, edge_hosts = self.pull_host_entries(property['propertyId'], {property['productionVersion'], property['stagingVersion']})
+        origins = set()
+        edge_redirector_policies = set()
+        hostnames = set()
+        
+        rule_tree = self.get_rule_tree(property['propertyId'], property['latestVersion'])
+
+        origins.update(search_akamai_rule_tree_for_origins(rule_tree))
+        edge_redirector_policies.update(search_akamai_rule_tree_for_edge_redirector(rule_tree))
+        hostnames.update(self.describe_property_hostnames(property['propertyId'], property['latestVersion']))
 
         return PropertyDescription(
-            id=property['propertyId'], name=property['propertyName'], origins=list(origins), edge_hosts=list(edge_hosts)
+            id=property['propertyId'],
+            name=property['propertyName'],
+            version=property['latestVersion'],
+            origins=list(origins),
+            edge_redirector_policies=list(edge_redirector_policies),
+            hostnames=list(hostnames)
         )
     
     def search_all_properties(self):

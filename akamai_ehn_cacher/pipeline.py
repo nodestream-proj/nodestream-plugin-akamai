@@ -14,6 +14,7 @@ class AkamaiEHNExtractor(Extractor):
     def extract_records(self):
             try:
                 for edge_hostname in self.client.list_edge_hostnames():
+                    edge_hostname['edgeHostname'] = edge_hostname['recordName'] + '.' + edge_hostname['dnsZone']
                     yield edge_hostname
             except Exception as err:
                 self.logger.error("Failed to list edge hostnames: %s", err)

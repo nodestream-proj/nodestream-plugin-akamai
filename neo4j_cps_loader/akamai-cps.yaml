@@ -17,6 +17,7 @@ transformers:
           node_type: akamai_certificate
         - type: metadata
           expiry: !!python/jmespath expiry
+          cn: !!python/jmespath csr.cn
         - type: endpoint
           search: !!python/jmespath csr.cn
           relationship_type: PROTECTED_BY

@@ -16,8 +16,8 @@ transformers:
           edgeHostnameId: !!python/jmespath edgeHostnameId
           node_type: akamai_edgehost
         - type: metadata
+          edgeHostname: !!python/jmespath edgeHostname
           ipVersionBehavior: !!python/jmespath ipVersionBehavior
-          dnsZone: !!python/jmespath dnsZone
         - type: endpoint
           search: !!python/jmespath recordName
           relationship_type: HAS_RECORD

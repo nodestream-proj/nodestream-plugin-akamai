@@ -13,11 +13,13 @@ transformers:
     arguments:
       interpretations:
         - type: source_node
-          id: !!python/jmespath raw.name
+          id: !!python/jmespath name
           node_type: akamai_gtm_config
 #        - type: metadata
 #          last_modified: !!python/jmespath raw.lastModifiedBy
 #          type: !!python/jmespath raw.type
+        - type: metadata
+          name: !!python/jmespath name
         - type: endpoint
           search: !!python/jmespath summary[*].fqdn
           relationship_type: HAS_RECORD
