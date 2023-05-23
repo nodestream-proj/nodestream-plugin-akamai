@@ -7,7 +7,8 @@ within Akamai.
 
 # Setup Neo4j
 1. Download and install Neo4j: https://neo4j.com/docs/desktop-manual/current/installation/download-installation/
-1. Create a database: https://neo4j.com/docs/desktop-manual/current/operations/create-dbms/
+1. Create and start database (version 5.7.0: https://neo4j.com/docs/desktop-manual/current/operations/create-dbms/
+1. Install APOC: https://neo4j.com/docs/apoc/5/installation/
 
 # Download Akamai credentials
 1. Create and download akamai credentials: https://techdocs.akamai.com/developer/docs/set-up-authentication-credentials
