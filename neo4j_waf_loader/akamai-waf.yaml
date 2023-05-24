@@ -20,9 +20,9 @@ transformers:
           status: !!python/jmespath status
         - type: relationship
           iterate_on: !!python/jmespath policies[*]
-          search: !!python/jmespath policyId
+          search: !!python/jmespath policyName
           related_node_type: akamai_waf_policy
-          related_field_name: policyId
+          related_field_name: policyName
           relationship_type: DEFINED_BY
             
 

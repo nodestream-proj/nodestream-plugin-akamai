@@ -13,17 +13,22 @@ transformers:
     arguments:
       interpretations:
         - type: source_node
-          fqdn: !!python/jmespath hostname
-          node_type: Endpoint
-        - type: metadata
-          configName: !!python/jmespath configuration.name
           configId: !!python/jmespath configuration.id
+          node_type: akamai_waf_config
+        - type: metadata
           version: !!python/jmespath configuration.version
-          policyNames: !!python/jmespath policyNames[0]
-        - type: relationship
+          configName: !!python/jmespath configuration.name
+        - type: endpoint
           search: !!python/jmespath hostname
           relationship_type: PROTECTED_BY
-          outbound: false  
+          outbound: false
+        - type: relationship
+          search: !!python/jmespath policyNames[*]
+          related_node_type: akamai_waf_policy
+          related_field_name: policyName
+          relationship_type: DEFINED_BY
+          find_many: true
+            
 
 writers:
   - implementation: etwpipeline.writers:LoggerWriter
