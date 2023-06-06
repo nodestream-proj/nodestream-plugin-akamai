@@ -6,7 +6,7 @@ extractor:
   implementation: etwpipeline.tools:FixtureFileExtractor
   arguments:
     files:
-      - akamai_appsec.json
+      - akamai_appsec_coverage.json
 
 transformers:
   - implementation: neo4j_ingest.pipeline_components:Interpreter
@@ -23,9 +23,10 @@ transformers:
           relationship_type: PROTECTED_BY
           outbound: false
         - type: relationship
-          search: !!python/jmespath policyNames[*]
+          iterate_on: !!python/jmespath policyNames[*]
+          search: !!python/jmespath policyId
           related_node_type: akamai_waf_policy
-          related_field_name: policyName
+          related_field_name: policyId
           relationship_type: DEFINED_BY
           find_many: true
             
@@ -33,6 +34,6 @@ transformers:
 writers:
   - implementation: etwpipeline.writers:LoggerWriter
     arguments:
-      logger_name: "akamai-appsec"
+      logger_name: "akamai-appsec-coverage"
       level: DEBUG
   - !include ../neo4j_writer.yaml
