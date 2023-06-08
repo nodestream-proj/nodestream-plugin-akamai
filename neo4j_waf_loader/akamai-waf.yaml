@@ -17,6 +17,8 @@ transformers:
           node_type: akamai_waf_config
         - type: metadata
           configName: !!python/jmespath configName
+          configId:  !!python/jmespath configId
+          productionVersion: !!python/jmespath productionVersion
           status: !!python/jmespath status
         - type: relationship
           iterate_on: !!python/jmespath policies[*]
@@ -24,6 +26,7 @@ transformers:
           related_node_type: akamai_waf_policy
           related_field_name: policyId
           relationship_type: DEFINED_BY
+          outbound: false
             
 
 writers:

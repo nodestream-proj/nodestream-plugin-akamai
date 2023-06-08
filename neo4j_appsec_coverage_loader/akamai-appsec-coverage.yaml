@@ -13,23 +13,14 @@ transformers:
     arguments:
       interpretations:
         - type: source_node
-          configId: !!python/jmespath configuration.id
-          node_type: akamai_waf_config
+          policyId: !!python/jmespath policyId
+          node_type: akamai_waf_policy
         - type: metadata
-          version: !!python/jmespath configuration.version
-          configName: !!python/jmespath configuration.name
+          policyName: !!python/jmespath policyName
         - type: endpoint
           search: !!python/jmespath hostname
           relationship_type: PROTECTED_BY
           outbound: false
-        - type: relationship
-          iterate_on: !!python/jmespath policyNames[*]
-          search: !!python/jmespath policyId
-          related_node_type: akamai_waf_policy
-          related_field_name: policyId
-          relationship_type: DEFINED_BY
-          find_many: true
-            
 
 writers:
   - implementation: etwpipeline.writers:LoggerWriter

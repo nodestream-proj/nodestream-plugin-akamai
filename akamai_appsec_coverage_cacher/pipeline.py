@@ -27,13 +27,14 @@ class AkamaiAppSecCoverageExtractor(Extractor):
                 # Need to find policy ID, so find first locate config from hostname entry
                 covering_config = [config for config in configs if config['id'] == hostname['configuration']['id']][0]
                 # Then iterate through policyNames and replace with dict
-                for i, policyName in enumerate(hostname['policyNames']):
+                for policyName in hostname['policyNames']:
                     covering_policy = [policy for policy in covering_config['policies'] if policy['policyName'] == policyName][0]
-                    hostname['policyNames'][i] = {
+                    coverage_object = {
+                        'hostname': hostname['hostname'],
                         'policyName': covering_policy['policyName'],
                         'policyId': covering_policy['policyId']
                     }
-                yield hostname
+                    yield coverage_object
 
 def make_pipeline() -> Pipeline:
     return DeclarativePipeline.from_file("akamai_appsec_coverage_cacher/pipeline.yaml")
