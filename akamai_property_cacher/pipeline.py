@@ -18,12 +18,13 @@ class AkamaiPropertyExtractor(Extractor):
             self.logger.error("Failed to list properties: %s", err)
             return
 
-        for property in properties:
+        production_active_properties = [property for property in properties if property['productionVersion'] is not None]
+        for property in production_active_properties:
             try:
+                print(str(property))
                 yield self.client.describe_property_by_dict(property).as_eventbus_json()
             except Exception as err:
                 self.logger.error("Failed to get property: {p}, {e}".format(p = property['propertyId'], e = err))
-
 
 def make_pipeline() -> Pipeline:
     return DeclarativePipeline.from_file("akamai_property_cacher/pipeline.yaml")

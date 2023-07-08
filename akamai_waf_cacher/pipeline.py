@@ -15,10 +15,12 @@ class AkamaiWAFExtractor(Extractor):
         ag_map = {
             'POLICY':'Web Policy Violation',
             'WAT':'Web Attack Tool',
+            'TOOL': 'Web Attack Tool',
             'PROTOCOL':'Web Protocol Attack',
             'SQL':'SQL Injection',
             'XSS':'Cross Site Scripting',
             'CMD':'Command Injection',
+            'CMDI': 'Command Injection',
             'LFI':'Local File Inclusion',
             'RFI':'Remote File Inclusion',
             'PLATFORM':'Web Platform Attack',
@@ -26,35 +28,38 @@ class AkamaiWAFExtractor(Extractor):
         }
 
         for config in self.client.list_appsec_configs():
-            # try:
-                export = self.client.export_appsec_config(config_id = config['id'], config_version = config['productionVersion'])
-                # Construct output dict
-                output_config = {
-                    'configId': config['id'],
-                    'configName': config['name'],
-                    'productionVersion': config['productionVersion'],
-                    'policies': []
-                }
-                # Iterate through policies and add custom dict to output
-                for policy in export['securityPolicies']:
-                    output_policy = {
-                        'policyId': policy['id'],
-                        'policyName': policy['name'],
-                        'attackGroupActions': []
+            try:
+                if 'productionVersion' in config.keys():
+                    export = self.client.export_appsec_config(config_id = config['id'], config_version = config['productionVersion'])
+                    # Construct output dict
+                    output_config = {
+                        'configId': config['id'],
+                        'configName': config['name'],
+                        'productionVersion': config['productionVersion'],
+                        'policies': []
                     }
-                    if 'webApplicationFirewall' in policy.keys():
-                        for action in policy['webApplicationFirewall']['attackGroupActions']:
-                            output_policy['attackGroupActions'].append({
-                                    'group': action['group'],
-                                    'groupName': ag_map[action['group']],
-                                    'action': action['action']
-                                }
-                            )
-                        output_config['policies'].append(output_policy)
-                
-                yield output_config
-            # except Exception as err:
-            #     self.logger.error(f"Failed to export appsec configuration {config['name']}: {err}")
+                    # Iterate through policies and add custom dict to output
+                    for policy in export['securityPolicies']:
+                        output_policy = {
+                            'policyId': policy['id'],
+                            'policyName': policy['name'],
+                            'attackGroupActions': []
+                        }
+                        if 'webApplicationFirewall' in policy.keys():
+                            for action in policy['webApplicationFirewall']['attackGroupActions']:
+                                output_policy['attackGroupActions'].append({
+                                        'group': action['group'],
+                                        'groupName': ag_map[action['group']],
+                                        'action': action['action']
+                                    }
+                                )
+                            output_config['policies'].append(output_policy)
+                    
+                    yield output_config
+                else:
+                    self.logger.warning(f"No production version exists for config {config['name']}: {err}")
+            except Exception as err:
+                self.logger.error(f"Failed to export appsec configuration {config['name']}: {err}")
 
 
 def make_pipeline() -> Pipeline:

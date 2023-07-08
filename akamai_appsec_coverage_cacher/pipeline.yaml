@@ -2,7 +2,7 @@ resolvers:
   - implementation: etwpipeline.declarative.resolvers:EnvironmentResolver
   
 extractor:
-  implementation: akamai_appsec_cacher.pipeline:AkamaiAppSecExtractor
+  implementation: akamai_appsec_coverage_cacher.pipeline:AkamaiAppSecCoverageExtractor
   arguments:
     base_url: env://base_url
     client_token: env://client_token
@@ -14,4 +14,4 @@ writers:
   - implementation: etwpipeline.writers:LoggerWriter
   - implementation: etwpipeline.writers:JsonFileWriter
     arguments:
-      file_name: akamai_appsec.json
+      file_name: akamai_appsec_coverage.json

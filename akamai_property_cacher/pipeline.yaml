@@ -14,4 +14,4 @@ writers:
   - implementation: etwpipeline.writers:LoggerWriter
   - implementation: etwpipeline.writers:JsonFileWriter
     arguments:
-      file_name: akamai.json
+      file_name: akamai_property.json

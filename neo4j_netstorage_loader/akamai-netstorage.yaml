@@ -20,6 +20,12 @@ transformers:
           estimatedUsageGB: !!python/jmespath estimatedUsageGB
           domainPrefix: !!python/jmespath domainPrefix
         - type: relationship
+          search: !!python/jmespath downloadDomain
+          related_node_type: akamai_property
+          related_field_name: origins[*].name
+          relationship_type: HOSTS_CONTENT_FOR
+          outbound: false
+        - type: relationship
           search: !!python/jmespath uploadDomains.ftp
           related_node_type: akamai_endpoint
           related_field_name: fqdn

@@ -23,6 +23,7 @@ class AkamaiGTMExtractor(Extractor):
                         'trafficTargets': property['trafficTargets']
                     })
                 parsed_domain = {
+                    'name': raw_domain['name'],
                     'summary': summary,
                     'raw': raw_domain
                 }

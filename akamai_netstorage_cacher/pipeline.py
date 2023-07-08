@@ -21,6 +21,7 @@ class AkamaiNetstorageExtractor(Extractor):
             'aspera':'.aspera.upload.akamai.com',
             'http': '-nsu.upload.akamai.com'
         }
+        download_domain = '.download.akamai.com'
         try:
             netstorage_groups = self.client.list_netstorage_groups()
         except Exception as err:
@@ -32,6 +33,8 @@ class AkamaiNetstorageExtractor(Extractor):
             parsed_group['uploadDomains'] = {}
             for suffix in upload_domain_suffixes.keys():
                 parsed_group['uploadDomains'][suffix] = parsed_group['domainPrefix'] + upload_domain_suffixes[suffix]
+            # Add downloadDomain string
+            parsed_group['downloadDomain'] = parsed_group['domainPrefix'] + download_domain
             
             # OPTIONAL: Add raw data output
             #parsed_group['raw'] = group
