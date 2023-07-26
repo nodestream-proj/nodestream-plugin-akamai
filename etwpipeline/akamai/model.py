@@ -18,7 +18,7 @@ class PropertyDescription:
     name: str
     version: str
     origins: List[Origin]
-    edge_redirector_policies: List[str]
+    cloudlet_policies: dict
     hostnames: List[EdgeHost]
 
     @property
@@ -28,10 +28,10 @@ class PropertyDescription:
     @property
     def hostname_count(self):
         return len(self.hostnames)
-    
+
     @property
-    def edge_redirector_count(self):
-        return len(self.edge_redirector_policies)
+    def cloudlet_policy_count(self):
+        return {"edgeRedirector": len(self.cloudlet_policies["edgeRedirector"])}
 
     def as_eventbus_json(self):
         return {
@@ -39,9 +39,11 @@ class PropertyDescription:
             "name": self.name,
             "version": self.version,
             "origin_count": self.origin_count,
-            "edge_redirector_count": self.edge_redirector_count,
+            "cloudlet_policy_count": self.cloudlet_policy_count,
             "hostname_count": self.hostname_count,
             "origins": [{"name": origin.name} for origin in self.origins],
-            "edge_redirector_policies": [{"policyId": policyId} for policyId in self.edge_redirector_policies],
+            "cloudlet_policies": {
+                "edgeRedirector": [{"policyId": policyId} for policyId in self.cloudlet_policies["edgeRedirector"]],
+            },
             "hostnames": [{"name": hostname.name} for hostname in self.hostnames],
         }

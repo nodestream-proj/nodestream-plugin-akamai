@@ -3,12 +3,12 @@ import logging
 from etwpipeline import Extractor
 from etwpipeline.declarative import DeclarativePipeline
 
-from etwpipeline.akamai.client import AkamaiApiClient
+from etwpipeline.akamai.cloudlets_v2_client import AkamaiCloudletsV2Client
 
 
 class AkamaiPolicyExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
-        self.client = AkamaiApiClient(**akamai_client_kwargs)
+        self.client = AkamaiCloudletsV2Client(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
     def extract_records(self):
