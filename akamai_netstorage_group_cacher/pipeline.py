@@ -6,7 +6,7 @@ from etwpipeline import Extractor, Pipeline
 from etwpipeline.declarative import DeclarativePipeline
 
 
-class AkamaiNetstorageExtractor(Extractor):
+class AkamaiNetstorageGroupExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
         self.client = AkamaiNetstorageClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
@@ -43,4 +43,4 @@ class AkamaiNetstorageExtractor(Extractor):
 
 
 def make_pipeline() -> Pipeline:
-    return DeclarativePipeline.from_file("akamai_netstorage_cacher/pipeline.yaml")
+    return DeclarativePipeline.from_file("akamai_netstorage_group_cacher/pipeline.yaml")

@@ -6,7 +6,7 @@ extractor:
   implementation: etwpipeline.tools:FixtureFileExtractor
   arguments:
     files:
-      - akamai_netstorage.json
+      - akamai_netstorage_group.json
 
 transformers:
   - implementation: neo4j_ingest.pipeline_components:Interpreter
@@ -64,6 +64,6 @@ transformers:
 writers:
   - implementation: etwpipeline.writers:LoggerWriter
     arguments:
-      logger_name: "akamai-netstorage"
+      logger_name: "akamai-netstorage-group"
       level: DEBUG
   - !include ../neo4j_writer.yaml

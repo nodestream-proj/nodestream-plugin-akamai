@@ -12,9 +12,7 @@ JsonDocument = Dict[str, Any]
 
 def default_metadata():
     """Generates default metadata containing of time and pipeline name."""
-    return Metadata(
-        dict(last_ingested_at=datetime.utcnow(), pipeline_name=current_thread().name)
-    )
+    return Metadata(dict(last_ingested_at=datetime.utcnow(), pipeline_name=current_thread().name))
 
 
 def default_var():
@@ -93,9 +91,7 @@ class Relationship:
         Returns:
             The identity of the relationship as key,value pairs.
         """
-        return {
-            self.related_node_identity_field_name: self.related_node_identity_field_value.lower()
-        }
+        return {self.related_node_identity_field_name: str(self.related_node_identity_field_value).lower()}
 
 
 class IngestionStrategy(ABC):

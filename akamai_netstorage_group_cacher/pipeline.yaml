@@ -2,7 +2,7 @@ resolvers:
   - implementation: etwpipeline.declarative.resolvers:EnvironmentResolver
   
 extractor:
-  implementation: akamai_netstorage_cacher.pipeline:AkamaiNetstorageExtractor
+  implementation: akamai_netstorage_group_cacher.pipeline:AkamaiNetstorageGroupExtractor
   arguments:
     base_url: env://base_url
     client_token: env://client_token
@@ -14,4 +14,4 @@ writers:
   - implementation: etwpipeline.writers:LoggerWriter
   - implementation: etwpipeline.writers:JsonFileWriter
     arguments:
-      file_name: akamai_netstorage.json
+      file_name: akamai_netstorage_group.json

@@ -1,0 +1,37 @@
+resolvers: 
+  - implementation: etwpipeline.declarative.resolvers:EnvironmentResolver
+write_batch_sizes: 100
+
+extractor:
+  implementation: etwpipeline.tools:FixtureFileExtractor
+  arguments:
+    files:
+      - akamai_netstorage_account.json
+
+transformers:
+  - implementation: neo4j_ingest.pipeline_components:Interpreter
+    arguments:
+      interpretations:
+        - type: source_node
+          uploadAccountId: !!python/jmespath uploadAccountId
+          node_type: akamai_netstorage_account
+        - type: metadata
+          storageGroupName: !!python/jmespath storageGroupName
+          ftpEnabled: !!python/jmespath ftpEnabled
+          sshEnabled: !!python/jmespath sshEnabled
+          rsyncEnabled: !!python/jmespath rsyncEnabled
+          asperaEnabled: !!python/jmespath asperaEnabled
+          hasFileManagerAccess: !!python/jmespath hasFileManagerAccess
+          hasHttpApiAccess: !!python/jmespath hasHttpApiAccess
+        - type: relationship
+          search: !!python/jmespath storageGroupId
+          related_node_type: akamai_netstorage_config
+          related_field_name: storageGroupId
+          relationship_type: ACCESSES
+ 
+writers:
+  - implementation: etwpipeline.writers:LoggerWriter
+    arguments:
+      logger_name: "akamai-netstorage-account"
+      level: DEBUG
+  - !include ../neo4j_writer.yaml
