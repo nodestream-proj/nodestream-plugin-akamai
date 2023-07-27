@@ -1,0 +1,129 @@
+[
+{
+  "uploadAccountId": "example_account_1",
+  "storageGroupId": 12345,
+  "storageGroupName": "Example 1",
+  "storageGroupType": "OBJECTSTORE",
+  "uploadAccountStatus": "ACTIVE",
+  "isEditable": true,
+  "isVisible": true,
+  "ftpEnabled": true,
+  "sshEnabled": false,
+  "rsyncEnabled": false,
+  "asperaEnabled": false,
+  "eventSubEnabled": false,
+  "hasFileManagerAccess": false,
+  "hasHttpApiAccess": false,
+  "hasPendingPropagation": false,
+  "email": "noreply@akamai.com",
+  "keys": {
+    "ftp": [
+      {
+        "id": "7618F448E8B62E25793402DBEC9A650F",
+        "isActive": true,
+        "lastModifiedBy": "user1",
+        "lastModifiedDate": "2020-01-01T22:23:00Z"
+      }
+    ]
+  },
+  "accessConfig": {
+    "hasReadOnlyAccess": false,
+    "cpcodes": [
+      {
+        "cpcodeId": 222222,
+        "storageGroup": {
+          "storageGroupId": 12345,
+          "storageGroupName": "Example"
+        },
+        "lastModifiedBy": "user1",
+        "lastModifiedDate": "2023-01-01T00:00:00Z"
+      }
+    ]
+  },
+  "technicalContactInfo": {
+    "existingTechnicalContact": {
+      "primarySfPin": "A-1-AB12CD",
+      "secondarySfPin": "AANA-IJKL"
+    }
+  },
+  "changeHistory": [],
+  "lastModifiedBy": "user1",
+  "lastModifiedDate": "2023-01-01T00:00:00Z",
+  "enableZipFileAutoIndex": false
+},
+{
+  "uploadAccountId": "example_account_2",
+  "storageGroupId": 67890,
+  "storageGroupName": "Example 2",
+  "storageGroupType": "OBJECTSTORE",
+  "uploadAccountStatus": "ACTIVE",
+  "isEditable": true,
+  "isVisible": true,
+  "ftpEnabled": true,
+  "sshEnabled": false,
+  "rsyncEnabled": false,
+  "asperaEnabled": false,
+  "eventSubEnabled": false,
+  "hasFileManagerAccess": true,
+  "hasHttpApiAccess": true,
+  "hasPendingPropagation": false,
+  "email": "noreply@akamai.com",
+  "keys": {
+    "ftp": [
+      {
+        "id": "5AD1C6881C505B9E8FB54F19767904A9",
+        "isActive": true,
+        "lastModifiedBy": "user1",
+        "lastModifiedDate": "2023-01-01T00:00:00Z"
+      },
+      {
+        "id": "A186CFFB73E505428D8703E663CDEDD0",
+        "isActive": true,
+        "lastModifiedBy": "user1",
+        "lastModifiedDate": "2023-01-01T00:00:00Z"
+      }
+    ],
+    "g2o": [
+      {
+        "id": "1064312DA3C0111E561DBA5170C177AF",
+        "user": "example",
+        "key": "3tv7vzyyovd6sszfil10gc8cc6yxhtuyt08crnfvih913cb5u3",
+        "isActive": true,
+        "lastModifiedBy": "user1",
+        "lastModifiedDate": "2020-01-01T22:23:00Z"
+      }
+    ]
+  },
+  "accessConfig": {
+    "hasReadOnlyAccess": false,
+    "cpcodes": [
+      {
+        "cpcodeId": 33333,
+        "storageGroup": {
+          "storageGroupId": 67890,
+          "storageGroupName": "Example 2"
+        },
+        "lastModifiedBy": "user1",
+        "lastModifiedDate": "2020-01-01T22:23:00Z"
+      }
+    ]
+  },
+  "technicalContactInfo": {
+    "existingTechnicalContact": {
+      "primarySfPin": "A-1-AB12CD",
+      "secondarySfPin": "AANA-IJKL"
+    }
+  },
+  "services": [
+    {
+      "type": "HTTP_UPLOAD",
+      "name": "ENTITY_NAME",
+      "value": "data"
+    }
+  ],
+  "changeHistory": [],
+  "lastModifiedBy": "user1",
+  "lastModifiedDate": "2020-01-01T22:23:00Z",
+  "enableZipFileAutoIndex": false
+}
+]
