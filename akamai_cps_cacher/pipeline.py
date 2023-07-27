@@ -23,6 +23,10 @@ class AkamaiCPSExtractor(Extractor):
                 deployment = self.client.get_cps_production_deployment(enrollment["id"])
                 parsed_enrollment = {key: enrollment[key] for key in desired_fields}
                 parsed_enrollment["expiry"] = deployment["primaryCertificate"]["expiry"]
+                # Parse TLS versions to joined string for YAML metadata
+                parsed_enrollment["networkConfiguration"]["disallowedTlsVersions"] = ", ".join(
+                    deployment["networkConfiguration"]["disallowedTlsVersions"]
+                )
                 yield parsed_enrollment
             except Exception as err:
                 self.logger.error(f"Failed to get deployment for cert '{enrollment['csr']['cn']}': {err}")

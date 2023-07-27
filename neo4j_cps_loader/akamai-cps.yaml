@@ -18,6 +18,8 @@ transformers:
         - type: metadata
           expiry: !!python/jmespath expiry
           cn: !!python/jmespath csr.cn
+          disallowedTlsVersions: !!python/jmespath networkConfiguration.disallowedTlsVersions
+          cipherSuite: !!python/jmespath networkConfiguration.mustHaveCiphers
         - type: endpoint
           search: !!python/jmespath csr.cn
           relationship_type: PROTECTED_BY
