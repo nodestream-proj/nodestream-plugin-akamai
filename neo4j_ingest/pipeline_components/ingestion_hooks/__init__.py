@@ -1,3 +1,3 @@
-from .endpoint_attribution import AttributeEndpoint
+# from .endpoint_attribution import AttributeEndpoint
 
-__all__ = ("AttributeEndpoint")
+# __all__ = ("AttributeEndpoint")

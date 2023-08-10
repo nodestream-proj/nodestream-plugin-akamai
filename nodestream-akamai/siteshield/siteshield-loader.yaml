@@ -1,0 +1,33 @@
+
+write_batch_sizes: 100
+
+extractor:
+  implementation: etwpipeline.tools:FixtureFileExtractor
+  arguments:
+    files:
+      - akamai_siteshield.json
+
+transformers:
+  - implementation: nodestream.interpreters:Interpreter
+    arguments:
+      interpretations:
+        - type: source_node
+          id: !!python/jmespath id
+          node_type: akamai_siteshield_config
+        - type: metadata
+          mapAlias: !!python/jmespath mapAlias
+          acknowledgedBy: !!python/jmespath acknowledgedBy
+          mcmMapRuleId: !!python/jmespath mcmMapRuleId
+        - type: relationship
+          search: !!python/jmespath currentCidrs[*]
+          related_node_type: cidripv4
+          related_field_name: cidr
+          relationship_type: EGRESS
+          find_many: true
+
+writers:
+  - implementation: etwpipeline.writers:LoggerWriter
+    arguments:
+      logger_name: "akamai-siteshield"
+      level: DEBUG
+  - !include ../neo4j_writer.yaml

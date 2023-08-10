@@ -1,0 +1,35 @@
+
+write_batch_sizes: 100
+
+extractor:
+  implementation: etwpipeline.tools:FixtureFileExtractor
+  arguments:
+    files:
+      - akamai_property.json
+
+transformers:
+  - implementation: nodestream.interpreters:Interpreter
+    arguments:
+      interpretations:
+        - type: source_node
+          id: !!python/jmespath id
+          node_type: akamai_property_config
+        - type: metadata
+          name: !!python/jmespath name
+        - type: endpoint
+          search: !!python/jmespath hostnames[*].name
+          relationship_type: SERVICED_BY
+          outbound: false
+        - type: endpoint
+          search: !!python/jmespath origins[*].name
+          relationship_type: PROXIES_TO
+        - type: endpoint
+          search: !!python/jmespath edge_redirector_policies[*].policyId
+          relationship_type: REDIRECTS_IN
+
+writers:
+  - implementation: etwpipeline.writers:LoggerWriter
+    arguments:
+      logger_name: "akamai-property"
+      level: DEBUG
+  - !include ../neo4j_writer.yaml
