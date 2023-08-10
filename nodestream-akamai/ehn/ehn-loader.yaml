@@ -1,29 +1,29 @@
-
-write_batch_sizes: 100
-
-extractor:
-  implementation: etwpipeline.tools:FixtureFileExtractor
+- implementation: nodestream.pipeline.extractors:FileExtractor
   arguments:
-    files:
-      - akamai_ehn.json
-
-transformers:
-  - implementation: nodestream.interpreters:Interpreter
-    arguments:
-      interpretations:
-        - type: source_node
-          edgeHostnameId: !!python/jmespath edgeHostnameId
-          node_type: akamai_edgehost
-        - type: metadata
-          edgeHostname: !!python/jmespath edgeHostname
-          ipVersionBehavior: !!python/jmespath ipVersionBehavior
-        - type: endpoint
-          search: !!python/jmespath recordName
-          relationship_type: HAS_RECORD
-
-writers:
-  - implementation: etwpipeline.writers:LoggerWriter
-    arguments:
-      logger_name: "akamai-ehn"
-      level: DEBUG
-  - !include ../neo4j_writer.yaml
+    globs:
+    - akamai_ehn.json
+  annotations:
+  - live
+  - test
+- implementation: nodestream.interpreters:Interpreter
+  arguments:
+    interpretations:
+    - type: source
+      node_type: akamai_edgehost
+      normalization:
+        do_remove_trailing_dots: true
+      key:
+        edgeHostnameId: !jmespath 'edgeHostnameId'
+    - type: properties
+      properties:
+        edgeHostname: !jmespath 'edgeHostname'
+        ipVersionBehavior: !jmespath 'ipVersionBehavior'
+    - type: endpoint
+      search: !jmespath 'recordName'
+      relationship_type: HAS_RECORD
+- !etw-shim
+  implementation: etwpipeline.writers:LoggerWriter
+  arguments:
+    logger_name: akamai-ehn
+    level: DEBUG
+- !include '../neo4j_writer.yaml'

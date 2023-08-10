@@ -1,32 +1,32 @@
-
-write_batch_sizes: 100
-
-extractor:
-  implementation: etwpipeline.tools:FixtureFileExtractor
+- implementation: nodestream.pipeline.extractors:FileExtractor
   arguments:
-    files:
-      - akamai_redirect.json
-
-transformers:
-  - implementation: nodestream.interpreters:Interpreter
-    arguments:
-      interpretations:
-        - type: source_node
-          id: !!python/jmespath policyId
-          node_type: akamai_redirect_config
-        - type: metadata
-          name: !!python/jmespath name
-        - type: endpoint
-          search: !!python/jmespath inbound_hosts[*].name
-          relationship_type: REDIRECTS_HANDLED_BY
-          outbound: false
-        - type: endpoint
-          search: !!python/jmespath outbound_hosts[*].name
-          relationship_type: REDIRECTS_TO
-
-writers:
-  - implementation: etwpipeline.writers:LoggerWriter
-    arguments:
-      logger_name: "akamai-redirect-policy"
-      level: DEBUG
-  - !include ../neo4j_writer.yaml
+    globs:
+    - akamai_redirect.json
+  annotations:
+  - live
+  - test
+- implementation: nodestream.interpreters:Interpreter
+  arguments:
+    interpretations:
+    - type: source
+      node_type: akamai_redirect_config
+      normalization:
+        do_remove_trailing_dots: true
+      key:
+        id: !jmespath 'policyId'
+    - type: properties
+      properties:
+        name: !jmespath 'name'
+    - type: endpoint
+      search: !jmespath 'inbound_hosts[*].name'
+      relationship_type: REDIRECTS_HANDLED_BY
+      outbound: false
+    - type: endpoint
+      search: !jmespath 'outbound_hosts[*].name'
+      relationship_type: REDIRECTS_TO
+- !etw-shim
+  implementation: etwpipeline.writers:LoggerWriter
+  arguments:
+    logger_name: akamai-redirect-policy
+    level: DEBUG
+- !include '../neo4j_writer.yaml'

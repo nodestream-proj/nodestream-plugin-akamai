@@ -1,6 +1,3 @@
-resolvers:
-  - implementation: etwpipeline.declarative.resolvers:EnvironmentResolver
-  
 extractor:
   implementation: nodestream-akamai.cps:AkamaiCPSExtractor
   arguments:

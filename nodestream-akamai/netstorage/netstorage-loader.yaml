@@ -1,68 +1,84 @@
-
-write_batch_sizes: 100
-
-extractor:
-  implementation: etwpipeline.tools:FixtureFileExtractor
+- implementation: nodestream.pipeline.extractors:FileExtractor
   arguments:
-    files:
-      - akamai_netstorage.json
-
-transformers:
-  - implementation: nodestream.interpreters:Interpreter
-    arguments:
-      interpretations:
-        - type: source_node
-          storageGroupId: !!python/jmespath storageGroupId
-          node_type: akamai_netstorage_config
-        - type: metadata
-          storageGroupName: !!python/jmespath storageGroupName
-          estimatedUsageGB: !!python/jmespath estimatedUsageGB
-          domainPrefix: !!python/jmespath domainPrefix
-        - type: relationship
-          search: !!python/jmespath downloadDomain
-          related_node_type: akamai_property
-          related_field_name: origins[*].name
-          relationship_type: HOSTS_CONTENT_FOR
-          outbound: false
-        - type: relationship
-          search: !!python/jmespath uploadDomains.ftp
-          related_node_type: akamai_endpoint
-          related_field_name: fqdn
-          relationship_type: HAS_RECORD
-        - type: relationship
-          search: !!python/jmespath uploadDomains.sftp
-          related_node_type: akamai_endpoint
-          related_field_name: fqdn
-          relationship_type: HAS_RECORD
-        - type: relationship
-          search: !!python/jmespath uploadDomains.scp
-          related_node_type: akamai_endpoint
-          related_field_name: fqdn
-          relationship_type: HAS_RECORD
-        - type: relationship
-          search: !!python/jmespath uploadDomains.rsync
-          related_node_type: akamai_endpoint
-          related_field_name: fqdn
-          relationship_type: HAS_RECORD
-        - type: relationship
-          search: !!python/jmespath uploadDomains.ssh
-          related_node_type: akamai_endpoint
-          related_field_name: fqdn
-          relationship_type: HAS_RECORD
-        - type: relationship
-          search: !!python/jmespath uploadDomains.aspera
-          related_node_type: akamai_endpoint
-          related_field_name: fqdn
-          relationship_type: HAS_RECORD
-        - type: relationship
-          search: !!python/jmespath uploadDomains.http
-          related_node_type: akamai_endpoint
-          related_field_name: fqdn
-          relationship_type: HAS_RECORD
- 
-writers:
-  - implementation: etwpipeline.writers:LoggerWriter
-    arguments:
-      logger_name: "akamai-netstorage"
-      level: DEBUG
-  - !include ../neo4j_writer.yaml
+    globs:
+    - akamai_netstorage.json
+  annotations:
+  - live
+  - test
+- implementation: nodestream.interpreters:Interpreter
+  arguments:
+    interpretations:
+    - type: source
+      node_type: akamai_netstorage_config
+      normalization:
+        do_remove_trailing_dots: true
+      key:
+        storageGroupId: !jmespath 'storageGroupId'
+    - type: properties
+      properties:
+        storageGroupName: !jmespath 'storageGroupName'
+        estimatedUsageGB: !jmespath 'estimatedUsageGB'
+        domainPrefix: !jmespath 'domainPrefix'
+    - type: relationship
+      node_type: akamai_property
+      relationship_type: HOSTS_CONTENT_FOR
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        origins[*].name: !jmespath 'downloadDomain'
+      outbound: false
+    - type: relationship
+      node_type: akamai_endpoint
+      relationship_type: HAS_RECORD
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        fqdn: !jmespath 'uploadDomains.ftp'
+    - type: relationship
+      node_type: akamai_endpoint
+      relationship_type: HAS_RECORD
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        fqdn: !jmespath 'uploadDomains.sftp'
+    - type: relationship
+      node_type: akamai_endpoint
+      relationship_type: HAS_RECORD
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        fqdn: !jmespath 'uploadDomains.scp'
+    - type: relationship
+      node_type: akamai_endpoint
+      relationship_type: HAS_RECORD
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        fqdn: !jmespath 'uploadDomains.rsync'
+    - type: relationship
+      node_type: akamai_endpoint
+      relationship_type: HAS_RECORD
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        fqdn: !jmespath 'uploadDomains.ssh'
+    - type: relationship
+      node_type: akamai_endpoint
+      relationship_type: HAS_RECORD
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        fqdn: !jmespath 'uploadDomains.aspera'
+    - type: relationship
+      node_type: akamai_endpoint
+      relationship_type: HAS_RECORD
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        fqdn: !jmespath 'uploadDomains.http'
+- !etw-shim
+  implementation: etwpipeline.writers:LoggerWriter
+  arguments:
+    logger_name: akamai-netstorage
+    level: DEBUG
+- !include '../neo4j_writer.yaml'

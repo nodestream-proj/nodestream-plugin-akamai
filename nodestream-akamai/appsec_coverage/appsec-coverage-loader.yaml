@@ -1,29 +1,29 @@
-
-write_batch_sizes: 100
-
-extractor:
-  implementation: etwpipeline.tools:FixtureFileExtractor
+- implementation: nodestream.pipeline.extractors:FileExtractor
   arguments:
-    files:
-      - akamai_appsec_coverage.json
-
-transformers:
-  - implementation: nodestream.interpreters:Interpreter
-    arguments:
-      interpretations:
-        - type: source_node
-          policyId: !!python/jmespath policyId
-          node_type: akamai_waf_policy
-        - type: metadata
-          policyName: !!python/jmespath policyName
-        - type: endpoint
-          search: !!python/jmespath hostname
-          relationship_type: PROTECTED_BY
-          outbound: false
-
-writers:
-  - implementation: etwpipeline.writers:LoggerWriter
-    arguments:
-      logger_name: "akamai-appsec-coverage"
-      level: DEBUG
-  - !include ../neo4j_writer.yaml
+    globs:
+    - akamai_appsec_coverage.json
+  annotations:
+  - live
+  - test
+- implementation: nodestream.interpreters:Interpreter
+  arguments:
+    interpretations:
+    - type: source
+      node_type: akamai_waf_policy
+      normalization:
+        do_remove_trailing_dots: true
+      key:
+        policyId: !jmespath 'policyId'
+    - type: properties
+      properties:
+        policyName: !jmespath 'policyName'
+    - type: endpoint
+      search: !jmespath 'hostname'
+      relationship_type: PROTECTED_BY
+      outbound: false
+- !etw-shim
+  implementation: etwpipeline.writers:LoggerWriter
+  arguments:
+    logger_name: akamai-appsec-coverage
+    level: DEBUG
+- !include '../neo4j_writer.yaml'

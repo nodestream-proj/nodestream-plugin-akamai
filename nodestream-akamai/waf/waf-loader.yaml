@@ -1,36 +1,37 @@
-
-write_batch_sizes: 100
-
-extractor:
-  implementation: etwpipeline.tools:FixtureFileExtractor
+- implementation: nodestream.pipeline.extractors:FileExtractor
   arguments:
-    files:
-      - akamai_waf.json
-
-transformers:
-  - implementation: nodestream.interpreters:Interpreter
-    arguments:
-      interpretations:
-        - type: source_node
-          configId: !!python/jmespath configId
-          node_type: akamai_waf_config
-        - type: metadata
-          configName: !!python/jmespath configName
-          configId:  !!python/jmespath configId
-          productionVersion: !!python/jmespath productionVersion
-          status: !!python/jmespath status
-        - type: relationship
-          iterate_on: !!python/jmespath policies[*]
-          search: !!python/jmespath policyId
-          related_node_type: akamai_waf_policy
-          related_field_name: policyId
-          relationship_type: DEFINED_BY
-          outbound: false
-            
-
-writers:
-  - implementation: etwpipeline.writers:LoggerWriter
-    arguments:
-      logger_name: "akamai-waf"
-      level: DEBUG
-  - !include ../neo4j_writer.yaml
+    globs:
+    - akamai_waf.json
+  annotations:
+  - live
+  - test
+- implementation: nodestream.interpreters:Interpreter
+  arguments:
+    interpretations:
+    - type: source
+      node_type: akamai_waf_config
+      normalization:
+        do_remove_trailing_dots: true
+      key:
+        configId: !jmespath 'configId'
+    - type: properties
+      properties:
+        configName: !jmespath 'configName'
+        configId: !jmespath 'configId'
+        productionVersion: !jmespath 'productionVersion'
+        status: !jmespath 'status'
+    - type: relationship
+      node_type: akamai_waf_policy
+      relationship_type: DEFINED_BY
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        policyId: !jmespath 'policyId'
+      outbound: false
+      iterate_on: !jmespath 'policies[*]'
+- !etw-shim
+  implementation: etwpipeline.writers:LoggerWriter
+  arguments:
+    logger_name: akamai-waf
+    level: DEBUG
+- !include '../neo4j_writer.yaml'

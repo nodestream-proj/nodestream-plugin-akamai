@@ -1,38 +1,36 @@
-
-write_batch_sizes: 100
-
-extractor:
-  implementation: etwpipeline.tools:FixtureFileExtractor
+- implementation: nodestream.pipeline.extractors:FileExtractor
   arguments:
-    files:
-      - akamai_gtm.json
-
-transformers:
-  - implementation: nodestream.interpreters:Interpreter
-    arguments:
-      interpretations:
-        - type: source_node
-          id: !!python/jmespath name
-          node_type: akamai_gtm_config
-#        - type: metadata
-#          last_modified: !!python/jmespath raw.lastModifiedBy
-#          type: !!python/jmespath raw.type
-        - type: metadata
-          name: !!python/jmespath name
-        - type: endpoint
-          search: !!python/jmespath summary[*].fqdn
-          relationship_type: HAS_RECORD
-        - type: relationship
-          iterate_on: !!python/jmespath summary[*].trafficTargets[*]
-          search: !!python/jmespath datacenterId
-          related_node_type: akamai_gtm_target
-          related_field_name: fqdn
-          relationship_type: DEFINED_BY
-            
-
-writers:
-  - implementation: etwpipeline.writers:LoggerWriter
-    arguments:
-      logger_name: "akamai-gtm"
-      level: DEBUG
-  - !include ../neo4j_writer.yaml
+    globs:
+    - akamai_gtm.json
+  annotations:
+  - live
+  - test
+- implementation: nodestream.interpreters:Interpreter
+  arguments:
+    interpretations:
+    - type: source
+      node_type: akamai_gtm_config
+      normalization:
+        do_remove_trailing_dots: true
+      key:
+        id: !jmespath 'name'
+    - type: properties
+      properties:
+        name: !jmespath 'name'
+    - type: endpoint
+      search: !jmespath 'summary[*].fqdn'
+      relationship_type: HAS_RECORD
+    - type: relationship
+      node_type: akamai_gtm_target
+      relationship_type: DEFINED_BY
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        fqdn: !jmespath 'datacenterId'
+      iterate_on: !jmespath 'summary[*].trafficTargets[*]'
+- !etw-shim
+  implementation: etwpipeline.writers:LoggerWriter
+  arguments:
+    logger_name: akamai-gtm
+    level: DEBUG
+- !include '../neo4j_writer.yaml'

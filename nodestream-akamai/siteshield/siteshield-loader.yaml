@@ -1,33 +1,35 @@
-
-write_batch_sizes: 100
-
-extractor:
-  implementation: etwpipeline.tools:FixtureFileExtractor
+- implementation: nodestream.pipeline.extractors:FileExtractor
   arguments:
-    files:
-      - akamai_siteshield.json
-
-transformers:
-  - implementation: nodestream.interpreters:Interpreter
-    arguments:
-      interpretations:
-        - type: source_node
-          id: !!python/jmespath id
-          node_type: akamai_siteshield_config
-        - type: metadata
-          mapAlias: !!python/jmespath mapAlias
-          acknowledgedBy: !!python/jmespath acknowledgedBy
-          mcmMapRuleId: !!python/jmespath mcmMapRuleId
-        - type: relationship
-          search: !!python/jmespath currentCidrs[*]
-          related_node_type: cidripv4
-          related_field_name: cidr
-          relationship_type: EGRESS
-          find_many: true
-
-writers:
-  - implementation: etwpipeline.writers:LoggerWriter
-    arguments:
-      logger_name: "akamai-siteshield"
-      level: DEBUG
-  - !include ../neo4j_writer.yaml
+    globs:
+    - akamai_siteshield.json
+  annotations:
+  - live
+  - test
+- implementation: nodestream.interpreters:Interpreter
+  arguments:
+    interpretations:
+    - type: source
+      node_type: akamai_siteshield_config
+      normalization:
+        do_remove_trailing_dots: true
+      key:
+        id: !jmespath 'id'
+    - type: properties
+      properties:
+        mapAlias: !jmespath 'mapAlias'
+        acknowledgedBy: !jmespath 'acknowledgedBy'
+        mcmMapRuleId: !jmespath 'mcmMapRuleId'
+    - type: relationship
+      node_type: cidripv4
+      relationship_type: EGRESS
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        cidr: !jmespath 'currentCidrs[*]'
+      find_many: true
+- !etw-shim
+  implementation: etwpipeline.writers:LoggerWriter
+  arguments:
+    logger_name: akamai-siteshield
+    level: DEBUG
+- !include '../neo4j_writer.yaml'

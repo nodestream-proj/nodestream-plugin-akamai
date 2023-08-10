@@ -1,15 +1,16 @@
-
-extractor:
-  implementation: nodestream-akamai.netstorage:AkamaiNetstorageExtractor
+- implementation: nodestream-akamai.netstorage:AkamaiNetstorageExtractor
   arguments:
-    base_url: env://base_url
-    client_token: env://client_token
-    client_secret: env://client_secret
-    access_token: env://access_token
-    account_key: env://account_key
-
-writers:
-  - implementation: etwpipeline.writers:LoggerWriter
-  - implementation: etwpipeline.writers:JsonFileWriter
-    arguments:
-      file_name: akamai_netstorage.json
+    base_url: !env 'base_url'
+    client_token: !env 'client_token'
+    client_secret: !env 'client_secret'
+    access_token: !env 'access_token'
+    account_key: !env 'account_key'
+  annotations:
+  - live
+  - test
+- !etw-shim
+  implementation: etwpipeline.writers:LoggerWriter
+- !etw-shim
+  implementation: etwpipeline.writers:JsonFileWriter
+  arguments:
+    file_name: akamai_netstorage.json
