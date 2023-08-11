@@ -11,7 +11,7 @@ from urllib3.util.retry import Retry
 
 from akamai.edgegrid import EdgeGridAuth
 
-from akamai_utils.model import EdgeHost, Origin, PropertyDescription
+from .model import EdgeHost, Origin, PropertyDescription
 
 
 logger = logging.getLogger(__name__)

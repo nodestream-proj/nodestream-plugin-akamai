@@ -1,8 +1,8 @@
 import logging
 
-from nodestream.pipeline.extractors import Extractor
+from ..akamai_utils.client import AkamaiApiClient
 
-from akamai_utils.client import AkamaiApiClient
+from nodestream.pipeline.extractors import Extractor
 
 
 class AkamaiRedirectExtractor(Extractor):
