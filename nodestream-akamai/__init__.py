@@ -7,9 +7,6 @@ from property import AkamaiPropertyExtractor
 from redirect import AkamaiRedirectExtractor 
 from siteshield import AkamaiSiteShieldExtractor
 from waf import AkamaiWAFExtractor
+from plugin import AkamaiPlugin
 
-
-
-
-
-__all__ = ("AkamaiWAFExtractor","AkamaiSiteShieldExtractor","AkamaiRedirectExtractor","AkamaiPropertyExtractor","AkamaiNetstorageExtractor","AkamaiGTMExtractor","AkamaiEHNExtractor","AkamaiCPSExtractor","AkamaiAppSecCoverageExtractor")
+__all__ = ("AkamaiPlugin","AkamaiWAFExtractor","AkamaiSiteShieldExtractor","AkamaiRedirectExtractor","AkamaiPropertyExtractor","AkamaiNetstorageExtractor","AkamaiGTMExtractor","AkamaiEHNExtractor","AkamaiCPSExtractor","AkamaiAppSecCoverageExtractor")
