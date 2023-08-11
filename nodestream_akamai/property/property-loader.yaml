@@ -5,7 +5,7 @@
   annotations:
   - live
   - test
-- implementation: nodestream.interpreters:Interpreter
+- implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source
@@ -27,9 +27,3 @@
     - type: endpoint
       search: !jmespath 'edge_redirector_policies[*].policyId'
       relationship_type: REDIRECTS_IN
-- !etw-shim
-  implementation: etwpipeline.writers:LoggerWriter
-  arguments:
-    logger_name: akamai-property
-    level: DEBUG
-- !include '../neo4j_writer.yaml'

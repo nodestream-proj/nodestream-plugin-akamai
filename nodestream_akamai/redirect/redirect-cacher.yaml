@@ -9,8 +9,6 @@
   - live
   - test
 - !etw-shim
-  implementation: etwpipeline.writers:LoggerWriter
-- !etw-shim
   implementation: etwpipeline.writers:JsonFileWriter
   arguments:
     file_name: akamai_redirect.json

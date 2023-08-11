@@ -5,7 +5,7 @@
   annotations:
   - live
   - test
-- implementation: nodestream.interpreters:Interpreter
+- implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source
@@ -27,9 +27,3 @@
       node_key:
         cidr: !jmespath 'currentCidrs[*]'
       find_many: true
-- !etw-shim
-  implementation: etwpipeline.writers:LoggerWriter
-  arguments:
-    logger_name: akamai-siteshield
-    level: DEBUG
-- !include '../neo4j_writer.yaml'

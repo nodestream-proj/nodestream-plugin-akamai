@@ -5,7 +5,7 @@
   annotations:
   - live
   - test
-- implementation: nodestream.interpreters:Interpreter
+- implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source
@@ -26,9 +26,3 @@
       search: !jmespath 'csr.sans[*]'
       relationship_type: PROTECTED_BY
       outbound: false
-- !etw-shim
-  implementation: etwpipeline.writers:LoggerWriter
-  arguments:
-    logger_name: akamai-cps
-    level: DEBUG
-- !include '../neo4j_writer.yaml'

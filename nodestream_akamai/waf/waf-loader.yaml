@@ -5,7 +5,7 @@
   annotations:
   - live
   - test
-- implementation: nodestream.interpreters:Interpreter
+- implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source
@@ -29,9 +29,3 @@
         policyId: !jmespath 'policyId'
       outbound: false
       iterate_on: !jmespath 'policies[*]'
-- !etw-shim
-  implementation: etwpipeline.writers:LoggerWriter
-  arguments:
-    logger_name: akamai-waf
-    level: DEBUG
-- !include '../neo4j_writer.yaml'

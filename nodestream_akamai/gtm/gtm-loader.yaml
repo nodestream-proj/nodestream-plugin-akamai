@@ -5,7 +5,7 @@
   annotations:
   - live
   - test
-- implementation: nodestream.interpreters:Interpreter
+- implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source
@@ -28,9 +28,3 @@
       node_key:
         fqdn: !jmespath 'datacenterId'
       iterate_on: !jmespath 'summary[*].trafficTargets[*]'
-- !etw-shim
-  implementation: etwpipeline.writers:LoggerWriter
-  arguments:
-    logger_name: akamai-gtm
-    level: DEBUG
-- !include '../neo4j_writer.yaml'

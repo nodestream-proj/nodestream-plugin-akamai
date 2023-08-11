@@ -1,3 +1,4 @@
+import functools
 import logging
 import time
 import re
@@ -5,8 +6,6 @@ from typing import List, Tuple
 from urllib.parse import urljoin, urlparse
 from requests import Session
 from requests.adapters import HTTPAdapter
-from requests.auth import AuthBase
-from requests.models import PreparedRequest
 from urllib3.util.retry import Retry
 
 from akamai.edgegrid import EdgeGridAuth
