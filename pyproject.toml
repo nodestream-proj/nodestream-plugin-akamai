@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "neo4j+akamai"
+name = "nodestream-akamai"
 version = "0.1.0"
 description = ""
 authors = [
@@ -7,6 +7,9 @@ authors = [
     "Chad Cloes <Chad_Cloes@intuit.com>",
     "Bryan Norman <Bryan_Norman@intuit.com>",
     "Gabe Gallagher <Gabe_Gallagher@intuit.com>"
+]
+packages = [
+    { include = "nodestream_akamai" }
 ]
 
 [tool.poetry.dependencies]
@@ -41,5 +44,5 @@ profile = "black"
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[project.entry-points."nodestream.plugins"]
-project = "AkamaiPlugin"
+[tool.poetry.plugins."nodestream.plugins"]
+projects = "nodestream_akamai.plugin"
