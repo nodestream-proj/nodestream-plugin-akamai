@@ -11,7 +11,7 @@
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
-    - type: source
+    - type: source_node
       node_type: akamai_property_config
       normalization:
         do_remove_trailing_dots: true
