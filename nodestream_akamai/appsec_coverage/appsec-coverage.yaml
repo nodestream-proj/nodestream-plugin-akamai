@@ -1,4 +1,4 @@
-- implementation: nodestream-akamai.appsec_coverage:AkamaiAppSecCoverageExtractor
+- implementation: nodestream_akamai.appsec_coverage:AkamaiAppSecCoverageExtractor
   arguments:
     base_url: !env 'base_url'
     client_token: !env 'client_token'

@@ -1,4 +1,4 @@
-- implementation: nodestream-akamai.gtm:AkamaiGTMExtractor
+- implementation: nodestream_akamai.gtm:AkamaiGTMExtractor
   arguments:
     base_url: !env 'base_url'
     client_token: !env 'client_token'

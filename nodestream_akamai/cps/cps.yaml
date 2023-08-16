@@ -1,4 +1,4 @@
-- implementation: nodestream-akamai.cps:AkamaiCPSExtractor
+- implementation: nodestream_akamai.cps:AkamaiCPSExtractor
   arguments:
     base_url: !env 'base_url'
     client_token: !env 'client_token'

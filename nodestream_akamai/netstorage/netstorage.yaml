@@ -1,4 +1,4 @@
-- implementation: nodestream-akamai.netstorage:AkamaiNetstorageExtractor
+- implementation: nodestream_akamai.netstorage:AkamaiNetstorageExtractor
   arguments:
     base_url: !env 'base_url'
     client_token: !env 'client_token'

@@ -1,4 +1,4 @@
-- implementation: nodestream-akamai.ehn:AkamaiEHNExtractor
+- implementation: nodestream_akamai.ehn:AkamaiEHNExtractor
   arguments:
     base_url: !env 'base_url'
     client_token: !env 'client_token'

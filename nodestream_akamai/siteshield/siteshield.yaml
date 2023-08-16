@@ -1,4 +1,4 @@
-- implementation: nodestream-akamai.siteshield:AkamaiSiteShieldExtractor
+- implementation: nodestream_akamai.siteshield:AkamaiSiteShieldExtractor
   arguments:
     base_url: !env 'base_url'
     client_token: !env 'client_token'
