@@ -1,4 +1,4 @@
-- implementation: nodestream_akamai.netstorage:AkamaiNetstorageExtractor
+- implementation: nodestream_akamai.netstorage_group:AkamaiNetstorageGroupExtractor
   arguments:
     base_url: !env 'base_url'
     client_token: !env 'client_token'
@@ -22,14 +22,6 @@
         storageGroupName: !jmespath 'storageGroupName'
         estimatedUsageGB: !jmespath 'estimatedUsageGB'
         domainPrefix: !jmespath 'domainPrefix'
-    - type: relationship
-      node_type: akamai_property
-      relationship_type: HOSTS_CONTENT_FOR
-      key_normalization:
-        do_remove_trailing_dots: true
-      node_key:
-        origins[*].name: !jmespath 'downloadDomain'
-      outbound: false
     - type: relationship
       node_type: akamai_endpoint
       relationship_type: HAS_RECORD

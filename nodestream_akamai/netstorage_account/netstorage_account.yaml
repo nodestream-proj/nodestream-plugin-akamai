@@ -1,0 +1,36 @@
+- implementation: nodestream_akamai.netstorage_account:AkamaiNetstorageAccountExtractor
+  arguments:
+    base_url: !env 'base_url'
+    client_token: !env 'client_token'
+    client_secret: !env 'client_secret'
+    access_token: !env 'access_token'
+    account_key: !env 'account_key'
+  annotations:
+  - live
+  - test
+- implementation: nodestream.interpreting:Interpreter
+  arguments:
+    interpretations:
+    - type: source_node
+      node_type: akamai_netstorage_config
+      normalization:
+        do_remove_trailing_dots: true
+      key:
+        storageGroupId: !jmespath 'storageGroupId'
+    - type: properties
+      properties:
+        storageGroupName: !!python/jmespath storageGroupName
+        ftpEnabled: !!python/jmespath ftpEnabled
+        sshEnabled: !!python/jmespath sshEnabled
+        rsyncEnabled: !!python/jmespath rsyncEnabled
+        asperaEnabled: !!python/jmespath asperaEnabled
+        hasFileManagerAccess: !!python/jmespath hasFileManagerAccess
+        hasHttpApiAccess: !!python/jmespath hasHttpApiAccess
+    - type: relationship
+      node_type: akamai_netstorage_config
+      relationship_type: ACCESSES
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        storageGroupId: !jmespath 'storageGroupId'
+      outbound: false

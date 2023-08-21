@@ -16,7 +16,7 @@
       normalization:
         do_remove_trailing_dots: true
       key:
-        id: !jmespath 'policyId'
+        policyId: !jmespath 'policyId'
     - type: properties
       properties:
         name: !jmespath 'name'

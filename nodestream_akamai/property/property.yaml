@@ -27,6 +27,8 @@
     - type: endpoint
       search: !jmespath 'origins[*].name'
       relationship_type: PROXIES_TO
-    - type: endpoint
+    - type: relationship
       search: !jmespath 'edge_redirector_policies[*].policyId'
       relationship_type: REDIRECTS_IN
+      node_key:
+        fqdn: !jmespath 'policyId'
