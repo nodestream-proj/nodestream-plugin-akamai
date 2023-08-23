@@ -18,10 +18,14 @@ NOTE: These values will be used in your `.env`
 # Install and run the app
 1. Install python3: https://www.python.org/downloads/ 
 1. Install poetry: https://python-poetry.org/docs/#installation 
+1. Install nodestream: https://nodestream-proj.github.io/nodestream/0.5/docs/tutorial/
+1. Generate a new nodestream project
+1. Add `nodestream-akamai` to your project dependencies in your nodestream projects pyproject.toml file.
 1. Setup `.env` file: (copy .env.example and update values)
 1. Install necessary dependencies: `poetry install`
 1. Source necessary Environment Variables: `source ./.env`
-1. Run the app: `poetry run python main.py`
+1. Verify nodestream has loaded the pipelines: `poetry run nodestream show`
+1. Use nodestream to run the pipelines: `poetry run nodestream run <pipeline-name>`
 
 # Using make
 1. Install make (ie. `brew install make`)

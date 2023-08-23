@@ -1,6 +1,0 @@
-implementation: neo4j_ingest.pipeline_components:IngestNeo4jWriter
-arguments:
-  uri: env://NEO4J_ENDPOINT
-  username: neo4j
-  password: env://NEO4J_DATABASE_PASSWORD
-  database_name: env://NEO4J_DATABASE_NAME

@@ -1,0 +1,32 @@
+- implementation: nodestream_akamai.siteshield:AkamaiSiteShieldExtractor
+  arguments:
+    base_url: !env 'base_url'
+    client_token: !env 'client_token'
+    client_secret: !env 'client_secret'
+    access_token: !env 'access_token'
+    account_key: !env 'account_key'
+  annotations:
+  - live
+  - test
+- implementation: nodestream.interpreting:Interpreter
+  arguments:
+    interpretations:
+    - type: source_node
+      node_type: akamai_siteshield_config
+      normalization:
+        do_remove_trailing_dots: true
+      key:
+        id: !jmespath 'id'
+    - type: properties
+      properties:
+        mapAlias: !jmespath 'mapAlias'
+        acknowledgedBy: !jmespath 'acknowledgedBy'
+        mcmMapRuleId: !jmespath 'mcmMapRuleId'
+    - type: relationship
+      node_type: cidripv4
+      relationship_type: EGRESS
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        cidr: !jmespath 'currentCidrs[*]'
+      find_many: true

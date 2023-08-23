@@ -1,0 +1,32 @@
+- implementation: nodestream_akamai.property:AkamaiPropertyExtractor
+  arguments:
+    base_url: !env 'base_url'
+    client_token: !env 'client_token'
+    client_secret: !env 'client_secret'
+    access_token: !env 'access_token'
+    account_key: !env 'account_key'
+  annotations:
+  - live
+  - test
+- implementation: nodestream.interpreting:Interpreter
+  arguments:
+    interpretations:
+    - type: source_node
+      node_type: akamai_property_config
+      normalization:
+        do_remove_trailing_dots: true
+      key:
+        id: !jmespath 'id'
+    - type: properties
+      properties:
+        name: !jmespath 'name'
+    - type: endpoint
+      search: !jmespath 'hostnames[*].name'
+      relationship_type: SERVICED_BY
+      outbound: false
+    - type: endpoint
+      search: !jmespath 'origins[*].name'
+      relationship_type: PROXIES_TO
+    - type: endpoint
+      search: !jmespath 'edge_redirector_policies[*].policyId'
+      relationship_type: REDIRECTS_IN
