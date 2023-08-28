@@ -1,7 +1,7 @@
 import logging
 from typing import List, Tuple
 from .client import AkamaiApiClient
-from etwpipeline.akamai.model import EdgeHost, Origin, PropertyDescription
+from .model import EdgeHost, Origin, PropertyDescription
 from jsonpath_ng.ext import parse
 
 
