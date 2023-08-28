@@ -1,3 +1,3 @@
-from .netstorage_group import AkamaiNetstorageGroupExtractor
+from .netstorage_account import AkamaiNetstorageAccountExtractor
 
-__all__ = ("AkamaiNetstorageGroupExtractor",)
+__all__ = ("AkamaiNetstorageAccountExtractor",)
