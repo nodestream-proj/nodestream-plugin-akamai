@@ -1,6 +1,6 @@
 import logging
 import logging
-from etwpipeline.akamai.client import AkamaiApiClient
+from .client import AkamaiApiClient
 
 logger = logging.getLogger(__name__)
 

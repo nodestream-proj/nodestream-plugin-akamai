@@ -1,7 +1,7 @@
 import logging
 import re
 from typing import List
-from etwpipeline.akamai.client import AkamaiApiClient
+from .client import AkamaiApiClient
 from urllib.parse import urlparse
 
 
