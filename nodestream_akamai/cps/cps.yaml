@@ -21,11 +21,15 @@
       properties:
         expiry: !jmespath 'expiry'
         cn: !jmespath 'csr.cn'
-    - type: endpoint
-      search: !jmespath 'csr.cn'
+    - type: relationship
+      node_type: endpoint
+      node_key: 
+        fqdn: !jmespath 'csr.cn'
       relationship_type: PROTECTED_BY
       outbound: false
-    - type: endpoint
-      search: !jmespath 'csr.sans[*]'
+    - type: relationship
+      node_type: endpoint
+      node_key: 
+        fqdn: !jmespath 'csr.sans[*]'
       relationship_type: PROTECTED_BY
       outbound: false

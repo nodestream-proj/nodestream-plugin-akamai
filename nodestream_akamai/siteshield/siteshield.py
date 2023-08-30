@@ -3,6 +3,7 @@ import logging
 from ..akamai_utils.siteshield_client import AkamaiSiteshieldClient
 
 from nodestream.pipeline.extractors import Extractor
+from nodestream.pipeline.extractors import Extractor
 
 
 class AkamaiSiteShieldExtractor(Extractor):
@@ -10,7 +11,7 @@ class AkamaiSiteShieldExtractor(Extractor):
         self.client = AkamaiSiteshieldClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
-    def extract_records(self):
+    async def extract_records(self):
         try:
             siteshield_maps = self.client.list_siteshield_maps()
         except Exception as err:

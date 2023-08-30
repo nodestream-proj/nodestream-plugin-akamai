@@ -1,11 +1,17 @@
 [tool.poetry]
 name = "nodestream-akamai"
+name = "nodestream-akamai"
 version = "0.1.0"
 description = ""
 authors = [
     "Zach Probst <Zach_Probst@intuit.com>",
     "Chad Cloes <Chad_Cloes@intuit.com>",
     "Bryan Norman <Bryan_Norman@intuit.com>",
+    "Gabe Gallagher <Gabe_Gallagher@intuit.com>",
+    "Grant Hoffman <Grant_Hoffman@intuit.com>"
+]
+packages = [
+    { include = "nodestream_akamai" }
     "Gabe Gallagher <Gabe_Gallagher@intuit.com>",
     "Grant Hoffman <Grant_Hoffman@intuit.com>"
 ]
@@ -45,6 +51,9 @@ profile = "black"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.plugins."nodestream.plugins"]
+projects = "nodestream_akamai.plugin"
 
 [tool.poetry.plugins."nodestream.plugins"]
 projects = "nodestream_akamai.plugin"

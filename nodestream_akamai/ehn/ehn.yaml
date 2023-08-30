@@ -21,6 +21,8 @@
       properties:
         edgeHostname: !jmespath 'edgeHostname'
         ipVersionBehavior: !jmespath 'ipVersionBehavior'
-    - type: endpoint
-      search: !jmespath 'recordName'
+        - type: relationship
+      node_type: endpoint
+      node_key: 
+        fqdn: !jmespath 'recordName'
       relationship_type: HAS_RECORD
