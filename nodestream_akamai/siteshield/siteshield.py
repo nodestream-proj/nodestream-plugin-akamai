@@ -10,7 +10,7 @@ class AkamaiSiteShieldExtractor(Extractor):
         self.client = AkamaiApiClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
-    def extract_records(self):
+    async def extract_records(self):
         try:
             siteshield_maps = self.client.list_siteshield_maps()
         except Exception as err:

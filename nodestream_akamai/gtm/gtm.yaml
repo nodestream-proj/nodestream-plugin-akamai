@@ -20,8 +20,10 @@
     - type: properties
       properties:
         name: !jmespath 'name'
-    - type: endpoint
-      search: !jmespath 'summary[*].fqdn'
+        - type: relationship
+      node_type: endpoint
+      node_key: 
+        fqdn: !jmespath 'summary[*].fqdn'
       relationship_type: HAS_RECORD
     - type: relationship
       node_type: akamai_gtm_target
