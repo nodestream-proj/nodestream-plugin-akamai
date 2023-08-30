@@ -10,7 +10,7 @@ class AkamaiPropertyExtractor(Extractor):
         self.client = AkamaiApiClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
-    def extract_records(self):
+    async def extract_records(self):
         try:
             properties = self.client.list_all_properties()
         except Exception as err:

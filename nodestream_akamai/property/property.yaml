@@ -20,13 +20,19 @@
     - type: properties
       properties:
         name: !jmespath 'name'
-    - type: endpoint
-      search: !jmespath 'hostnames[*].name'
+    - type: relationship
+      node_type: endpoint
+      node_key: 
+        fqdn: !jmespath 'hostnames[*].name'
       relationship_type: SERVICED_BY
       outbound: false
-    - type: endpoint
-      search: !jmespath 'origins[*].name'
+    - type: relationship
+      node_type: endpoint
+      node_key: 
+        fqdn: !jmespath 'origins[*].name'
       relationship_type: PROXIES_TO
-    - type: endpoint
-      search: !jmespath 'edge_redirector_policies[*].policyId'
+    - type: relationship
+      node_type: endpoint
+      node_key: 
+        fqdn: !jmespath 'edge_redirector_policies[*].policyId'
       relationship_type: REDIRECTS_IN
