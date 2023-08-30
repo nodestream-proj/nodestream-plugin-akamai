@@ -1,16 +1,14 @@
 import logging
 
 from ..akamai_utils.appsec_client import AkamaiAppSecClient
-
 from nodestream.pipeline.extractors import Extractor
-
 
 class AkamaiWAFExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
         self.client = AkamaiAppSecClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
-    def extract_records(self):
+    async def extract_records(self):
         ag_map = {
             "POLICY": "Web Policy Violation",
             "WAT": "Web Attack Tool",

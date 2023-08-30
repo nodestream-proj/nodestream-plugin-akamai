@@ -33,3 +33,11 @@
         fqdn: !jmespath 'csr.sans[*]'
       relationship_type: PROTECTED_BY
       outbound: false
+
+- implementation: nodestream.databases:GraphDatabaseWriter
+  arguments:
+    batch_size: !env NEO4J_BATCH_SIZE
+    database: neo4j
+    uri: !env NEO4J_ENDPOINT
+    username: !env NEO4J_DATABASE_USERNAME
+    password: !env NEO4J_DATABASE_PASSWORD

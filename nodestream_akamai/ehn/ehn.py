@@ -10,7 +10,7 @@ class AkamaiEHNExtractor(Extractor):
         self.client = AkamaiEdgeHostnamesClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
-    def extract_records(self):
+    async def extract_records(self):
         try:
             for edge_hostname in self.client.list_edge_hostnames():
                 edge_hostname["edgeHostname"] = edge_hostname["recordName"] + "." + edge_hostname["dnsZone"]

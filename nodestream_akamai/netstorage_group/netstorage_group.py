@@ -10,7 +10,7 @@ class AkamaiNetstorageGroupExtractor(Extractor):
         self.client = AkamaiNetstorageClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
-    def extract_records(self):
+    async def extract_records(self):
         desired_keys = ["storageGroupId", "storageGroupName", "domainPrefix", "estimatedUsageGB"]
         upload_domain_suffixes = {
             "ftp": ".ftp.upload.akamai.com",

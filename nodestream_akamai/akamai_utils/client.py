@@ -86,7 +86,7 @@ class AkamaiApiClient:
         # raise for status only handles: 400 <= status_code < 600
         raise Exception(f"response.status_code: {response.status_code}", response.text)
 
-    def keep_first(iterable, key=None):
+    def keep_first(self, iterable, key=None):
         if key is None:
             key = lambda x: x
 
@@ -99,7 +99,7 @@ class AkamaiApiClient:
             yield elem
             seen.add(k)
 
-    def _resilient_session_factory(timeout=300, retry_count=5) -> Session:
+    def _resilient_session_factory(self, timeout=300, retry_count=5) -> Session:
         session = Session()
         retries = Retry(total=retry_count, backoff_factor=0.5, status_forcelist=[500, 502, 503, 504])
         session.mount(PROTOCOL_HTTP, HTTPAdapter(max_retries=retries))

@@ -10,7 +10,7 @@ class AkamaiNetstorageAccountExtractor(Extractor):
         self.client = AkamaiNetstorageClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
-    def extract_records(self):
+    async def extract_records(self):
         try:
             upload_accounts = self.client.list_upload_accounts()
         except Exception as err:

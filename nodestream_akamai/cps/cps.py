@@ -10,7 +10,7 @@ class AkamaiCPSExtractor(Extractor):
         self.client = AkamaiCPSClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
-    def extract_records(self):
+    async def extract_records(self):
         desired_fields = ["id", "productionSlots", "ra", "networkConfiguration", "csr"]
         try:
             enrollments = self.client.list_cps_enrollments()
