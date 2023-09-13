@@ -22,7 +22,7 @@ NOTE: These values will be used in your `.env`
 1. Generate a new nodestream project
 1. Add `nodestream-akamai` to your project dependencies in your nodestream projects pyproject.toml file.
 1. Install necessary dependencies: `poetry install`
-1. In nodestream.yaml add the following:
+1. In `nodestream.yaml` add the following:
 ```yaml
 plugin_config:
   akamai:
