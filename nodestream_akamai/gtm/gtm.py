@@ -10,7 +10,7 @@ class AkamaiGTMExtractor(Extractor):
         self.client = AkamaiApiClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
-    def extract_records(self):
+    async def extract_records(self):
         for domain in self.client.list_gtm_domains():
             try:
                 raw_domain = self.client.get_gtm_domain(domain['name'])
