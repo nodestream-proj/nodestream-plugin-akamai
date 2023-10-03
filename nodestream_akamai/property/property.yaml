@@ -36,3 +36,10 @@
       node_key: 
         fqdn: !jmespath 'edge_redirector_policies[*].policyId'
       relationship_type: REDIRECTS_IN
+- implementation: nodestream.databases:GraphDatabaseWriter
+  arguments:
+    batch_size: 100
+    database: !env NEO4J_DATABASE_NAME
+    uri: !env NEO4J_ENDPOINT
+    username: !env NEO4J_DATABASE_USERNAME
+    password: !env NEO4J_DATABASE_PASSWORD
