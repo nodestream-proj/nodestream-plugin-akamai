@@ -3,6 +3,7 @@ import logging
 from ..akamai_utils.appsec_client import AkamaiAppSecClient
 from nodestream.pipeline.extractors import Extractor
 
+
 class AkamaiWAFExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
         self.client = AkamaiAppSecClient(**akamai_client_kwargs)
@@ -57,6 +58,6 @@ class AkamaiWAFExtractor(Extractor):
 
                     yield output_config
                 else:
-                    self.logger.warning(f"No production version exists for config {config['name']}: {err}")
+                    self.logger.warning(f"No production version exists for config {config['name']}")
             except Exception as err:
                 self.logger.error(f"Failed to export appsec configuration {config['name']}: {err}")

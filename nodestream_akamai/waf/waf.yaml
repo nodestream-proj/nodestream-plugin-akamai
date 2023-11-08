@@ -1,4 +1,4 @@
-- implementation: nodestream-akamai.waf:AkamaiWAFExtractor
+- implementation: nodestream_akamai.waf:AkamaiWAFExtractor
   arguments:
     base_url: !env 'base_url'
     client_token: !env 'client_token'

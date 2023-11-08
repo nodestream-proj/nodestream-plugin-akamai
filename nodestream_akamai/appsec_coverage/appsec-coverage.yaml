@@ -17,12 +17,10 @@
         do_remove_trailing_dots: true
       key:
         policyId: !jmespath 'policyId'
-    - type: properties
-      properties:
-        policyName: !jmespath 'policyName'
     - type: relationship
       node_type: endpoint
-      search: !jmespath 'hostname'
+      node_key: 
+        policyId: !jmespath 'hostname'
       relationship_type: PROTECTED_BY
       outbound: false
 

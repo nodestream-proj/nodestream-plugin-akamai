@@ -20,7 +20,7 @@
     - type: properties
       properties:
         name: !jmespath 'name'
-        - type: relationship
+    - type: relationship
       node_type: endpoint
       node_key: 
         fqdn: !jmespath 'summary[*].fqdn'

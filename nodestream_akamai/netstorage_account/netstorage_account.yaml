@@ -19,13 +19,13 @@
         storageGroupId: !jmespath 'storageGroupId'
     - type: properties
       properties:
-        storageGroupName: !!python/jmespath storageGroupName
-        ftpEnabled: !!python/jmespath ftpEnabled
-        sshEnabled: !!python/jmespath sshEnabled
-        rsyncEnabled: !!python/jmespath rsyncEnabled
-        asperaEnabled: !!python/jmespath asperaEnabled
-        hasFileManagerAccess: !!python/jmespath hasFileManagerAccess
-        hasHttpApiAccess: !!python/jmespath hasHttpApiAccess
+        storageGroupName: !jmespath 'storageGroupName'
+        ftpEnabled: !jmespath 'ftpEnabled'
+        sshEnabled: !jmespath 'sshEnabled'
+        rsyncEnabled: !jmespath 'rsyncEnabled'
+        asperaEnabled: !jmespath 'asperaEnabled'
+        hasFileManagerAccess: !jmespath 'hasFileManagerAccess'
+        hasHttpApiAccess: !jmespath 'hasHttpApiAccess'
     - type: relationship
       node_type: akamai_netstorage_config
       relationship_type: ACCESSES
