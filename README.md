@@ -21,9 +21,19 @@ NOTE: These values will be used in your `.env`
 1. Install nodestream: https://nodestream-proj.github.io/nodestream/0.5/docs/tutorial/
 1. Generate a new nodestream project
 1. Add `nodestream-akamai` to your project dependencies in your nodestream projects pyproject.toml file.
-1. Setup `.env` file: (copy .env.example and update values)
 1. Install necessary dependencies: `poetry install`
-1. Source necessary Environment Variables: `source ./.env`
+1. In `nodestream.yaml` add the following:
+```yaml
+plugin_config:
+  akamai:
+    base_url: !env AKAMAI_BASE_URL
+    client_token: !env AKAMAI_CLIENT_TOKEN
+    client_secret: !env AKAMAI_CLIENT_SECRET
+    access_token: !env AKAMAI_ACCESS_TOKEN
+    # If you are using an akamai account key add the following line:
+    account_key: !env AKAMAI_ACCOUNT_KEY
+```
+1. Set environment variables in your terminal session for: `AKAMAI_BASE_URL`, `AKAMAI_CLIENT_TOKEN`, `AKAMAI_CLIENT_SECRET`, `AKAMAI_ACCESS_TOKEN` and if using an akamai account key `AKAMAI_ACCOUNT_KEY`.
 1. Verify nodestream has loaded the pipelines: `poetry run nodestream show`
 1. Use nodestream to run the pipelines: `poetry run nodestream run <pipeline-name>`
 

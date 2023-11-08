@@ -12,6 +12,7 @@ class AkamaiRedirectExtractor(Extractor):
         for policy_id in self.client.cloudlet_policy_ids():
             try:
                 policy_tree = self.client.describe_policy_id(policy_id)
-                yield self.client.get_policy_rule_set(policy_tree)
+                for item in self.client.get_policy_rule_set(policy_tree):
+                    yield item
             except Exception:
                 self.logger.error("Failed to get policy: %s", policy_id)
