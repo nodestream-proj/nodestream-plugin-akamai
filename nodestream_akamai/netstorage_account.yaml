@@ -1,10 +1,10 @@
-- implementation: nodestream_akamai.netstorage_account:AkamaiNetstorageAccountExtractor
-  arguments:
+- arguments:
     base_url: !env 'base_url'
     client_token: !env 'client_token'
     client_secret: !env 'client_secret'
     access_token: !env 'access_token'
     account_key: !env 'account_key'
+  implementation: nodestream_akamai.netstorage_account:AkamaiNetstorageAccountExtractor
   annotations:
   - live
   - test
@@ -26,6 +26,7 @@
         asperaEnabled: !jmespath 'asperaEnabled'
         hasFileManagerAccess: !jmespath 'hasFileManagerAccess'
         hasHttpApiAccess: !jmespath 'hasHttpApiAccess'
+        ruleSetId: !jmespath 'ruleSetId'
     - type: relationship
       node_type: akamai_netstorage_config
       relationship_type: ACCESSES
@@ -33,19 +34,19 @@
         do_remove_trailing_dots: true
       node_key:
         storageGroupId: !jmespath 'storageGroupId'
-      outbound: false
+      outbound: true
     - type: relationship
       node_type: akamai_netstorage_key
       relationship_type: AUTHORIZED_BY
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
-        identity: !jmespath 'identity'
+        id: !jmespath 'id'
       iterate_on: !jmespath 'combinedKeys[*]'
       node_properties:
         type: !jmespath 'type'
         lastModifiedBy: !jmespath 'lastModifiedBy'
-        lastModifiedType: !jmespath 'lastModifiedType'
+        lastModifiedDate: !jmespath 'lastModifiedDate'
 - implementation: nodestream.databases:GraphDatabaseWriter
   arguments:
     batch_size: 100

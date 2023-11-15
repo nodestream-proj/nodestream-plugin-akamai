@@ -24,7 +24,7 @@ class AkamaiNetstorageAccountExtractor(Extractor):
                     for key in account["keys"][key_type]:
                         parsed_key = {
                             "type": key_type,
-                            "identity": key["identity"],
+                            "id": key["id"],
                             "lastModifiedBy": key["lastModifiedBy"],
                             "lastModifiedDate": key["lastModifiedDate"],
                         }
