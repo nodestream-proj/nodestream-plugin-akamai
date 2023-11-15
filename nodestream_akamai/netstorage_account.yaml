@@ -12,11 +12,11 @@
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_netstorage_config
+      node_type: akamai_netstorage_account
       normalization:
         do_remove_trailing_dots: true
       key:
-        storageGroupId: !jmespath 'storageGroupId'
+        uploadAccountId: !jmespath 'uploadAccountId'
     - type: properties
       properties:
         storageGroupName: !jmespath 'storageGroupName'
@@ -34,6 +34,18 @@
       node_key:
         storageGroupId: !jmespath 'storageGroupId'
       outbound: false
+    - type: relationship
+      node_type: akamai_netstorage_key
+      relationship_type: AUTHORIZED_BY
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        identity: !jmespath 'identity'
+      iterate_on: !jmespath 'combinedKeys[*]'
+      node_properties:
+        type: !jmespath 'type'
+        lastModifiedBy: !jmespath 'lastModifiedBy'
+        lastModifiedType: !jmespath 'lastModifiedType'
 - implementation: nodestream.databases:GraphDatabaseWriter
   arguments:
     batch_size: 100
