@@ -1,4 +1,4 @@
-- implementation: nodestream_akamai.netstorage:AkamaiNetstorageExtractor
+- implementation: nodestream_akamai.netstorage_group:AkamaiNetstorageGroupExtractor
   arguments:
     base_url: !config 'base_url'
     client_token: !config 'client_token'
@@ -22,14 +22,6 @@
         storageGroupName: !jmespath 'storageGroupName'
         estimatedUsageGB: !jmespath 'estimatedUsageGB'
         domainPrefix: !jmespath 'domainPrefix'
-    - type: relationship
-      node_type: akamai_property
-      relationship_type: HOSTS_CONTENT_FOR
-      key_normalization:
-        do_remove_trailing_dots: true
-      node_key:
-        origins[*].name: !jmespath 'downloadDomain'
-      outbound: false
     - type: relationship
       node_type: akamai_endpoint
       relationship_type: HAS_RECORD
@@ -79,3 +71,10 @@
         do_remove_trailing_dots: true
       node_key:
         fqdn: !jmespath 'uploadDomains.http'
+- implementation: nodestream.databases:GraphDatabaseWriter
+  arguments:
+    batch_size: 100
+    database: !config 'neo4j_database_name'
+    uri: !config 'neo4j_endpoint'
+    username: !config 'neo4j_database_username'
+    password: !config 'neo4j_database_password'

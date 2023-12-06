@@ -20,7 +20,7 @@
     - type: properties
       properties:
         name: !jmespath 'name'
-        - type: relationship
+    - type: relationship
       node_type: endpoint
       node_key: 
         fqdn: !jmespath 'summary[*].fqdn'
@@ -33,3 +33,10 @@
       node_key:
         fqdn: !jmespath 'datacenterId'
       iterate_on: !jmespath 'summary[*].trafficTargets[*]'
+- implementation: nodestream.databases:GraphDatabaseWriter
+  arguments:
+    batch_size: 100
+    database: !config 'neo4j_database_name'
+    uri: !config 'neo4j_endpoint'
+    username: !config 'neo4j_database_username'
+    password: !config 'neo4j_database_password'

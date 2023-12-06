@@ -31,3 +31,10 @@
       node_key: 
         fqdn: !jmespath 'outbound_hosts[*].name'
       relationship_type: REDIRECTS_TO
+- implementation: nodestream.databases:GraphDatabaseWriter
+  arguments:
+    batch_size: 100
+    database: !config 'neo4j_database_name'
+    uri: !config 'neo4j_endpoint'
+    username: !config 'neo4j_database_username'
+    password: !config 'neo4j_database_password'
