@@ -1,6 +1,6 @@
 - implementation: nodestream_akamai.siteshield:AkamaiSiteShieldExtractor
   arguments:
-    base_url: !env 'base_url'
+    base_url: !config 'base_url'
     client_token: !config 'client_token'
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
@@ -33,7 +33,7 @@
 - implementation: nodestream.databases:GraphDatabaseWriter
   arguments:
     batch_size: 100
-    database: !env NEO4J_DATABASE_NAME
-    uri: !env NEO4J_ENDPOINT
-    username: !env NEO4J_DATABASE_USERNAME
-    password: !env NEO4J_DATABASE_PASSWORD
+    database: !config 'neo4j_database_name'
+    uri: !config 'neo4j_endpoint'
+    username: !config 'neo4j_database_username'
+    password: !config 'neo4j_database_password'
