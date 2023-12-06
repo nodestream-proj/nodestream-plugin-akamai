@@ -1,10 +1,10 @@
 - implementation: nodestream_akamai.property:AkamaiPropertyExtractor
   arguments:
     base_url: !env 'base_url'
-    client_token: !env 'client_token'
-    client_secret: !env 'client_secret'
-    access_token: !env 'access_token'
-    account_key: !env 'account_key'
+    client_token: !config 'client_token'
+    client_secret: !config 'client_secret'
+    access_token: !config 'access_token'
+    account_key: !config 'account_key'
   annotations:
   - live
   - test
