@@ -1,10 +1,5 @@
 - implementation: nodestream_akamai.waf:AkamaiWAFExtractor
-  arguments:
-    base_url: !config 'base_url'
-    client_token: !config 'client_token'
-    client_secret: !config 'client_secret'
-    access_token: !config 'access_token'
-    account_key: !config 'account_key'
+  arguments: !include 'akamai-client-args.yaml'
   annotations:
   - live
   - test
