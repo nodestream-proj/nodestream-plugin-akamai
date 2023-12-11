@@ -1,5 +1,5 @@
 import logging
-import logging
+
 from .client import AkamaiApiClient
 
 logger = logging.getLogger(__name__)

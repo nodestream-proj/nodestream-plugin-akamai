@@ -1,7 +1,8 @@
 import logging
 
-from ..akamai_utils.siteshield_client import AkamaiSiteshieldClient
 from nodestream.pipeline.extractors import Extractor
+
+from ..akamai_utils.siteshield_client import AkamaiSiteshieldClient
 
 
 class AkamaiSiteShieldExtractor(Extractor):

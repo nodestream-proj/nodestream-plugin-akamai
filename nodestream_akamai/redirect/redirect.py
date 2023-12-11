@@ -1,7 +1,9 @@
 import logging
 
-from ..akamai_utils.cloudlets_v2_client import AkamaiCloudletsV2Client
 from nodestream.pipeline.extractors import Extractor
+
+from ..akamai_utils.cloudlets_v2_client import AkamaiCloudletsV2Client
+
 
 class AkamaiRedirectExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:

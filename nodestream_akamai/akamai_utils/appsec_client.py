@@ -1,4 +1,5 @@
 import logging
+
 from .client import AkamaiApiClient
 
 logger = logging.getLogger(__name__)
@@ -7,7 +8,9 @@ logger = logging.getLogger(__name__)
 class AkamaiAppSecClient(AkamaiApiClient):
     def get_appsec_hostname_coverage(self):
         hostname_coverage_path = "/appsec/v1/hostname-coverage"
-        return self._get_api_from_relative_path(hostname_coverage_path)["hostnameCoverage"]
+        return self._get_api_from_relative_path(hostname_coverage_path)[
+            "hostnameCoverage"
+        ]
 
     def list_appsec_configs(self):
         appsec_configs_path = "/appsec/v1/configs"
@@ -20,5 +23,7 @@ class AkamaiAppSecClient(AkamaiApiClient):
         return self._get_api_from_relative_path(appsec_configs_path)["policies"]
 
     def export_appsec_config(self, config_id: int, config_version: int):
-        export_config_path = f"/appsec/v1/export/configs/{config_id}/versions/{config_version}"
+        export_config_path = (
+            f"/appsec/v1/export/configs/{config_id}/versions/{config_version}"
+        )
         return self._get_api_from_relative_path(export_config_path)

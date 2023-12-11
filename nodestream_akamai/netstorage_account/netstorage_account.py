@@ -1,8 +1,8 @@
 import logging
 
-from ..akamai_utils.netstorage_client import AkamaiNetstorageClient
-
 from nodestream.pipeline.extractors import Extractor
+
+from ..akamai_utils.netstorage_client import AkamaiNetstorageClient
 
 
 class AkamaiNetstorageAccountExtractor(Extractor):

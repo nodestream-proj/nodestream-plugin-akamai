@@ -32,10 +32,16 @@ plugin_config:
     access_token: !env AKAMAI_ACCESS_TOKEN
     # If you are using an akamai account key add the following line:
     account_key: !env AKAMAI_ACCOUNT_KEY
+targets:
+  my-db:
+    database: neo4j 
+    uri: bolt://localhost:7687
+    username: neo4j
+    password: neo4j123
 ```
 1. Set environment variables in your terminal session for: `AKAMAI_BASE_URL`, `AKAMAI_CLIENT_TOKEN`, `AKAMAI_CLIENT_SECRET`, `AKAMAI_ACCESS_TOKEN` and if using an akamai account key `AKAMAI_ACCOUNT_KEY`.
 1. Verify nodestream has loaded the pipelines: `poetry run nodestream show`
-1. Use nodestream to run the pipelines: `poetry run nodestream run <pipeline-name>`
+1. Use nodestream to run the pipelines: `poetry run nodestream run <pipeline-name> --target my-db`
 
 # Using make
 1. Install make (ie. `brew install make`)
@@ -61,3 +67,4 @@ plugin_config:
 * Bryan Norman
 * Gabe Gallagher
 * Stuart Macleod
+* Grant Hoffman

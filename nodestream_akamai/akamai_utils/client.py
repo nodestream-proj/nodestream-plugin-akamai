@@ -2,6 +2,7 @@ import functools
 import logging
 import time
 from urllib.parse import urljoin
+
 from akamai.edgegrid import EdgeGridAuth
 from requests import Session
 from requests.adapters import HTTPAdapter
@@ -15,7 +16,9 @@ CREDENTIAL_TIMEOUT_SECONDS = 300
 
 
 class AkamaiApiClient:
-    def __init__(self, base_url, client_token, client_secret, access_token, account_key=None):
+    def __init__(
+        self, base_url, client_token, client_secret, access_token, account_key=None
+    ):
         self.base_url = base_url
         self.error_count = 0
         self.page_size = 100
@@ -64,7 +67,10 @@ class AkamaiApiClient:
                 params = {}
             params["accountSwitchKey"] = self.account_key
 
-        request_headers = {"Accept": "application/json", "Content-Type": "application/json"}
+        request_headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        }
 
         if isinstance(headers, dict):
             for header in headers.keys():
@@ -73,7 +79,9 @@ class AkamaiApiClient:
         for sleepy_seconds in range(5):
             if sleepy_seconds:
                 time.sleep(sleepy_seconds)
-            response = self.session.post(full_url, params=params, headers=request_headers, json=body)
+            response = self.session.post(
+                full_url, params=params, headers=request_headers, json=body
+            )
             if response.status_code == 200:
                 return response.json()
             self.error_count += 1
@@ -101,7 +109,9 @@ class AkamaiApiClient:
 
     def _resilient_session_factory(self, timeout=300, retry_count=5) -> Session:
         session = Session()
-        retries = Retry(total=retry_count, backoff_factor=0.5, status_forcelist=[500, 502, 503, 504])
+        retries = Retry(
+            total=retry_count, backoff_factor=0.5, status_forcelist=[500, 502, 503, 504]
+        )
         session.mount(PROTOCOL_HTTP, HTTPAdapter(max_retries=retries))
         session.mount(PROTOCOL_HTTPS, HTTPAdapter(max_retries=retries))
         session.request = functools.partial(session.request, timeout=timeout)  # Seconds

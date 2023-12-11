@@ -1,8 +1,8 @@
 import logging
 
-from ..akamai_utils.property_client import AkamaiPropertyClient
-
 from nodestream.pipeline.extractors import Extractor
+
+from ..akamai_utils.property_client import AkamaiPropertyClient
 
 
 class AkamaiPropertyExtractor(Extractor):
@@ -18,11 +18,17 @@ class AkamaiPropertyExtractor(Extractor):
             return
 
         production_active_properties = [
-            property for property in properties if property["productionVersion"] is not None
+            property
+            for property in properties
+            if property["productionVersion"] is not None
         ]
         for property in production_active_properties:
             try:
                 described_property = self.client.describe_property_by_dict(property)
                 yield described_property.as_eventbus_json()
             except Exception as err:
-                self.logger.error("Failed to get property: {p}, {e}".format(p=property["propertyId"], e=err))
+                self.logger.error(
+                    "Failed to get property: {p}, {e}".format(
+                        p=property["propertyId"], e=err
+                    )
+                )

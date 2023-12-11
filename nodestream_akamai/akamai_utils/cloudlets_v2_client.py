@@ -1,9 +1,9 @@
 import logging
 import re
 from typing import List
-from .client import AkamaiApiClient
 from urllib.parse import urlparse
 
+from .client import AkamaiApiClient
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +17,9 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
         continue_query = True
         while continue_query:
             query_params = {"offset": offset}
-            response_json = self._get_api_from_relative_path(cloudlet_list_api_path, params=query_params)
+            response_json = self._get_api_from_relative_path(
+                cloudlet_list_api_path, params=query_params
+            )
             returned_policies = returned_policies + response_json
             offset += page_size
             continue_query = len(response_json) == page_size
@@ -32,7 +34,9 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
         continue_query = True
         while continue_query:
             query_params = {"offset": offset}
-            response_json = self._get_api_from_relative_path(cloudlet_list_api_path, params=query_params)
+            response_json = self._get_api_from_relative_path(
+                cloudlet_list_api_path, params=query_params
+            )
             returned_policies = returned_policies + response_json
             offset += page_size
             continue_query = len(response_json) == page_size
@@ -40,8 +44,12 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
         return returned_policies
 
     def extract_akamai_ruleset_version(self, policy_id: str, version: str):
-        policy_tree_api_path = f"/cloudlets/api/v2/policies/{policy_id}/versions/{version}"
-        match_rules = self._get_api_from_relative_path(policy_tree_api_path)["matchRules"]
+        policy_tree_api_path = (
+            f"/cloudlets/api/v2/policies/{policy_id}/versions/{version}"
+        )
+        match_rules = self._get_api_from_relative_path(policy_tree_api_path)[
+            "matchRules"
+        ]
         return match_rules
 
     def describe_policy_id(self, policy_id: str):
@@ -69,7 +77,8 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
 
         if len(list_of_activations) == 0:
             logger.info(
-                "Policy had no active occurrences. Candidate for cleanup: Policy ID %s", policy_tree["policyId"]
+                "Policy had no active occurrences. Candidate for cleanup: Policy ID %s",
+                policy_tree["policyId"],
             )
 
         # return list(self.keep_first(list_of_activations, lambda d: (d["network"], d["policyId"])))
@@ -81,10 +90,16 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
             policy_detail = self.extract_active_akamai_redirect_policy_versions(policy)
             for policy in policy_detail:
                 if policy["version"] != "0":
-                    raw_ruleset = self.extract_akamai_ruleset_version(policy["policyId"], policy["version"])
+                    raw_ruleset = self.extract_akamai_ruleset_version(
+                        policy["policyId"], policy["version"]
+                    )
                     policy["id"] = f"akamai_redirect:{policy['policyId']}"
-                    policy["inbound_hosts"] = self.search_akamai_ruleset_for_inbound_hosts(raw_ruleset)
-                    policy["outbound_hosts"] = self.search_akamai_ruleset_for_outbound_hosts(raw_ruleset)
+                    policy[
+                        "inbound_hosts"
+                    ] = self.search_akamai_ruleset_for_inbound_hosts(raw_ruleset)
+                    policy[
+                        "outbound_hosts"
+                    ] = self.search_akamai_ruleset_for_outbound_hosts(raw_ruleset)
                     policy_list.append(policy)
         except Exception as e:
             logger.info("No version found in: %s", policy["policyId"])

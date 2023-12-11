@@ -43,7 +43,10 @@ class PropertyDescription:
             "hostname_count": self.hostname_count,
             "origins": [{"name": origin.name} for origin in self.origins],
             "cloudlet_policies": {
-                "edgeRedirector": [{"policyId": policyId} for policyId in self.cloudlet_policies["edgeRedirector"]],
+                "edgeRedirector": [
+                    {"policyId": policyId}
+                    for policyId in self.cloudlet_policies["edgeRedirector"]
+                ],
             },
             "hostnames": [{"name": hostname.name} for hostname in self.hostnames],
         }
