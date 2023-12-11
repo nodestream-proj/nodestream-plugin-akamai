@@ -1,8 +1,8 @@
 import logging
 
-from ..akamai_utils.edgehostnames_client import AkamaiEdgeHostnamesClient
-
 from nodestream.pipeline.extractors import Extractor
+
+from ..akamai_utils.edgehostnames_client import AkamaiEdgeHostnamesClient
 
 
 class AkamaiEHNExtractor(Extractor):
@@ -13,7 +13,9 @@ class AkamaiEHNExtractor(Extractor):
     async def extract_records(self):
         try:
             for edge_hostname in self.client.list_edge_hostnames():
-                edge_hostname["edgeHostname"] = edge_hostname["recordName"] + "." + edge_hostname["dnsZone"]
+                edge_hostname["edgeHostname"] = (
+                    edge_hostname["recordName"] + "." + edge_hostname["dnsZone"]
+                )
                 yield edge_hostname
         except Exception as err:
             self.logger.error("Failed to list edge hostnames: %s", err)

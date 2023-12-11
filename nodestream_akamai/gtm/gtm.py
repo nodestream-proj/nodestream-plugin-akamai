@@ -1,8 +1,8 @@
 import logging
 
-from ..akamai_utils.gtm_client import AkamaiGTMClient
-
 from nodestream.pipeline.extractors import Extractor
+
+from ..akamai_utils.gtm_client import AkamaiGTMClient
 
 
 class AkamaiGTMExtractor(Extractor):
@@ -17,8 +17,14 @@ class AkamaiGTMExtractor(Extractor):
                 summary = []
                 for property in raw_domain["properties"]:
                     fqdn = property["name"] + "." + raw_domain["name"]
-                    summary.append({"fqdn": fqdn, "trafficTargets": property["trafficTargets"]})
-                parsed_domain = {"name": raw_domain["name"], "summary": summary, "raw": raw_domain}
+                    summary.append(
+                        {"fqdn": fqdn, "trafficTargets": property["trafficTargets"]}
+                    )
+                parsed_domain = {
+                    "name": raw_domain["name"],
+                    "summary": summary,
+                    "raw": raw_domain,
+                }
                 yield parsed_domain
             except Exception:
                 self.logger.error("Failed to get gtm domain: %s", domain["name"])

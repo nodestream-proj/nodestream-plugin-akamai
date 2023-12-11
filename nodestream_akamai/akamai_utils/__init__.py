@@ -1,3 +1,7 @@
-from .model import  EdgeHost, Origin, PropertyDescription
+from .model import EdgeHost, Origin, PropertyDescription
 
-__all__ = ("EdgeHost", "Origin", "PropertyDescription",)
+__all__ = (
+    "EdgeHost",
+    "Origin",
+    "PropertyDescription",
+)

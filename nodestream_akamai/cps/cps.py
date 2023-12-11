@@ -1,8 +1,8 @@
 import logging
 
-from ..akamai_utils.cps_client import AkamaiCPSClient
-
 from nodestream.pipeline.extractors import Extractor
+
+from ..akamai_utils.cps_client import AkamaiCPSClient
 
 
 class AkamaiCPSExtractor(Extractor):
@@ -24,4 +24,6 @@ class AkamaiCPSExtractor(Extractor):
                 parsed_enrollment["expiry"] = deployment["primaryCertificate"]["expiry"]
                 yield parsed_enrollment
             except Exception as err:
-                self.logger.error(f"Failed to get deployment for cert '{enrollment['csr']['cn']}': {err}")
+                self.logger.error(
+                    f"Failed to get deployment for cert '{enrollment['csr']['cn']}': {err}"
+                )

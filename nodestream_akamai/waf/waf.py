@@ -1,7 +1,8 @@
 import logging
 
-from ..akamai_utils.appsec_client import AkamaiAppSecClient
 from nodestream.pipeline.extractors import Extractor
+
+from ..akamai_utils.appsec_client import AkamaiAppSecClient
 
 
 class AkamaiWAFExtractor(Extractor):
@@ -29,7 +30,8 @@ class AkamaiWAFExtractor(Extractor):
             try:
                 if "productionVersion" in config.keys():
                     export = self.client.export_appsec_config(
-                        config_id=config["id"], config_version=config["productionVersion"]
+                        config_id=config["id"],
+                        config_version=config["productionVersion"],
                     )
                     # Construct output dict
                     output_config = {
@@ -46,7 +48,9 @@ class AkamaiWAFExtractor(Extractor):
                             "attackGroupActions": [],
                         }
                         if "webApplicationFirewall" in policy.keys():
-                            for action in policy["webApplicationFirewall"]["attackGroupActions"]:
+                            for action in policy["webApplicationFirewall"][
+                                "attackGroupActions"
+                            ]:
                                 output_policy["attackGroupActions"].append(
                                     {
                                         "group": action["group"],
@@ -58,6 +62,10 @@ class AkamaiWAFExtractor(Extractor):
 
                     yield output_config
                 else:
-                    self.logger.warning(f"No production version exists for config {config['name']}")
+                    self.logger.warning(
+                        f"No production version exists for config {config['name']}"
+                    )
             except Exception as err:
-                self.logger.error(f"Failed to export appsec configuration {config['name']}: {err}")
+                self.logger.error(
+                    f"Failed to export appsec configuration {config['name']}: {err}"
+                )

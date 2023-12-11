@@ -1,8 +1,8 @@
 import logging
 
-from ..akamai_utils.netstorage_client import AkamaiNetstorageClient
-
 from nodestream.pipeline.extractors import Extractor
+
+from ..akamai_utils.netstorage_client import AkamaiNetstorageClient
 
 
 class AkamaiNetstorageGroupExtractor(Extractor):
@@ -11,7 +11,12 @@ class AkamaiNetstorageGroupExtractor(Extractor):
         self.logger = logging.getLogger(self.__class__.__name__)
 
     async def extract_records(self):
-        desired_keys = ["storageGroupId", "storageGroupName", "domainPrefix", "estimatedUsageGB"]
+        desired_keys = [
+            "storageGroupId",
+            "storageGroupName",
+            "domainPrefix",
+            "estimatedUsageGB",
+        ]
         upload_domain_suffixes = {
             "ftp": ".ftp.upload.akamai.com",
             "sftp": ".sftp.upload.akamai.com",
@@ -32,9 +37,13 @@ class AkamaiNetstorageGroupExtractor(Extractor):
             # Add uploadDomains dict
             parsed_group["uploadDomains"] = {}
             for suffix in upload_domain_suffixes.keys():
-                parsed_group["uploadDomains"][suffix] = parsed_group["domainPrefix"] + upload_domain_suffixes[suffix]
+                parsed_group["uploadDomains"][suffix] = (
+                    parsed_group["domainPrefix"] + upload_domain_suffixes[suffix]
+                )
             # Add downloadDomain string
-            parsed_group["downloadDomain"] = parsed_group["domainPrefix"] + download_domain
+            parsed_group["downloadDomain"] = (
+                parsed_group["domainPrefix"] + download_domain
+            )
 
             # OPTIONAL: Add raw data output
             # parsed_group['raw'] = group

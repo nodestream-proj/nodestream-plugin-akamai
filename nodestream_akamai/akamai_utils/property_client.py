@@ -1,9 +1,10 @@
 import logging
 from typing import List, Tuple
-from .client import AkamaiApiClient
-from .model import EdgeHost, Origin, PropertyDescription
+
 from jsonpath_ng.ext import parse
 
+from .client import AkamaiApiClient
+from .model import EdgeHost, Origin, PropertyDescription
 
 logger = logging.getLogger(__name__)
 
@@ -18,23 +19,36 @@ class AkamaiPropertyClient(AkamaiApiClient):
             for contract_id in group["contractIds"]
         ]
 
-    def property_ids_for_contract_group(self, group_id: str, contract_id: str) -> List[str]:
+    def property_ids_for_contract_group(
+        self, group_id: str, contract_id: str
+    ) -> List[str]:
         property_list_api_path = "/papi/v1/properties"
         query_params = {
             "groupId": group_id,
             "contractId": contract_id,
         }
-        response_json = self._get_api_from_relative_path(property_list_api_path, params=query_params)
-        return [property["propertyId"] for property in response_json["properties"]["items"]]
+        response_json = self._get_api_from_relative_path(
+            property_list_api_path, params=query_params
+        )
+        return [
+            property["propertyId"] for property in response_json["properties"]["items"]
+        ]
 
     def get_rule_tree(self, property_id: str, version: int):
-        rule_tree_api_path = f"/papi/v1/properties/{property_id}/versions/{version}/rules"
+        rule_tree_api_path = (
+            f"/papi/v1/properties/{property_id}/versions/{version}/rules"
+        )
         return self._get_api_from_relative_path(rule_tree_api_path)["rules"]
 
     def describe_property_hostnames(self, property_id: str, version: int):
-        hosts_api_path = f"/papi/v1/properties/{property_id}/versions/{version}/hostnames"
+        hosts_api_path = (
+            f"/papi/v1/properties/{property_id}/versions/{version}/hostnames"
+        )
         hosts_api_response = self._get_api_from_relative_path(hosts_api_path)
-        return [EdgeHost(name=edge_host["cnameFrom"]) for edge_host in hosts_api_response["hostnames"]["items"]]
+        return [
+            EdgeHost(name=edge_host["cnameFrom"])
+            for edge_host in hosts_api_response["hostnames"]["items"]
+        ]
 
     def pull_host_entries(self, property_id: str, versions: set):
         origins = set()
@@ -51,19 +65,28 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
     def describe_property_by_id(self, property_id: str) -> PropertyDescription:
         describe_property_api_path = f"/papi/v1/properties/{property_id}"
-        property_description = self._get_api_from_relative_path(describe_property_api_path)["properties"]["items"][0]
+        property_description = self._get_api_from_relative_path(
+            describe_property_api_path
+        )["properties"]["items"][0]
         property_name = property_description["propertyName"]
         production_version_number = property_description["productionVersion"]
         staging_version_number = property_description["stagingVersion"]
-        origins, hostnames = self.pull_host_entries(property_id, {production_version_number, staging_version_number})
+        origins, hostnames = self.pull_host_entries(
+            property_id, {production_version_number, staging_version_number}
+        )
 
         return PropertyDescription(
-            id=property_id, name=property_name, origins=list(origins), hostnames=list(hostnames)
+            id=property_id,
+            name=property_name,
+            origins=list(origins),
+            hostnames=list(hostnames),
         )
 
     def describe_property_by_dict(self, property: dict) -> PropertyDescription:
         # Get rule tree
-        rule_tree = self.get_rule_tree(property["propertyId"], property["latestVersion"])
+        rule_tree = self.get_rule_tree(
+            property["propertyId"], property["latestVersion"]
+        )
 
         # Update origins
         origins = set()
@@ -71,12 +94,18 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
         # Update hostnames
         hostnames = set()
-        hostnames.update(self.describe_property_hostnames(property["propertyId"], property["latestVersion"]))
+        hostnames.update(
+            self.describe_property_hostnames(
+                property["propertyId"], property["latestVersion"]
+            )
+        )
 
         # Update cloudlets
         cloudlet_policies = {"edgeRedirector": set()}
         cloudlet_policies["edgeRedirector"].update(
-            self.search_akamai_rule_tree_for_cloudlet(rule_tree=rule_tree, behavior_name="edgeRedirector")
+            self.search_akamai_rule_tree_for_cloudlet(
+                rule_tree=rule_tree, behavior_name="edgeRedirector"
+            )
         )
         cloudlet_policies["edgeRedirector"] = list(cloudlet_policies["edgeRedirector"])
 
@@ -107,19 +136,29 @@ class AkamaiPropertyClient(AkamaiApiClient):
         property_ids = list(set(raw_property_ids))
         results = []
         for property_id in property_ids:
-            matching_properties = [p for p in search["results"] if p["propertyId"] == property_id]
-            sorted_matching_properties = sorted(matching_properties, key=lambda d: d["propertyVersion"], reverse=True)
+            matching_properties = [
+                p for p in search["results"] if p["propertyId"] == property_id
+            ]
+            sorted_matching_properties = sorted(
+                matching_properties, key=lambda d: d["propertyVersion"], reverse=True
+            )
             latest_property_version = sorted_matching_properties[0]
             production_version = None
             staging_version = None
 
             # Determine production version
-            production_property_version = [p for p in sorted_matching_properties if p["productionStatus"] == "ACTIVE"]
+            production_property_version = [
+                p
+                for p in sorted_matching_properties
+                if p["productionStatus"] == "ACTIVE"
+            ]
             if len(production_property_version) > 0:
                 production_version = production_property_version[0]["propertyVersion"]
 
             # Determine staging version
-            staging_property_version = [p for p in sorted_matching_properties if p["stagingStatus"] == "ACTIVE"]
+            staging_property_version = [
+                p for p in sorted_matching_properties if p["stagingStatus"] == "ACTIVE"
+            ]
             if len(staging_property_version) > 0:
                 staging_version = staging_property_version[0]["propertyVersion"]
 
@@ -171,9 +210,15 @@ class AkamaiPropertyClient(AkamaiApiClient):
                 for criteria in direct_criteria:
                     for criterion in criteria.value:
                         if criterion["name"] == "path":
-                            if criterion["options"]["matchOperator"] == "MATCHES_ONE_OF":
+                            if (
+                                criterion["options"]["matchOperator"]
+                                == "MATCHES_ONE_OF"
+                            ):
                                 path_matches.extend(criterion["options"]["values"])
-                            elif criterion["options"]["matchOperator"] == "DOES_NOT_MATCH_ONE_OF":
+                            elif (
+                                criterion["options"]["matchOperator"]
+                                == "DOES_NOT_MATCH_ONE_OF"
+                            ):
                                 for match in criterion["options"]["values"]:
                                     path_matches.append("!" + match)
 
@@ -185,7 +230,9 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
     def search_akamai_rule_tree_for_behavior(self, rule_tree, behavior_Name):
         behaviors = []
-        jsonpath_expression = parse('$..behaviors[?(@.name=="{b}")]'.format(b=behavior_Name))
+        jsonpath_expression = parse(
+            '$..behaviors[?(@.name=="{b}")]'.format(b=behavior_Name)
+        )
         jsonpath_result = jsonpath_expression.find(rule_tree)
         for match in jsonpath_result:
             behaviors.append(match.value)
@@ -219,7 +266,9 @@ class AkamaiPropertyClient(AkamaiApiClient):
         return list(set(policy_sets))
 
     def search_akamai_rule_tree_for_ivmv(self, rule_tree):
-        instances = self.search_akamai_rule_tree_for_behavior(rule_tree, "imageManagerVideo")
+        instances = self.search_akamai_rule_tree_for_behavior(
+            rule_tree, "imageManagerVideo"
+        )
         policy_sets = []
         for behavior in instances:
             policy_sets.append(behavior["options"]["policySet"])
