@@ -61,3 +61,4 @@ plugin_config:
 * Bryan Norman
 * Gabe Gallagher
 * Stuart Macleod
+* Grant Hoffman
