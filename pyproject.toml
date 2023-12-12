@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "nodestream-akamai"
+name = "nodestream-plugin-akamai"
 version = "0.1.0"
 description = ""
 authors = [
