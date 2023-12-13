@@ -1540,6 +1540,16 @@
                     "dataType": "string"
                 },
                 {
+                    "name": "cipherSuite",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "disallowedTlsVersions",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
                     "name": "name",
                     "exclude": false,
                     "dataType": "string"
@@ -1608,6 +1618,20 @@
                 },
                 {
                     "key": "expiry",
+                    "styles": [],
+                    "inTooltip": true,
+                    "isCaption": false,
+                    "type": "property"
+                },
+                {
+                    "key": "cipherSuite",
+                    "styles": [],
+                    "inTooltip": true,
+                    "isCaption": false,
+                    "type": "property"
+                },
+                {
+                    "key": "disallowedTlsVersions",
                     "styles": [],
                     "inTooltip": true,
                     "isCaption": false,
