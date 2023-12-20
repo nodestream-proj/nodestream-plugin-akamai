@@ -2,6 +2,7 @@ from .appsec_coverage import AkamaiAppSecCoverageExtractor
 from .cps import AkamaiCPSExtractor
 from .ehn import AkamaiEHNExtractor
 from .gtm import AkamaiGTMExtractor
+from .ivm import AkamaiIVMExtractor
 from .netstorage_account import AkamaiNetstorageAccountExtractor
 from .netstorage_group import AkamaiNetstorageGroupExtractor
 from .plugin import AkamaiPlugin
@@ -19,6 +20,7 @@ __all__ = (
     "AkamaiNetstorageGroupExtractor",
     "AkamaiNetstorageAccountExtractor",
     "AkamaiGTMExtractor",
+    "AkamaiIVMExtractor",
     "AkamaiEHNExtractor",
     "AkamaiCPSExtractor",
     "AkamaiAppSecCoverageExtractor",
