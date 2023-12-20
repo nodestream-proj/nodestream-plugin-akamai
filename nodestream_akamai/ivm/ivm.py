@@ -19,7 +19,9 @@ class AkamaiIVMExtractor(Extractor):
                         policy["uniqueId"] = policy_set["id"] + "/" + policy["id"]
                         yield policy
                 except Exception as err:
-                    self.logger.error("Failed to list policies of policy set: %s", policy_set["id"])
+                    self.logger.error(
+                        "Failed to list policies of policy set: %s", policy_set["id"]
+                    )
                     self.logger.error(err)
         except Exception:
             self.logger.error("Failed to list IVM policy sets")
