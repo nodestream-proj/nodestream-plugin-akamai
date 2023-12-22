@@ -12,4 +12,6 @@ class AkamaiIVMClient(AkamaiApiClient):
 
     def list_policies(self, policy_set_id: str):
         ivm_policies_path = f"/imaging/v2/network/production/policies"
-        return self._get_api_from_relative_path(ivm_policies_path, headers={"Policy-Set": f"{policy_set_id}"})
+        return self._get_api_from_relative_path(
+            ivm_policies_path, headers={"Policy-Set": f"{policy_set_id}"}
+        )
