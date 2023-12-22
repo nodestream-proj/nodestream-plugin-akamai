@@ -19,9 +19,13 @@ class AkamaiEdgeWorkersExtractor(Extractor):
         for edgeworker in edgeworkers:
             active_version = None
             try:
-                active_version = self.client.get_production_version(edgeworker["edgeWorkerId"])
+                active_version = self.client.get_production_version(
+                    edgeworker["edgeWorkerId"]
+                )
             except Exception as err:
-                self.logger.error(f"""Failed to get production activation info for EW '{edgeworker["name"]}': {err}""")
+                self.logger.error(
+                    f"""Failed to get production activation info for EW '{edgeworker["name"]}': {err}"""
+                )
 
             # Add deeplink
             edgeworker[
