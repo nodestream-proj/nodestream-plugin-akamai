@@ -1,5 +1,6 @@
 from .appsec_coverage import AkamaiAppSecCoverageExtractor
 from .cps import AkamaiCPSExtractor
+from .edgeworkers import AkamaiEdgeWorkersExtractor
 from .ehn import AkamaiEHNExtractor
 from .gtm import AkamaiGTMExtractor
 from .netstorage_account import AkamaiNetstorageAccountExtractor
@@ -12,14 +13,15 @@ from .waf import AkamaiWAFExtractor
 
 __all__ = (
     "AkamaiPlugin",
-    "AkamaiWAFExtractor",
-    "AkamaiSiteShieldExtractor",
-    "AkamaiRedirectExtractor",
-    "AkamaiPropertyExtractor",
-    "AkamaiNetstorageGroupExtractor",
-    "AkamaiNetstorageAccountExtractor",
-    "AkamaiGTMExtractor",
-    "AkamaiEHNExtractor",
-    "AkamaiCPSExtractor",
     "AkamaiAppSecCoverageExtractor",
+    "AkamaiCPSExtractor",
+    "AkamaiEdgeWorkersExtractor",
+    "AkamaiEHNExtractor",
+    "AkamaiGTMExtractor",
+    "AkamaiNetstorageAccountExtractor",
+    "AkamaiNetstorageGroupExtractor",
+    "AkamaiPropertyExtractor",
+    "AkamaiRedirectExtractor",
+    "AkamaiSiteShieldExtractor",
+    "AkamaiWAFExtractor",
 )
