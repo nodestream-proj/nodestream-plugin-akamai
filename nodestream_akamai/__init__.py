@@ -12,14 +12,14 @@ from .waf import AkamaiWAFExtractor
 
 __all__ = (
     "AkamaiPlugin",
-    "AkamaiWAFExtractor",
-    "AkamaiSiteShieldExtractor",
-    "AkamaiRedirectExtractor",
-    "AkamaiPropertyExtractor",
-    "AkamaiNetstorageGroupExtractor",
-    "AkamaiNetstorageAccountExtractor",
-    "AkamaiGTMExtractor",
-    "AkamaiEHNExtractor",
-    "AkamaiCPSExtractor",
     "AkamaiAppSecCoverageExtractor",
+    "AkamaiCPSExtractor",
+    "AkamaiEHNExtractor",
+    "AkamaiGTMExtractor",
+    "AkamaiNetstorageAccountExtractor",
+    "AkamaiNetstorageGroupExtractor",
+    "AkamaiPropertyExtractor",
+    "AkamaiRedirectExtractor",
+    "AkamaiSiteShieldExtractor",
+    "AkamaiWAFExtractor",
 )
