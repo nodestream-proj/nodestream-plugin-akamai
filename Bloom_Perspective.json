@@ -799,7 +799,68 @@
             "labels": [
                 "akamai_certificate"
             ],
-            "properties": [],
+            "properties": [
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "LocalDateTime"
+                },
+                {
+                    "name": "id",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "pipeline_name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "expiry",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "cipherSuite",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "disallowedTlsVersions",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "indexes",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "constraints",
+                    "exclude": false,
+                    "dataType": "array"
+                },
+                {
+                    "name": "cn",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "last_ingested_by_cps_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "was_ingested_by_cps",
+                    "exclude": false,
+                    "dataType": "boolean"
+                }
+            ],
             "createdAt": 1684596008106,
             "lastEditedAt": 1703110478935,
             "color": "#FFC454",
@@ -814,6 +875,93 @@
                     "inTooltip": false,
                     "isCaption": false,
                     "type": "label"
+                },
+                {
+                    "key": "last_ingested_at",
+                    "styles": [],
+                    "inTooltip": false,
+                    "isCaption": false,
+                    "type": "property"
+                },
+                {
+                    "key": "id",
+                    "styles": [],
+                    "inTooltip": true,
+                    "isCaption": false,
+                    "type": "property"
+                },
+                {
+                    "key": "pipeline_name",
+                    "styles": [],
+                    "inTooltip": false,
+                    "isCaption": false,
+                    "type": "property"
+                },
+                {
+                    "key": "expiry",
+                    "styles": [],
+                    "inTooltip": true,
+                    "isCaption": false,
+                    "type": "property"
+                },
+                {
+                    "key": "cipherSuite",
+                    "styles": [],
+                    "inTooltip": true,
+                    "isCaption": false,
+                    "type": "property"
+                },
+                {
+                    "key": "disallowedTlsVersions",
+                    "styles": [],
+                    "inTooltip": true,
+                    "isCaption": false,
+                    "type": "property"
+                },
+                {
+                    "key": "name",
+                    "styles": [],
+                    "inTooltip": false,
+                    "isCaption": false,
+                    "type": "property"
+                },
+                {
+                    "key": "indexes",
+                    "styles": [],
+                    "inTooltip": false,
+                    "isCaption": false,
+                    "type": "property"
+                },
+                {
+                    "key": "constraints",
+                    "styles": [],
+                    "inTooltip": false,
+                    "isCaption": false,
+                    "type": "property"
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": true,
+                    "key": "cn",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_by_cps_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "was_ingested_by_cps",
+                    "type": "property",
+                    "isGdsData": false
                 }
             ],
             "captionKeys": [
