@@ -4,9 +4,9 @@ from .cps import AkamaiCPSExtractor
 from .edgeworkers import AkamaiEdgeWorkersExtractor
 from .ehn import AkamaiEHNExtractor
 from .gtm import AkamaiGTMExtractor
-from .ivm import AkamaiIVMExtractor
 from .iam_clients import AkamaiIAMClientExtractor
 from .iam_users import AkamaiIAMUserExtractor
+from .ivm import AkamaiIVMExtractor
 from .netstorage_account import AkamaiNetstorageAccountExtractor
 from .netstorage_group import AkamaiNetstorageGroupExtractor
 from .plugin import AkamaiPlugin
