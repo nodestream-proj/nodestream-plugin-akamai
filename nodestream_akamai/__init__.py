@@ -3,6 +3,8 @@ from .cpcodes import AkamaiCPCodesExtractor
 from .cps import AkamaiCPSExtractor
 from .ehn import AkamaiEHNExtractor
 from .gtm import AkamaiGTMExtractor
+from .iam_clients import AkamaiIAMClientExtractor
+from .iam_users import AkamaiIAMUserExtractor
 from .netstorage_account import AkamaiNetstorageAccountExtractor
 from .netstorage_group import AkamaiNetstorageGroupExtractor
 from .plugin import AkamaiPlugin
@@ -18,6 +20,9 @@ __all__ = (
     "AkamaiCPSExtractor",
     "AkamaiEHNExtractor",
     "AkamaiGTMExtractor",
+    "AkamaiIAMClientExtractor",
+    "AkamaiIAMUserExtractor",
+    "AkamaiNetstorageAccountExtractor",
     "AkamaiNetstorageGroupExtractor",
     "AkamaiNetstorageAccountExtractor",
     "AkamaiPropertyExtractor",
