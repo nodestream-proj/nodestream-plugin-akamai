@@ -4,6 +4,7 @@ from .cps import AkamaiCPSExtractor
 from .edgeworkers import AkamaiEdgeWorkersExtractor
 from .ehn import AkamaiEHNExtractor
 from .gtm import AkamaiGTMExtractor
+from .ivm import AkamaiIVMExtractor
 from .iam_clients import AkamaiIAMClientExtractor
 from .iam_users import AkamaiIAMUserExtractor
 from .netstorage_account import AkamaiNetstorageAccountExtractor
@@ -22,6 +23,7 @@ __all__ = (
     "AkamaiEdgeWorkersExtractor",
     "AkamaiEHNExtractor",
     "AkamaiGTMExtractor",
+    "AkamaiIVMExtractor",
     "AkamaiIAMClientExtractor",
     "AkamaiIAMUserExtractor",
     "AkamaiNetstorageAccountExtractor",

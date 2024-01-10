@@ -1,0 +1,28 @@
+- implementation: nodestream_akamai.ivm:AkamaiIVMExtractor
+  arguments:
+    base_url: !config 'base_url'
+    client_token: !config 'client_token'
+    client_secret: !config 'client_secret'
+    access_token: !config 'access_token'
+    account_key: !config 'account_key'
+  annotations:
+  - live
+  - test
+- implementation: nodestream.interpreting:Interpreter
+  arguments:
+    interpretations:
+    - type: source_node
+      node_type: akamai_ivm_policy
+      normalization:
+        do_remove_trailing_dots: true
+      key:
+        uniqueId: !jmespath 'uniqueId'
+    - type: properties
+      properties:
+        id: !jmespath 'id'
+        policySetId: !jmespath 'policySetId'
+        perceptualQuality: !jmespath 'output.perceptualQuality'
+        video: !jmespath 'video'
+        version: !jmespath 'version'
+        user: !jmespath 'user'
+        dateCreated: !jmespath 'dateCreated'
