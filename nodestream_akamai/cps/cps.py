@@ -20,15 +20,18 @@ class AkamaiCPSExtractor(Extractor):
 
         for enrollment in enrollments:
             try:
-                deployment = self.client.get_cps_production_deployment(enrollment["id"])
                 parsed_enrollment = {key: enrollment[key] for key in desired_fields}
-                parsed_enrollment["expiry"] = deployment["primaryCertificate"]["expiry"]
                 parsed_enrollment["cipherSuite"] = parsed_enrollment[
                     "networkConfiguration"
                 ]["mustHaveCiphers"]
                 parsed_enrollment["disallowedTlsVersions"] = ",".join(
                     parsed_enrollment["networkConfiguration"]["disallowedTlsVersions"]
                 )
+                deployment = self.client.get_cps_production_deployment(enrollment["id"])
+                if deployment is not None:
+                    parsed_enrollment["expiry"] = deployment["primaryCertificate"][
+                        "expiry"
+                    ]
                 yield parsed_enrollment
             except Exception as err:
                 self.logger.error(

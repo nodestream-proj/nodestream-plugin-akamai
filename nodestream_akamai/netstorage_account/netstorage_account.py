@@ -18,18 +18,20 @@ class AkamaiNetstorageAccountExtractor(Extractor):
 
         for account in upload_accounts:
             account["combinedKeys"] = []
-            key_types = ["ftp", "ssh", "rsync", "aspera", "g2o"]
-            for key_type in key_types:
-                if key_type in account["keys"].keys():
-                    for key in account["keys"][key_type]:
-                        parsed_key = {
-                            "type": key_type,
-                            "id": key["id"],
-                            "lastModifiedBy": key["lastModifiedBy"],
-                            "lastModifiedDate": key["lastModifiedDate"],
-                        }
-                        account["combinedKeys"].append(parsed_key)
+            if "keys" in account.keys():
+                key_types = ["ftp", "ssh", "rsync", "aspera", "g2o"]
+                for key_type in key_types:
+                    if key_type in account["keys"].keys():
+                        for key in account["keys"][key_type]:
+                            parsed_key = {
+                                "type": key_type,
+                                "id": key["id"],
+                                "lastModifiedBy": key["lastModifiedBy"],
+                                "lastModifiedDate": key["lastModifiedDate"],
+                            }
+                            account["combinedKeys"].append(parsed_key)
 
             # Remove keys element before pushing to database
-            del account["keys"]
+            if "keys" in account.keys():
+                del account["keys"]
             yield account

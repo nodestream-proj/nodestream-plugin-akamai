@@ -20,6 +20,7 @@ class PropertyDescription:
     origins: List[Origin]
     cloudlet_policies: dict
     hostnames: List[EdgeHost]
+    ruleFormat: str
 
     @property
     def origin_count(self):
