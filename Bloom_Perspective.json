@@ -12,7 +12,8 @@
             "color": "#ECB5C9",
             "size": 1,
             "icon": "no-icon",
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": false,
@@ -22,8 +23,7 @@
                     "type": "label"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
@@ -574,93 +574,6 @@
                     "inTooltip": false,
                     "isCaption": false,
                     "type": "label"
-                },
-                {
-                    "key": "last_ingested_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "id",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "pipeline_name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "expiry",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "cipherSuite",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "disallowedTlsVersions",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "indexes",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "constraints",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": true,
-                    "key": "cn",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_cps_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_cps",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
             "captionKeys": [
@@ -720,29 +633,32 @@
                     "inTooltip": false,
                     "styles": [],
                     "isCaption": false,
-                    "key": "akamai_netstorage_account",
-                    "type": "label"
-                }
-            ],
-            "captionKeys": [],
-            "styleRules": []
-        },
-        {
-            "id": 15,
-            "name": "endpoint",
-            "labels": [
-                "endpoint"
-            ],
-            "properties": [],
-            "createdAt": 1699403745653,
-            "lastEditedAt": 1703110478972,
-            "color": "#F79767",
-            "size": 1,
-            "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
-            "captions": [
+                    "type": "property"
+                },
                 {
+                    "key": "cipherSuite",
+                    "styles": [],
+                    "inTooltip": true,
+                    "isCaption": false,
+                    "type": "property"
+                },
+                {
+                    "key": "disallowedTlsVersions",
+                    "styles": [],
+                    "inTooltip": true,
+                    "isCaption": false,
+                    "type": "property"
+                },
+                {
+                    "key": "name",
+                    "styles": [],
+                    "inTooltip": false,
+                    "isCaption": false,
+                    "type": "property"
+                },
+                {
+                    "key": "indexes",
+                    "styles": [],
                     "inTooltip": false,
                     "styles": [],
                     "isCaption": false,
@@ -909,7 +825,8 @@
             "color": "#4C8EDA",
             "size": 1,
             "icon": "no-icon",
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": false,
@@ -1023,8 +940,7 @@
                     "isGdsData": false
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
@@ -1110,7 +1026,8 @@
             "color": "#FFC454",
             "size": 1,
             "icon": "no-icon",
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": false,
@@ -1232,8 +1149,7 @@
                     "isGdsData": false
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
@@ -1294,7 +1210,8 @@
             "color": "#DA7194",
             "size": 1,
             "icon": "no-icon",
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": false,
@@ -1372,6 +1289,214 @@
                     "styles": [],
                     "isCaption": false,
                     "key": "was_ingested_by_cpcodes",
+                    "type": "property",
+                    "isGdsData": false
+                }
+            ],
+            "captionKeys": [],
+            "styleRules": []
+        },
+        {
+            "id": 24,
+            "name": "akamai_cloudlet",
+            "labels": [
+                "akamai_cloudlet"
+            ],
+            "properties": [
+                {
+                    "name": "createdBy",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "was_ingested_by_cloudlet",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "last_ingested_by_cloudlet_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "description",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "activeProductionVersion",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "id",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "activeStagingVersion",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "modifiedBy",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "createdDate",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "modifiedDate",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "deeplink",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "type",
+                    "exclude": false,
+                    "dataType": "string"
+                }
+            ],
+            "createdAt": 1704225410979,
+            "lastEditedAt": 1704225720373,
+            "color": "#569480",
+            "size": 1,
+            "icon": "no-icon",
+            "captionKeys": [],
+            "captions": [
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "akamai_cloudlet",
+                    "type": "label"
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "activeProductionVersion",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "activeStagingVersion",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "createdBy",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "description",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "id",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_by_cloudlet_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": true,
+                    "key": "name",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "was_ingested_by_cloudlet",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "createdDate",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "modifiedBy",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "modifiedDate",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "deeplink",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "type",
                     "type": "property",
                     "isGdsData": false
                 }
@@ -1563,6 +1688,63 @@
                 "propertyKey": "purgeable",
                 "type": "akamai_cpcode",
                 "dataType": "boolean"
+            }
+        ],
+        "akamai_cloudlet": [
+            {
+                "propertyKey": "type",
+                "type": "akamai_cloudlet",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "createdBy",
+                "type": "akamai_cloudlet",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "deeplink",
+                "type": "akamai_cloudlet",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "was_ingested_by_cloudlet",
+                "type": "akamai_cloudlet",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_cloudlet_at",
+                "type": "akamai_cloudlet",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "description",
+                "type": "akamai_cloudlet",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "activeProductionVersion",
+                "type": "akamai_cloudlet",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "akamai_cloudlet",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "id",
+                "type": "akamai_cloudlet",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "name",
+                "type": "akamai_cloudlet",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "activeStagingVersion",
+                "type": "akamai_cloudlet",
+                "dataType": "bigint"
             }
         ],
         "akamai_property_config": [],
@@ -1819,6 +2001,8 @@
             "styleRules": []
         },
         {
+            "id": "MANAGED_BY",
+            "name": "MANAGED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -1836,11 +2020,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "MANAGED_BY",
-            "id": "MANAGED_BY",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -1850,8 +2033,7 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         }
     ],
@@ -1872,7 +2054,7 @@
             "#848484",
             "#D9D9D9"
         ],
-        "currentIndex": 25
+        "currentIndex": 26
     },
     "createdAt": 1702502438711,
     "lastEditedAt": 1702502438711,
@@ -1958,6 +2140,60 @@
                     {
                         "key": "id",
                         "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "akamai_cloudlet",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "modifiedBy",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "activeStagingVersion",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "createdDate",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "activeProductionVersion",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "description",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_cloudlet",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_cloudlet_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "createdBy",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "modifiedDate",
+                        "metadataProp": true
                     }
                 ]
             },
