@@ -1,0 +1,29 @@
+- implementation: nodestream_akamai.edgeworkers:AkamaiEdgeWorkersExtractor
+  arguments:
+    base_url: !config 'base_url'
+    client_token: !config 'client_token'
+    client_secret: !config 'client_secret'
+    access_token: !config 'access_token'
+    account_key: !config 'account_key'
+  annotations:
+  - live
+  - test
+- implementation: nodestream.interpreting:Interpreter
+  arguments:
+    interpretations:
+    - type: source_node
+      node_type: akamai_edgeworker
+      normalization:
+        do_remove_trailing_dots: true
+      key:
+        id: !jmespath 'edgeWorkerId'
+    - type: properties
+      properties:
+        name: !jmespath 'name'
+        activeVersion: !jmespath 'activeVersion'
+        resourceTierId: !jmespath 'resourceTierId'
+        accountId: !jmespath 'accountId'
+        groupId: !jmespath 'groupId'
+        lastModifiedBy: !jmespath 'lastModifiedBy'
+        lastModifiedTime: !jmespath 'lastModifiedTime'
+        deeplink: !jmespath 'deeplink'

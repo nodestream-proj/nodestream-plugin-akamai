@@ -1,6 +1,7 @@
 from .appsec_coverage import AkamaiAppSecCoverageExtractor
 from .cpcodes import AkamaiCPCodesExtractor
 from .cps import AkamaiCPSExtractor
+from .edgeworkers import AkamaiEdgeWorkersExtractor
 from .ehn import AkamaiEHNExtractor
 from .gtm import AkamaiGTMExtractor
 from .iam_clients import AkamaiIAMClientExtractor
@@ -18,6 +19,7 @@ __all__ = (
     "AkamaiAppSecCoverageExtractor",
     "AkamaiCPCodesExtractor",
     "AkamaiCPSExtractor",
+    "AkamaiEdgeWorkersExtractor",
     "AkamaiEHNExtractor",
     "AkamaiGTMExtractor",
     "AkamaiIAMClientExtractor",
