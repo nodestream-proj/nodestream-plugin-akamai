@@ -6,74 +6,14 @@
             "labels": [
                 "akamai_edgeworker"
             ],
-            "properties": [
-                {
-                    "name": "id",
-                    "exclude": false,
-                    "dataType": "bigint"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "last_ingested_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                },
-                {
-                    "name": "lastModifiedTime",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "was_ingested_by_edgeworkers",
-                    "exclude": false,
-                    "dataType": "boolean"
-                },
-                {
-                    "name": "resourceTierId",
-                    "exclude": false,
-                    "dataType": "bigint"
-                },
-                {
-                    "name": "accountId",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "lastModifiedBy",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "groupId",
-                    "exclude": false,
-                    "dataType": "bigint"
-                },
-                {
-                    "name": "deeplink",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "last_ingested_by_edgeworkers_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                },
-                {
-                    "name": "activeVersion",
-                    "exclude": false,
-                    "dataType": "string"
-                }
-            ],
+            "properties": [],
             "createdAt": 1703279720145,
-            "lastEditedAt": 1703279720149,
+            "lastEditedAt": 1703290049912,
             "color": "#ECB5C9",
             "size": 1,
             "icon": "no-icon",
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": false,
@@ -81,106 +21,9 @@
                     "isCaption": false,
                     "key": "akamai_edgeworker",
                     "type": "label"
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "accountId",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "activeVersion",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "deeplink",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "groupId",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "id",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_edgeworkers_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "lastModifiedBy",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "lastModifiedTime",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": true,
-                    "key": "name",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "resourceTierId",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_edgeworkers",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
@@ -189,65 +32,9 @@
             "labels": [
                 "akamai_ivm_policy"
             ],
-            "properties": [
-                {
-                    "name": "uniqueId",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "perceptualQuality",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "version",
-                    "exclude": false,
-                    "dataType": "bigint"
-                },
-                {
-                    "name": "user",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "policySetId",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "last_ingested_by_ivm_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                },
-                {
-                    "name": "video",
-                    "exclude": false,
-                    "dataType": "boolean"
-                },
-                {
-                    "name": "was_ingested_by_ivm",
-                    "exclude": false,
-                    "dataType": "boolean"
-                },
-                {
-                    "name": "dateCreated",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "id",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "last_ingested_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                }
-            ],
+            "properties": [],
             "createdAt": 1703110895988,
-            "lastEditedAt": 1703110895991,
+            "lastEditedAt": 1703290049963,
             "color": "#8DCC93",
             "size": 1,
             "icon": "no-icon",
@@ -260,94 +47,6 @@
                     "isCaption": false,
                     "key": "akamai_ivm_policy",
                     "type": "label"
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "dateCreated",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "id",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_ivm_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "perceptualQuality",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "policySetId",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": true,
-                    "key": "uniqueId",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "user",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "version",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "video",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_ivm",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
             "captionKeys": [],
@@ -374,65 +73,6 @@
                     "inTooltip": false,
                     "isCaption": false,
                     "type": "label"
-                },
-                {
-                    "key": "last_linked_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "cidr",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": true,
-                    "type": "property"
-                },
-                {
-                    "key": "name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "indexes",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "constraints",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_siteshield_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_siteshield",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
             "captionKeys": [
@@ -627,54 +267,6 @@
                     "isCaption": false,
                     "key": "akamai_redirect_config",
                     "type": "label"
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "constraints",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "id",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "indexes",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": true,
-                    "key": "name",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "pipeline_name",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
             "captionKeys": [
@@ -706,48 +298,6 @@
                     "inTooltip": false,
                     "isCaption": false,
                     "type": "label"
-                },
-                {
-                    "key": "pipeline_name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "last_ingested_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "id",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "name",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": true,
-                    "type": "property"
-                },
-                {
-                    "key": "indexes",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "constraints",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
                 }
             ],
             "captionKeys": [
@@ -779,48 +329,6 @@
                     "inTooltip": false,
                     "isCaption": false,
                     "type": "label"
-                },
-                {
-                    "key": "pipeline_name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "last_ingested_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "id",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "name",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": true,
-                    "type": "property"
-                },
-                {
-                    "key": "indexes",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "constraints",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
                 }
             ],
             "captionKeys": [
@@ -851,149 +359,6 @@
                     "inTooltip": false,
                     "isCaption": false,
                     "type": "label"
-                },
-                {
-                    "key": "storageGroupName",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": true,
-                    "type": "property"
-                },
-                {
-                    "key": "estimatedUsageGB",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "pipeline_name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "last_ingested_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "domainPrefix",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "storageGroupId",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "indexes",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "constraints",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "asperaEnabled",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "ftpEnabled",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "hasFileManagerAccess",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "hasHttpApiAccess",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_netstorage_account_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_netstorage_group_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "rsyncEnabled",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "sshEnabled",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_netstorage_account",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_netstorage_group",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
             "captionKeys": [
@@ -1025,70 +390,6 @@
                     "isCaption": false,
                     "key": "akamai_endpoint",
                     "type": "label"
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "constraints",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": true,
-                    "key": "fqdn",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "indexes",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_netstorage_group_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_linked_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": true,
-                    "key": "name",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_netstorage_group",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
             "captionKeys": [
@@ -1119,86 +420,6 @@
                     "inTooltip": false,
                     "isCaption": false,
                     "type": "label"
-                },
-                {
-                    "key": "last_ingested_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "name",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": true,
-                    "type": "property"
-                },
-                {
-                    "key": "pipeline_name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "configId",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": true,
-                    "type": "property"
-                },
-                {
-                    "key": "version",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "configName",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": true,
-                    "type": "property"
-                },
-                {
-                    "key": "indexes",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "constraints",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_waf_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "productionVersion",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_waf",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
             "captionKeys": [
@@ -1231,85 +452,6 @@
                     "inTooltip": false,
                     "isCaption": false,
                     "type": "label"
-                },
-                {
-                    "key": "pipeline_name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "last_ingested_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "mapAlias",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": true,
-                    "type": "property"
-                },
-                {
-                    "key": "id",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "acknowledgedBy",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "mcmMapRuleId",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "indexes",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "constraints",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_siteshield_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_siteshield",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
             "captionKeys": [
@@ -1341,62 +483,6 @@
                     "inTooltip": true,
                     "isCaption": true,
                     "type": "label"
-                },
-                {
-                    "key": "pipeline_name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "last_ingested_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "edgeHostnameId",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": true,
-                    "type": "property"
-                },
-                {
-                    "key": "ipVersionBehavior",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "dnsZone",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "indexes",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "constraints",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
                 }
             ],
             "captionKeys": [
@@ -1488,93 +574,6 @@
                     "inTooltip": false,
                     "isCaption": false,
                     "type": "label"
-                },
-                {
-                    "key": "last_ingested_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "id",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "pipeline_name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "expiry",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "cipherSuite",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "disallowedTlsVersions",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "indexes",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "constraints",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": true,
-                    "key": "cn",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_cps_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_cps",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
             "captionKeys": [
@@ -1605,81 +604,6 @@
                     "inTooltip": false,
                     "isCaption": false,
                     "type": "label"
-                },
-                {
-                    "key": "policyId",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "last_linked_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "name",
-                    "styles": [],
-                    "inTooltip": true,
-                    "isCaption": true,
-                    "type": "property"
-                },
-                {
-                    "key": "indexes",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "constraints",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_appsec-coverage_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_waf_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_appsec-coverage",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_waf",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
             "captionKeys": [
@@ -1709,234 +633,37 @@
                     "inTooltip": false,
                     "styles": [],
                     "isCaption": false,
-                    "key": "akamai_netstorage_account",
-                    "type": "label"
+                    "type": "property"
                 },
                 {
-                    "inTooltip": true,
+                    "key": "cipherSuite",
                     "styles": [],
-                    "isCaption": false,
-                    "key": "asperaEnabled",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
                     "inTooltip": true,
-                    "styles": [],
                     "isCaption": false,
-                    "key": "ftpEnabled",
-                    "type": "property",
-                    "isGdsData": false
+                    "type": "property"
                 },
                 {
+                    "key": "disallowedTlsVersions",
+                    "styles": [],
                     "inTooltip": true,
-                    "styles": [],
                     "isCaption": false,
-                    "key": "hasFileManagerAccess",
-                    "type": "property",
-                    "isGdsData": false
+                    "type": "property"
                 },
                 {
-                    "inTooltip": true,
+                    "key": "name",
                     "styles": [],
-                    "isCaption": false,
-                    "key": "hasHttpApiAccess",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
                     "inTooltip": false,
-                    "styles": [],
                     "isCaption": false,
-                    "key": "last_ingested_at",
-                    "type": "property",
-                    "isGdsData": false
+                    "type": "property"
                 },
                 {
-                    "inTooltip": false,
+                    "key": "indexes",
                     "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_netstorage_account_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "pipeline_name",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "rsyncEnabled",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "sshEnabled",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "storageGroupName",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "ruleSetId",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": true,
-                    "key": "uploadAccountId",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_netstorage_account",
-                    "type": "property",
-                    "isGdsData": false
-                }
-            ],
-            "captionKeys": [],
-            "styleRules": []
-        },
-        {
-            "id": 15,
-            "name": "endpoint",
-            "labels": [
-                "endpoint"
-            ],
-            "properties": [],
-            "createdAt": 1699403745653,
-            "lastEditedAt": 1703110478972,
-            "color": "#F79767",
-            "size": 1,
-            "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
-            "captions": [
-                {
                     "inTooltip": false,
                     "styles": [],
                     "isCaption": false,
                     "key": "endpoint",
                     "type": "label"
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": true,
-                    "key": "fqdn",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_appsec-coverage_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_cps_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_appsec-coverage",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_cps",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_ehn_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_property_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_ehn",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_property",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_gtm_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_gtm",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
             "captionKeys": [],
@@ -1989,62 +716,6 @@
                     "isCaption": false,
                     "key": "akamai_netstorage_key",
                     "type": "label"
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": true,
-                    "key": "id",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_netstorage_account_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "lastModifiedBy",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "type",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_netstorage_account",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "lastModifiedDate",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
             "captionKeys": [],
@@ -2071,6 +742,138 @@
                     "isCaption": false,
                     "key": "Number",
                     "type": "label"
+                }
+            ],
+            "captionKeys": [],
+            "styleRules": []
+        },
+        {
+            "id": 21,
+            "name": "akamai_iam_user",
+            "labels": [
+                "akamai_iam_user"
+            ],
+            "properties": [
+                {
+                    "name": "last_ingested_by_iam_clients_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "id",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "firstName",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "uiUserName",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "email",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "last_ingested_by_iam_users_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "uiIdentityId",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "isLocked",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "was_ingested_by_iam_clients",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "lastName",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "additionalAuthenticationConfigured",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "was_ingested_by_iam_users",
+                    "exclude": false,
+                    "dataType": "boolean"
+                }
+            ],
+            "createdAt": 1703287544509,
+            "lastEditedAt": 1703287544509,
+            "color": "#4C8EDA",
+            "size": 1,
+            "icon": "no-icon",
+            "textSize": 1,
+            "textAlign": "top",
+            "captions": [
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "akamai_iam_user",
+                    "type": "label"
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "additionalAuthenticationConfigured",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "email",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "firstName",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "id",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "isLocked",
+                    "type": "property",
+                    "isGdsData": false
                 },
                 {
                     "inTooltip": false,
@@ -2081,10 +884,42 @@
                     "isGdsData": false
                 },
                 {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_by_iam_clients_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_by_iam_users_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "lastName",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "uiIdentityId",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
                     "inTooltip": true,
                     "styles": [],
                     "isCaption": true,
-                    "key": "last_ingested_by_sample_at",
+                    "key": "uiUserName",
                     "type": "property",
                     "isGdsData": false
                 },
@@ -2092,7 +927,7 @@
                     "inTooltip": false,
                     "styles": [],
                     "isCaption": false,
-                    "key": "number",
+                    "key": "was_ingested_by_iam_clients",
                     "type": "property",
                     "isGdsData": false
                 },
@@ -2100,187 +935,816 @@
                     "inTooltip": false,
                     "styles": [],
                     "isCaption": false,
-                    "key": "was_ingested_by_sample",
+                    "key": "was_ingested_by_iam_users",
                     "type": "property",
                     "isGdsData": false
                 }
             ],
             "captionKeys": [],
             "styleRules": []
+        },
+        {
+            "id": 22,
+            "name": "akamai_iam_api_client",
+            "labels": [
+                "akamai_iam_api_client"
+            ],
+            "properties": [
+                {
+                    "name": "last_ingested_by_iam_clients_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "clientType",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "deeplink",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "activeCredentialCount",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "authorizedUsers",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "accessToken",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "was_ingested_by_iam_clients",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "serviceConsumerToken",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "clientName",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "allowAccountSwitch",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "isLocked",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "clientId",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "clientDescription",
+                    "exclude": false,
+                    "dataType": "string"
+                }
+            ],
+            "createdAt": 1703287544509,
+            "lastEditedAt": 1703287548662,
+            "color": "#FFC454",
+            "size": 1,
+            "icon": "no-icon",
+            "textSize": 1,
+            "textAlign": "top",
+            "captions": [
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "akamai_iam_api_client",
+                    "type": "label"
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "accessToken",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "activeCredentialCount",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "allowAccountSwitch",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "authorizedUsers",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "clientId",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": true,
+                    "key": "clientName",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "clientType",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "deeplink",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "isLocked",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_by_iam_clients_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "serviceConsumerToken",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "was_ingested_by_iam_clients",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "clientDescription",
+                    "type": "property",
+                    "isGdsData": false
+                }
+            ],
+            "captionKeys": [],
+            "styleRules": []
+        },
+        {
+            "id": 23,
+            "name": "akamai_cpcode",
+            "labels": [
+                "akamai_cpcode"
+            ],
+            "properties": [
+                {
+                    "name": "contractId",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "cpcodeName",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "last_ingested_by_cpcodes_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "cpcodeId",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "was_ingested_by_cpcodes",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "type",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "id",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "purgeable",
+                    "exclude": false,
+                    "dataType": "boolean"
+                }
+            ],
+            "createdAt": 1703290048221,
+            "lastEditedAt": 1703290048221,
+            "color": "#DA7194",
+            "size": 1,
+            "icon": "no-icon",
+            "textSize": 1,
+            "textAlign": "top",
+            "captions": [
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "akamai_cpcode",
+                    "type": "label"
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "contractId",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "cpcodeId",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": true,
+                    "key": "cpcodeName",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "id",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_by_cpcodes_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "purgeable",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "type",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "was_ingested_by_cpcodes",
+                    "type": "property",
+                    "isGdsData": false
+                }
+            ],
+            "captionKeys": [],
+            "styleRules": []
+        },
+        {
+            "id": 24,
+            "name": "akamai_cloudlet",
+            "labels": [
+                "akamai_cloudlet"
+            ],
+            "properties": [
+                {
+                    "name": "createdBy",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "was_ingested_by_cloudlet",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "last_ingested_by_cloudlet_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "description",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "activeProductionVersion",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "id",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "name",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "activeStagingVersion",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "modifiedBy",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "createdDate",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "modifiedDate",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "deeplink",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "type",
+                    "exclude": false,
+                    "dataType": "string"
+                }
+            ],
+            "createdAt": 1704225410979,
+            "lastEditedAt": 1704225720373,
+            "color": "#569480",
+            "size": 1,
+            "icon": "no-icon",
+            "captionKeys": [],
+            "captions": [
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "akamai_cloudlet",
+                    "type": "label"
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "activeProductionVersion",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "activeStagingVersion",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "createdBy",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "description",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "id",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_by_cloudlet_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": true,
+                    "key": "name",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "was_ingested_by_cloudlet",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "createdDate",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "modifiedBy",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "modifiedDate",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "deeplink",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "type",
+                    "type": "property",
+                    "isGdsData": false
+                }
+            ],
+            "textSize": 1,
+            "textAlign": "top",
+            "styleRules": []
         }
     ],
     "name": "Akamai_Scope",
     "id": "808fc2c0-f721-11ed-b06a-313ffa64b5d6",
     "labels": {
-        "akamai_ivm_config": [
+        "akamai_iam_user": [
             {
-                "propertyKey": "policyId",
-                "type": "akamai_ivm_config",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "policySetId",
-                "type": "akamai_ivm_config",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "perceptualQuality",
-                "type": "akamai_ivm_config",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_by_ivm_at",
-                "type": "akamai_ivm_config",
+                "propertyKey": "last_ingested_by_iam_clients_at",
+                "type": "akamai_iam_user",
                 "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "user",
-                "type": "akamai_ivm_config",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "dateCreated",
-                "type": "akamai_ivm_config",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "version",
-                "type": "akamai_ivm_config",
-                "dataType": "bigint"
             },
             {
                 "propertyKey": "last_ingested_at",
-                "type": "akamai_ivm_config",
+                "type": "akamai_iam_user",
                 "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "video",
-                "type": "akamai_ivm_config",
-                "dataType": "boolean"
             },
             {
                 "propertyKey": "id",
-                "type": "akamai_ivm_config",
+                "type": "akamai_iam_user",
                 "dataType": "string"
             },
             {
-                "propertyKey": "was_ingested_by_ivm",
-                "type": "akamai_ivm_config",
+                "propertyKey": "firstName",
+                "type": "akamai_iam_user",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "uiUserName",
+                "type": "akamai_iam_user",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "email",
+                "type": "akamai_iam_user",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_by_iam_users_at",
+                "type": "akamai_iam_user",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "uiIdentityId",
+                "type": "akamai_iam_user",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "isLocked",
+                "type": "akamai_iam_user",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "was_ingested_by_iam_clients",
+                "type": "akamai_iam_user",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "lastName",
+                "type": "akamai_iam_user",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "additionalAuthenticationConfigured",
+                "type": "akamai_iam_user",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "was_ingested_by_iam_users",
+                "type": "akamai_iam_user",
                 "dataType": "boolean"
             }
         ],
-        "akamai_ivm_policy": [
+        "akamai_iam_api_client": [
             {
-                "propertyKey": "uniqueId",
-                "type": "akamai_ivm_policy",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "perceptualQuality",
-                "type": "akamai_ivm_policy",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "version",
-                "type": "akamai_ivm_policy",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "user",
-                "type": "akamai_ivm_policy",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "policySetId",
-                "type": "akamai_ivm_policy",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_by_ivm_at",
-                "type": "akamai_ivm_policy",
+                "propertyKey": "last_ingested_by_iam_clients_at",
+                "type": "akamai_iam_api_client",
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "video",
-                "type": "akamai_ivm_policy",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "was_ingested_by_ivm",
-                "type": "akamai_ivm_policy",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "dateCreated",
-                "type": "akamai_ivm_policy",
+                "propertyKey": "clientType",
+                "type": "akamai_iam_api_client",
                 "dataType": "string"
-            },
-            {
-                "propertyKey": "id",
-                "type": "akamai_ivm_policy",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "akamai_ivm_policy",
-                "dataType": "DateTime"
-            }
-        ],
-        "akamai_edgeworker": [
-            {
-                "propertyKey": "last_ingested_by_edgeworkers_at",
-                "type": "akamai_edgeworker",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "groupId",
-                "type": "akamai_edgeworker",
-                "dataType": "bigint"
             },
             {
                 "propertyKey": "deeplink",
-                "type": "akamai_edgeworker",
+                "type": "akamai_iam_api_client",
                 "dataType": "string"
             },
             {
-                "propertyKey": "lastModifiedTime",
-                "type": "akamai_edgeworker",
+                "propertyKey": "last_ingested_at",
+                "type": "akamai_iam_api_client",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "activeCredentialCount",
+                "type": "akamai_iam_api_client",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "authorizedUsers",
+                "type": "akamai_iam_api_client",
                 "dataType": "string"
             },
             {
-                "propertyKey": "resourceTierId",
-                "type": "akamai_edgeworker",
+                "propertyKey": "accessToken",
+                "type": "akamai_iam_api_client",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "was_ingested_by_iam_clients",
+                "type": "akamai_iam_api_client",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "serviceConsumerToken",
+                "type": "akamai_iam_api_client",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "clientName",
+                "type": "akamai_iam_api_client",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "allowAccountSwitch",
+                "type": "akamai_iam_api_client",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "isLocked",
+                "type": "akamai_iam_api_client",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "clientId",
+                "type": "akamai_iam_api_client",
+                "dataType": "string"
+            }
+        ],
+        "akamai_cpcode": [
+            {
+                "propertyKey": "contractId",
+                "type": "akamai_cpcode",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "cpcodeName",
+                "type": "akamai_cpcode",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_by_cpcodes_at",
+                "type": "akamai_cpcode",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "cpcodeId",
+                "type": "akamai_cpcode",
                 "dataType": "bigint"
             },
             {
                 "propertyKey": "last_ingested_at",
-                "type": "akamai_edgeworker",
+                "type": "akamai_cpcode",
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "name",
-                "type": "akamai_edgeworker",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "was_ingested_by_edgeworkers",
-                "type": "akamai_edgeworker",
+                "propertyKey": "was_ingested_by_cpcodes",
+                "type": "akamai_cpcode",
                 "dataType": "boolean"
             },
             {
-                "propertyKey": "lastModifiedBy",
-                "type": "akamai_edgeworker",
+                "propertyKey": "type",
+                "type": "akamai_cpcode",
                 "dataType": "string"
             },
             {
                 "propertyKey": "id",
-                "type": "akamai_edgeworker",
+                "type": "akamai_cpcode",
                 "dataType": "bigint"
             },
             {
-                "propertyKey": "accountId",
-                "type": "akamai_edgeworker",
+                "propertyKey": "purgeable",
+                "type": "akamai_cpcode",
+                "dataType": "boolean"
+            }
+        ],
+        "akamai_cloudlet": [
+            {
+                "propertyKey": "type",
+                "type": "akamai_cloudlet",
                 "dataType": "string"
+            },
+            {
+                "propertyKey": "createdBy",
+                "type": "akamai_cloudlet",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "deeplink",
+                "type": "akamai_cloudlet",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "was_ingested_by_cloudlet",
+                "type": "akamai_cloudlet",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_cloudlet_at",
+                "type": "akamai_cloudlet",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "description",
+                "type": "akamai_cloudlet",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "activeProductionVersion",
+                "type": "akamai_cloudlet",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "akamai_cloudlet",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "id",
+                "type": "akamai_cloudlet",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "name",
+                "type": "akamai_cloudlet",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "activeStagingVersion",
+                "type": "akamai_cloudlet",
+                "dataType": "bigint"
             }
         ],
         "akamai_property_config": [],
@@ -2298,7 +1762,10 @@
         "akamai_gtm_target": [],
         "akamai_endpoint": [],
         "akamai_netstorage_key": [],
-        "Number": []
+        "Number": [],
+        "akamai_ivm_config": [],
+        "akamai_ivm_policy": [],
+        "akamai_edgeworker": []
     },
     "relationshipTypes": [
         {
@@ -2316,20 +1783,6 @@
                     "inTooltip": true,
                     "isCaption": true,
                     "type": "relationship"
-                },
-                {
-                    "key": "pipeline_name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "last_ingested_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
                 }
             ],
             "captionKeys": [
@@ -2352,20 +1805,6 @@
                     "inTooltip": true,
                     "isCaption": true,
                     "type": "relationship"
-                },
-                {
-                    "key": "pipeline_name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "last_ingested_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
                 }
             ],
             "captionKeys": [
@@ -2388,20 +1827,6 @@
                     "inTooltip": true,
                     "isCaption": true,
                     "type": "relationship"
-                },
-                {
-                    "key": "pipeline_name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "last_ingested_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
                 }
             ],
             "captionKeys": [
@@ -2424,20 +1849,6 @@
                     "inTooltip": true,
                     "isCaption": true,
                     "type": "relationship"
-                },
-                {
-                    "key": "pipeline_name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "last_ingested_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
                 }
             ],
             "captionKeys": [
@@ -2460,20 +1871,6 @@
                     "inTooltip": true,
                     "isCaption": true,
                     "type": "relationship"
-                },
-                {
-                    "key": "pipeline_name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "last_ingested_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
                 }
             ],
             "captionKeys": [
@@ -2496,20 +1893,6 @@
                     "inTooltip": true,
                     "isCaption": true,
                     "type": "relationship"
-                },
-                {
-                    "key": "pipeline_name",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
-                },
-                {
-                    "key": "last_ingested_at",
-                    "styles": [],
-                    "inTooltip": false,
-                    "isCaption": false,
-                    "type": "property"
                 }
             ],
             "captionKeys": [
@@ -2616,6 +1999,42 @@
             ],
             "captionKeys": [],
             "styleRules": []
+        },
+        {
+            "id": "MANAGED_BY",
+            "name": "MANAGED_BY",
+            "properties": [
+                {
+                    "propertyKey": "last_ingested_at",
+                    "type": "MANAGED_BY",
+                    "dataType": "DateTime"
+                },
+                {
+                    "propertyKey": "last_ingested_by_iam_clients_at",
+                    "type": "MANAGED_BY",
+                    "dataType": "DateTime"
+                },
+                {
+                    "propertyKey": "was_ingested_by_iam_clients",
+                    "type": "MANAGED_BY",
+                    "dataType": "boolean"
+                }
+            ],
+            "color": "#848484",
+            "size": 1,
+            "textSize": 1,
+            "textAlign": "top",
+            "captions": [
+                {
+                    "inTooltip": true,
+                    "isCaption": true,
+                    "styles": [],
+                    "key": "MANAGED_BY",
+                    "type": "relationship"
+                }
+            ],
+            "captionKeys": [],
+            "styleRules": []
         }
     ],
     "palette": {
@@ -2635,7 +2054,7 @@
             "#848484",
             "#D9D9D9"
         ],
-        "currentIndex": 22
+        "currentIndex": 26
     },
     "createdAt": 1702502438711,
     "lastEditedAt": 1702502438711,
@@ -2688,7 +2107,13 @@
     "isAuto": false,
     "parentPerspectiveId": null,
     "metadata": {
-        "pathSegments": [],
+        "pathSegments": [
+            {
+                "source": "akamai_iam_api_client",
+                "relationshipType": "MANAGED_BY",
+                "target": "akamai_iam_user"
+            }
+        ],
         "indexes": [
             {
                 "label": "Number",
@@ -2706,6 +2131,74 @@
             },
             {
                 "label": "akamai_certificate",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    }
+                ]
+            },
+            {
+                "label": "akamai_cloudlet",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "modifiedBy",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "activeStagingVersion",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "createdDate",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "activeProductionVersion",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "description",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_cloudlet",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_cloudlet_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "createdBy",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "modifiedDate",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "akamai_cpcode",
                 "type": "native",
                 "propertyKeys": [
                     {
@@ -2743,46 +2236,6 @@
                     {
                         "key": "id",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "lastModifiedTime",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_edgeworkers",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "resourceTierId",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "accountId",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "lastModifiedBy",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "groupId",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "deeplink",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_edgeworkers_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "activeVersion",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -2829,7 +2282,69 @@
                 ]
             },
             {
-                "label": "akamai_ivm_config",
+                "label": "akamai_iam_api_client",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "clientId",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "activeCredentialCount",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "accessToken",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "isLocked",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "allowAccountSwitch",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "clientType",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_iam_clients_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "clientDescription",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_iam_clients",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "clientName",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "authorizedUsers",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "deeplink",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "serviceConsumerToken",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "akamai_iam_user",
                 "type": "native",
                 "propertyKeys": [
                     {
@@ -2841,40 +2356,62 @@
                         "metadataProp": false
                     },
                     {
-                        "key": "policyId",
+                        "key": "last_ingested_by_iam_users_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "policySetId",
+                        "key": "last_ingested_by_iam_clients_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "dateCreated",
+                        "key": "was_ingested_by_iam_clients",
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_ivm",
+                        "key": "firstName",
                         "metadataProp": true
                     },
                     {
-                        "key": "user",
+                        "key": "lastName",
                         "metadataProp": true
                     },
                     {
-                        "key": "version",
+                        "key": "uiIdentityId",
                         "metadataProp": true
                     },
                     {
-                        "key": "video",
+                        "key": "was_ingested_by_iam_users",
                         "metadataProp": true
                     },
                     {
-                        "key": "perceptualQuality",
+                        "key": "isLocked",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_ivm_at",
+                        "key": "email",
                         "metadataProp": true
+                    },
+                    {
+                        "key": "additionalAuthenticationConfigured",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "uiUserName",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "akamai_ivm_config",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
                     }
                 ]
             },
@@ -2889,42 +2426,6 @@
                     {
                         "key": "uniqueId",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "policySetId",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "version",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "video",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "dateCreated",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_ivm",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "user",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_ivm_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "perceptualQuality",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -3087,7 +2588,8 @@
                 "EGRESS": 0,
                 "DEFINED_BY": 0,
                 "REDIRECTS_IN": 0,
-                "AUTHORIZED_BY": 0
+                "AUTHORIZED_BY": 0,
+                "MANAGED_BY": 247
             }
         }
     },
