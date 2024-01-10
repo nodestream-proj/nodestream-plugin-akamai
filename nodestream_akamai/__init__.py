@@ -1,4 +1,5 @@
 from .appsec_coverage import AkamaiAppSecCoverageExtractor
+from .cpcodes import AkamaiCPCodesExtractor
 from .cps import AkamaiCPSExtractor
 from .ehn import AkamaiEHNExtractor
 from .gtm import AkamaiGTMExtractor
@@ -15,6 +16,7 @@ from .waf import AkamaiWAFExtractor
 __all__ = (
     "AkamaiPlugin",
     "AkamaiAppSecCoverageExtractor",
+    "AkamaiCPCodesExtractor",
     "AkamaiCPSExtractor",
     "AkamaiEHNExtractor",
     "AkamaiGTMExtractor",
@@ -22,6 +24,7 @@ __all__ = (
     "AkamaiIAMUserExtractor",
     "AkamaiNetstorageAccountExtractor",
     "AkamaiNetstorageGroupExtractor",
+    "AkamaiNetstorageAccountExtractor",
     "AkamaiPropertyExtractor",
     "AkamaiRedirectExtractor",
     "AkamaiSiteShieldExtractor",

@@ -1,0 +1,28 @@
+- implementation: nodestream_akamai.cpcodes:AkamaiCPCodesExtractor
+  arguments:
+    base_url: !config 'base_url'
+    client_token: !config 'client_token'
+    client_secret: !config 'client_secret'
+    access_token: !config 'access_token'
+    account_key: !config 'account_key'
+  annotations:
+  - live
+  - test
+- implementation: nodestream.interpreting:Interpreter
+  arguments:
+    interpretations:
+    - type: source_node
+      node_type: akamai_cpcode
+      normalization:
+        do_remove_trailing_dots: true
+      key:
+        id: !jmespath 'cpcodeId'
+    - type: properties
+      properties:
+        cpcodeId: !jmespath 'cpcodeId'
+        cpcodeName: !jmespath 'cpcodeName'
+        contractId: !jmespath 'accessGroup.contractId'
+        groupId: !jmespath 'accessGroup.groupId'
+        products: !jmespath 'productsList'
+        purgeable: !jmespath 'purgeable'
+        type: !jmespath 'type'
