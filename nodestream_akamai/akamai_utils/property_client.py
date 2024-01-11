@@ -11,6 +11,18 @@ logger = logging.getLogger(__name__)
 
 
 class AkamaiPropertyClient(AkamaiApiClient):
+    CLOUDLET_TYPES = [
+        "applicationLoadBalancer",
+        "apiPrioritization",
+        "audienceSegmentation",
+        "phasedRelease",
+        "edgeRedirector",
+        "forwardRewrite",
+        "requestControl",
+        "visitorPrioritization",
+        "virtualWaitingRoom",
+    ]
+
     def contracts_by_group(self) -> List[Tuple[str, str]]:
         groups_list_api_path = "/papi/v1/groups"
         response_json = self._get_api_from_relative_path(groups_list_api_path)
@@ -120,13 +132,24 @@ class AkamaiPropertyClient(AkamaiApiClient):
         )
 
         # Update cloudlets
-        cloudlet_policies = {"edgeRedirector": set()}
-        cloudlet_policies["edgeRedirector"].update(
-            self.search_akamai_rule_tree_for_cloudlet(
-                rule_tree=rule_tree["rules"], behavior_name="edgeRedirector"
-            )
+        cloudlet_policies = self.search_akamai_rule_tree_for_cloudlets(
+            rule_tree=rule_tree["rules"]
         )
-        cloudlet_policies["edgeRedirector"] = list(cloudlet_policies["edgeRedirector"])
+
+        # IVM
+        image_manager_policysets = self.search_akamai_rule_tree_for_ivm(
+            rule_tree=rule_tree["rules"]
+        )
+
+        # EdgeWorkers
+        edgeworker_ids = self.search_akamai_rule_tree_for_edge_workers(
+            rule_tree=rule_tree["rules"]
+        )
+
+        # Siteshield
+        siteshield_maps = self.search_akamai_rule_tree_for_siteshield(
+            rule_tree=rule_tree["rules"]
+        )
 
         return PropertyDescription(
             id=property["propertyId"],
@@ -135,6 +158,9 @@ class AkamaiPropertyClient(AkamaiApiClient):
             ruleFormat=rule_tree["ruleFormat"],
             origins=list(origins),
             cloudlet_policies=cloudlet_policies,
+            image_manager_policysets=image_manager_policysets,
+            edgeworker_ids=edgeworker_ids,
+            siteshield_maps=siteshield_maps,
             hostnames=list(hostnames),
         )
 
@@ -280,25 +306,41 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
         return list(set(policy_ids))
 
+    def search_akamai_rule_tree_for_cloudlets(self, rule_tree):
+        instances = []
+        for CLOUDLET_TYPE in self.CLOUDLET_TYPES:
+            instances.extend(
+                self.search_akamai_rule_tree_for_behavior(rule_tree, CLOUDLET_TYPE)
+            )
+        policy_ids = []
+        for behavior in instances:
+            if behavior["options"]["enabled"]:
+                if behavior["options"].get("isSharedPolicy"):
+                    policy_id = behavior["options"]["cloudletSharedPolicy"]
+                else:
+                    policy_id = behavior["options"]["cloudletPolicy"]["id"]
+                policy_ids.append(str(policy_id))
+
+        return list(set(policy_ids))
+
     def search_akamai_rule_tree_for_siteshield(self, rule_tree):
         instances = self.search_akamai_rule_tree_for_behavior(rule_tree, "siteShield")
-        return instances[0]["options"]["ssmap"]["value"]
+        map_names = [
+            siteshield["options"]["ssmap"]["value"] for siteshield in instances
+        ]
+        return map_names
 
-    def search_akamai_rule_tree_for_ivmi(self, rule_tree):
-        instances = self.search_akamai_rule_tree_for_behavior(rule_tree, "imageManager")
-        policy_sets = []
-        for behavior in instances:
-            policy_sets.append(behavior["options"]["policySet"])
-
-        return list(set(policy_sets))
-
-    def search_akamai_rule_tree_for_ivmv(self, rule_tree):
-        instances = self.search_akamai_rule_tree_for_behavior(
-            rule_tree, "imageManagerVideo"
+    def search_akamai_rule_tree_for_ivm(self, rule_tree):
+        instances = []
+        instances.extend(
+            self.search_akamai_rule_tree_for_behavior(rule_tree, "imageManager")
+        )
+        instances.extend(
+            self.search_akamai_rule_tree_for_behavior(rule_tree, "imageManagerVideo")
         )
         policy_sets = []
         for behavior in instances:
-            policy_sets.append(behavior["options"]["policySet"])
+            policy_sets.append(behavior["options"]["policyTokenDefault"])
 
         return list(set(policy_sets))
 

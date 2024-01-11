@@ -42,6 +42,7 @@ class AkamaiPropertyExtractor(Extractor):
 
             try:
                 described_property = self.client.describe_property_by_dict(property)
+                print(described_property)
                 yield described_property.as_eventbus_json()
             except Exception as err:
                 self.logger.error(

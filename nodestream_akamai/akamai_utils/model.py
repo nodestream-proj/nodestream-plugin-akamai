@@ -18,7 +18,10 @@ class PropertyDescription:
     name: str
     version: str
     origins: List[Origin]
-    cloudlet_policies: dict
+    cloudlet_policies: List[str]
+    edgeworker_ids: List[int]
+    siteshield_maps: List[str]
+    image_manager_policysets: List[str]
     hostnames: List[EdgeHost]
     ruleFormat: str
 
