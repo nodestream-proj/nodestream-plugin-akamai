@@ -16,11 +16,10 @@
       normalization:
         do_remove_trailing_dots: true
       key:
-        id: !jmespath 'uiIdentityId'
+        uiUserName: !jmespath 'uiUserName'
     - type: properties
       properties:
         uiIdentityId: !jmespath 'uiIdentityId'
-        uiUserName: !jmespath 'uiUserName'
         firstName: !jmespath 'firstName'
         lastName: !jmespath 'lastName'
         email: !jmespath 'email'

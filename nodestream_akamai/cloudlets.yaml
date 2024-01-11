@@ -1,4 +1,4 @@
-- implementation: nodestream_akamai.cloudlet:AkamaiCloudletExtractor
+- implementation: nodestream_akamai.cloudlets:AkamaiCloudletExtractor
   arguments:
     base_url: !config 'base_url'
     client_token: !config 'client_token'

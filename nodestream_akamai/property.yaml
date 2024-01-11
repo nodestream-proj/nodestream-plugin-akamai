@@ -20,6 +20,8 @@
     - type: properties
       properties:
         name: !jmespath 'name'
+        version: !jmespath 'version'
+        ruleFormat: !jmespath 'ruleFormat'
     - type: relationship
       node_type: endpoint
       node_key: 

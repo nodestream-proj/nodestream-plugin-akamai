@@ -1,4 +1,5 @@
 import logging
+import re
 from typing import List, Tuple
 
 from jsonpath_ng.ext import parse
@@ -34,17 +35,29 @@ class AkamaiPropertyClient(AkamaiApiClient):
             property["propertyId"] for property in response_json["properties"]["items"]
         ]
 
-    def get_rule_tree(self, property_id: str, version: int):
+    def get_rule_tree(
+        self, property_id: str, version: int, contractId=None, groupId=None
+    ):
         rule_tree_api_path = (
             f"/papi/v1/properties/{property_id}/versions/{version}/rules"
         )
-        return self._get_api_from_relative_path(rule_tree_api_path)["rules"]
+        params = {}
+        if contractId is not None and groupId is not None:
+            params = {"contractId": contractId, "groupId": groupId}
+        return self._get_api_from_relative_path(rule_tree_api_path, params=params)
 
-    def describe_property_hostnames(self, property_id: str, version: int):
+    def describe_property_hostnames(
+        self, property_id: str, version: int, contractId=None, groupId=None
+    ):
         hosts_api_path = (
             f"/papi/v1/properties/{property_id}/versions/{version}/hostnames"
         )
-        hosts_api_response = self._get_api_from_relative_path(hosts_api_path)
+        params = {}
+        if contractId is not None and groupId is not None:
+            params = {"contractId": contractId, "groupId": groupId}
+        hosts_api_response = self._get_api_from_relative_path(
+            hosts_api_path, params=params
+        )
         return [
             EdgeHost(name=edge_host["cnameFrom"])
             for edge_host in hosts_api_response["hostnames"]["items"]
@@ -85,18 +98,24 @@ class AkamaiPropertyClient(AkamaiApiClient):
     def describe_property_by_dict(self, property: dict) -> PropertyDescription:
         # Get rule tree
         rule_tree = self.get_rule_tree(
-            property["propertyId"], property["latestVersion"]
+            property_id=property["propertyId"],
+            version=property["latestVersion"],
+            contractId=property["contractId"],
+            groupId=property["groupId"],
         )
 
         # Update origins
         origins = set()
-        origins.update(self.search_akamai_rule_tree_for_origins(rule_tree))
+        origins.update(self.search_akamai_rule_tree_for_origins(rule_tree["rules"]))
 
         # Update hostnames
         hostnames = set()
         hostnames.update(
             self.describe_property_hostnames(
-                property["propertyId"], property["latestVersion"]
+                property["propertyId"],
+                property["latestVersion"],
+                contractId=property["contractId"],
+                groupId=property["groupId"],
             )
         )
 
@@ -104,7 +123,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
         cloudlet_policies = {"edgeRedirector": set()}
         cloudlet_policies["edgeRedirector"].update(
             self.search_akamai_rule_tree_for_cloudlet(
-                rule_tree=rule_tree, behavior_name="edgeRedirector"
+                rule_tree=rule_tree["rules"], behavior_name="edgeRedirector"
             )
         )
         cloudlet_policies["edgeRedirector"] = list(cloudlet_policies["edgeRedirector"])
@@ -113,6 +132,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
             id=property["propertyId"],
             name=property["propertyName"],
             version=property["latestVersion"],
+            ruleFormat=rule_tree["ruleFormat"],
             origins=list(origins),
             cloudlet_policies=cloudlet_policies,
             hostnames=list(hostnames),
@@ -174,6 +194,12 @@ class AkamaiPropertyClient(AkamaiApiClient):
             results.append(result_property)
 
         return results
+
+    def list_all_hostnames(self):
+        list_hostnames_path = "/papi/v1/hostnames"
+        return self._get_api_from_relative_path(path=list_hostnames_path)["hostnames"][
+            "items"
+        ]
 
     def search_akamai_rule_tree_for_origins(self, rule_tree) -> List[Origin]:
         behaviors = rule_tree["behaviors"]
@@ -245,11 +271,12 @@ class AkamaiPropertyClient(AkamaiApiClient):
         instances = self.search_akamai_rule_tree_for_behavior(rule_tree, behavior_name)
         policy_ids = []
         for behavior in instances:
-            if behavior["options"].get("isSharedPolicy"):
-                policy_id = behavior["options"]["cloudletSharedPolicy"]
-            else:
-                policy_id = behavior["options"]["cloudletPolicy"]["id"]
-            policy_ids.append(str(policy_id))
+            if behavior["options"]["enabled"]:
+                if behavior["options"].get("isSharedPolicy"):
+                    policy_id = behavior["options"]["cloudletSharedPolicy"]
+                else:
+                    policy_id = behavior["options"]["cloudletPolicy"]["id"]
+                policy_ids.append(str(policy_id))
 
         return list(set(policy_ids))
 

@@ -1,4 +1,5 @@
 from .appsec_coverage import AkamaiAppSecCoverageExtractor
+from .cloudlets import AkamaiCloudletExtractor
 from .cpcodes import AkamaiCPCodesExtractor
 from .cps import AkamaiCPSExtractor
 from .edgeworkers import AkamaiEdgeWorkersExtractor
@@ -18,6 +19,7 @@ from .waf import AkamaiWAFExtractor
 __all__ = (
     "AkamaiPlugin",
     "AkamaiAppSecCoverageExtractor",
+    "AkamaiCloudletExtractor",
     "AkamaiCPCodesExtractor",
     "AkamaiCPSExtractor",
     "AkamaiEdgeWorkersExtractor",

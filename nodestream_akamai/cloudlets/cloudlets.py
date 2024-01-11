@@ -55,14 +55,26 @@ class AkamaiCloudletExtractor(Extractor):
             if "currentActivations" in policy.keys():
                 if "production" in policy["currentActivations"].keys():
                     if "effective" in policy["currentActivations"]["production"].keys():
-                        policy["activeProductionVersion"] = policy[
-                            "currentActivations"
-                        ]["production"]["effective"]["policyVersion"]
+                        if (
+                            policy["currentActivations"]["production"]["effective"]
+                            is not None
+                        ):
+                            policy["activeProductionVersion"] = policy[
+                                "currentActivations"
+                            ]["production"]["effective"]["policyVersion"]
+                        else:
+                            policy["activeProductionVersion"] = None
                 if "staging" in policy["currentActivations"].keys():
                     if "effective" in policy["currentActivations"]["staging"].keys():
-                        policy["activeStagingVersion"] = policy["currentActivations"][
-                            "staging"
-                        ]["effective"]["policyVersion"]
+                        if (
+                            policy["currentActivations"]["staging"]["effective"]
+                            is not None
+                        ):
+                            policy["activeStagingVersion"] = policy[
+                                "currentActivations"
+                            ]["staging"]["effective"]["policyVersion"]
+                        else:
+                            policy["activeStagingVersion"] = None
             policy[
                 "deeplink"
             ] = f"https://control.akamai.com/apps/cloudlets/#/policies/{policy['id']}/versions?gid={policy['groupId']}&shared=true"
