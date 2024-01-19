@@ -1,7 +1,4 @@
-from nodestream.project import (
-    Project,
-    ProjectPlugin,
-)
+from nodestream.project import Project, ProjectPlugin
 
 
 class AkamaiPlugin(ProjectPlugin):
