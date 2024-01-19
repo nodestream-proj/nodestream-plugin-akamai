@@ -1,7 +1,11 @@
-from nodestream.project import PipelineScope, Project, ProjectPlugin
+from nodestream.project import (
+    Project,
+    ProjectPlugin,
+)
 
 
 class AkamaiPlugin(ProjectPlugin):
     def activate(self, project: Project) -> None:
-        scope = PipelineScope.from_resources(name="akamai", package="nodestream_akamai")
-        project.add_scope(scope),
+        project.add_plugin_scope_from_pipeline_resources(
+            name="akamai", package="nodestream_akamai"
+        )
