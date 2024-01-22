@@ -12,60 +12,60 @@
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_netstorage_config
+      node_type: AkamaiNetstorageConfig
       normalization:
         do_remove_trailing_dots: true
       key:
-        storageGroupId: !jmespath 'storageGroupId'
+        storage_group_id: !jmespath 'storageGroupId'
     - type: properties
       properties:
-        storageGroupName: !jmespath 'storageGroupName'
-        estimatedUsageGB: !jmespath 'estimatedUsageGB'
-        domainPrefix: !jmespath 'domainPrefix'
+        storage_group_name: !jmespath 'storageGroupName'
+        estimated_usage_gb: !jmespath 'estimatedUsageGB'
+        domain_prefix: !jmespath 'domainPrefix'
     - type: relationship
-      node_type: akamai_endpoint
+      node_type: Endpoint
       relationship_type: HAS_RECORD
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
         fqdn: !jmespath 'uploadDomains.ftp'
     - type: relationship
-      node_type: akamai_endpoint
+      node_type: Endpoint
       relationship_type: HAS_RECORD
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
         fqdn: !jmespath 'uploadDomains.sftp'
     - type: relationship
-      node_type: akamai_endpoint
+      node_type: Endpoint
       relationship_type: HAS_RECORD
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
         fqdn: !jmespath 'uploadDomains.scp'
     - type: relationship
-      node_type: akamai_endpoint
+      node_type: Endpoint
       relationship_type: HAS_RECORD
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
         fqdn: !jmespath 'uploadDomains.rsync'
     - type: relationship
-      node_type: akamai_endpoint
+      node_type: Endpoint
       relationship_type: HAS_RECORD
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
         fqdn: !jmespath 'uploadDomains.ssh'
     - type: relationship
-      node_type: akamai_endpoint
+      node_type: Endpoint
       relationship_type: HAS_RECORD
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
         fqdn: !jmespath 'uploadDomains.aspera'
     - type: relationship
-      node_type: akamai_endpoint
+      node_type: Endpoint
       relationship_type: HAS_RECORD
       key_normalization:
         do_remove_trailing_dots: true

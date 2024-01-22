@@ -12,17 +12,17 @@
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_ivm_policy
+      node_type: AkamaiIvmPolicy
       normalization:
         do_remove_trailing_dots: true
       key:
-        uniqueId: !jmespath 'uniqueId'
+        unique_id: !jmespath 'uniqueId'
     - type: properties
       properties:
         id: !jmespath 'id'
-        policySetId: !jmespath 'policySetId'
-        perceptualQuality: !jmespath 'output.perceptualQuality'
+        policy_set_id: !jmespath 'policySetId'
+        perceptual_quality: !jmespath 'output.perceptualQuality'
         video: !jmespath 'video'
         version: !jmespath 'version'
         user: !jmespath 'user'
-        dateCreated: !jmespath 'dateCreated'
+        date_created: !jmespath 'dateCreated'
