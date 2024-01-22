@@ -20,6 +20,6 @@
     - type: relationship
       node_type: endpoint
       node_key: 
-        policyId: !jmespath 'hostname'
+        fqdn: !jmespath 'hostname'
       relationship_type: PROTECTED_BY
       outbound: false
