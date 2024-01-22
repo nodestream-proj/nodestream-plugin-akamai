@@ -12,23 +12,23 @@
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_waf_config
+      node_type: AkamaiWafConfig
       normalization:
         do_remove_trailing_dots: true
       key:
-        configId: !jmespath 'configId'
+        config_id: !jmespath 'configId'
     - type: properties
       properties:
-        configName: !jmespath 'configName'
-        configId: !jmespath 'configId'
-        productionVersion: !jmespath 'productionVersion'
+        config_name: !jmespath 'configName'
+        config_id: !jmespath 'configId'
+        production_version: !jmespath 'productionVersion'
         status: !jmespath 'status'
     - type: relationship
-      node_type: akamai_waf_policy
+      node_type: AkamaiWafPolicy
       relationship_type: DEFINED_BY
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
-        policyId: !jmespath 'policyId'
+        policy_id: !jmespath 'policyId'
       outbound: false
       iterate_on: !jmespath 'policies[*]'

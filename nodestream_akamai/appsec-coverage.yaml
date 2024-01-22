@@ -12,13 +12,13 @@
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_waf_policy
+      node_type: AkamaiWafPolicy
       normalization:
         do_remove_trailing_dots: true
       key:
-        policyId: !jmespath 'policyId'
+        policy_id: !jmespath 'policyId'
     - type: relationship
-      node_type: endpoint
+      node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'hostname'
       relationship_type: PROTECTED_BY

@@ -12,7 +12,7 @@
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_gtm_config
+      node_type: AkamaiGtmConfig
       normalization:
         do_remove_trailing_dots: true
       key:
@@ -21,12 +21,12 @@
       properties:
         name: !jmespath 'name'
     - type: relationship
-      node_type: endpoint
+      node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'summary[*].fqdn'
       relationship_type: HAS_RECORD
     - type: relationship
-      node_type: akamai_gtm_target
+      node_type: AkamaiGtmTarget
       relationship_type: DEFINED_BY
       key_normalization:
         do_remove_trailing_dots: true

@@ -12,17 +12,17 @@
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_edgehost
+      node_type: AkamaiEdgehost
       normalization:
         do_remove_trailing_dots: true
       key:
-        edgeHostnameId: !jmespath 'edgeHostnameId'
+        edge_hostname_id: !jmespath 'edgeHostnameId'
     - type: properties
       properties:
-        edgeHostname: !jmespath 'edgeHostname'
-        ipVersionBehavior: !jmespath 'ipVersionBehavior'
+        edge_hostname: !jmespath 'edgeHostname'
+        ip_version_behavior: !jmespath 'ipVersionBehavior'
     - type: relationship
-      node_type: endpoint
+      node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'recordName'
       relationship_type: HAS_RECORD

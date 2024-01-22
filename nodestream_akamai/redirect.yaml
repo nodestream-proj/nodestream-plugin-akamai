@@ -12,7 +12,7 @@
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_redirect_config
+      node_type: AkamaiRedirectConfig
       normalization:
         do_remove_trailing_dots: true
       key:
@@ -21,13 +21,13 @@
       properties:
         name: !jmespath 'name'
     - type: relationship
-      node_type: endpoint
+      node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'inbound_hosts[*].name'
       relationship_type: REDIRECTS_HANDLED_BY
       outbound: false
     - type: relationship
-      node_type: endpoint
+      node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'outbound_hosts[*].name'
       relationship_type: REDIRECTS_TO

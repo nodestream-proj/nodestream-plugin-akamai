@@ -12,7 +12,7 @@
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_property_config
+      node_type: AkamaiPropertyConfig
       normalization:
         do_remove_trailing_dots: true
       key:
@@ -21,20 +21,20 @@
       properties:
         name: !jmespath 'name'
         version: !jmespath 'version'
-        ruleFormat: !jmespath 'ruleFormat'
+        rule_format: !jmespath 'ruleFormat'
     - type: relationship
-      node_type: endpoint
+      node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'hostnames[*].name'
       relationship_type: SERVICED_BY
       outbound: false
     - type: relationship
-      node_type: endpoint
+      node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'origins[*].name'
       relationship_type: PROXIES_TO
     - type: relationship
-      node_type: endpoint
+      node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'edge_redirector_policies[*].policyId'
       relationship_type: REDIRECTS_IN
