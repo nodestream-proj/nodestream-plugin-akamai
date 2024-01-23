@@ -125,40 +125,40 @@
                 "dataType": "DateTime"
             }
         ],
-        "AkamaiWAFPolicy": [
+        "AkamaiWafPolicy": [
             {
                 "propertyKey": "last_ingested_by_waf_at",
-                "type": "AkamaiWAFPolicy",
+                "type": "AkamaiWafPolicy",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "last_ingested_at",
-                "type": "AkamaiWAFPolicy",
+                "type": "AkamaiWafPolicy",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "was_ingested_by_waf",
-                "type": "AkamaiWAFPolicy",
+                "type": "AkamaiWafPolicy",
                 "dataType": "boolean"
             },
             {
                 "propertyKey": "policy_id",
-                "type": "AkamaiWAFPolicy",
+                "type": "AkamaiWafPolicy",
                 "dataType": "string"
             },
             {
                 "propertyKey": "policy_name",
-                "type": "AkamaiWAFPolicy",
+                "type": "AkamaiWafPolicy",
                 "dataType": "string"
             },
             {
                 "propertyKey": "last_ingested_by_appsec-coverage_at",
-                "type": "AkamaiWAFPolicy",
+                "type": "AkamaiWafPolicy",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "was_ingested_by_appsec-coverage",
-                "type": "AkamaiWAFPolicy",
+                "type": "AkamaiWafPolicy",
                 "dataType": "boolean"
             }
         ],
@@ -209,50 +209,50 @@
                 "dataType": "DateTime"
             }
         ],
-        "AkamaiCPCode": [
+        "AkamaiCpCode": [
             {
                 "propertyKey": "last_ingested_by_cpcodes_at",
-                "type": "AkamaiCPCode",
+                "type": "AkamaiCpCode",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "contract_id",
-                "type": "AkamaiCPCode",
+                "type": "AkamaiCpCode",
                 "dataType": "string"
             },
             {
                 "propertyKey": "cpcode_name",
-                "type": "AkamaiCPCode",
+                "type": "AkamaiCpCode",
                 "dataType": "string"
             },
             {
                 "propertyKey": "was_ingested_by_cpcodes",
-                "type": "AkamaiCPCode",
+                "type": "AkamaiCpCode",
                 "dataType": "boolean"
             },
             {
                 "propertyKey": "last_ingested_at",
-                "type": "AkamaiCPCode",
+                "type": "AkamaiCpCode",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "purgeable",
-                "type": "AkamaiCPCode",
+                "type": "AkamaiCpCode",
                 "dataType": "boolean"
             },
             {
                 "propertyKey": "type",
-                "type": "AkamaiCPCode",
+                "type": "AkamaiCpCode",
                 "dataType": "string"
             },
             {
                 "propertyKey": "id",
-                "type": "AkamaiCPCode",
+                "type": "AkamaiCpCode",
                 "dataType": "bigint"
             },
             {
                 "propertyKey": "cpcode_id",
-                "type": "AkamaiCPCode",
+                "type": "AkamaiCpCode",
                 "dataType": "bigint"
             }
         ],
@@ -397,260 +397,260 @@
                 "dataType": "boolean"
             }
         ],
-        "AkamaiGTMProperty": [
+        "AkamaiGtmProperty": [
             {
                 "propertyKey": "last_ingested_at",
-                "type": "AkamaiGTMProperty",
+                "type": "AkamaiGtmProperty",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "id",
-                "type": "AkamaiGTMProperty",
+                "type": "AkamaiGtmProperty",
                 "dataType": "string"
             },
             {
                 "propertyKey": "was_ingested_by_gtm",
-                "type": "AkamaiGTMProperty",
+                "type": "AkamaiGtmProperty",
                 "dataType": "boolean"
             },
             {
                 "propertyKey": "last_ingested_by_gtm_at",
-                "type": "AkamaiGTMProperty",
+                "type": "AkamaiGtmProperty",
                 "dataType": "DateTime"
             }
         ],
-        "AkamaiGTMDomain": [
+        "AkamaiGtmDomain": [
             {
                 "propertyKey": "last_ingested_at",
-                "type": "AkamaiGTMDomain",
+                "type": "AkamaiGtmDomain",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "name",
-                "type": "AkamaiGTMDomain",
+                "type": "AkamaiGtmDomain",
                 "dataType": "string"
             },
             {
                 "propertyKey": "id",
-                "type": "AkamaiGTMDomain",
+                "type": "AkamaiGtmDomain",
                 "dataType": "string"
             },
             {
                 "propertyKey": "was_ingested_by_gtm",
-                "type": "AkamaiGTMDomain",
+                "type": "AkamaiGtmDomain",
                 "dataType": "boolean"
             },
             {
                 "propertyKey": "last_ingested_by_gtm_at",
-                "type": "AkamaiGTMDomain",
+                "type": "AkamaiGtmDomain",
                 "dataType": "DateTime"
             }
         ],
-        "AkamaiIAMUser": [
+        "AkamaiIamUser": [
             {
                 "propertyKey": "first_name",
-                "type": "AkamaiIAMUser",
+                "type": "AkamaiIamUser",
                 "dataType": "string"
             },
             {
                 "propertyKey": "ui_identity_id",
-                "type": "AkamaiIAMUser",
+                "type": "AkamaiIamUser",
                 "dataType": "string"
             },
             {
                 "propertyKey": "last_name",
-                "type": "AkamaiIAMUser",
+                "type": "AkamaiIamUser",
                 "dataType": "string"
             },
             {
                 "propertyKey": "email",
-                "type": "AkamaiIAMUser",
+                "type": "AkamaiIamUser",
                 "dataType": "string"
             },
             {
                 "propertyKey": "last_ingested_by_iam_users_at",
-                "type": "AkamaiIAMUser",
+                "type": "AkamaiIamUser",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "is_locked",
-                "type": "AkamaiIAMUser",
+                "type": "AkamaiIamUser",
                 "dataType": "boolean"
             },
             {
                 "propertyKey": "ui_user_name",
-                "type": "AkamaiIAMUser",
+                "type": "AkamaiIamUser",
                 "dataType": "string"
             },
             {
                 "propertyKey": "additional_authentication_configured",
-                "type": "AkamaiIAMUser",
+                "type": "AkamaiIamUser",
                 "dataType": "boolean"
             },
             {
                 "propertyKey": "last_ingested_at",
-                "type": "AkamaiIAMUser",
+                "type": "AkamaiIamUser",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "was_ingested_by_iam_users",
-                "type": "AkamaiIAMUser",
+                "type": "AkamaiIamUser",
                 "dataType": "boolean"
             },
             {
                 "propertyKey": "last_ingested_by_iam_clients_at",
-                "type": "AkamaiIAMUser",
+                "type": "AkamaiIamUser",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "was_ingested_by_iam_clients",
-                "type": "AkamaiIAMUser",
+                "type": "AkamaiIamUser",
                 "dataType": "boolean"
             }
         ],
-        "AkamaiIAMAPIClient": [
+        "AkamaiIamClient": [
             {
                 "propertyKey": "client_id",
-                "type": "AkamaiIAMAPIClient",
+                "type": "AkamaiIamClient",
                 "dataType": "string"
             },
             {
                 "propertyKey": "last_ingested_by_iam_clients_at",
-                "type": "AkamaiIAMAPIClient",
+                "type": "AkamaiIamClient",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "last_ingested_at",
-                "type": "AkamaiIAMAPIClient",
+                "type": "AkamaiIamClient",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "client_name",
-                "type": "AkamaiIAMAPIClient",
+                "type": "AkamaiIamClient",
                 "dataType": "string"
             },
             {
                 "propertyKey": "client_description",
-                "type": "AkamaiIAMAPIClient",
+                "type": "AkamaiIamClient",
                 "dataType": "string"
             },
             {
                 "propertyKey": "authorized_users",
-                "type": "AkamaiIAMAPIClient",
+                "type": "AkamaiIamClient",
                 "dataType": "string"
             },
             {
                 "propertyKey": "is_locked",
-                "type": "AkamaiIAMAPIClient",
+                "type": "AkamaiIamClient",
                 "dataType": "boolean"
             },
             {
                 "propertyKey": "client_type",
-                "type": "AkamaiIAMAPIClient",
+                "type": "AkamaiIamClient",
                 "dataType": "string"
             },
             {
                 "propertyKey": "was_ingested_by_iam_clients",
-                "type": "AkamaiIAMAPIClient",
+                "type": "AkamaiIamClient",
                 "dataType": "boolean"
             },
             {
                 "propertyKey": "deeplink",
-                "type": "AkamaiIAMAPIClient",
+                "type": "AkamaiIamClient",
                 "dataType": "string"
             },
             {
                 "propertyKey": "allow_accountSwitch",
-                "type": "AkamaiIAMAPIClient",
+                "type": "AkamaiIamClient",
                 "dataType": "boolean"
             },
             {
                 "propertyKey": "active_credential_count",
-                "type": "AkamaiIAMAPIClient",
+                "type": "AkamaiIamClient",
                 "dataType": "bigint"
             },
             {
                 "propertyKey": "service_consumer_token",
-                "type": "AkamaiIAMAPIClient",
+                "type": "AkamaiIamClient",
                 "dataType": "string"
             },
             {
                 "propertyKey": "access_token",
-                "type": "AkamaiIAMAPIClient",
+                "type": "AkamaiIamClient",
                 "dataType": "string"
             }
         ],
-        "AkamaiIVMPolicySet": [
+        "AkamaiIvmPolicySet": [
             {
                 "propertyKey": "last_ingested_at",
-                "type": "AkamaiIVMPolicySet",
+                "type": "AkamaiIvmPolicySet",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "was_ingested_by_ivm",
-                "type": "AkamaiIVMPolicySet",
+                "type": "AkamaiIvmPolicySet",
                 "dataType": "boolean"
             },
             {
                 "propertyKey": "last_ingested_by_ivm_at",
-                "type": "AkamaiIVMPolicySet",
+                "type": "AkamaiIvmPolicySet",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "id",
-                "type": "AkamaiIVMPolicySet",
+                "type": "AkamaiIvmPolicySet",
                 "dataType": "string"
             }
         ],
-        "AkamaiIVMPolicy": [
+        "AkamaiIvmPolicy": [
             {
                 "propertyKey": "user",
-                "type": "AkamaiIVMPolicy",
+                "type": "AkamaiIvmPolicy",
                 "dataType": "string"
             },
             {
                 "propertyKey": "last_ingested_by_ivm_at",
-                "type": "AkamaiIVMPolicy",
+                "type": "AkamaiIvmPolicy",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "last_ingested_at",
-                "type": "AkamaiIVMPolicy",
+                "type": "AkamaiIvmPolicy",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "version",
-                "type": "AkamaiIVMPolicy",
+                "type": "AkamaiIvmPolicy",
                 "dataType": "bigint"
             },
             {
                 "propertyKey": "date_created",
-                "type": "AkamaiIVMPolicy",
+                "type": "AkamaiIvmPolicy",
                 "dataType": "string"
             },
             {
                 "propertyKey": "video",
-                "type": "AkamaiIVMPolicy",
+                "type": "AkamaiIvmPolicy",
                 "dataType": "boolean"
             },
             {
                 "propertyKey": "policy_id",
-                "type": "AkamaiIVMPolicy",
+                "type": "AkamaiIvmPolicy",
                 "dataType": "string"
             },
             {
                 "propertyKey": "id",
-                "type": "AkamaiIVMPolicy",
+                "type": "AkamaiIvmPolicy",
                 "dataType": "string"
             },
             {
                 "propertyKey": "was_ingested_by_ivm",
-                "type": "AkamaiIVMPolicy",
+                "type": "AkamaiIvmPolicy",
                 "dataType": "boolean"
             },
             {
                 "propertyKey": "policy_set_id",
-                "type": "AkamaiIVMPolicy",
+                "type": "AkamaiIvmPolicy",
                 "dataType": "string"
             }
         ],
@@ -844,40 +844,40 @@
                 "dataType": "string"
             }
         ],
-        "AkamaiWAFConfig": [
+        "AkamaiWafConfig": [
             {
                 "propertyKey": "production_version",
-                "type": "AkamaiWAFConfig",
+                "type": "AkamaiWafConfig",
                 "dataType": "bigint"
             },
             {
                 "propertyKey": "last_ingested_at",
-                "type": "AkamaiWAFConfig",
+                "type": "AkamaiWafConfig",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "config_name",
-                "type": "AkamaiWAFConfig",
+                "type": "AkamaiWafConfig",
                 "dataType": "string"
             },
             {
                 "propertyKey": "configId",
-                "type": "AkamaiWAFConfig",
+                "type": "AkamaiWafConfig",
                 "dataType": "bigint"
             },
             {
                 "propertyKey": "config_id",
-                "type": "AkamaiWAFConfig",
+                "type": "AkamaiWafConfig",
                 "dataType": "bigint"
             },
             {
                 "propertyKey": "last_ingested_by_waf_at",
-                "type": "AkamaiWAFConfig",
+                "type": "AkamaiWafConfig",
                 "dataType": "DateTime"
             },
             {
                 "propertyKey": "was_ingested_by_waf",
-                "type": "AkamaiWAFConfig",
+                "type": "AkamaiWafConfig",
                 "dataType": "boolean"
             }
         ],
@@ -905,7 +905,7 @@
         "akamai_gtm_domain": [],
         "akamai_property": [],
         "akamai_siteshield_map": [],
-        "AkamaiGTMTarget": []
+        "AkamaiGtmTarget": []
     },
     "relationshipTypes": [
         {
@@ -1699,9 +1699,9 @@
                 "target": "AkamaiNetstorageKey"
             },
             {
-                "source": "AkamaiGTMDomain",
+                "source": "AkamaiGtmDomain",
                 "relationshipType": "HAS_RECORD",
-                "target": "AkamaiGTMProperty"
+                "target": "AkamaiGtmProperty"
             },
             {
                 "source": "AkamaiNetstorageAccount",
@@ -1714,9 +1714,9 @@
                 "target": "AkamaiEdgeHostname"
             },
             {
-                "source": "AkamaiWAFPolicy",
+                "source": "AkamaiWafPolicy",
                 "relationshipType": "INCLUDED_IN",
-                "target": "AkamaiWAFConfig"
+                "target": "AkamaiWafConfig"
             },
             {
                 "source": "AkamaiProperty",
@@ -1724,14 +1724,14 @@
                 "target": "endpoint"
             },
             {
-                "source": "AkamaiIAMAPIClient",
+                "source": "AkamaiIamClient",
                 "relationshipType": "MANAGED_BY",
-                "target": "AkamaiIAMUser"
+                "target": "AkamaiIamUser"
             },
             {
-                "source": "AkamaiIVMPolicySet",
+                "source": "AkamaiIvmPolicySet",
                 "relationshipType": "CONTAINS",
-                "target": "AkamaiIVMPolicy"
+                "target": "AkamaiIvmPolicy"
             },
             {
                 "source": "AkamaiProperty",
@@ -1746,7 +1746,7 @@
             {
                 "source": "endpoint",
                 "relationshipType": "PROTECTED_BY",
-                "target": "AkamaiWAFPolicy"
+                "target": "AkamaiWafPolicy"
             },
             {
                 "source": "AkamaiProperty",
@@ -1756,7 +1756,7 @@
             {
                 "source": "AkamaiProperty",
                 "relationshipType": "MEDIA_OPTIMIZED_BY",
-                "target": "AkamaiIVMPolicySet"
+                "target": "AkamaiIvmPolicySet"
             },
             {
                 "source": "AkamaiEdgeWorker",
@@ -1771,7 +1771,7 @@
         ],
         "indexes": [
             {
-                "label": "AkamaiCPCode",
+                "label": "AkamaiCpCode",
                 "type": "native",
                 "propertyKeys": [
                     {
@@ -2013,7 +2013,7 @@
                 ]
             },
             {
-                "label": "AkamaiGTMDomain",
+                "label": "AkamaiGtmDomain",
                 "type": "native",
                 "propertyKeys": [
                     {
@@ -2039,7 +2039,7 @@
                 ]
             },
             {
-                "label": "AkamaiGTMProperty",
+                "label": "AkamaiGtmProperty",
                 "type": "native",
                 "propertyKeys": [
                     {
@@ -2065,7 +2065,7 @@
                 ]
             },
             {
-                "label": "AkamaiGTMTarget",
+                "label": "AkamaiGtmTarget",
                 "type": "native",
                 "propertyKeys": [
                     {
@@ -2079,7 +2079,7 @@
                 ]
             },
             {
-                "label": "AkamaiIAMAPIClient",
+                "label": "AkamaiIamClient",
                 "type": "native",
                 "propertyKeys": [
                     {
@@ -2141,7 +2141,7 @@
                 ]
             },
             {
-                "label": "AkamaiIAMUser",
+                "label": "AkamaiIamUser",
                 "type": "native",
                 "propertyKeys": [
                     {
@@ -2195,7 +2195,7 @@
                 ]
             },
             {
-                "label": "AkamaiIVMPolicySet",
+                "label": "AkamaiIvmPolicySet",
                 "type": "native",
                 "propertyKeys": [
                     {
@@ -2225,7 +2225,7 @@
                 ]
             },
             {
-                "label": "AkamaiIVMPolicy",
+                "label": "AkamaiIvmPolicy",
                 "type": "native",
                 "propertyKeys": [
                     {
@@ -2449,7 +2449,7 @@
                 ]
             },
             {
-                "label": "AkamaiWAFConfig",
+                "label": "AkamaiWafConfig",
                 "type": "native",
                 "propertyKeys": [
                     {
@@ -2483,7 +2483,7 @@
                 ]
             },
             {
-                "label": "AkamaiWAFPolicy",
+                "label": "AkamaiWafPolicy",
                 "type": "native",
                 "propertyKeys": [
                     {
@@ -3308,9 +3308,9 @@
         },
         {
             "id": 4,
-            "name": "AkamaiGTMDomain",
+            "name": "AkamaiGtmDomain",
             "labels": [
-                "AkamaiGTMDomain"
+                "AkamaiGtmDomain"
             ],
             "properties": [
                 {
@@ -3349,7 +3349,7 @@
             "textAlign": "top",
             "captions": [
                 {
-                    "key": "AkamaiGTMDomain",
+                    "key": "AkamaiGtmDomain",
                     "styles": [],
                     "inTooltip": false,
                     "isCaption": false,
@@ -3438,16 +3438,16 @@
             ],
             "captionKeys": [
                 "0_CATEGORY_NAME_CAPTION_KEY",
-                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_AkamaiGTMDomain",
+                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_AkamaiGtmDomain",
                 "id"
             ],
             "styleRules": []
         },
         {
             "id": 7,
-            "name": "AkamaiWAFConfig",
+            "name": "AkamaiWafConfig",
             "labels": [
-                "AkamaiWAFConfig"
+                "AkamaiWafConfig"
             ],
             "properties": [
                 {
@@ -3495,7 +3495,7 @@
             "textAlign": "top",
             "captions": [
                 {
-                    "key": "AkamaiWAFConfig",
+                    "key": "AkamaiWafConfig",
                     "styles": [],
                     "inTooltip": false,
                     "isCaption": false,
@@ -3560,7 +3560,7 @@
             ],
             "captionKeys": [
                 "0_CATEGORY_NAME_CAPTION_KEY",
-                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_AkamaiWAFConfig",
+                "1_CATEGORY_LABEL_CAPTION_KEY_PREFIX_AkamaiWafConfig",
                 "config_id",
                 "config_name",
                 "name"
@@ -3897,9 +3897,9 @@
         },
         {
             "id": 11,
-            "name": "AkamaiWAFPolicy",
+            "name": "AkamaiWafPolicy",
             "labels": [
-                "AkamaiWAFPolicy"
+                "AkamaiWafPolicy"
             ],
             "properties": [
                 {
@@ -3910,7 +3910,7 @@
                 {
                     "name": "last_ingested_by_waf_at",
                     "exclude": false,
-                    "dataType": "DateTime""dataType": "DateTime"
+                    "dataType": "DateTime"
                 },
                 {
                     "name": "policy_id",
@@ -3947,7 +3947,7 @@
             "textAlign": "top",
             "captions": [
                 {
-                    "key": "AkamaiWAFPolicy",
+                    "key": "AkamaiWafPolicy",
                     "styles": [],
                     "inTooltip": false,
                     "isCaption": false,
@@ -4320,9 +4320,6 @@
                     "key": "last_ingested_by_netstorage_account_at",
                     "type": "property",
                     "isGdsData": false
-                    "key": "last_ingested_by_netstorage_account_at",
-                    "type": "property",
-                    "isGdsData": false
                 },
                 {
                     "inTooltip": true,
@@ -4554,9 +4551,9 @@
         },
         {
             "id": 16,
-            "name": "AkamaiGTMTarget",
+            "name": "AkamaiGtmTarget",
             "labels": [
-                "AkamaiGTMTarget"
+                "AkamaiGtmTarget"
             ],
             "properties": [],
             "createdAt": 1699403745653,
@@ -4571,7 +4568,7 @@
                     "inTooltip": false,
                     "styles": [],
                     "isCaption": false,
-                    "key": "AkamaiGTMTarget",
+                    "key": "AkamaiGtmTarget",
                     "type": "label"
                 }
             ],
@@ -4699,9 +4696,9 @@
         },
         {
             "id": 19,
-            "name": "AkamaiIVMPolicy",
+            "name": "AkamaiIvmPolicy",
             "labels": [
-                "AkamaiIVMPolicy"
+                "AkamaiIvmPolicy"
             ],
             "properties": [
                 {
@@ -4772,7 +4769,7 @@
                     "inTooltip": false,
                     "styles": [],
                     "isCaption": false,
-                    "key": "AkamaiIVMPolicy",
+                    "key": "AkamaiIvmPolicy",
                     "type": "label"
                 },
                 {
@@ -5043,7 +5040,7 @@
         },
         {
             "id": 21,
-            "name": "AkamaiIAMUuser",
+            "name": "AkamaiIamUuser",
             "labels": [],
             "properties": [
                 {
@@ -5230,9 +5227,9 @@
         },
         {
             "id": 22,
-            "name": "AkamaiIAMAPIClient",
+            "name": "AkamaiIamClient",
             "labels": [
-                "AkamaiIAMAPIClient"
+                "AkamaiIamClient"
             ],
             "properties": [
                 {
@@ -5318,7 +5315,7 @@
                     "inTooltip": false,
                     "styles": [],
                     "isCaption": false,
-                    "key": "AkamaiIAMAPIClient",
+                    "key": "AkamaiIamClient",
                     "type": "label"
                 },
                 {
@@ -5431,9 +5428,9 @@
         },
         {
             "id": 23,
-            "name": "AkamaiCPCode",
+            "name": "AkamaiCpCode",
             "labels": [
-                "AkamaiCPCode"
+                "AkamaiCpCode"
             ],
             "properties": [
                 {
@@ -5494,7 +5491,7 @@
                     "inTooltip": false,
                     "styles": [],
                     "isCaption": false,
-                    "key": "AkamaiCPCode",
+                    "key": "AkamaiCpCode",
                     "type": "label"
                 },
                 {
@@ -5812,9 +5809,9 @@
         },
         {
             "id": 25,
-            "name": "AkamaiIVMPolicySet",
+            "name": "AkamaiIvmPolicySet",
             "labels": [
-                "AkamaiIVMPolicySet"
+                "AkamaiIvmPolicySet"
             ],
             "properties": [
                 {
@@ -5860,7 +5857,7 @@
                     "inTooltip": false,
                     "styles": [],
                     "isCaption": false,
-                    "key": "AkamaiIVMPolicySet",
+                    "key": "AkamaiIvmPolicySet",
                     "type": "label"
                 },
                 {
@@ -5917,7 +5914,7 @@
         },
         {
             "id": 27,
-            "name": "AkamaiGTMConfig",
+            "name": "AkamaiGtmConfig",
             "labels": [],
             "properties": [],
             "createdAt": 1705943696789,
@@ -6260,9 +6257,9 @@
         },
         {
             "id": 57,
-            "name": "AkamaiGTMProperty",
+            "name": "AkamaiGtmProperty",
             "labels": [
-                "AkamaiGTMProperty"
+                "AkamaiGtmProperty"
             ],
             "properties": [
                 {
@@ -6302,7 +6299,7 @@
                     "inTooltip": false,
                     "styles": [],
                     "isCaption": false,
-                    "key": "AkamaiGTMProperty",
+                    "key": "AkamaiGtmProperty",
                     "type": "label"
                 },
                 {
@@ -6344,9 +6341,9 @@
         },
         {
             "id": 58,
-            "name": "AkamaiIAMUser",
+            "name": "AkamaiIamUser",
             "labels": [
-                "AkamaiIAMUser"
+                "AkamaiIamUser"
             ],
             "properties": [
                 {
@@ -6421,7 +6418,7 @@
                     "inTooltip": false,
                     "styles": [],
                     "isCaption": false,
-                    "key": "AkamaiIAMUser",
+                    "key": "AkamaiIamUser",
                     "type": "label"
                 },
                 {
