@@ -5,38 +5,35 @@
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_netstorage_account
+      node_type: AkamaiNetstorageAccount
       normalization:
         do_remove_trailing_dots: true
       key:
-        uploadAccountId: !jmespath 'uploadAccountId'
+        upload_account_id: !jmespath 'uploadAccountId'
     - type: properties
       properties:
-        storageGroupName: !jmespath 'storageGroupName'
-        ftpEnabled: !jmespath 'ftpEnabled'
-        sshEnabled: !jmespath 'sshEnabled'
-        rsyncEnabled: !jmespath 'rsyncEnabled'
-        asperaEnabled: !jmespath 'asperaEnabled'
-        hasFileManagerAccess: !jmespath 'hasFileManagerAccess'
-        hasHttpApiAccess: !jmespath 'hasHttpApiAccess'
-        ruleSetId: !jmespath 'ruleSetId'
+        storage_group_name: !jmespath 'storageGroupName'
+        ftp_enabled: !jmespath 'ftpEnabled'
+        ssh_enabled: !jmespath 'sshEnabled'
+        rsync_enabled: !jmespath 'rsyncEnabled'
+        aspera_enabled: !jmespath 'asperaEnabled'
+        has_file_manager_access: !jmespath 'hasFileManagerAccess'
+        has_http_api_access: !jmespath 'hasHttpApiAccess'
+        rule_set_id: !jmespath 'ruleSetId'
     - type: relationship
-      node_type: akamai_netstorage_config
+      node_type: akamai_netstorage_group
       relationship_type: ACCESSES
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
-        storageGroupId: !jmespath 'storageGroupId'
+        storage_group_id: !jmespath 'storageGroupId'
       outbound: true
     - type: relationship
-      node_type: akamai_netstorage_key
+      node_type: AkamaiNetstorageKey
       relationship_type: AUTHORIZED_BY
       key_normalization:
         do_remove_trailing_dots: true
@@ -45,5 +42,5 @@
       iterate_on: !jmespath 'combinedKeys[*]'
       node_properties:
         type: !jmespath 'type'
-        lastModifiedBy: !jmespath 'lastModifiedBy'
-        lastModifiedDate: !jmespath 'lastModifiedDate'
+        last_modified_by: !jmespath 'lastModifiedBy'
+        last_modified_date: !jmespath 'lastModifiedDate'

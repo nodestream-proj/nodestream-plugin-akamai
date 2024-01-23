@@ -5,31 +5,39 @@
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
-    - type: source_node
-      node_type: akamai_gtm_config
-      normalization:
-        do_remove_trailing_dots: true
-      key:
-        id: !jmespath 'name'
-    - type: properties
-      properties:
-        name: !jmespath 'name'
-    - type: relationship
-      node_type: endpoint
-      node_key: 
-        fqdn: !jmespath 'summary[*].fqdn'
-      relationship_type: HAS_RECORD
-    - type: relationship
-      node_type: akamai_gtm_target
-      relationship_type: DEFINED_BY
-      key_normalization:
-        do_remove_trailing_dots: true
-      node_key:
-        fqdn: !jmespath 'datacenterId'
-      iterate_on: !jmespath 'summary[*].trafficTargets[*]'
+    - - type: source_node
+        node_type: AkamaiGTMDomain
+        normalization:
+          do_remove_trailing_dots: true
+        key:
+          id: !jmespath 'name'
+      - type: properties
+        properties:
+          name: !jmespath 'name'
+      - type: relationship
+        node_type: AkamaiGTMProperty
+        node_key: 
+          fqdn: !jmespath 'properties[*].fqdn'
+        find_many: true
+        relationship_type: HAS_RECORD
+    - - type: source_node
+        node_type: AkamaiGTMProperty
+        normalization:
+          do_remove_trailing_dots: true
+        key:
+          id: !jmespath 'properties[*].fqdn'
+      - type: properties
+        properties:
+          name: !jmespath 'name'
+          type: !jmespath 'type'
+      - type: relationship
+        node_type: AkamaiGTMTarget
+        relationship_type: RETURNS
+        key_normalization:
+          do_remove_trailing_dots: true
+        node_key:
+          fqdn: !jmespath 'trafficTargets[*]'
+        find_many: true

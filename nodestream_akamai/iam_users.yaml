@@ -5,23 +5,20 @@
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_iam_user
+      node_type: AkamaiIAMUser
       normalization:
         do_remove_trailing_dots: true
       key:
-        uiUserName: !jmespath 'uiUserName'
+        ui_user_name: !jmespath 'uiUserName'
     - type: properties
       properties:
-        uiIdentityId: !jmespath 'uiIdentityId'
-        firstName: !jmespath 'firstName'
-        lastName: !jmespath 'lastName'
+        ui_identity_id: !jmespath 'uiIdentityId'
+        first_name: !jmespath 'firstName'
+        last_name: !jmespath 'lastName'
         email: !jmespath 'email'
-        additionalAuthenticationConfigured: !jmespath 'additionalAuthenticationConfigured'
-        isLocked: !jmespath 'isLocked'
+        additional_authentication_configured: !jmespath 'additionalAuthenticationConfigured'
+        is_locked: !jmespath 'isLocked'

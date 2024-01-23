@@ -5,14 +5,11 @@
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_cloudlet
+      node_type: AkamaiCloudlet
       normalization:
         do_remove_trailing_dots: true
       key:
@@ -22,10 +19,10 @@
         name: !jmespath 'name'
         type: !jmespath 'policyType'
         description: !jmespath 'description'
-        activeStagingVersion: !jmespath 'activeStagingVersion'
-        activeProductionVersion: !jmespath 'activeProductionVersion'
-        createdBy: !jmespath 'createdBy'
-        createdDate: !jmespath 'createdDate'
-        modifiedBy: !jmespath 'modifiedBy'
-        modifiedDate: !jmespath 'modifiedDate'
+        active_staging_version: !jmespath 'activeStagingVersion'
+        active_production_version: !jmespath 'activeProductionVersion'
+        created_by: !jmespath 'createdBy'
+        created_date: !jmespath 'createdDate'
+        modified_by: !jmespath 'modifiedBy'
+        modified_date: !jmespath 'modifiedDate'
         deeplink: !jmespath 'deeplink'

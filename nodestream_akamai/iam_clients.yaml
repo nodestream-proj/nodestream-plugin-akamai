@@ -5,34 +5,32 @@
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_iam_api_client
+      node_type: AkamaiIAMAPIClient
       normalization:
         do_remove_trailing_dots: true
       key:
-        clientId: !jmespath 'clientId'
+        client_id: !jmespath 'clientId'
     - type: properties
       properties:
-        clientName: !jmespath 'clientName'
-        clientType: !jmespath 'clientType'
-        authorizedUsers: !jmespath 'authorizedUsersList'
-        clientDescription: !jmespath 'clientDescription'
-        accessToken: !jmespath 'accessToken'
-        activeCredentialCount: !jmespath 'activeCredentialCount'
-        allowAccountSwitch: !jmespath 'allowAccountSwitch'
-        isLocked: !jmespath 'isLocked'
-        serviceConsumerToken: !jmespath 'serviceConsumerToken'
+        client_name: !jmespath 'clientName'
+        client_type: !jmespath 'clientType'
+        authorized_users: !jmespath 'authorizedUsersList'
+        client_description: !jmespath 'clientDescription'
+        access_token: !jmespath 'accessToken'
+        active_credential_count: !jmespath 'activeCredentialCount'
+        allow_accountSwitch: !jmespath 'allowAccountSwitch'
+        is_locked: !jmespath 'isLocked'
+        service_consumer_token: !jmespath 'serviceConsumerToken'
         deeplink: !jmespath 'deeplink'
     - type: relationship
-      node_type: akamai_iam_user
+      node_type: AkamaiIAMUser
       relationship_type: MANAGED_BY
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
-        uiUserName: !jmespath 'authorizedUsers[*]'
+        ui_user_name: !jmespath 'authorizedUsers[*]'
+      find_many: true

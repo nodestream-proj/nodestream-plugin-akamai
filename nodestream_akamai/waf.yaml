@@ -5,30 +5,27 @@
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_waf_config
+      node_type: AkamaiWAFConfig
       normalization:
         do_remove_trailing_dots: true
       key:
-        configId: !jmespath 'configId'
+        config_id: !jmespath 'configId'
     - type: properties
       properties:
-        configName: !jmespath 'configName'
-        configId: !jmespath 'configId'
-        productionVersion: !jmespath 'productionVersion'
+        config_name: !jmespath 'configName'
+        config_id: !jmespath 'configId'
+        production_version: !jmespath 'productionVersion'
         status: !jmespath 'status'
     - type: relationship
-      node_type: akamai_waf_policy
-      relationship_type: DEFINED_BY
+      node_type: AkamaiWAFPolicy
+      relationship_type: INCLUDED_IN
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
-        policyId: !jmespath 'policyId'
+        policy_id: !jmespath 'policyId'
       outbound: false
       iterate_on: !jmespath 'policies[*]'

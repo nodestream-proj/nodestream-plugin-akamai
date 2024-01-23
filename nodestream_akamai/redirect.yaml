@@ -5,14 +5,11 @@
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_redirect_config
+      node_type: AkamaiRedirectConfig
       normalization:
         do_remove_trailing_dots: true
       key:

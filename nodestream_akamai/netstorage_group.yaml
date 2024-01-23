@@ -5,69 +5,73 @@
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_netstorage_config
+      node_type: AkamaiNetstorageGroup
       normalization:
         do_remove_trailing_dots: true
       key:
-        storageGroupId: !jmespath 'storageGroupId'
+        storage_group_id: !jmespath 'storageGroupId'
     - type: properties
       properties:
-        storageGroupName: !jmespath 'storageGroupName'
-        estimatedUsageGB: !jmespath 'estimatedUsageGB'
-        domainPrefix: !jmespath 'domainPrefix'
+        storage_group_name: !jmespath 'storageGroupName'
+        estimated_usage_gb: !jmespath 'estimatedUsageGB'
+        domain_prefix: !jmespath 'domainPrefix'
     - type: relationship
-      node_type: akamai_endpoint
-      relationship_type: HAS_RECORD
+      node_type: endpoint
+      relationship_type: UPLOADS_INTO
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
         fqdn: !jmespath 'uploadDomains.ftp'
+      outbound: false
     - type: relationship
-      node_type: akamai_endpoint
-      relationship_type: HAS_RECORD
+      node_type: endpoint
+      relationship_type: UPLOADS_INTO
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
         fqdn: !jmespath 'uploadDomains.sftp'
+      outbound: false
     - type: relationship
-      node_type: akamai_endpoint
-      relationship_type: HAS_RECORD
+      node_type: endpoint
+      relationship_type: UPLOADS_INTO
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
         fqdn: !jmespath 'uploadDomains.scp'
+      outbound: false
     - type: relationship
-      node_type: akamai_endpoint
-      relationship_type: HAS_RECORD
+      node_type: endpoint
+      relationship_type: UPLOADS_INTO
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
         fqdn: !jmespath 'uploadDomains.rsync'
+      outbound: false
     - type: relationship
-      node_type: akamai_endpoint
-      relationship_type: HAS_RECORD
+      node_type: endpoint
+      relationship_type: UPLOADS_INTO
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
         fqdn: !jmespath 'uploadDomains.ssh'
+      outbound: false
     - type: relationship
-      node_type: akamai_endpoint
-      relationship_type: HAS_RECORD
+      node_type: endpoint
+      relationship_type: UPLOADS_INTO
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
         fqdn: !jmespath 'uploadDomains.aspera'
+      outbound: false
     - type: relationship
-      node_type: akamai_endpoint
-      relationship_type: HAS_RECORD
+      node_type: endpoint
+      relationship_type: UPLOADS_INTO
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
         fqdn: !jmespath 'uploadDomains.http'
+      outbound: false

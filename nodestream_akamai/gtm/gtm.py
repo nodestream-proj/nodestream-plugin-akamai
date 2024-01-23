@@ -14,17 +14,26 @@ class AkamaiGTMExtractor(Extractor):
         for domain in self.client.list_gtm_domains():
             try:
                 raw_domain = self.client.get_gtm_domain(domain["name"])
-                summary = []
+                properties = []
                 for property in raw_domain["properties"]:
                     fqdn = property["name"] + "." + raw_domain["name"]
-                    summary.append(
-                        {"fqdn": fqdn, "trafficTargets": property["trafficTargets"]}
+                    servers = []
+                    for traffic_target in property["trafficTargets"]:
+                        servers.extend(traffic_target["servers"])
+                    properties.append(
+                        {
+                            "fqdn": fqdn,
+                            "type": property["type"],
+                            "name": property["name"],
+                            "trafficTargets": servers,
+                        }
                     )
                 parsed_domain = {
                     "name": raw_domain["name"],
-                    "summary": summary,
-                    "raw": raw_domain,
+                    "properties": properties,
+                    # "raw": raw_domain,
                 }
+                print(parsed_domain)
                 yield parsed_domain
             except Exception:
                 self.logger.error("Failed to get gtm domain: %s", domain["name"])

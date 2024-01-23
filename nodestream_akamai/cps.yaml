@@ -5,14 +5,11 @@
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_certificate
+      node_type: AkamaiCertificate
       normalization:
         do_remove_trailing_dots: true
       key:
@@ -21,17 +18,17 @@
       properties:
         expiry: !jmespath 'expiry'
         cn: !jmespath 'csr.cn'
-        cipherSuite: !jmespath 'cipherSuite'
-        disallowedTlsVersions: !jmespath 'disallowedTlsVersions'
+        cipher_suite: !jmespath 'cipherSuite'
+        disallowed_tls_versions: !jmespath 'disallowedTlsVersions'
     - type: relationship
       node_type: endpoint
       node_key: 
         fqdn: !jmespath 'csr.cn'
-      relationship_type: PROTECTED_BY
+      relationship_type: ENCRYPTED_BY
       outbound: false
     - type: relationship
       node_type: endpoint
       node_key: 
         fqdn: !jmespath 'csr.sans[*]'
-      relationship_type: PROTECTED_BY
+      relationship_type: ENCRYPTED_BY
       outbound: false

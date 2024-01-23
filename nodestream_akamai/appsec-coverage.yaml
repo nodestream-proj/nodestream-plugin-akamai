@@ -5,21 +5,21 @@
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_waf_policy
+      node_type: AkamaiWAFPolicy
       normalization:
         do_remove_trailing_dots: true
       key:
-        policyId: !jmespath 'policyId'
+        policy_id: !jmespath 'policyId'
+    - type: properties
+      properties:
+        policy_name: !jmespath 'policyName'
     - type: relationship
       node_type: endpoint
       node_key: 
-        policyId: !jmespath 'hostname'
+        fqdn: !jmespath 'hostname'
       relationship_type: PROTECTED_BY
       outbound: false

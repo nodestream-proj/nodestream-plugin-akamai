@@ -5,14 +5,11 @@
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_edgeworker
+      node_type: AkamaiEdgeWorker
       normalization:
         do_remove_trailing_dots: true
       key:
@@ -20,10 +17,10 @@
     - type: properties
       properties:
         name: !jmespath 'name'
-        activeVersion: !jmespath 'activeVersion'
-        resourceTierId: !jmespath 'resourceTierId'
-        accountId: !jmespath 'accountId'
-        groupId: !jmespath 'groupId'
-        lastModifiedBy: !jmespath 'lastModifiedBy'
-        lastModifiedTime: !jmespath 'lastModifiedTime'
+        active_version: !jmespath 'activeVersion'
+        resource_tier_id: !jmespath 'resourceTierId'
+        account_id: !jmespath 'accountId'
+        group_id: !jmespath 'groupId'
+        last_modified_by: !jmespath 'lastModifiedBy'
+        last_modified_time: !jmespath 'lastModifiedTime'
         deeplink: !jmespath 'deeplink'

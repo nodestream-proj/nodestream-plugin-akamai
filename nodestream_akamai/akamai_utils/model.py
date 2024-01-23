@@ -18,7 +18,7 @@ class PropertyDescription:
     name: str
     version: str
     origins: List[Origin]
-    cloudlet_policies: List[str]
+    cloudlet_policies: List[int]
     edgeworker_ids: List[int]
     siteshield_maps: List[str]
     image_manager_policysets: List[str]
@@ -33,24 +33,23 @@ class PropertyDescription:
     def hostname_count(self):
         return len(self.hostnames)
 
-    @property
-    def cloudlet_policy_count(self):
-        return {"edgeRedirector": len(self.cloudlet_policies["edgeRedirector"])}
+    # @property
+    # def cloudlet_policy_count(self):
+    #     return {"edgeRedirector": len(self.cloudlet_policies["edgeRedirector"])}
 
     def as_eventbus_json(self):
         return {
             "id": f"akamai_property:{self.id}",
             "name": self.name,
             "version": self.version,
+            "ruleFormat": self.ruleFormat,
             "origin_count": self.origin_count,
-            "cloudlet_policy_count": self.cloudlet_policy_count,
+            "cloudlet_policy_count": len(self.cloudlet_policies),
             "hostname_count": self.hostname_count,
             "origins": [{"name": origin.name} for origin in self.origins],
-            "cloudlet_policies": {
-                "edgeRedirector": [
-                    {"policyId": policyId}
-                    for policyId in self.cloudlet_policies["edgeRedirector"]
-                ],
-            },
+            "cloudlet_policies": self.cloudlet_policies,
+            "edgeworker_ids": self.edgeworker_ids,
+            "siteshield_maps": self.siteshield_maps,
+            "image_manager_policysets": self.image_manager_policysets,
             "hostnames": [{"name": hostname.name} for hostname in self.hostnames],
         }

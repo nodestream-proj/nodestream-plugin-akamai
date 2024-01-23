@@ -5,24 +5,22 @@
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_edgehost
+      node_type: AkamaiEdgeHostname
       normalization:
         do_remove_trailing_dots: true
       key:
-        edgeHostnameId: !jmespath 'edgeHostnameId'
+        edge_hostname_id: !jmespath 'edgeHostnameId'
     - type: properties
       properties:
-        edgeHostname: !jmespath 'edgeHostname'
-        ipVersionBehavior: !jmespath 'ipVersionBehavior'
+        edge_hostname: !jmespath 'edgeHostname'
+        ip_version_behavior: !jmespath 'ipVersionBehavior'
     - type: relationship
       node_type: endpoint
       node_key: 
         fqdn: !jmespath 'recordName'
-      relationship_type: HAS_RECORD
+      relationship_type: CNAMES_TO
+      outbound: false

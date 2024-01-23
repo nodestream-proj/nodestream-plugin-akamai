@@ -5,23 +5,22 @@
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source_node
-      node_type: akamai_siteshield_config
+      node_type: AkamaiSiteshieldMap
       normalization:
         do_remove_trailing_dots: true
       key:
         id: !jmespath 'id'
     - type: properties
       properties:
-        mapAlias: !jmespath 'mapAlias'
-        acknowledgedBy: !jmespath 'acknowledgedBy'
-        mcmMapRuleId: !jmespath 'mcmMapRuleId'
+        map_alias: !jmespath 'mapAlias'
+        acknowledged_by: !jmespath 'acknowledgedBy'
+        mcm_map_rule_id: !jmespath 'mcmMapRuleId'
+        rule_name: !jmespath 'ruleName'
+        sure_route_name: !jmespath 'sureRouteName'
     - type: relationship
       node_type: cidripv4
       relationship_type: EGRESS
