@@ -1,3 +1,3 @@
-from .cps import AkamaiCPSExtractor
+from .cps import AkamaiCpsExtractor
 
-__all__ = ("AkamaiCPSExtractor",)
+__all__ = ("AkamaiCpsExtractor",)

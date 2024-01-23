@@ -1,38 +1,38 @@
 from .appsec_coverage import AkamaiAppSecCoverageExtractor
 from .cloudlets import AkamaiCloudletExtractor
-from .cpcodes import AkamaiCPCodesExtractor
-from .cps import AkamaiCPSExtractor
-from .edgeworkers import AkamaiEdgeWorkersExtractor
-from .ehn import AkamaiEHNExtractor
-from .gtm import AkamaiGTMExtractor
-from .iam_clients import AkamaiIAMClientExtractor
-from .iam_users import AkamaiIAMUserExtractor
-from .ivm import AkamaiIVMExtractor
+from .cpcodes import AkamaiCpCodesExtractor
+from .cps import AkamaiCpsExtractor
+from .edgeworkers import AkamaiEdgeworkersExtractor
+from .ehn import AkamaiEhnExtractor
+from .gtm import AkamaiGtmExtractor
+from .iam_clients import AkamaiIamClientExtractor
+from .iam_users import AkamaiIamUserExtractor
+from .ivm import AkamaiIvmExtractor
 from .netstorage_account import AkamaiNetstorageAccountExtractor
 from .netstorage_group import AkamaiNetstorageGroupExtractor
 from .plugin import AkamaiPlugin
 from .property import AkamaiPropertyExtractor
 from .redirect import AkamaiRedirectExtractor
 from .siteshield import AkamaiSiteShieldExtractor
-from .waf import AkamaiWAFExtractor
+from .waf import AkamaiWafExtractor
 
 __all__ = (
     "AkamaiPlugin",
     "AkamaiAppSecCoverageExtractor",
     "AkamaiCloudletExtractor",
-    "AkamaiCPCodesExtractor",
-    "AkamaiCPSExtractor",
-    "AkamaiEdgeWorkersExtractor",
-    "AkamaiEHNExtractor",
-    "AkamaiGTMExtractor",
-    "AkamaiIVMExtractor",
-    "AkamaiIAMClientExtractor",
-    "AkamaiIAMUserExtractor",
+    "AkamaiCpCodesExtractor",
+    "AkamaiCpsExtractor",
+    "AkamaiEdgeworkersExtractor",
+    "AkamaiEhnExtractor",
+    "AkamaiGtmExtractor",
+    "AkamaiIvmExtractor",
+    "AkamaiIamClientExtractor",
+    "AkamaiIamUserExtractor",
     "AkamaiNetstorageAccountExtractor",
     "AkamaiNetstorageGroupExtractor",
     "AkamaiNetstorageAccountExtractor",
     "AkamaiPropertyExtractor",
     "AkamaiRedirectExtractor",
     "AkamaiSiteShieldExtractor",
-    "AkamaiWAFExtractor",
+    "AkamaiWafExtractor",
 )

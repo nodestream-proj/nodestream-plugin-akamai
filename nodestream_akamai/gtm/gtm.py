@@ -2,12 +2,12 @@ import logging
 
 from nodestream.pipeline.extractors import Extractor
 
-from ..akamai_utils.gtm_client import AkamaiGTMClient
+from ..akamai_utils.gtm_client import AkamaiGtmClient
 
 
-class AkamaiGTMExtractor(Extractor):
+class AkamaiGtmExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
-        self.client = AkamaiGTMClient(**akamai_client_kwargs)
+        self.client = AkamaiGtmClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
     async def extract_records(self):

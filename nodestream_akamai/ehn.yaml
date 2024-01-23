@@ -1,4 +1,4 @@
-- implementation: nodestream_akamai.ehn:AkamaiEHNExtractor
+- implementation: nodestream_akamai.ehn:AkamaiEhnExtractor
   arguments:
     base_url: !config 'base_url'
     client_token: !config 'client_token'
@@ -19,7 +19,7 @@
         edge_hostname: !jmespath 'edgeHostname'
         ip_version_behavior: !jmespath 'ipVersionBehavior'
     - type: relationship
-      node_type: endpoint
+      node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'recordName'
       relationship_type: CNAMES_TO

@@ -5,7 +5,7 @@ from .client import AkamaiApiClient
 logger = logging.getLogger(__name__)
 
 
-class AkamaiEdgeWorkersClient(AkamaiApiClient):
+class AkamaiEdgeworkersClient(AkamaiApiClient):
     def list_edgeworkers(self):
         list_edgeworkers_path = "/edgeworkers/v1/ids"
         return self._get_api_from_relative_path(list_edgeworkers_path)["edgeWorkerIds"]

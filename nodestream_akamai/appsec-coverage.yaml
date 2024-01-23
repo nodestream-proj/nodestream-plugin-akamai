@@ -9,7 +9,7 @@
   arguments:
     interpretations:
     - type: source_node
-      node_type: AkamaiWAFPolicy
+      node_type: AkamaiWafPolicy
       normalization:
         do_remove_trailing_dots: true
       key:
@@ -18,7 +18,7 @@
       properties:
         policy_name: !jmespath 'policyName'
     - type: relationship
-      node_type: endpoint
+      node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'hostname'
       relationship_type: PROTECTED_BY

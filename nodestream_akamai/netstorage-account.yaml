@@ -25,7 +25,7 @@
         has_http_api_access: !jmespath 'hasHttpApiAccess'
         rule_set_id: !jmespath 'ruleSetId'
     - type: relationship
-      node_type: akamai_netstorage_group
+      node_type: AkamaiNetstorageGroup
       relationship_type: ACCESSES
       key_normalization:
         do_remove_trailing_dots: true

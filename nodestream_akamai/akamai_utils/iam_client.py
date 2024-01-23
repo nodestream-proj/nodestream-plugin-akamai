@@ -5,7 +5,7 @@ from .client import AkamaiApiClient
 logger = logging.getLogger(__name__)
 
 
-class AkamaiIAMClient(AkamaiApiClient):
+class AkamaiIamClient(AkamaiApiClient):
     def list_users(self):
         list_users_path = "/identity-management/v3/user-admin/ui-identities"
         return self._get_api_from_relative_path(list_users_path)

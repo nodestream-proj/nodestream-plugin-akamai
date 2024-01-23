@@ -1,4 +1,4 @@
-- implementation: nodestream_akamai.waf:AkamaiWAFExtractor
+- implementation: nodestream_akamai.waf:AkamaiWafExtractor
   arguments:
     base_url: !config 'base_url'
     client_token: !config 'client_token'
@@ -9,7 +9,7 @@
   arguments:
     interpretations:
     - type: source_node
-      node_type: AkamaiWAFConfig
+      node_type: AkamaiWafConfig
       normalization:
         do_remove_trailing_dots: true
       key:
@@ -21,7 +21,7 @@
         production_version: !jmespath 'productionVersion'
         status: !jmespath 'status'
     - type: relationship
-      node_type: AkamaiWAFPolicy
+      node_type: AkamaiWafPolicy
       relationship_type: INCLUDED_IN
       key_normalization:
         do_remove_trailing_dots: true

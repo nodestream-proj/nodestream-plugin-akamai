@@ -2,12 +2,12 @@ import logging
 
 from nodestream.pipeline.extractors import Extractor
 
-from ..akamai_utils.cps_client import AkamaiCPSClient
+from ..akamai_utils.cps_client import AkamaiCpsClient
 
 
-class AkamaiCPSExtractor(Extractor):
+class AkamaiCpsExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
-        self.client = AkamaiCPSClient(**akamai_client_kwargs)
+        self.client = AkamaiCpsClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
     async def extract_records(self):

@@ -5,7 +5,7 @@ from .client import AkamaiApiClient
 logger = logging.getLogger(__name__)
 
 
-class AkamaiCPSClient(AkamaiApiClient):
+class AkamaiCpsClient(AkamaiApiClient):
     def list_cps_enrollments(self):
         list_enrollments_path = "/cps/v2/enrollments"
         headers = {"accept": "application/vnd.akamai.cps.enrollments.v11+json"}

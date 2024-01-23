@@ -1,3 +1,3 @@
-from .waf import AkamaiWAFExtractor
+from .waf import AkamaiWafExtractor
 
-__all__ = ("AkamaiWAFExtractor",)
+__all__ = ("AkamaiWafExtractor",)

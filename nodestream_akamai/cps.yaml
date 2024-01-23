@@ -1,4 +1,4 @@
-- implementation: nodestream_akamai.cps:AkamaiCPSExtractor
+- implementation: nodestream_akamai.cps:AkamaiCpsExtractor
   arguments:
     base_url: !config 'base_url'
     client_token: !config 'client_token'
@@ -21,13 +21,13 @@
         cipher_suite: !jmespath 'cipherSuite'
         disallowed_tls_versions: !jmespath 'disallowedTlsVersions'
     - type: relationship
-      node_type: endpoint
+      node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'csr.cn'
       relationship_type: ENCRYPTED_BY
       outbound: false
     - type: relationship
-      node_type: endpoint
+      node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'csr.sans[*]'
       relationship_type: ENCRYPTED_BY

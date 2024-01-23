@@ -5,7 +5,7 @@ from .client import AkamaiApiClient
 logger = logging.getLogger(__name__)
 
 
-class AkamaiGTMClient(AkamaiApiClient):
+class AkamaiGtmClient(AkamaiApiClient):
     def list_gtm_domains(self):
         gtm_domains_path = "/config-gtm/v1/domains"
         return self._get_api_from_relative_path(gtm_domains_path)["items"]

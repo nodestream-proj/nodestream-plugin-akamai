@@ -1,4 +1,4 @@
-- implementation: nodestream_akamai.ivm:AkamaiIVMExtractor
+- implementation: nodestream_akamai.ivm:AkamaiIvmExtractor
   arguments:
     base_url: !config 'base_url'
     client_token: !config 'client_token'
@@ -9,11 +9,11 @@
   arguments:
     interpretations:
     - type: source_node
-      node_type: AkamaiIVMPolicy
+      node_type: AkamaiIvmPolicy
       normalization:
         do_remove_trailing_dots: true
       key:
-        id: !jmespath 'uniqueId'
+        unique_id: !jmespath 'uniqueId'
     - type: properties
       properties:
         policy_id: !jmespath 'id'
@@ -24,7 +24,7 @@
         user: !jmespath 'user'
         date_created: !jmespath 'dateCreated'
     - type: relationship
-      node_type: AkamaiIVMPolicySet
+      node_type: AkamaiIvmPolicySet
       relationship_type: CONTAINS
       key_normalization:
         do_remove_trailing_dots: true

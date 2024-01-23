@@ -2,14 +2,14 @@ import logging
 
 from nodestream.pipeline.extractors import Extractor
 
-from ..akamai_utils.iam_client import AkamaiIAMClient
+from ..akamai_utils.iam_client import AkamaiIamClient
 from ..akamai_utils.property_client import AkamaiPropertyClient
 
 
 class AkamaiPropertyExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
         self.client = AkamaiPropertyClient(**akamai_client_kwargs)
-        self.iam_client = AkamaiIAMClient(**akamai_client_kwargs)
+        self.iam_client = AkamaiIamClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
     async def extract_records(self):

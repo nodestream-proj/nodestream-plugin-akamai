@@ -1,4 +1,4 @@
-- implementation: nodestream_akamai.gtm:AkamaiGTMExtractor
+- implementation: nodestream_akamai.gtm:AkamaiGtmExtractor
   arguments:
     base_url: !config 'base_url'
     client_token: !config 'client_token'
@@ -9,7 +9,7 @@
   arguments:
     interpretations:
     - - type: source_node
-        node_type: AkamaiGTMDomain
+        node_type: AkamaiGtmDomain
         normalization:
           do_remove_trailing_dots: true
         key:
@@ -18,13 +18,13 @@
         properties:
           name: !jmespath 'name'
       - type: relationship
-        node_type: AkamaiGTMProperty
+        node_type: AkamaiGtmProperty
         node_key: 
           fqdn: !jmespath 'properties[*].fqdn'
         find_many: true
         relationship_type: HAS_RECORD
     - - type: source_node
-        node_type: AkamaiGTMProperty
+        node_type: AkamaiGtmProperty
         normalization:
           do_remove_trailing_dots: true
         key:
@@ -34,7 +34,7 @@
           name: !jmespath 'name'
           type: !jmespath 'type'
       - type: relationship
-        node_type: AkamaiGTMTarget
+        node_type: AkamaiGtmTarget
         relationship_type: RETURNS
         key_normalization:
           do_remove_trailing_dots: true

@@ -1,4 +1,4 @@
-- implementation: nodestream_akamai.edgeworkers:AkamaiEdgeWorkersExtractor
+- implementation: nodestream_akamai.edgeworkers:AkamaiEdgeworkersExtractor
   arguments:
     base_url: !config 'base_url'
     client_token: !config 'client_token'
@@ -9,7 +9,7 @@
   arguments:
     interpretations:
     - type: source_node
-      node_type: AkamaiEdgeWorker
+      node_type: AkamaiEdgeworker
       normalization:
         do_remove_trailing_dots: true
       key:

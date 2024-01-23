@@ -20,20 +20,20 @@
         version: !jmespath 'version'
         rule_format: !jmespath 'ruleFormat'
     - type: relationship
-      node_type: endpoint
+      node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'hostnames[*].name'
       find_many: true
       relationship_type: SERVICED_BY
       outbound: false
     - type: relationship
-      node_type: endpoint
+      node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'origins[*].name'
       find_many: true
       relationship_type: PROXIES_TO
     - type: relationship
-      node_type: AkamaiIVMPolicySet
+      node_type: AkamaiIvmPolicySet
       node_key: 
         id: !jmespath 'image_manager_policysets[*]'
       find_many: true
@@ -45,7 +45,7 @@
       find_many: true
       relationship_type: OFFLOADS_CONFIGURATION_TO
     - type: relationship
-      node_type: AkamaiEdgeWorker
+      node_type: AkamaiEdgeworker
       node_key: 
         id: !jmespath 'edgeworker_ids[*]'
       find_many: true

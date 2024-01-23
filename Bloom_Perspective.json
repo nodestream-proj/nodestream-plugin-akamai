@@ -3127,6 +3127,7 @@
             ],
             "createdAt": 1684596008106,
             "lastEditedAt": 1704925021864,
+            "lastEditedAt": 1704925021864,
             "color": "#FFE081",
             "size": 1,
             "icon": "no-icon",
@@ -3340,6 +3341,7 @@
             ],
             "createdAt": 1684596008106,
             "lastEditedAt": 1704920535782,
+            "lastEditedAt": 1704920535782,
             "color": "#3b6799",
             "size": 1,
             "icon": "no-icon",
@@ -3352,6 +3354,46 @@
                     "inTooltip": false,
                     "isCaption": false,
                     "type": "label"
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "id",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_by_gtm_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": true,
+                    "key": "name",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "was_ingested_by_gtm",
+                    "type": "property",
+                    "isGdsData": false
                 },
                 {
                     "inTooltip": true,
@@ -3868,12 +3910,12 @@
                 {
                     "name": "last_ingested_by_waf_at",
                     "exclude": false,
-                    "dataType": "DateTime"
+                    "dataType": "DateTime""dataType": "DateTime"
                 },
                 {
                     "name": "policy_id",
                     "exclude": false,
-                    "dataType": "string"
+                    "dataType": "boolean"
                 },
                 {
                     "name": "last_ingested_at",
@@ -4221,6 +4263,7 @@
                 },
                 {
                     "inTooltip": true,
+                    "inTooltip": true,
                     "styles": [],
                     "isCaption": false,
                     "key": "aspera_enabled",
@@ -4230,12 +4273,14 @@
                 {
                     "inTooltip": true,
                     "styles": [],
+                    "styles": [],
                     "isCaption": false,
                     "key": "ftp_enabled",
                     "type": "property",
                     "isGdsData": false
                 },
                 {
+                    "inTooltip": true,
                     "inTooltip": true,
                     "styles": [],
                     "isCaption": false,
@@ -4246,12 +4291,14 @@
                 {
                     "inTooltip": true,
                     "styles": [],
+                    "styles": [],
                     "isCaption": false,
                     "key": "has_http_api_access",
                     "type": "property",
                     "isGdsData": false
                 },
                 {
+                    "inTooltip": false,
                     "inTooltip": false,
                     "styles": [],
                     "isCaption": false,
@@ -4260,14 +4307,25 @@
                     "isGdsData": false
                 },
                 {
+                    "isCaption": false,
+                    "key": "last_ingested_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
                     "inTooltip": false,
+                    "styles": [],
                     "styles": [],
                     "isCaption": false,
                     "key": "last_ingested_by_netstorage_account_at",
                     "type": "property",
                     "isGdsData": false
+                    "key": "last_ingested_by_netstorage_account_at",
+                    "type": "property",
+                    "isGdsData": false
                 },
                 {
+                    "inTooltip": true,
                     "inTooltip": true,
                     "styles": [],
                     "isCaption": false,
@@ -4564,6 +4622,7 @@
                 }
             ],
             "createdAt": 1700085588021,
+            "lastEditedAt": 1704920535787,
             "lastEditedAt": 1704920535787,
             "color": "#F16667",
             "size": 1,
@@ -5607,6 +5666,8 @@
             "color": "#569480",
             "size": 1,
             "icon": "no-icon",
+            "textSize": 1,
+            "textAlign": "top",
             "textSize": 1,
             "textAlign": "top",
             "captions": [

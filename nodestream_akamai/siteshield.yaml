@@ -22,7 +22,7 @@
         rule_name: !jmespath 'ruleName'
         sure_route_name: !jmespath 'sureRouteName'
     - type: relationship
-      node_type: cidripv4
+      node_type: Cidripv4
       relationship_type: EGRESS
       key_normalization:
         do_remove_trailing_dots: true

@@ -5,7 +5,7 @@ from nodestream.pipeline.extractors import Extractor
 from ..akamai_utils.edgehostnames_client import AkamaiEdgeHostnamesClient
 
 
-class AkamaiEHNExtractor(Extractor):
+class AkamaiEhnExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
         self.client = AkamaiEdgeHostnamesClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)

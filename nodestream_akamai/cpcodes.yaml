@@ -1,4 +1,4 @@
-- implementation: nodestream_akamai.cpcodes:AkamaiCPCodesExtractor
+- implementation: nodestream_akamai.cpcodes:AkamaiCpCodesExtractor
   arguments:
     base_url: !config 'base_url'
     client_token: !config 'client_token'
