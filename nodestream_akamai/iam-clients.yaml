@@ -36,3 +36,4 @@
         do_remove_trailing_dots: true
       node_key:
         ui_user_name: !jmespath 'authorizedUsers[*]'
+      find_many: true

@@ -13,7 +13,7 @@
       normalization:
         do_remove_trailing_dots: true
       key:
-        id: !jmespath 'policyId'
+        policyId: !jmespath 'policyId'
     - type: properties
       properties:
         name: !jmespath 'name'
@@ -21,10 +21,12 @@
       node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'inbound_hosts[*].name'
+      find_many: true
       relationship_type: REDIRECTS_HANDLED_BY
       outbound: false
     - type: relationship
       node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'outbound_hosts[*].name'
+      find_many: true
       relationship_type: REDIRECTS_TO

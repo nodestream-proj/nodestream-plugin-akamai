@@ -7,37 +7,34 @@
     account_key: !config 'account_key'
 - implementation: nodestream.interpreting:Interpreter
   arguments:
-    interpretations:
-    - - type: source_node
+    before_iteration:
+      - type: relationship
         node_type: AkamaiGtmDomain
-        normalization:
-          do_remove_trailing_dots: true
-        key:
-          id: !jmespath 'name'
-      - type: properties
-        properties:
-          name: !jmespath 'name'
-      - type: relationship
-        node_type: AkamaiGtmProperty
+        relationship_type: IN_DOMAIN
         node_key: 
-          fqdn: !jmespath 'properties[*].fqdn'
-        find_many: true
-        relationship_type: HAS_RECORD
-    - - type: source_node
-        node_type: AkamaiGtmProperty
-        normalization:
-          do_remove_trailing_dots: true
-        key:
-          id: !jmespath 'properties[*].fqdn'
-      - type: properties
-        properties:
-          name: !jmespath 'name'
+          name:  !jmespath name
+        node_properties:
           type: !jmespath 'type'
-      - type: relationship
-        node_type: AkamaiGtmTarget
-        relationship_type: RETURNS
-        key_normalization:
-          do_remove_trailing_dots: true
-        node_key:
-          fqdn: !jmespath 'trafficTargets[*]'
-        find_many: true
+          loadImbalancePercentage: !jmespath 'loadImbalancePercentage'
+          loadFeedback: !jmespath 'loadFeedback'
+          cnameCoalescingEnabled: !jmespath 'cnameCoalescingEnabled'
+          deeplink: !jmespath 'deeplink'
+    iterate_on: !jmespath properties[*]
+    interpretations:
+    - type: source_node
+      node_type: AkamaiGtmProperty
+      normalization:
+        do_remove_trailing_dots: true
+      key:
+        fqdn: !jmespath 'fqdn'
+      properties:
+        name: !jmespath 'name'
+        type: !jmespath 'type'
+    - type: relationship
+      node_type: AkamaiGtmTarget
+      relationship_type: RETURNS
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        target: !jmespath 'trafficTargets[*]'
+      find_many: true

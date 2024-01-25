@@ -5,7 +5,7 @@ from nodestream.pipeline.extractors import Extractor
 from ..akamai_utils.siteshield_client import AkamaiSiteshieldClient
 
 
-class AkamaiSiteShieldExtractor(Extractor):
+class AkamaiSiteshieldExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
         self.client = AkamaiSiteshieldClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)

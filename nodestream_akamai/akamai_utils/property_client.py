@@ -138,9 +138,14 @@ class AkamaiPropertyClient(AkamaiApiClient):
             )
         )
 
-        # Update cloudlets
+        # Cloudlets
         cloudlet_policies = self.search_akamai_rule_tree_for_cloudlets(
             rule_tree=rule_tree["rules"]
+        )
+
+        # Specific data for Edge Redirector, flter for legacy only
+        edge_redirector_policies = self.search_akamai_rule_tree_for_cloudlet(
+            rule_tree=rule_tree["rules"], behavior_name="edgeRedirector", shared=False
         )
 
         # IVM
@@ -165,6 +170,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
             ruleFormat=rule_tree["ruleFormat"],
             origins=list(origins),
             cloudlet_policies=cloudlet_policies,
+            edge_redirector_policies=edge_redirector_policies,
             image_manager_policysets=image_manager_policysets,
             edgeworker_ids=edgeworker_ids,
             siteshield_maps=siteshield_maps,
@@ -300,16 +306,25 @@ class AkamaiPropertyClient(AkamaiApiClient):
     def search_akamai_rule_tree_for_edge_redirector(self, rule_tree):
         return self.search_akamai_rule_tree_for_cloudlet(rule_tree, "edgeRedirector")
 
-    def search_akamai_rule_tree_for_cloudlet(self, rule_tree, behavior_name):
+    def search_akamai_rule_tree_for_cloudlet(
+        self, rule_tree, behavior_name, shared=None
+    ):
+        # If shared is None, both shared and legacy behaviors will be matched
         instances = self.search_akamai_rule_tree_for_behavior(rule_tree, behavior_name)
         policy_ids = []
         for behavior in instances:
             if behavior["options"]["enabled"]:
                 if behavior["options"].get("isSharedPolicy"):
+                    # Skip this if shared is False
+                    if shared == False:
+                        continue
                     policy_id = behavior["options"]["cloudletSharedPolicy"]
                 else:
+                    # Skip this if shared is True
+                    if shared == True:
+                        continue
                     policy_id = behavior["options"]["cloudletPolicy"]["id"]
-                policy_ids.append(str(policy_id))
+                policy_ids.append(policy_id)
 
         return list(set(policy_ids))
 

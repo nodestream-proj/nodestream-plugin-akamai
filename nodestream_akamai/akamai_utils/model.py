@@ -19,6 +19,7 @@ class PropertyDescription:
     version: str
     origins: List[Origin]
     cloudlet_policies: List[int]
+    edge_redirector_policies: List[int]
     edgeworker_ids: List[int]
     siteshield_maps: List[str]
     image_manager_policysets: List[str]
@@ -48,6 +49,7 @@ class PropertyDescription:
             "hostname_count": self.hostname_count,
             "origins": [{"name": origin.name} for origin in self.origins],
             "cloudlet_policies": self.cloudlet_policies,
+            "edge_redirector_policies": self.edge_redirector_policies,
             "edgeworker_ids": self.edgeworker_ids,
             "siteshield_maps": self.siteshield_maps,
             "image_manager_policysets": self.image_manager_policysets,

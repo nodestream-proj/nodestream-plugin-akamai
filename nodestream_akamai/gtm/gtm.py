@@ -14,6 +14,9 @@ class AkamaiGtmExtractor(Extractor):
         for domain in self.client.list_gtm_domains():
             try:
                 raw_domain = self.client.get_gtm_domain(domain["name"])
+                deeplink = [
+                    link for link in raw_domain["links"] if link["rel"] == "self"
+                ][0]["href"]
                 properties = []
                 for property in raw_domain["properties"]:
                     fqdn = property["name"] + "." + raw_domain["name"]
@@ -31,9 +34,13 @@ class AkamaiGtmExtractor(Extractor):
                 parsed_domain = {
                     "name": raw_domain["name"],
                     "properties": properties,
+                    "type": raw_domain["type"],
+                    "loadImbalancePercentage": raw_domain["loadImbalancePercentage"],
+                    "loadFeedback": raw_domain["loadFeedback"],
+                    "cnameCoalescingEnabled": raw_domain["cnameCoalescingEnabled"],
+                    "deeplink": deeplink
                     # "raw": raw_domain,
                 }
-                print(parsed_domain)
                 yield parsed_domain
             except Exception:
                 self.logger.error("Failed to get gtm domain: %s", domain["name"])

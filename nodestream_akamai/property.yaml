@@ -57,3 +57,9 @@
         rule_name: !jmespath 'siteshield_maps[*]'
       find_many: true
       relationship_type: ROUTES_THROUGH
+    - type: relationship
+      node_type: AkamaiRedirectConfig
+      node_key: 
+        policyId: !jmespath 'edge_redirector_policies[*]'
+      find_many: true
+      relationship_type: REDIRECTS_IN

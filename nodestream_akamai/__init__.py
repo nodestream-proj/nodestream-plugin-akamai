@@ -13,7 +13,7 @@ from .netstorage_group import AkamaiNetstorageGroupExtractor
 from .plugin import AkamaiPlugin
 from .property import AkamaiPropertyExtractor
 from .redirect import AkamaiRedirectExtractor
-from .siteshield import AkamaiSiteShieldExtractor
+from .siteshield import AkamaiSiteshieldExtractor
 from .waf import AkamaiWafExtractor
 
 __all__ = (
@@ -33,6 +33,6 @@ __all__ = (
     "AkamaiNetstorageAccountExtractor",
     "AkamaiPropertyExtractor",
     "AkamaiRedirectExtractor",
-    "AkamaiSiteShieldExtractor",
+    "AkamaiSiteshieldExtractor",
     "AkamaiWafExtractor",
 )

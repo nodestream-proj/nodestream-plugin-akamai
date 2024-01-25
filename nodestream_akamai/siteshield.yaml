@@ -1,4 +1,4 @@
-- implementation: nodestream_akamai.siteshield:AkamaiSiteShieldExtractor
+- implementation: nodestream_akamai.siteshield:AkamaiSiteshieldExtractor
   arguments:
     base_url: !config 'base_url'
     client_token: !config 'client_token'
@@ -13,13 +13,13 @@
       normalization:
         do_remove_trailing_dots: true
       key:
-        id: !jmespath 'id'
+        rule_name: !jmespath 'ruleName'
     - type: properties
       properties:
+        id: !jmespath 'id'
         map_alias: !jmespath 'mapAlias'
         acknowledged_by: !jmespath 'acknowledgedBy'
         mcm_map_rule_id: !jmespath 'mcmMapRuleId'
-        rule_name: !jmespath 'ruleName'
         sure_route_name: !jmespath 'sureRouteName'
     - type: relationship
       node_type: Cidripv4

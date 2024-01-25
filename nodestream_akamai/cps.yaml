@@ -30,5 +30,6 @@
       node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'csr.sans[*]'
+      find_many: true
       relationship_type: ENCRYPTED_BY
       outbound: false
