@@ -95,7 +95,7 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
         if len(list_of_activations) == 0:
             logger.info(
                 "Policy had no active occurrences. Candidate for cleanup: Policy ID %s",
-                str(policy_tree["policyId"]),
+                policy_tree["policyId"],
             )
 
         # return list(self.keep_first(list_of_activations, lambda d: (d["network"], d["policyId"])))
@@ -110,7 +110,7 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
                     raw_ruleset = self.extract_akamai_ruleset_version(
                         policy["policyId"], policy["version"]
                     )
-                    policy["id"] = f"akamai_redirect:{str(policy['policyId'])}"
+                    policy["id"] = f"akamai_redirect:{policy['policyId']}"
                     policy[
                         "inbound_hosts"
                     ] = self.search_akamai_ruleset_for_inbound_hosts(raw_ruleset)
@@ -119,7 +119,7 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
                     ] = self.search_akamai_ruleset_for_outbound_hosts(raw_ruleset)
                     policy_list.append(policy)
         except Exception as e:
-            logger.info("No version found in: %s", str(policy["policyId"]))
+            logger.info("No version found in: %s", policy["policyId"])
             logger.info(e)
             logger.info(policy)
         return policy_list
