@@ -38,8 +38,7 @@ class AkamaiGtmExtractor(Extractor):
                     "loadImbalancePercentage": raw_domain["loadImbalancePercentage"],
                     "loadFeedback": raw_domain["loadFeedback"],
                     "cnameCoalescingEnabled": raw_domain["cnameCoalescingEnabled"],
-                    "deeplink": deeplink
-                    # "raw": raw_domain,
+                    "deeplink": deeplink,
                 }
                 yield parsed_domain
             except Exception:
