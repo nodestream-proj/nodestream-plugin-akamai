@@ -1,3 +1,3 @@
-from .gtm import AkamaiGTMExtractor
+from .gtm import AkamaiGtmExtractor
 
-__all__ = ("AkamaiGTMExtractor",)
+__all__ = ("AkamaiGtmExtractor",)

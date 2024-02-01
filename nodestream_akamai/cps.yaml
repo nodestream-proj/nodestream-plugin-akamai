@@ -1,13 +1,10 @@
-- implementation: nodestream_akamai.cps:AkamaiCPSExtractor
+- implementation: nodestream_akamai.cps:AkamaiCpsExtractor
   arguments:
     base_url: !config 'base_url'
     client_token: !config 'client_token'
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
@@ -27,11 +24,12 @@
       node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'csr.cn'
-      relationship_type: PROTECTED_BY
+      relationship_type: ENCRYPTED_BY
       outbound: false
     - type: relationship
       node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'csr.sans[*]'
-      relationship_type: PROTECTED_BY
+      find_many: true
+      relationship_type: ENCRYPTED_BY
       outbound: false

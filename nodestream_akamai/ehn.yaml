@@ -1,18 +1,15 @@
-- implementation: nodestream_akamai.ehn:AkamaiEHNExtractor
+- implementation: nodestream_akamai.ehn:AkamaiEhnExtractor
   arguments:
     base_url: !config 'base_url'
     client_token: !config 'client_token'
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source_node
-      node_type: AkamaiEdgehost
+      node_type: AkamaiEdgeHostname
       normalization:
         do_remove_trailing_dots: true
       key:
@@ -25,4 +22,5 @@
       node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'recordName'
-      relationship_type: HAS_RECORD
+      relationship_type: CNAMES_TO
+      outbound: false

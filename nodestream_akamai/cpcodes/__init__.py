@@ -1,3 +1,3 @@
-from .cpcodes import AkamaiCPCodesExtractor
+from .cpcodes import AkamaiCpCodesExtractor
 
-__all__ = ("AkamaiCPCodesExtractor",)
+__all__ = ("AkamaiCpCodesExtractor",)

@@ -26,6 +26,23 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
 
         return {policy["policyId"] for policy in returned_policies}
 
+    def cloudlet_policy_ids_er(self) -> List[int]:
+        cloudlet_list_api_path = "/cloudlets/api/v2/policies?cloudletId=0"
+        offset = 0
+        returned_policies = []
+        page_size = 1000
+        continue_query = True
+        while continue_query:
+            query_params = {"offset": offset}
+            response_json = self._get_api_from_relative_path(
+                cloudlet_list_api_path, params=query_params
+            )
+            returned_policies = returned_policies + response_json
+            offset += page_size
+            continue_query = len(response_json) == page_size
+
+        return {policy["policyId"] for policy in returned_policies}
+
     def list_cloudlets_v2(self) -> List[int]:
         cloudlet_list_api_path = "/cloudlets/api/v2/policies"
         offset = 0
@@ -62,7 +79,7 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
             if activation["policyInfo"]["status"] == "active":
                 list_of_activations.append(
                     {
-                        "policyId": str(policy_tree["policyId"]),
+                        "policyId": policy_tree["policyId"],
                         "network": activation["network"],
                         "groupId": str(policy_tree["groupId"]),
                         "name": policy_tree["name"],
@@ -105,7 +122,6 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
             logger.info("No version found in: %s", policy["policyId"])
             logger.info(e)
             logger.info(policy)
-
         return policy_list
 
     def search_akamai_ruleset_for_inbound_hosts(self, rule_tree):

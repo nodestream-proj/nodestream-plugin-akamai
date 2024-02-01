@@ -2,12 +2,12 @@ import logging
 
 from nodestream.pipeline.extractors import Extractor
 
-from ..akamai_utils.ivm_client import AkamaiIVMClient
+from ..akamai_utils.ivm_client import AkamaiIvmClient
 
 
-class AkamaiIVMExtractor(Extractor):
+class AkamaiIvmExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
-        self.client = AkamaiIVMClient(**akamai_client_kwargs)
+        self.client = AkamaiIvmClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
     async def extract_records(self):

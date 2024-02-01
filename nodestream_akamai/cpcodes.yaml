@@ -1,13 +1,10 @@
-- implementation: nodestream_akamai.cpcodes:AkamaiCPCodesExtractor
+- implementation: nodestream_akamai.cpcodes:AkamaiCpCodesExtractor
   arguments:
     base_url: !config 'base_url'
     client_token: !config 'client_token'
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:

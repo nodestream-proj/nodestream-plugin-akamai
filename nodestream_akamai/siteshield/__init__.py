@@ -1,3 +1,3 @@
-from .siteshield import AkamaiSiteShieldExtractor
+from .siteshield import AkamaiSiteshieldExtractor
 
-__all__ = ("AkamaiSiteShieldExtractor",)
+__all__ = ("AkamaiSiteshieldExtractor",)

@@ -5,7 +5,7 @@ from .client import AkamaiApiClient
 logger = logging.getLogger(__name__)
 
 
-class AkamaiIVMClient(AkamaiApiClient):
+class AkamaiIvmClient(AkamaiApiClient):
     def list_policy_sets(self):
         ivm_policy_sets_path = "/imaging/v2/policysets"
         return self._get_api_from_relative_path(ivm_policy_sets_path)

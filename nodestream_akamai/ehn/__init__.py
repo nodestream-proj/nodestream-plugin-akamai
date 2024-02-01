@@ -1,3 +1,3 @@
-from .ehn import AkamaiEHNExtractor
+from .ehn import AkamaiEhnExtractor
 
-__all__ = ("AkamaiEHNExtractor",)
+__all__ = ("AkamaiEhnExtractor",)

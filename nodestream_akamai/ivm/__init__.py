@@ -1,3 +1,3 @@
-from .ivm import AkamaiIVMExtractor
+from .ivm import AkamaiIvmExtractor
 
-__all__ = ("AkamaiIVMExtractor",)
+__all__ = ("AkamaiIvmExtractor",)

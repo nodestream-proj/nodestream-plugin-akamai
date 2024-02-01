@@ -1,3 +1,3 @@
-from .edgeworkers import AkamaiEdgeWorkersExtractor
+from .edgeworkers import AkamaiEdgeworkersExtractor
 
-__all__ = ("AkamaiEdgeWorkersExtractor",)
+__all__ = ("AkamaiEdgeworkersExtractor",)

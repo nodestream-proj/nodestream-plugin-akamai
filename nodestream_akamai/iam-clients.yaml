@@ -1,4 +1,4 @@
-- implementation: nodestream_akamai.iam_clients:AkamaiIAMClientExtractor
+- implementation: nodestream_akamai.iam_clients:AkamaiIamClientExtractor
   arguments:
     base_url: !config 'base_url'
     client_token: !config 'client_token'
@@ -12,11 +12,11 @@
   arguments:
     interpretations:
     - type: source_node
-      node_type: AkamaiIamApiClient
+      node_type: AkamaiIamClient
       normalization:
         do_remove_trailing_dots: true
       key:
-        client_id: !jmespath 'clientId'
+        clientId: !jmespath 'clientId'
     - type: properties
       properties:
         client_name: !jmespath 'clientName'
@@ -36,3 +36,4 @@
         do_remove_trailing_dots: true
       node_key:
         ui_user_name: !jmespath 'authorizedUsers[*]'
+      find_many: true

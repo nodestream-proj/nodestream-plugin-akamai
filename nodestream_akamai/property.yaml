@@ -5,14 +5,11 @@
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
     - type: source_node
-      node_type: AkamaiPropertyConfig
+      node_type: AkamaiProperty
       normalization:
         do_remove_trailing_dots: true
       key:
@@ -26,15 +23,43 @@
       node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'hostnames[*].name'
+      find_many: true
       relationship_type: SERVICED_BY
       outbound: false
     - type: relationship
       node_type: Endpoint
       node_key: 
         fqdn: !jmespath 'origins[*].name'
+      find_many: true
       relationship_type: PROXIES_TO
     - type: relationship
-      node_type: Endpoint
+      node_type: AkamaiIvmPolicySet
       node_key: 
-        fqdn: !jmespath 'edge_redirector_policies[*].policyId'
+        id: !jmespath 'image_manager_policysets[*]'
+      find_many: true
+      relationship_type: MEDIA_OPTIMIZED_BY
+    - type: relationship
+      node_type: AkamaiCloudlet
+      node_key: 
+        id: !jmespath 'cloudlet_policies[*]'
+      find_many: true
+      relationship_type: OFFLOADS_CONFIGURATION_TO
+    - type: relationship
+      node_type: AkamaiEdgeworker
+      node_key: 
+        id: !jmespath 'edgeworker_ids[*]'
+      find_many: true
+      relationship_type: RUNS_CODE_FOR
+      outbound: false
+    - type: relationship
+      node_type: AkamaiSiteshieldMap
+      node_key: 
+        rule_name: !jmespath 'siteshield_maps[*]'
+      find_many: true
+      relationship_type: ROUTES_THROUGH
+    - type: relationship
+      node_type: AkamaiRedirectConfig
+      node_key: 
+        policyId: !jmespath 'edge_redirector_policies[*]'
+      find_many: true
       relationship_type: REDIRECTS_IN

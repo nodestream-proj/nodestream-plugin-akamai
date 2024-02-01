@@ -5,9 +5,6 @@
     client_secret: !config 'client_secret'
     access_token: !config 'access_token'
     account_key: !config 'account_key'
-  annotations:
-  - live
-  - test
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
@@ -28,7 +25,7 @@
         has_http_api_access: !jmespath 'hasHttpApiAccess'
         rule_set_id: !jmespath 'ruleSetId'
     - type: relationship
-      node_type: AkamaiNetstorageConfig
+      node_type: AkamaiNetstorageGroup
       relationship_type: ACCESSES
       key_normalization:
         do_remove_trailing_dots: true

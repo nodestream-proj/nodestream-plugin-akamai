@@ -5,7 +5,7 @@ from nodestream.pipeline.extractors import Extractor
 from ..akamai_utils.appsec_client import AkamaiAppSecClient
 
 
-class AkamaiWAFExtractor(Extractor):
+class AkamaiWafExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
         self.client = AkamaiAppSecClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)

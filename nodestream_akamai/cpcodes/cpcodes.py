@@ -2,12 +2,12 @@ import logging
 
 from nodestream.pipeline.extractors import Extractor
 
-from ..akamai_utils.cprg_client import AkamaiCPRGClient
+from ..akamai_utils.cprg_client import AkamaiCprgClient
 
 
-class AkamaiCPCodesExtractor(Extractor):
+class AkamaiCpCodesExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
-        self.client = AkamaiCPRGClient(**akamai_client_kwargs)
+        self.client = AkamaiCprgClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
     async def extract_records(self):

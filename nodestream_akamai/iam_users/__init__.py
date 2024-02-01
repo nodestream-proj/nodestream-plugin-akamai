@@ -1,3 +1,3 @@
-from .iam_users import AkamaiIAMUserExtractor
+from .iam_users import AkamaiIamUserExtractor
 
-__all__ = ("AkamaiIAMUserExtractor",)
+__all__ = ("AkamaiIamUserExtractor",)
