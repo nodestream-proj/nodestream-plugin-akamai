@@ -64,6 +64,15 @@ class AkamaiPropertyClient(AkamaiApiClient):
             rule_tree_api_path, params=params, headers=self.headers
         )
 
+    def get_property(self, property_id: str, contractId=None, groupId=None):
+        property_path = f"/papi/v1/properties/{property_id}"
+        params = {}
+        if contractId is not None and groupId is not None:
+            params = {"contractId": contractId, "groupId": groupId}
+        return self._get_api_from_relative_path(
+            property_path, params=params, headers=self.headers
+        )["properties"]["items"][0]
+
     def describe_property_hostnames(
         self, property_id: str, version: int, contractId=None, groupId=None
     ):
@@ -131,8 +140,8 @@ class AkamaiPropertyClient(AkamaiApiClient):
         hostnames = set()
         hostnames.update(
             self.describe_property_hostnames(
-                property["propertyId"],
-                property["latestVersion"],
+                property_id=property["propertyId"],
+                version=property["latestVersion"],
                 contractId=property["contractId"],
                 groupId=property["groupId"],
             )
@@ -183,62 +192,49 @@ class AkamaiPropertyClient(AkamaiApiClient):
         request_body = {"bulkSearchQuery": {"syntax": "JSONPATH", "match": query}}
         return self._post_api_from_relative_path(path=search_path, body=request_body)
 
+    def list_account_hostnames(self, network="PRODUCTION"):
+        list_hostnames_path = f"/papi/v1/hostnames?network={network}&offset=0&limit=999"
+        result = self._get_api_from_relative_path(path=list_hostnames_path)
+        hostnames = result["hostnames"]["items"]
+        while "nextLink" in result["hostnames"].keys():
+            next_link = result["hostnames"]["nextLink"]
+            result = self._get_api_from_relative_path(path=next_link)
+            hostnames.extend(result["hostnames"]["items"])
+
+        return hostnames
+
     def list_all_properties(self):
         try:
-            search = self.search_all_properties()
+            hostnames = self.list_account_hostnames()
         except Exception as err:
-            logger.info("Failed to search for properties: %s", err)
+            logger.info("Failed to list property hostnames: %s", err)
             return
 
-        raw_property_ids = [p["propertyId"] for p in search["results"]]
+        raw_property_ids = [h["propertyId"] for h in hostnames]
         # DeDupe list
         property_ids = list(set(raw_property_ids))
         results = []
         for property_id in property_ids:
-            matching_properties = [
-                p for p in search["results"] if p["propertyId"] == property_id
-            ]
-            sorted_matching_properties = sorted(
-                matching_properties, key=lambda d: d["propertyVersion"], reverse=True
-            )
-            latest_property_version = sorted_matching_properties[0]
-            production_version = None
-            staging_version = None
+            matching_hostname = [
+                h for h in hostnames if h["propertyId"] == property_id
+            ][0]
 
-            # Determine production version
-            production_property_version = [
-                p
-                for p in sorted_matching_properties
-                if p["productionStatus"] == "ACTIVE"
-            ]
-            if len(production_property_version) > 0:
-                production_version = production_property_version[0]["propertyVersion"]
+            contract_id = matching_hostname["contractId"]
+            group_id = matching_hostname["groupId"]
 
-            # Determine staging version
-            staging_property_version = [
-                p for p in sorted_matching_properties if p["stagingStatus"] == "ACTIVE"
-            ]
-            if len(staging_property_version) > 0:
-                staging_version = staging_property_version[0]["propertyVersion"]
+            try:
+                property_response = self.get_property(
+                    property_id=property_id,
+                    contractId=contract_id,
+                    groupId=group_id,
+                )
+            except Exception as err:
+                logger.info(f"Failed to get property {property_id}: {err}")
+                return
 
-            result_property = {
-                "propertyId": latest_property_version["propertyId"],
-                "propertyName": latest_property_version["propertyName"],
-                "propertyType": latest_property_version["propertyType"],
-                "latestVersion": latest_property_version["propertyVersion"],
-                "stagingVersion": staging_version,
-                "productionVersion": production_version,
-            }
-
-            results.append(result_property)
+            results.append(property_response)
 
         return results
-
-    def list_all_hostnames(self):
-        list_hostnames_path = "/papi/v1/hostnames"
-        return self._get_api_from_relative_path(
-            path=list_hostnames_path, headers=self.headers
-        )["hostnames"]["items"]
 
     def search_akamai_rule_tree_for_origins(self, rule_tree) -> List[Origin]:
         behaviors = rule_tree["behaviors"]
