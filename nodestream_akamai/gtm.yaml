@@ -38,3 +38,10 @@
       node_key:
         target: !jmespath 'trafficTargets[*]'
       find_many: true
+     - type: relationship
+      node_type: Endpoint
+      node_key: 
+        fqdn: !jmespath 'fqdn'
+      find_many: true
+      relationship_type: CONNECTS_TO
+      outbound: false
