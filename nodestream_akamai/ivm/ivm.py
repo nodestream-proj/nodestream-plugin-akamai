@@ -44,7 +44,7 @@ class AkamaiIvmExtractor(Extractor):
                 for policy_set in self.client.list_policy_sets(contract=contract):
                     if "user" not in policy_set.keys():
                         self.logger.warning(
-                            f"Policy set '{policy_set["id"]}' does not appear to be valid and will be skipped. Please report this to Akamai support"
+                            f"""Policy set '{policy_set["id"]}' does not appear to be valid and will be skipped. Please report this to Akamai support"""
                         )
                         continue
                     try:
