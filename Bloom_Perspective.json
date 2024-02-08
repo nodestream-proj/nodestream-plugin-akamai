@@ -385,10 +385,35 @@
                     "name": "last_ingested_by_gtm_at",
                     "exclude": false,
                     "dataType": "DateTime"
+                },
+                {
+                    "name": "loadFeedback",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "cnameCoalescingEnabled",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "loadImbalancePercentage",
+                    "exclude": false,
+                    "dataType": "number"
+                },
+                {
+                    "name": "deeplink",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "type",
+                    "exclude": false,
+                    "dataType": "string"
                 }
             ],
             "createdAt": 1684596008106,
-            "lastEditedAt": 1706136528681,
+            "lastEditedAt": 1706818177662,
             "color": "#3b6799",
             "size": 1,
             "icon": "no-icon",
@@ -3528,10 +3553,20 @@
                     "name": "cpcode_id",
                     "exclude": false,
                     "dataType": "bigint"
+                },
+                {
+                    "name": "last_ingested_by_property_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "was_ingested_by_property",
+                    "exclude": false,
+                    "dataType": "boolean"
                 }
             ],
             "createdAt": 1706128394687,
-            "lastEditedAt": 1706137173653,
+            "lastEditedAt": 1707417264550,
             "color": "#D9D9D9",
             "size": 1,
             "icon": "no-icon",
@@ -3546,7 +3581,7 @@
                     "type": "label"
                 },
                 {
-                    "inTooltip": false,
+                    "inTooltip": true,
                     "styles": [],
                     "isCaption": false,
                     "key": "contract_id",
@@ -3554,7 +3589,7 @@
                     "isGdsData": false
                 },
                 {
-                    "inTooltip": false,
+                    "inTooltip": true,
                     "styles": [],
                     "isCaption": false,
                     "key": "cpcode_id",
@@ -3594,7 +3629,7 @@
                     "isGdsData": false
                 },
                 {
-                    "inTooltip": false,
+                    "inTooltip": true,
                     "styles": [],
                     "isCaption": false,
                     "key": "purgeable",
@@ -3602,7 +3637,7 @@
                     "isGdsData": false
                 },
                 {
-                    "inTooltip": false,
+                    "inTooltip": true,
                     "styles": [],
                     "isCaption": false,
                     "key": "type",
@@ -3614,6 +3649,22 @@
                     "styles": [],
                     "isCaption": false,
                     "key": "was_ingested_by_cpcodes",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_by_property_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "was_ingested_by_property",
                     "type": "property",
                     "isGdsData": false
                 }
@@ -3771,7 +3822,12 @@
     "labels": {
         "Endpoint": [
             {
-                "propertyKey": "last_ingested_by_redirect_at",
+                "propertyKey": "fqdn",
+                "type": "Endpoint",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_at",
                 "type": "Endpoint",
                 "dataType": "DateTime"
             },
@@ -3781,86 +3837,21 @@
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "last_ingested_by_ehn_at",
-                "type": "Endpoint",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "was_ingested_by_redirect",
-                "type": "Endpoint",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_cps_at",
-                "type": "Endpoint",
-                "dataType": "DateTime"
-            },
-            {
                 "propertyKey": "was_ingested_by_property",
                 "type": "Endpoint",
                 "dataType": "boolean"
-            },
-            {
-                "propertyKey": "fqdn",
-                "type": "Endpoint",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "was_ingested_by_ehn",
-                "type": "Endpoint",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "was_ingested_by_cps",
-                "type": "Endpoint",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "Endpoint",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "was_ingested_by_appsec-coverage",
-                "type": "Endpoint",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_appsec-coverage_at",
-                "type": "Endpoint",
-                "dataType": "DateTime"
             }
         ],
         "AkamaiCloudlet": [
             {
-                "propertyKey": "description",
+                "propertyKey": "was_ingested_by_property",
                 "type": "AkamaiCloudlet",
-                "dataType": "string"
+                "dataType": "boolean"
             },
             {
-                "propertyKey": "last_ingested_at",
+                "propertyKey": "last_ingested_by_property_at",
                 "type": "AkamaiCloudlet",
                 "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "name",
-                "type": "AkamaiCloudlet",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "created_by",
-                "type": "AkamaiCloudlet",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "deeplink",
-                "type": "AkamaiCloudlet",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "type",
-                "type": "AkamaiCloudlet",
-                "dataType": "string"
             },
             {
                 "propertyKey": "id",
@@ -3868,26 +3859,31 @@
                 "dataType": "bigint"
             },
             {
-                "propertyKey": "was_ingested_by_cloudlets",
-                "type": "AkamaiCloudlet",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_cloudlets_at",
+                "propertyKey": "last_ingested_at",
                 "type": "AkamaiCloudlet",
                 "dataType": "DateTime"
             }
         ],
         "AkamaiCPCode": [
             {
+                "propertyKey": "was_ingested_by_property",
+                "type": "AkamaiCPCode",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_property_at",
+                "type": "AkamaiCPCode",
+                "dataType": "DateTime"
+            },
+            {
                 "propertyKey": "last_ingested_by_cpcodes_at",
                 "type": "AkamaiCPCode",
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "contract_id",
+                "propertyKey": "was_ingested_by_cpcodes",
                 "type": "AkamaiCPCode",
-                "dataType": "string"
+                "dataType": "boolean"
             },
             {
                 "propertyKey": "cpcode_name",
@@ -3895,9 +3891,9 @@
                 "dataType": "string"
             },
             {
-                "propertyKey": "was_ingested_by_cpcodes",
+                "propertyKey": "contract_id",
                 "type": "AkamaiCPCode",
-                "dataType": "boolean"
+                "dataType": "string"
             },
             {
                 "propertyKey": "purgeable",
@@ -3925,261 +3921,16 @@
                 "dataType": "bigint"
             }
         ],
-        "AkamaiCertificate": [
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiCertificate",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "cipher_suite",
-                "type": "AkamaiCertificate",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "cn",
-                "type": "AkamaiCertificate",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "disallowed_tls_versions",
-                "type": "AkamaiCertificate",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "was_ingested_by_cps",
-                "type": "AkamaiCertificate",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "id",
-                "type": "AkamaiCertificate",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "last_ingested_by_cps_at",
-                "type": "AkamaiCertificate",
-                "dataType": "DateTime"
-            }
-        ],
-        "AkamaiEdgeHostname": [
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiEdgeHostname",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "edge_hostname",
-                "type": "AkamaiEdgeHostname",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "edge_hostname_id",
-                "type": "AkamaiEdgeHostname",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "ip_version_behavior",
-                "type": "AkamaiEdgeHostname",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "was_ingested_by_ehn",
-                "type": "AkamaiEdgeHostname",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_ehn_at",
-                "type": "AkamaiEdgeHostname",
-                "dataType": "DateTime"
-            }
-        ],
-        "AkamaiNetstorageAccount": [
-            {
-                "propertyKey": "ssh_enabled",
-                "type": "AkamaiNetstorageAccount",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "rsync_enabled",
-                "type": "AkamaiNetstorageAccount",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "storage_group_name",
-                "type": "AkamaiNetstorageAccount",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "has_file_manager_access",
-                "type": "AkamaiNetstorageAccount",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "upload_account_id",
-                "type": "AkamaiNetstorageAccount",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "ftp_enabled",
-                "type": "AkamaiNetstorageAccount",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "has_http_api_access",
-                "type": "AkamaiNetstorageAccount",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "aspera_enabled",
-                "type": "AkamaiNetstorageAccount",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiNetstorageAccount",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "was_ingested_by_netstorage-account",
-                "type": "AkamaiNetstorageAccount",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_netstorage-account_at",
-                "type": "AkamaiNetstorageAccount",
-                "dataType": "DateTime"
-            }
-        ],
-        "AkamaiNetstorageKey": [
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiNetstorageKey",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "was_ingested_by_netstorage-account",
-                "type": "AkamaiNetstorageKey",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_netstorage-account_at",
-                "type": "AkamaiNetstorageKey",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "id",
-                "type": "AkamaiNetstorageKey",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "type",
-                "type": "AkamaiNetstorageKey",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_modified_by",
-                "type": "AkamaiNetstorageKey",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_modified_date",
-                "type": "AkamaiNetstorageKey",
-                "dataType": "string"
-            }
-        ],
-        "AkamaiNetstorageGroup": [
-            {
-                "propertyKey": "last_ingested_by_netstorage-group_at",
-                "type": "AkamaiNetstorageGroup",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "estimated_usage_gb",
-                "type": "AkamaiNetstorageGroup",
-                "dataType": "number"
-            },
-            {
-                "propertyKey": "domain_prefix",
-                "type": "AkamaiNetstorageGroup",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "storage_group_name",
-                "type": "AkamaiNetstorageGroup",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "was_ingested_by_netstorage-group",
-                "type": "AkamaiNetstorageGroup",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "was_ingested_by_netstorage-account",
-                "type": "AkamaiNetstorageGroup",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiNetstorageGroup",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "storage_group_id",
-                "type": "AkamaiNetstorageGroup",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "last_ingested_by_netstorage-account_at",
-                "type": "AkamaiNetstorageGroup",
-                "dataType": "DateTime"
-            }
-        ],
         "AkamaiSiteshieldMap": [
-            {
-                "propertyKey": "map_alias",
-                "type": "AkamaiSiteshieldMap",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_by_siteshield_at",
-                "type": "AkamaiSiteshieldMap",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "acknowledged_by",
-                "type": "AkamaiSiteshieldMap",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "sure_route_name",
-                "type": "AkamaiSiteshieldMap",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "mcm_map_rule_id",
-                "type": "AkamaiSiteshieldMap",
-                "dataType": "bigint"
-            },
             {
                 "propertyKey": "last_ingested_by_property_at",
                 "type": "AkamaiSiteshieldMap",
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "was_ingested_by_siteshield",
-                "type": "AkamaiSiteshieldMap",
-                "dataType": "boolean"
-            },
-            {
                 "propertyKey": "last_ingested_at",
                 "type": "AkamaiSiteshieldMap",
                 "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "id",
-                "type": "AkamaiSiteshieldMap",
-                "dataType": "bigint"
             },
             {
                 "propertyKey": "rule_name",
@@ -4204,9 +3955,9 @@
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "was_ingested_by_property",
+                "propertyKey": "rule_format",
                 "type": "AkamaiProperty",
-                "dataType": "boolean"
+                "dataType": "string"
             },
             {
                 "propertyKey": "name",
@@ -4214,9 +3965,9 @@
                 "dataType": "string"
             },
             {
-                "propertyKey": "rule_format",
+                "propertyKey": "was_ingested_by_property",
                 "type": "AkamaiProperty",
-                "dataType": "string"
+                "dataType": "boolean"
             },
             {
                 "propertyKey": "version",
@@ -4227,70 +3978,6 @@
                 "propertyKey": "id",
                 "type": "AkamaiProperty",
                 "dataType": "string"
-            }
-        ],
-        "AkamaiRedirectConfig": [
-            {
-                "propertyKey": "name",
-                "type": "AkamaiRedirectConfig",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "policyId",
-                "type": "AkamaiRedirectConfig",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiRedirectConfig",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "last_ingested_by_redirect_at",
-                "type": "AkamaiRedirectConfig",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "was_ingested_by_redirect",
-                "type": "AkamaiRedirectConfig",
-                "dataType": "boolean"
-            }
-        ],
-        "AkamaiWafPolicy": [
-            {
-                "propertyKey": "last_ingested_by_waf_at",
-                "type": "AkamaiWafPolicy",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiWafPolicy",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "was_ingested_by_waf",
-                "type": "AkamaiWafPolicy",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "policy_id",
-                "type": "AkamaiWafPolicy",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "policy_name",
-                "type": "AkamaiWafPolicy",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "was_ingested_by_appsec-coverage",
-                "type": "AkamaiWafPolicy",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_appsec-coverage_at",
-                "type": "AkamaiWafPolicy",
-                "dataType": "DateTime"
             }
         ],
         "AkamaiEdgeworker": [
@@ -4305,361 +3992,24 @@
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "deeplink",
-                "type": "AkamaiEdgeworker",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_by_edgeworkers_at",
-                "type": "AkamaiEdgeworker",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "last_modified_by",
-                "type": "AkamaiEdgeworker",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "resource_tier_id",
-                "type": "AkamaiEdgeworker",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "last_modified_time",
-                "type": "AkamaiEdgeworker",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "account_id",
-                "type": "AkamaiEdgeworker",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "group_id",
-                "type": "AkamaiEdgeworker",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "was_ingested_by_edgeworkers",
-                "type": "AkamaiEdgeworker",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "active_version",
-                "type": "AkamaiEdgeworker",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiEdgeworker",
-                "dataType": "DateTime"
-            },
-            {
                 "propertyKey": "id",
                 "type": "AkamaiEdgeworker",
                 "dataType": "bigint"
             },
             {
-                "propertyKey": "name",
+                "propertyKey": "last_ingested_at",
                 "type": "AkamaiEdgeworker",
-                "dataType": "string"
-            }
-        ],
-        "AkamaiGtmTarget": [
-            {
-                "propertyKey": "target",
-                "type": "AkamaiGtmTarget",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiGtmTarget",
                 "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "was_ingested_by_gtm",
-                "type": "AkamaiGtmTarget",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_gtm_at",
-                "type": "AkamaiGtmTarget",
-                "dataType": "DateTime"
-            }
-        ],
-        "AkamaiGtmProperty": [
-            {
-                "propertyKey": "fqdn",
-                "type": "AkamaiGtmProperty",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiGtmProperty",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "type",
-                "type": "AkamaiGtmProperty",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "name",
-                "type": "AkamaiGtmProperty",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "was_ingested_by_gtm",
-                "type": "AkamaiGtmProperty",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_gtm_at",
-                "type": "AkamaiGtmProperty",
-                "dataType": "DateTime"
-            }
-        ],
-        "AkamaiGtmDomain": [
-            {
-                "propertyKey": "deeplink",
-                "type": "AkamaiGtmDomain",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_by_gtm_at",
-                "type": "AkamaiGtmDomain",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "cnameCoalescingEnabled",
-                "type": "AkamaiGtmDomain",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "loadImbalancePercentage",
-                "type": "AkamaiGtmDomain",
-                "dataType": "number"
-            },
-            {
-                "propertyKey": "was_ingested_by_gtm",
-                "type": "AkamaiGtmDomain",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "loadFeedback",
-                "type": "AkamaiGtmDomain",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiGtmDomain",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "type",
-                "type": "AkamaiGtmDomain",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "name",
-                "type": "AkamaiGtmDomain",
-                "dataType": "string"
-            }
-        ],
-        "AkamaiIamClient": [
-            {
-                "propertyKey": "is_locked",
-                "type": "AkamaiIamClient",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "deeplink",
-                "type": "AkamaiIamClient",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiIamClient",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "was_ingested_by_iam-clients",
-                "type": "AkamaiIamClient",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_iam-clients_at",
-                "type": "AkamaiIamClient",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "clientId",
-                "type": "AkamaiIamClient",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "allow_account_switch",
-                "type": "AkamaiIamClient",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "client_name",
-                "type": "AkamaiIamClient",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "client_description",
-                "type": "AkamaiIamClient",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "authorized_users",
-                "type": "AkamaiIamClient",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "access_token",
-                "type": "AkamaiIamClient",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "active_credential_count",
-                "type": "AkamaiIamClient",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "service_consumer_token",
-                "type": "AkamaiIamClient",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "client_type",
-                "type": "AkamaiIamClient",
-                "dataType": "string"
-            }
-        ],
-        "AkamaiIamUser": [
-            {
-                "propertyKey": "last_ingested_by_iam-users_at",
-                "type": "AkamaiIamUser",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "first_name",
-                "type": "AkamaiIamUser",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "ui_identity_id",
-                "type": "AkamaiIamUser",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_name",
-                "type": "AkamaiIamUser",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "email",
-                "type": "AkamaiIamUser",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "is_locked",
-                "type": "AkamaiIamUser",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "ui_user_name",
-                "type": "AkamaiIamUser",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "additional_authentication_configured",
-                "type": "AkamaiIamUser",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "was_ingested_by_iam-users",
-                "type": "AkamaiIamUser",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiIamUser",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "was_ingested_by_iam-clients",
-                "type": "AkamaiIamUser",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_iam-clients_at",
-                "type": "AkamaiIamUser",
-                "dataType": "DateTime"
-            }
-        ],
-        "AkamaiIvmPolicy": [
-            {
-                "propertyKey": "user",
-                "type": "AkamaiIvmPolicy",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_by_ivm_at",
-                "type": "AkamaiIvmPolicy",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "version",
-                "type": "AkamaiIvmPolicy",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiIvmPolicy",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "date_created",
-                "type": "AkamaiIvmPolicy",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "video",
-                "type": "AkamaiIvmPolicy",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "policy_id",
-                "type": "AkamaiIvmPolicy",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "unique_id",
-                "type": "AkamaiIvmPolicy",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "was_ingested_by_ivm",
-                "type": "AkamaiIvmPolicy",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "policy_set_id",
-                "type": "AkamaiIvmPolicy",
-                "dataType": "string"
             }
         ],
         "AkamaiIvmPolicySet": [
             {
-                "propertyKey": "was_ingested_by_ivm",
+                "propertyKey": "was_ingested_by_property",
                 "type": "AkamaiIvmPolicySet",
                 "dataType": "boolean"
             },
             {
-                "propertyKey": "last_ingested_at",
+                "propertyKey": "last_ingested_by_property_at",
                 "type": "AkamaiIvmPolicySet",
                 "dataType": "DateTime"
             },
@@ -4669,68 +4019,31 @@
                 "dataType": "string"
             },
             {
-                "propertyKey": "last_ingested_by_ivm_at",
+                "propertyKey": "last_ingested_at",
                 "type": "AkamaiIvmPolicySet",
                 "dataType": "DateTime"
             }
         ],
-        "Cidripv4": [
-            {
-                "propertyKey": "cidr",
-                "type": "Cidripv4",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "Cidripv4",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "was_ingested_by_siteshield",
-                "type": "Cidripv4",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_siteshield_at",
-                "type": "Cidripv4",
-                "dataType": "DateTime"
-            }
-        ],
-        "AkamaiWafConfig": [
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiWafConfig",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "was_ingested_by_waf",
-                "type": "AkamaiWafConfig",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "config_name",
-                "type": "AkamaiWafConfig",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "production_version",
-                "type": "AkamaiWafConfig",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "last_ingested_by_waf_at",
-                "type": "AkamaiWafConfig",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "config_id",
-                "type": "AkamaiWafConfig",
-                "dataType": "bigint"
-            }
-        ]
+        "AkamaiCertificate": [],
+        "AkamaiEdgeHostname": [],
+        "AkamaiNetstorageAccount": [],
+        "AkamaiNetstorageKey": [],
+        "AkamaiNetstorageGroup": [],
+        "AkamaiRedirectConfig": [],
+        "AkamaiWafPolicy": [],
+        "AkamaiGtmTarget": [],
+        "AkamaiGtmProperty": [],
+        "AkamaiGtmDomain": [],
+        "AkamaiIamClient": [],
+        "AkamaiIamUser": [],
+        "AkamaiIvmPolicy": [],
+        "Cidripv4": [],
+        "AkamaiWafConfig": []
     },
     "relationshipTypes": [
         {
+            "id": "RETURNS",
+            "name": "RETURNS",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4748,11 +4061,10 @@
                     "dataType": "DateTime"
                 }
             ],
-            "name": "RETURNS",
-            "id": "RETURNS",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -4762,11 +4074,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "IN_DOMAIN",
+            "name": "IN_DOMAIN",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4784,11 +4097,10 @@
                     "dataType": "DateTime"
                 }
             ],
-            "name": "IN_DOMAIN",
-            "id": "IN_DOMAIN",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -4798,11 +4110,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "SERVICED_BY",
+            "name": "SERVICED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_by_property_at",
@@ -4820,11 +4133,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "SERVICED_BY",
-            "id": "SERVICED_BY",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -4834,11 +4146,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "PROXIES_TO",
+            "name": "PROXIES_TO",
             "properties": [
                 {
                     "dataType": "boolean",
@@ -4856,11 +4169,10 @@
                     "type": "PROXIES_TO"
                 }
             ],
-            "name": "PROXIES_TO",
-            "id": "PROXIES_TO",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -4870,11 +4182,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "REDIRECTS_HANDLED_BY",
+            "name": "REDIRECTS_HANDLED_BY",
             "properties": [
                 {
                     "dataType": "DateTime",
@@ -4892,11 +4205,10 @@
                     "type": "REDIRECTS_HANDLED_BY"
                 }
             ],
-            "name": "REDIRECTS_HANDLED_BY",
-            "id": "REDIRECTS_HANDLED_BY",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -4906,11 +4218,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "REDIRECTS_TO",
+            "name": "REDIRECTS_TO",
             "properties": [
                 {
                     "dataType": "DateTime",
@@ -4928,11 +4241,10 @@
                     "type": "REDIRECTS_TO"
                 }
             ],
-            "name": "REDIRECTS_TO",
-            "id": "REDIRECTS_TO",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -4942,11 +4254,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "HAS_RECORD",
+            "name": "HAS_RECORD",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4964,11 +4277,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "HAS_RECORD",
-            "id": "HAS_RECORD",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -4978,11 +4290,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "ACCESSES",
+            "name": "ACCESSES",
             "properties": [
                 {
                     "dataType": "DateTime",
@@ -5000,11 +4313,10 @@
                     "type": "ACCESSES"
                 }
             ],
-            "name": "ACCESSES",
-            "id": "ACCESSES",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5014,11 +4326,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "PROTECTED_BY",
+            "name": "PROTECTED_BY",
             "properties": [
                 {
                     "dataType": "boolean",
@@ -5036,11 +4349,10 @@
                     "type": "PROTECTED_BY"
                 }
             ],
-            "name": "PROTECTED_BY",
-            "id": "PROTECTED_BY",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5050,17 +4362,33 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
-            "properties": [],
-            "name": "EGRESS",
             "id": "EGRESS",
+            "name": "EGRESS",
+            "properties": [
+                {
+                    "dataType": "DateTime",
+                    "propertyKey": "last_ingested_by_siteshield_at",
+                    "type": "EGRESS"
+                },
+                {
+                    "dataType": "DateTime",
+                    "propertyKey": "last_ingested_at",
+                    "type": "EGRESS"
+                },
+                {
+                    "dataType": "boolean",
+                    "propertyKey": "was_ingested_by_siteshield",
+                    "type": "EGRESS"
+                }
+            ],
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5070,11 +4398,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "REDIRECTS_IN",
+            "name": "REDIRECTS_IN",
             "properties": [
                 {
                     "propertyKey": "last_ingested_by_property_at",
@@ -5092,11 +4421,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "REDIRECTS_IN",
-            "id": "REDIRECTS_IN",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5106,11 +4434,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "AUTHORIZED_BY",
+            "name": "AUTHORIZED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5128,11 +4457,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "AUTHORIZED_BY",
-            "id": "AUTHORIZED_BY",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5142,11 +4470,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "MANAGED_BY",
+            "name": "MANAGED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5164,11 +4493,10 @@
                     "dataType": "DateTime"
                 }
             ],
-            "name": "MANAGED_BY",
-            "id": "MANAGED_BY",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5178,11 +4506,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "CONTAINS",
+            "name": "CONTAINS",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5200,11 +4529,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "CONTAINS",
-            "id": "CONTAINS",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5214,11 +4542,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "MEDIA_OPTIMIZED_BY",
+            "name": "MEDIA_OPTIMIZED_BY",
             "properties": [
                 {
                     "dataType": "boolean",
@@ -5236,11 +4565,10 @@
                     "type": "MEDIA_OPTIMIZED_BY"
                 }
             ],
-            "name": "MEDIA_OPTIMIZED_BY",
-            "id": "MEDIA_OPTIMIZED_BY",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5250,11 +4578,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "RUNS_CODE_FOR",
+            "name": "RUNS_CODE_FOR",
             "properties": [
                 {
                     "propertyKey": "last_ingested_by_property_at",
@@ -5272,11 +4601,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "RUNS_CODE_FOR",
-            "id": "RUNS_CODE_FOR",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5286,11 +4614,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "CNAMES_TO",
+            "name": "CNAMES_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5308,11 +4637,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "CNAMES_TO",
-            "id": "CNAMES_TO",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5322,11 +4650,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "OFFLOADS_CONFIGURATION_TO",
+            "name": "OFFLOADS_CONFIGURATION_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_by_property_at",
@@ -5344,11 +4673,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "OFFLOADS_CONFIGURATION_TO",
-            "id": "OFFLOADS_CONFIGURATION_TO",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5358,11 +4686,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "ROUTES_THROUGH",
+            "name": "ROUTES_THROUGH",
             "properties": [
                 {
                     "propertyKey": "last_ingested_by_property_at",
@@ -5380,11 +4709,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "ROUTES_THROUGH",
-            "id": "ROUTES_THROUGH",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5394,11 +4722,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "ENCRYPTED_BY",
+            "name": "ENCRYPTED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5416,11 +4745,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "ENCRYPTED_BY",
-            "id": "ENCRYPTED_BY",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5430,11 +4758,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "INCLUDED_IN",
+            "name": "INCLUDED_IN",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5452,11 +4781,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "INCLUDED_IN",
-            "id": "INCLUDED_IN",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5466,11 +4794,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "UPLOADS_TO",
+            "name": "UPLOADS_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5488,8 +4817,42 @@
                     "dataType": "DateTime"
                 }
             ],
-            "name": "UPLOADS_TO",
-            "id": "UPLOADS_TO",
+            "color": "#848484",
+            "size": 1,
+            "textSize": 1,
+            "textAlign": "top",
+            "captions": [
+                {
+                    "inTooltip": true,
+                    "isCaption": true,
+                    "styles": [],
+                    "key": "UPLOADS_TO",
+                    "type": "relationship"
+                }
+            ],
+            "captionKeys": [],
+            "styleRules": []
+        },
+        {
+            "properties": [
+                {
+                    "propertyKey": "last_ingested_by_property_at",
+                    "type": "REPORTS_ON",
+                    "dataType": "DateTime"
+                },
+                {
+                    "propertyKey": "last_ingested_at",
+                    "type": "REPORTS_ON",
+                    "dataType": "DateTime"
+                },
+                {
+                    "propertyKey": "was_ingested_by_property",
+                    "type": "REPORTS_ON",
+                    "dataType": "boolean"
+                }
+            ],
+            "name": "REPORTS_ON",
+            "id": "REPORTS_ON",
             "color": "#848484",
             "size": 1,
             "captionKeys": [],
@@ -5498,7 +4861,7 @@
                     "inTooltip": true,
                     "isCaption": true,
                     "styles": [],
-                    "key": "UPLOADS_TO",
+                    "key": "REPORTS_ON",
                     "type": "relationship"
                 }
             ],
@@ -5579,91 +4942,6 @@
     "metadata": {
         "pathSegments": [
             {
-                "source": "Endpoint",
-                "relationshipType": "ENCRYPTED_BY",
-                "target": "AkamaiCertificate"
-            },
-            {
-                "source": "AkamaiNetstorageAccount",
-                "relationshipType": "AUTHORIZED_BY",
-                "target": "AkamaiNetstorageKey"
-            },
-            {
-                "source": "AkamaiNetstorageAccount",
-                "relationshipType": "ACCESSES",
-                "target": "AkamaiNetstorageGroup"
-            },
-            {
-                "source": "Endpoint",
-                "relationshipType": "CNAMES_TO",
-                "target": "AkamaiEdgeHostname"
-            },
-            {
-                "source": "AkamaiGtmProperty",
-                "relationshipType": "RETURNS",
-                "target": "AkamaiGtmTarget"
-            },
-            {
-                "source": "AkamaiGtmProperty",
-                "relationshipType": "IN_DOMAIN",
-                "target": "AkamaiGtmDomain"
-            },
-            {
-                "source": "AkamaiWafPolicy",
-                "relationshipType": "INCLUDED_IN",
-                "target": "AkamaiWafConfig"
-            },
-            {
-                "source": "AkamaiProperty",
-                "relationshipType": "PROXIES_TO",
-                "target": "Endpoint"
-            },
-            {
-                "source": "AkamaiIamClient",
-                "relationshipType": "MANAGED_BY",
-                "target": "AkamaiIamUser"
-            },
-            {
-                "source": "AkamaiIvmPolicySet",
-                "relationshipType": "CONTAINS",
-                "target": "AkamaiIvmPolicy"
-            },
-            {
-                "source": "AkamaiProperty",
-                "relationshipType": "ROUTES_THROUGH",
-                "target": "AkamaiSiteshieldMap"
-            },
-            {
-                "source": "Endpoint",
-                "relationshipType": "SERVICED_BY",
-                "target": "AkamaiProperty"
-            },
-            {
-                "source": "Endpoint",
-                "relationshipType": "PROTECTED_BY",
-                "target": "AkamaiWafPolicy"
-            },
-            {
-                "source": "AkamaiNetstorageGroup",
-                "relationshipType": "UPLOADS_TO",
-                "target": "Endpoint"
-            },
-            {
-                "source": "Endpoint",
-                "relationshipType": "UPLOADS_TO",
-                "target": "Endpoint"
-            },
-            {
-                "source": "Endpoint",
-                "relationshipType": "UPLOADS_TO",
-                "target": "AkamaiNetstorageGroup"
-            },
-            {
-                "source": "AkamaiNetstorageGroup",
-                "relationshipType": "UPLOADS_TO",
-                "target": "AkamaiNetstorageGroup"
-            },
-            {
                 "source": "AkamaiProperty",
                 "relationshipType": "OFFLOADS_CONFIGURATION_TO",
                 "target": "AkamaiCloudlet"
@@ -5674,9 +4952,9 @@
                 "target": "AkamaiIvmPolicySet"
             },
             {
-                "source": "AkamaiRedirectConfig",
-                "relationshipType": "REDIRECTS_TO",
-                "target": "Endpoint"
+                "source": "AkamaiCPCode",
+                "relationshipType": "REPORTS_ON",
+                "target": "AkamaiProperty"
             },
             {
                 "source": "AkamaiEdgeworker",
@@ -5684,9 +4962,19 @@
                 "target": "AkamaiProperty"
             },
             {
+                "source": "AkamaiProperty",
+                "relationshipType": "PROXIES_TO",
+                "target": "Endpoint"
+            },
+            {
+                "source": "AkamaiProperty",
+                "relationshipType": "ROUTES_THROUGH",
+                "target": "AkamaiSiteshieldMap"
+            },
+            {
                 "source": "Endpoint",
-                "relationshipType": "REDIRECTS_HANDLED_BY",
-                "target": "AkamaiRedirectConfig"
+                "relationshipType": "SERVICED_BY",
+                "target": "AkamaiProperty"
             }
         ],
         "indexes": [
@@ -5703,11 +4991,19 @@
                         "metadataProp": false
                     },
                     {
+                        "key": "was_ingested_by_property",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_property_at",
+                        "metadataProp": true
+                    },
+                    {
                         "key": "last_ingested_by_cpcodes_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "contract_id",
+                        "key": "was_ingested_by_cpcodes",
                         "metadataProp": true
                     },
                     {
@@ -5715,7 +5011,7 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_cpcodes",
+                        "key": "contract_id",
                         "metadataProp": true
                     },
                     {
@@ -5743,26 +5039,6 @@
                     {
                         "key": "id",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "cipher_suite",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "cn",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "disallowed_tls_versions",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_cps",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_cps_at",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -5779,31 +5055,11 @@
                         "metadataProp": false
                     },
                     {
-                        "key": "description",
+                        "key": "was_ingested_by_property",
                         "metadataProp": true
                     },
                     {
-                        "key": "name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "created_by",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "deeplink",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "type",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_cloudlets",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_cloudlets_at",
+                        "key": "last_ingested_by_property_at",
                         "metadataProp": true
                     }
                 ]
@@ -5819,22 +5075,6 @@
                     {
                         "key": "edge_hostname_id",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "edge_hostname",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "ip_version_behavior",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_ehn",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_ehn_at",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -5857,46 +5097,6 @@
                     {
                         "key": "last_ingested_by_property_at",
                         "metadataProp": true
-                    },
-                    {
-                        "key": "deeplink",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_edgeworkers_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_modified_by",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "resource_tier_id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_modified_time",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "account_id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "group_id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_edgeworkers",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "active_version",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "name",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -5911,34 +5111,6 @@
                     {
                         "key": "name",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "deeplink",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_gtm_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "cnameCoalescingEnabled",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "loadImbalancePercentage",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_gtm",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "loadFeedback",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "type",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -5953,22 +5125,6 @@
                     {
                         "key": "fqdn",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "type",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_gtm",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_gtm_at",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -5983,14 +5139,6 @@
                     {
                         "key": "target",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "was_ingested_by_gtm",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_gtm_at",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -6005,54 +5153,6 @@
                     {
                         "key": "clientId",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "is_locked",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "deeplink",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_iam-clients",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_iam-clients_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "allow_account_switch",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "client_name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "client_description",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "authorized_users",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "access_token",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "active_credential_count",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "service_consumer_token",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "client_type",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -6067,46 +5167,6 @@
                     {
                         "key": "ui_user_name",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "last_ingested_by_iam-users_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "first_name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "ui_identity_id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "email",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "is_locked",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "additional_authentication_configured",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_iam-users",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_iam-clients",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_iam-clients_at",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -6123,11 +5183,11 @@
                         "metadataProp": false
                     },
                     {
-                        "key": "was_ingested_by_ivm",
+                        "key": "was_ingested_by_property",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_ivm_at",
+                        "key": "last_ingested_by_property_at",
                         "metadataProp": true
                     }
                 ]
@@ -6143,38 +5203,6 @@
                     {
                         "key": "unique_id",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "user",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_ivm_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "version",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "date_created",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "video",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "policy_id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_ivm",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "policy_set_id",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -6189,42 +5217,6 @@
                     {
                         "key": "upload_account_id",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "ssh_enabled",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "rsync_enabled",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "storage_group_name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "has_file_manager_access",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "ftp_enabled",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "has_http_api_access",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "aspera_enabled",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_netstorage-account",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_netstorage-account_at",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -6239,34 +5231,6 @@
                     {
                         "key": "storage_group_id",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "last_ingested_by_netstorage-group_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "estimated_usage_gb",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "domain_prefix",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "storage_group_name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_netstorage-group",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_netstorage-account",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_netstorage-account_at",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -6281,26 +5245,6 @@
                     {
                         "key": "id",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "was_ingested_by_netstorage-account",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_netstorage-account_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "type",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_modified_by",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_modified_date",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -6321,7 +5265,7 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_property",
+                        "key": "rule_format",
                         "metadataProp": true
                     },
                     {
@@ -6329,7 +5273,7 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "rule_format",
+                        "key": "was_ingested_by_property",
                         "metadataProp": true
                     },
                     {
@@ -6349,18 +5293,6 @@
                     {
                         "key": "policyId",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_redirect_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_redirect",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -6397,22 +5329,6 @@
                     {
                         "key": "config_id",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "was_ingested_by_waf",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "config_name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "production_version",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_waf_at",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -6427,26 +5343,6 @@
                     {
                         "key": "policy_id",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "last_ingested_by_waf_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_waf",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "policy_name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_appsec-coverage",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_appsec-coverage_at",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -6461,14 +5357,6 @@
                     {
                         "key": "cidr",
                         "metadataProp": false
-                    },
-                    {
-                        "key": "last_ingested_by_siteshield_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_siteshield",
-                        "metadataProp": true
                     }
                 ]
             },
@@ -6485,43 +5373,11 @@
                         "metadataProp": false
                     },
                     {
-                        "key": "last_ingested_by_redirect_at",
-                        "metadataProp": true
-                    },
-                    {
                         "key": "last_ingested_by_property_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_ehn_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_redirect",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_cps_at",
-                        "metadataProp": true
-                    },
-                    {
                         "key": "was_ingested_by_property",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_ehn",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_cps",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_appsec-coverage",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_appsec-coverage_at",
                         "metadataProp": true
                     }
                 ]
@@ -6535,28 +5391,29 @@
         "stats": {
             "labels": {},
             "relationshipTypes": {
-                "SERVICED_BY": 134,
+                "SERVICED_BY": 135,
                 "PROXIES_TO": 19,
-                "REDIRECTS_HANDLED_BY": 1,
-                "REDIRECTS_TO": 1,
+                "REDIRECTS_HANDLED_BY": 0,
+                "REDIRECTS_TO": 0,
                 "HAS_RECORD": 0,
-                "ACCESSES": 32,
-                "PROTECTED_BY": 4,
+                "ACCESSES": 0,
+                "PROTECTED_BY": 0,
                 "EGRESS": 0,
                 "REDIRECTS_IN": 0,
-                "AUTHORIZED_BY": 50,
-                "MANAGED_BY": 100,
-                "CONTAINS": 6,
-                "MEDIA_OPTIMIZED_BY": 2,
+                "AUTHORIZED_BY": 0,
+                "MANAGED_BY": 0,
+                "CONTAINS": 0,
+                "MEDIA_OPTIMIZED_BY": 4,
                 "RUNS_CODE_FOR": 36,
-                "CNAMES_TO": 212,
+                "CNAMES_TO": 0,
                 "OFFLOADS_CONFIGURATION_TO": 2,
                 "ROUTES_THROUGH": 1,
-                "ENCRYPTED_BY": 14,
-                "INCLUDED_IN": 4,
-                "RETURNS": 4,
-                "IN_DOMAIN": 5,
-                "UPLOADS_TO": 231
+                "ENCRYPTED_BY": 0,
+                "INCLUDED_IN": 0,
+                "RETURNS": 0,
+                "IN_DOMAIN": 0,
+                "UPLOADS_TO": 0,
+                "REPORTS_ON": 111
             }
         }
     },
