@@ -28,10 +28,13 @@
       outbound: false
     - type: relationship
       node_type: Endpoint
+      iterate_on: !jmespath 'origins[*]'
       node_key: 
-        fqdn: !jmespath 'origins[*].name'
-      find_many: true
+        fqdn: !jmespath 'name'
       relationship_type: PROXIES_TO
+      node_properties:
+        type: origin
+        paths: !jmespath 'paths'
     - type: relationship
       node_type: AkamaiIvmPolicySet
       node_key: 

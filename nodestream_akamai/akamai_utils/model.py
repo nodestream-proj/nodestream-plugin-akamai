@@ -10,6 +10,7 @@ class EdgeHost:
 @dataclass(eq=True, frozen=True)
 class Origin:
     name: str
+    paths: List[str]
 
 
 @dataclass
@@ -47,11 +48,16 @@ class PropertyDescription:
             "origin_count": self.origin_count,
             "cloudlet_policy_count": len(self.cloudlet_policies),
             "hostname_count": self.hostname_count,
-            "origins": [{"name": origin.name} for origin in self.origins],
+            "origins": [
+                {"name": origin["name"], "paths": ",".join(origin["paths"])}
+                for origin in self.origins
+            ],
             "cloudlet_policies": self.cloudlet_policies,
             "edge_redirector_policies": self.edge_redirector_policies,
             "edgeworker_ids": self.edgeworker_ids,
             "siteshield_maps": self.siteshield_maps,
             "image_manager_policysets": self.image_manager_policysets,
-            "hostnames": [{"name": hostname.name} for hostname in self.hostnames],
+            "hostnames": [
+                {"name": hostname["cnameFrom"]} for hostname in self.hostnames
+            ],
         }

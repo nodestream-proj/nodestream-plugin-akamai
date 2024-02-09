@@ -133,19 +133,19 @@ class AkamaiPropertyClient(AkamaiApiClient):
         rule_tree["assetId"] = property["assetId"]
 
         # Update origins
-        origins = set()
-        origins.update(self.search_akamai_rule_tree_for_origins(rule_tree["rules"]))
+        origins = self.collate_origins_with_criteria(rule_tree["rules"])
 
         # Update hostnames
-        hostnames = set()
-        hostnames.update(
-            self.describe_property_hostnames(
-                property_id=property["propertyId"],
-                version=property["latestVersion"],
-                contractId=property["contractId"],
-                groupId=property["groupId"],
-            )
-        )
+        # hostnames = set()
+        # hostnames.update(
+        #     self.describe_property_hostnames(
+        #         property_id=property["propertyId"],
+        #         version=property["latestVersion"],
+        #         contractId=property["contractId"],
+        #         groupId=property["groupId"],
+        #     )
+        # )
+        hostnames = property["hostnames"]
 
         # Cloudlets
         cloudlet_policies = self.search_akamai_rule_tree_for_cloudlets(
@@ -183,7 +183,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
             image_manager_policysets=image_manager_policysets,
             edgeworker_ids=edgeworker_ids,
             siteshield_maps=siteshield_maps,
-            hostnames=list(hostnames),
+            hostnames=hostnames,
         )
 
     def search_all_properties(self):
@@ -215,12 +215,12 @@ class AkamaiPropertyClient(AkamaiApiClient):
         property_ids = list(set(raw_property_ids))
         results = []
         for property_id in property_ids:
-            matching_hostname = [
+            property_hostnames = [
                 h for h in hostnames if h["propertyId"] == property_id
-            ][0]
+            ]
 
-            contract_id = matching_hostname["contractId"]
-            group_id = matching_hostname["groupId"]
+            contract_id = property_hostnames[0]["contractId"]
+            group_id = property_hostnames[0]["groupId"]
 
             try:
                 property_response = self.get_property(
@@ -231,6 +231,8 @@ class AkamaiPropertyClient(AkamaiApiClient):
             except Exception as err:
                 logger.info(f"Failed to get property {property_id}: {err}")
                 return
+
+            property_response["hostnames"] = property_hostnames
 
             results.append(property_response)
 
@@ -246,10 +248,16 @@ class AkamaiPropertyClient(AkamaiApiClient):
         ]
         for behavior in behaviors:
             if behavior.get("name") == "origin":
-                origin_options = behavior["options"]
-                hostname = origin_options.get("hostname")
-                if hostname is not None:
-                    origins.append(Origin(name=hostname))
+                if "hostname" in behavior["options"].keys():
+                    origin_host = behavior["options"]["hostname"]
+                elif "netStorage" in behavior["options"].keys():
+                    origin_host = behavior["options"]["netStorage"][
+                        "downloadDomainName"
+                    ]
+                elif "mslorigin" in behavior["options"].keys():
+                    origin_host = behavior["options"]["mslorigin"]
+
+                origins.append(Origin(name=origin_host))
 
         # TODO: Maybe find a less terrible way to get unique list of origins - check as you go?
         return list(set(origins))
@@ -262,6 +270,19 @@ class AkamaiPropertyClient(AkamaiApiClient):
             origin_location = str(jsonpath_path.full_path)
             rule_base = re.sub("\.behaviors.\[[\d]+\]", "", origin_location)
             path_matches = []
+            origin_host = "ERROR"  # Host should be renamed
+
+            origin_behavior_match = parse(origin_location)
+            origin_search = origin_behavior_match.find(rules)
+            origin_behavior = origin_search[0].value
+            if "hostname" in origin_behavior["options"].keys():
+                origin_host = origin_behavior["options"]["hostname"]
+            elif "netStorage" in origin_behavior["options"].keys():
+                origin_host = origin_behavior["options"]["netStorage"][
+                    "downloadDomainName"
+                ]
+            elif "mslorigin" in origin_behavior["options"].keys():
+                origin_host = origin_behavior["options"]["mslorigin"]
 
             reducing_path = rule_base
             while "children" in reducing_path:
@@ -283,9 +304,18 @@ class AkamaiPropertyClient(AkamaiApiClient):
                                 for match in criterion["options"]["values"]:
                                     path_matches.append("!" + match)
 
+                if re.match("^(children|behaviors)\.\[[\d]+\]$", reducing_path):
+                    # Have reached the top
+                    break
                 reducing_path = re.sub("\.children\.\[[\d]+\]$", "", reducing_path)
 
-            origins.append({"location": origin_location, "path_matches": path_matches})
+            origins.append(
+                {
+                    # "location": origin_location,
+                    "name": origin_host,
+                    "paths": path_matches,
+                }
+            )
 
         return origins
 
