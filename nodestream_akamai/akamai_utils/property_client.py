@@ -268,8 +268,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
         jsonpath_result = jsonpath_expression.find(rules)
         for jsonpath_path in jsonpath_result:
             origin_location = str(jsonpath_path.full_path)
-            rule_base = re.sub("\.behaviors.\[[\d]+\]", "", origin_location)
-            path_matches = []
+            rule_base = re.sub("behaviors.\[[\d]+\]", "", origin_location)
             origin_host = "ERROR"  # Host should be renamed
 
             origin_behavior_match = parse(origin_location)
@@ -284,36 +283,68 @@ class AkamaiPropertyClient(AkamaiApiClient):
             elif "mslorigin" in origin_behavior["options"].keys():
                 origin_host = origin_behavior["options"]["mslorigin"]
 
-            reducing_path = rule_base
-            while "children" in reducing_path:
-                criteria_location = reducing_path + ".criteria"
-                direct_criteria_match = parse(criteria_location)
-                direct_criteria = direct_criteria_match.find(rules)
-                for criteria in direct_criteria:
-                    for criterion in criteria.value:
-                        if criterion["name"] == "path":
+            location_elements = re.findall("children\.\[[\d]+\]", rule_base)
+            parent_location = ""
+            rule_expressions = []
+            for i in range(len(location_elements)):
+                # Construct rule location from element and optionally parent path
+                if parent_location == "":
+                    rule_location = location_elements[i]
+                else:
+                    rule_location = parent_location + "." + location_elements[i]
+                rule_match = parse(rule_location)
+                rule_search = rule_match.find(rules)
+
+                if len(rule_search) == 0:
+                    raise (Exception(f"No rule found at position '{rule_location}'"))
+
+                rule = rule_search[0].value
+                criterion_expressions = []
+
+                for criterion in rule["criteria"]:
+                    criterion_matches = []
+                    if criterion["name"] == "path":
+                        for match in criterion["options"]["values"]:
                             if (
-                                criterion["options"]["matchOperator"]
-                                == "MATCHES_ONE_OF"
-                            ):
-                                path_matches.extend(criterion["options"]["values"])
-                            elif (
                                 criterion["options"]["matchOperator"]
                                 == "DOES_NOT_MATCH_ONE_OF"
                             ):
-                                for match in criterion["options"]["values"]:
-                                    path_matches.append("!" + match)
+                                match = "!" + match
+                            criterion_matches.append(f"'{match}'")
 
-                if re.match("^(children|behaviors)\.\[[\d]+\]$", reducing_path):
-                    # Have reached the top
-                    break
-                reducing_path = re.sub("\.children\.\[[\d]+\]$", "", reducing_path)
+                    if len(criterion_matches) > 0:
+                        if len(criterion_matches) == 1:
+                            criterion_expression = criterion_matches[0]
+                        else:
+                            criterion_expression = " || ".join(criterion_matches)
+                            criterion_expression = f"({criterion_expression})"
+
+                        criterion_expressions.append(criterion_expression)
+
+                if len(criterion_expressions) > 0:
+                    # Join expressions with boolean OR or AND depending on rule option
+                    if len(criterion_expressions) == 1:
+                        rule_expression = criterion_expressions[0]
+                    else:
+                        if rule["criteriaMustSatisfy"] == "all":
+                            rule_expression = " && ".join(criterion_expressions)
+                        else:
+                            rule_expression = " || ".join(criterion_expressions)
+                            rule_expression = f"({rule_expression})"
+
+                    # Add to rule_expressions
+                    rule_expressions.append(rule_expression)
+
+                parent_location = rule_location
+
+            # Combine rule expressions to master string
+            paths_expression = " && ".join(rule_expressions)
 
             origins.append(
                 {
                     # "location": origin_location,
                     "name": origin_host,
-                    "paths": path_matches,
+                    "paths": paths_expression,
                 }
             )
 
