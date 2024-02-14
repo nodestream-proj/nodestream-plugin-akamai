@@ -36,6 +36,13 @@ class AkamaiPropertyClient(AkamaiApiClient):
             for contract_id in group["contractIds"]
         ]
 
+    def list_contracts(self) -> List[str]:
+        contracts_list_api_path = "/papi/v1/contracts"
+        response_json = self._get_api_from_relative_path(
+            contracts_list_api_path, headers=self.headers
+        )
+        return response_json["contracts"]["items"]
+
     def property_ids_for_contract_group(
         self, group_id: str, contract_id: str
     ) -> List[str]:
@@ -172,6 +179,11 @@ class AkamaiPropertyClient(AkamaiApiClient):
             rule_tree=rule_tree["rules"]
         )
 
+        # Siteshield
+        cp_codes = self.search_akamai_rule_tree_for_cp_codes(
+            rule_tree=rule_tree["rules"]
+        )
+
         return PropertyDescription(
             id=property["propertyId"],
             name=property["propertyName"],
@@ -184,6 +196,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
             edgeworker_ids=edgeworker_ids,
             siteshield_maps=siteshield_maps,
             hostnames=list(hostnames),
+            cp_codes=cp_codes,
         )
 
     def search_all_properties(self):
@@ -383,3 +396,12 @@ class AkamaiPropertyClient(AkamaiApiClient):
             ew_ids.append(int(behavior["options"]["edgeWorkerId"]))
 
         return list(set(ew_ids))
+
+    def search_akamai_rule_tree_for_cp_codes(self, rule_tree):
+        instances = self.search_akamai_rule_tree_for_behavior(rule_tree, "cpCode")
+        cpcode_ids = []
+        for behavior in instances:
+            if "value" in behavior["options"] and "id" in behavior["options"]["value"]:
+                cpcode_ids.append(int(behavior["options"]["value"]["id"]))
+
+        return list(set(cpcode_ids))
