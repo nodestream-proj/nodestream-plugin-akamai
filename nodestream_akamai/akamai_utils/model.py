@@ -23,6 +23,7 @@ class PropertyDescription:
     edgeworker_ids: List[int]
     siteshield_maps: List[str]
     image_manager_policysets: List[str]
+    cp_codes: List[str]
     hostnames: List[EdgeHost]
     ruleFormat: str
 
@@ -54,4 +55,5 @@ class PropertyDescription:
             "siteshield_maps": self.siteshield_maps,
             "image_manager_policysets": self.image_manager_policysets,
             "hostnames": [{"name": hostname.name} for hostname in self.hostnames],
+            "cp_codes": self.cp_codes,
         }
