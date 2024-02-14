@@ -36,6 +36,13 @@ class AkamaiPropertyClient(AkamaiApiClient):
             for contract_id in group["contractIds"]
         ]
 
+    def list_contracts(self) -> List[str]:
+        contracts_list_api_path = "/papi/v1/contracts"
+        response_json = self._get_api_from_relative_path(
+            contracts_list_api_path, headers=self.headers
+        )
+        return response_json["contracts"]["items"]
+
     def property_ids_for_contract_group(
         self, group_id: str, contract_id: str
     ) -> List[str]:
