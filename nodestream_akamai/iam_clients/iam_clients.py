@@ -17,8 +17,10 @@ class AkamaiIamClientExtractor(Extractor):
             self.logger.error("Failed to list api clients: %s", err)
         for client in clients:
             client["authorizedUsersList"] = ",".join(client["authorizedUsers"])
-            client["deeplink"] = (
-                f'https://control.akamai.com/apps/identity-management/#/tabs/users/list/api-client/{client["clientId"]}/details'
+            client[
+                "deeplink"
+            ] = "https://control.akamai.com/apps/identity-management/#/tabs/users/list/api-client/{id}/details".format(
+                id=client["clientId"]
             )
             if client["activeCredentialCount"] > 0:
                 try:
