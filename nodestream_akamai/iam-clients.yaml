@@ -29,6 +29,8 @@
         is_locked: !jmespath 'isLocked'
         service_consumer_token: !jmespath 'serviceConsumerToken'
         deeplink: !jmespath 'deeplink'
+        created_date: !jmespath 'createdDate'
+        created_by: !jmespath 'created_by'
     - type: relationship
       node_type: AkamaiIamUser
       relationship_type: MANAGED_BY
@@ -37,3 +39,16 @@
       node_key:
         ui_user_name: !jmespath 'authorizedUsers[*]'
       find_many: true
+    - type: relationship
+      node_type: AkamaiIamCredential
+      relationship_type: AUTHENTICATES_WITH
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        credential_id: !jmespath 'credentialId'
+      iterate_on: !jmespath 'credentials[*]'
+      node_properties:
+        client_token: !jmespath 'clientToken'
+        created_on: !jmespath 'createdOn'
+        description: !jmespath 'description'
+        expires_on: !jmespath 'expiresOn'
