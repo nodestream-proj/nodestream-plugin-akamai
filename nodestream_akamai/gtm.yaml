@@ -43,5 +43,4 @@
       node_key: 
         fqdn: !jmespath 'fqdn'
       find_many: true
-      relationship_type: CONNECTS_TO
-      outbound: false
+      relationship_type: RECORD_OF
