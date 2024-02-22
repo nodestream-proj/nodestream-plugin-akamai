@@ -33,12 +33,14 @@ class AkamaiWafExtractor(Extractor):
                         config_id=config["id"],
                         config_version=config["productionVersion"],
                     )
+                    deeplink_prefix = "https://control.akamai.com/apps/security-config/#/next/configs/"
                     # Construct output dict
                     output_config = {
                         "configId": config["id"],
                         "configName": config["name"],
                         "productionVersion": config["productionVersion"],
                         "policies": [],
+                        "deeplink": f'{deeplink_prefix}{config["id"]}/versions/{config["productionVersion"]}',
                     }
                     # Iterate through policies and add custom dict to output
                     for policy in export["securityPolicies"]:

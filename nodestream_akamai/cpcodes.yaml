@@ -23,3 +23,4 @@
         products: !jmespath 'productsList'
         purgeable: !jmespath 'purgeable'
         type: !jmespath 'type'
+        deeplink: !jmespath 'deeplink'

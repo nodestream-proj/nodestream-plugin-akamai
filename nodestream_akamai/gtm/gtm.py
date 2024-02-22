@@ -14,9 +14,8 @@ class AkamaiGtmExtractor(Extractor):
         for domain in self.client.list_gtm_domains():
             try:
                 raw_domain = self.client.get_gtm_domain(domain["name"])
-                deeplink = [
-                    link for link in raw_domain["links"] if link["rel"] == "self"
-                ][0]["href"]
+                deeplink_prefix = "https://control.akamai.com/apps/gtm/#/domains/"
+                deeplink = f'{deeplink_prefix}{domain["name"]}/properties/list'
                 properties = []
                 for property in raw_domain["properties"]:
                     fqdn = property["name"] + "." + raw_domain["name"]

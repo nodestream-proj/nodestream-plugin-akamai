@@ -17,4 +17,9 @@ class AkamaiSiteshieldExtractor(Extractor):
             self.logger.error("Failed to list siteshield maps: %s", err)
 
         for map in siteshield_maps:
+            map["deeplink"] = (
+                "https://control.akamai.com/apps/siteshield-ui/#/mapRequest/{t}/status".format(
+                    t=map["latestTicketId"]
+                )
+            )
             yield map

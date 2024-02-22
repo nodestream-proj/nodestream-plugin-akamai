@@ -103,6 +103,7 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
 
     def get_policy_rule_set(self, policy):
         policy_list = []
+        deeplink_prefix = "https://control.akamai.com/apps/cloudlets/#/policies/"
         try:
             policy_detail = self.extract_active_akamai_redirect_policy_versions(policy)
             for policy in policy_detail:
@@ -111,12 +112,18 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
                         policy["policyId"], policy["version"]
                     )
                     policy["id"] = f"akamai_redirect:{policy['policyId']}"
-                    policy[
-                        "inbound_hosts"
-                    ] = self.search_akamai_ruleset_for_inbound_hosts(raw_ruleset)
-                    policy[
-                        "outbound_hosts"
-                    ] = self.search_akamai_ruleset_for_outbound_hosts(raw_ruleset)
+                    policy["inbound_hosts"] = (
+                        self.search_akamai_ruleset_for_inbound_hosts(raw_ruleset)
+                    )
+                    policy["outbound_hosts"] = (
+                        self.search_akamai_ruleset_for_outbound_hosts(raw_ruleset)
+                    )
+                    policy["deeplink"] = (
+                        deeplink_prefix
+                        + "{p}/versions?gid={g}&shared=false".format(
+                            p=policy["policyId"], g=policy["groupId"]
+                        )
+                    )
                     policy_list.append(policy)
         except Exception as e:
             logger.info("No version found in: %s", policy["policyId"])
