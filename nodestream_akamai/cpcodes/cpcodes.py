@@ -15,11 +15,10 @@ class AkamaiCpCodesExtractor(Extractor):
             for cpcode in self.client.list_cpcodes():
                 products = [p["productName"] for p in cpcode["products"]]
                 cpcode["productList"] = ",".join(products)
-                cpcode["deeplink"] = (
-                    "https://control.akamai.com/apps/cpcontract/#/cpcodes/{id}/view".format(
-                        id=cpcode["cpcodeId"]
-                    )
+                deeplink_prefix = (
+                    "https://control.akamai.com/apps/cpcontract/#/cpcodes/"
                 )
+                cpcode["deeplink"] = f'{deeplink_prefix}{cpcode["cpcodeId"]}/view'
                 yield cpcode
         except Exception as err:
             self.logger.error("Failed to list CP Codes: %s", err)
