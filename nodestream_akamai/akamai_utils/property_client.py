@@ -184,6 +184,17 @@ class AkamaiPropertyClient(AkamaiApiClient):
             rule_tree=rule_tree["rules"]
         )
 
+        # Deeplink
+        deeplink_prefix = (
+            "https://control.akamai.com/apps/property-manager/#/property-version/"
+        )
+        deeplink = "{prefix}{assetId}/{version}/edit?gid={groupId}".format(
+            prefix=deeplink_prefix,
+            assetId=property["assetId"],
+            version=property["latestVersion"],
+            groupId=property["groupId"],
+        )
+
         return PropertyDescription(
             id=property["propertyId"],
             name=property["propertyName"],
@@ -197,6 +208,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
             siteshield_maps=siteshield_maps,
             hostnames=list(hostnames),
             cp_codes=cp_codes,
+            deeplink=deeplink,
         )
 
     def search_all_properties(self):

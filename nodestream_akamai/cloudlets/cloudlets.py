@@ -35,6 +35,7 @@ class AkamaiCloudletExtractor(Extractor):
             self.logger.error(f"Failed to list v3 cloudlet policies: {err}")
 
     def parse_policy(self, policy, version):
+        deeplink_prefix = "https://control.akamai.com/apps/cloudlets/#/policies/"
         if version == 2:
             policy["policyType"] = self.map[policy["cloudletCode"]]
             policy["isShared"] = False
@@ -45,9 +46,9 @@ class AkamaiCloudletExtractor(Extractor):
                     ]
                 if activation["network"] == "staging":
                     policy["activeStagingVersion"] = activation["policyInfo"]["version"]
-            policy[
-                "deeplink"
-            ] = f"https://control.akamai.com/apps/cloudlets/#/policies/{policy['policyId']}/versions?gid={policy['groupId']}&shared=false"
+            policy["deeplink"] = "{prefix}{id}/versions?gid={gid}&shared=false".format(
+                prefix=deeplink_prefix, id=policy["policyId"], gid=policy["groupId"]
+            )
 
         else:
             policy["policyType"] = self.map[policy["cloudletType"]]
@@ -75,9 +76,9 @@ class AkamaiCloudletExtractor(Extractor):
                             ]["staging"]["effective"]["policyVersion"]
                         else:
                             policy["activeStagingVersion"] = None
-            policy[
-                "deeplink"
-            ] = f"https://control.akamai.com/apps/cloudlets/#/policies/{policy['id']}/versions?gid={policy['groupId']}&shared=true"
+            policy["deeplink"] = "{prefix}{id}/versions?gid={gid}&shared=true".format(
+                prefix=deeplink_prefix, id=policy["id"], gid=policy["groupId"]
+            )
             policy["policyId"] = policy["id"]
 
         return policy

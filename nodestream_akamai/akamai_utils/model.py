@@ -26,6 +26,7 @@ class PropertyDescription:
     cp_codes: List[str]
     hostnames: List[EdgeHost]
     ruleFormat: str
+    deeplink: str
 
     @property
     def origin_count(self):
@@ -56,4 +57,5 @@ class PropertyDescription:
             "image_manager_policysets": self.image_manager_policysets,
             "hostnames": [{"name": hostname.name} for hostname in self.hostnames],
             "cp_codes": self.cp_codes,
+            "deeplink": self.deeplink,
         }

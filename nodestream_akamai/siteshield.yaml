@@ -21,6 +21,7 @@
         acknowledged_by: !jmespath 'acknowledgedBy'
         mcm_map_rule_id: !jmespath 'mcmMapRuleId'
         sure_route_name: !jmespath 'sureRouteName'
+        deeplink: !jmespath 'deeplink'
     - type: relationship
       node_type: Cidripv4
       relationship_type: EGRESS
