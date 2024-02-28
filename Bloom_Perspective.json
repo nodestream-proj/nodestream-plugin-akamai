@@ -1204,10 +1204,20 @@
                     "name": "was_ingested_by_redirect",
                     "exclude": false,
                     "dataType": "boolean"
+                },
+                {
+                    "name": "paths",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "type",
+                    "exclude": false,
+                    "dataType": "string"
                 }
             ],
             "createdAt": 1684596218459,
-            "lastEditedAt": 1706139959937,
+            "lastEditedAt": 1707441134124,
             "color": "#57C7E3",
             "size": 1,
             "icon": "no-icon",
@@ -2417,10 +2427,15 @@
                     "name": "was_ingested_by_iam-clients",
                     "exclude": false,
                     "dataType": "boolean"
+                },
+                {
+                    "name": "created_date",
+                    "exclude": false,
+                    "dataType": "string"
                 }
             ],
             "createdAt": 1703287544509,
-            "lastEditedAt": 1706137173883,
+            "lastEditedAt": 1708566080182,
             "color": "#FFC454",
             "size": 1,
             "icon": "no-icon",
@@ -3815,6 +3830,137 @@
             "captions": [],
             "captionKeys": [],
             "styleRules": []
+        },
+        {
+            "id": 97,
+            "name": "AkamaiIamCredential",
+            "labels": [
+                "AkamaiIamCredential"
+            ],
+            "properties": [
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "expires_on",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "created_on",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "last_ingested_by_iam-clients_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "credential_id",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "was_ingested_by_iam-clients",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "description",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "client_token",
+                    "exclude": false,
+                    "dataType": "string"
+                }
+            ],
+            "createdAt": 1708566166715,
+            "lastEditedAt": 1708623421214,
+            "color": "#569480",
+            "size": 1,
+            "icon": "no-icon",
+            "textSize": 1,
+            "textAlign": "top",
+            "captions": [
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "AkamaiIamCredential",
+                    "type": "label"
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "created_on",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": true,
+                    "key": "credential_id",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "description",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "expires_on",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_by_iam-clients_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "was_ingested_by_iam-clients",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "client_token",
+                    "type": "property",
+                    "isGdsData": false
+                }
+            ],
+            "captionKeys": [],
+            "styleRules": []
         }
     ],
     "name": "Akamai_Scope",
@@ -3832,26 +3978,46 @@
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "last_ingested_by_property_at",
-                "type": "Endpoint",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "was_ingested_by_property",
+                "propertyKey": "was_ingested_by_cps",
                 "type": "Endpoint",
                 "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_cps_at",
+                "type": "Endpoint",
+                "dataType": "DateTime"
             }
         ],
         "AkamaiCloudlet": [
             {
-                "propertyKey": "was_ingested_by_property",
+                "propertyKey": "description",
                 "type": "AkamaiCloudlet",
-                "dataType": "boolean"
+                "dataType": "string"
             },
             {
-                "propertyKey": "last_ingested_by_property_at",
+                "propertyKey": "last_ingested_at",
                 "type": "AkamaiCloudlet",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "name",
+                "type": "AkamaiCloudlet",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "created_by",
+                "type": "AkamaiCloudlet",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "deeplink",
+                "type": "AkamaiCloudlet",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "type",
+                "type": "AkamaiCloudlet",
+                "dataType": "string"
             },
             {
                 "propertyKey": "id",
@@ -3859,7 +4025,12 @@
                 "dataType": "bigint"
             },
             {
-                "propertyKey": "last_ingested_at",
+                "propertyKey": "was_ingested_by_cloudlets",
+                "type": "AkamaiCloudlet",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_cloudlets_at",
                 "type": "AkamaiCloudlet",
                 "dataType": "DateTime"
             }
@@ -3876,14 +4047,14 @@
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "last_ingested_by_cpcodes_at",
-                "type": "AkamaiCPCode",
-                "dataType": "DateTime"
-            },
-            {
                 "propertyKey": "was_ingested_by_cpcodes",
                 "type": "AkamaiCPCode",
                 "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_cpcodes_at",
+                "type": "AkamaiCPCode",
+                "dataType": "DateTime"
             },
             {
                 "propertyKey": "cpcode_name",
@@ -3921,11 +4092,256 @@
                 "dataType": "bigint"
             }
         ],
+        "AkamaiCertificate": [
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiCertificate",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "cipher_suite",
+                "type": "AkamaiCertificate",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "cn",
+                "type": "AkamaiCertificate",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "disallowed_tls_versions",
+                "type": "AkamaiCertificate",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "was_ingested_by_cps",
+                "type": "AkamaiCertificate",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_cps_at",
+                "type": "AkamaiCertificate",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "id",
+                "type": "AkamaiCertificate",
+                "dataType": "bigint"
+            }
+        ],
+        "AkamaiEdgeHostname": [
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiEdgeHostname",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "edge_hostname",
+                "type": "AkamaiEdgeHostname",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "edge_hostname_id",
+                "type": "AkamaiEdgeHostname",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "ip_version_behavior",
+                "type": "AkamaiEdgeHostname",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_by_ehn_at",
+                "type": "AkamaiEdgeHostname",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_ehn",
+                "type": "AkamaiEdgeHostname",
+                "dataType": "boolean"
+            }
+        ],
+        "AkamaiNetstorageAccount": [
+            {
+                "propertyKey": "ssh_enabled",
+                "type": "AkamaiNetstorageAccount",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "rsync_enabled",
+                "type": "AkamaiNetstorageAccount",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "storage_group_name",
+                "type": "AkamaiNetstorageAccount",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "has_file_manager_access",
+                "type": "AkamaiNetstorageAccount",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "upload_account_id",
+                "type": "AkamaiNetstorageAccount",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "ftp_enabled",
+                "type": "AkamaiNetstorageAccount",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "has_http_api_access",
+                "type": "AkamaiNetstorageAccount",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiNetstorageAccount",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "aspera_enabled",
+                "type": "AkamaiNetstorageAccount",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_netstorage-account_at",
+                "type": "AkamaiNetstorageAccount",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_netstorage-account",
+                "type": "AkamaiNetstorageAccount",
+                "dataType": "boolean"
+            }
+        ],
+        "AkamaiNetstorageKey": [
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiNetstorageKey",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "last_ingested_by_netstorage-account_at",
+                "type": "AkamaiNetstorageKey",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_netstorage-account",
+                "type": "AkamaiNetstorageKey",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "id",
+                "type": "AkamaiNetstorageKey",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "type",
+                "type": "AkamaiNetstorageKey",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_modified_by",
+                "type": "AkamaiNetstorageKey",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_modified_date",
+                "type": "AkamaiNetstorageKey",
+                "dataType": "string"
+            }
+        ],
+        "AkamaiNetstorageGroup": [
+            {
+                "propertyKey": "last_ingested_by_netstorage-group_at",
+                "type": "AkamaiNetstorageGroup",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "estimated_usage_gb",
+                "type": "AkamaiNetstorageGroup",
+                "dataType": "number"
+            },
+            {
+                "propertyKey": "domain_prefix",
+                "type": "AkamaiNetstorageGroup",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "storage_group_name",
+                "type": "AkamaiNetstorageGroup",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "was_ingested_by_netstorage-group",
+                "type": "AkamaiNetstorageGroup",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "was_ingested_by_netstorage-account",
+                "type": "AkamaiNetstorageGroup",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiNetstorageGroup",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "storage_group_id",
+                "type": "AkamaiNetstorageGroup",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "last_ingested_by_netstorage-account_at",
+                "type": "AkamaiNetstorageGroup",
+                "dataType": "DateTime"
+            }
+        ],
         "AkamaiSiteshieldMap": [
+            {
+                "propertyKey": "map_alias",
+                "type": "AkamaiSiteshieldMap",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_by_siteshield_at",
+                "type": "AkamaiSiteshieldMap",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "acknowledged_by",
+                "type": "AkamaiSiteshieldMap",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "sure_route_name",
+                "type": "AkamaiSiteshieldMap",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "mcm_map_rule_id",
+                "type": "AkamaiSiteshieldMap",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "was_ingested_by_siteshield",
+                "type": "AkamaiSiteshieldMap",
+                "dataType": "boolean"
+            },
             {
                 "propertyKey": "last_ingested_by_property_at",
                 "type": "AkamaiSiteshieldMap",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "id",
+                "type": "AkamaiSiteshieldMap",
+                "dataType": "bigint"
             },
             {
                 "propertyKey": "last_ingested_at",
@@ -3980,19 +4396,103 @@
                 "dataType": "string"
             }
         ],
-        "AkamaiEdgeworker": [
+        "AkamaiRedirectConfig": [
             {
-                "propertyKey": "was_ingested_by_property",
-                "type": "AkamaiEdgeworker",
+                "propertyKey": "name",
+                "type": "AkamaiRedirectConfig",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "policyId",
+                "type": "AkamaiRedirectConfig",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiRedirectConfig",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "last_ingested_by_redirect_at",
+                "type": "AkamaiRedirectConfig",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_redirect",
+                "type": "AkamaiRedirectConfig",
+                "dataType": "boolean"
+            }
+        ],
+        "AkamaiWafPolicy": [
+            {
+                "propertyKey": "last_ingested_by_waf_at",
+                "type": "AkamaiWafPolicy",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiWafPolicy",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_waf",
+                "type": "AkamaiWafPolicy",
                 "dataType": "boolean"
             },
             {
-                "propertyKey": "last_ingested_by_property_at",
+                "propertyKey": "policy_id",
+                "type": "AkamaiWafPolicy",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "policy_name",
+                "type": "AkamaiWafPolicy",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_by_appsec-coverage_at",
+                "type": "AkamaiWafPolicy",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_appsec-coverage",
+                "type": "AkamaiWafPolicy",
+                "dataType": "boolean"
+            }
+        ],
+        "AkamaiEdgeworker": [
+            {
+                "propertyKey": "last_ingested_by_edgeworkers_at",
                 "type": "AkamaiEdgeworker",
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "id",
+                "propertyKey": "last_modified_by",
+                "type": "AkamaiEdgeworker",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "deeplink",
+                "type": "AkamaiEdgeworker",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_modified_time",
+                "type": "AkamaiEdgeworker",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "account_id",
+                "type": "AkamaiEdgeworker",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "was_ingested_by_edgeworkers",
+                "type": "AkamaiEdgeworker",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "resource_tier_id",
                 "type": "AkamaiEdgeworker",
                 "dataType": "bigint"
             },
@@ -4000,16 +4500,323 @@
                 "propertyKey": "last_ingested_at",
                 "type": "AkamaiEdgeworker",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "group_id",
+                "type": "AkamaiEdgeworker",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "id",
+                "type": "AkamaiEdgeworker",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "name",
+                "type": "AkamaiEdgeworker",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "active_version",
+                "type": "AkamaiEdgeworker",
+                "dataType": "string"
+            }
+        ],
+        "AkamaiGtmTarget": [
+            {
+                "propertyKey": "target",
+                "type": "AkamaiGtmTarget",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiGtmTarget",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_gtm",
+                "type": "AkamaiGtmTarget",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_gtm_at",
+                "type": "AkamaiGtmTarget",
+                "dataType": "DateTime"
+            }
+        ],
+        "AkamaiGtmProperty": [
+            {
+                "propertyKey": "fqdn",
+                "type": "AkamaiGtmProperty",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiGtmProperty",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "type",
+                "type": "AkamaiGtmProperty",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "name",
+                "type": "AkamaiGtmProperty",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "was_ingested_by_gtm",
+                "type": "AkamaiGtmProperty",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_gtm_at",
+                "type": "AkamaiGtmProperty",
+                "dataType": "DateTime"
+            }
+        ],
+        "AkamaiGtmDomain": [
+            {
+                "propertyKey": "last_ingested_by_gtm_at",
+                "type": "AkamaiGtmDomain",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "deeplink",
+                "type": "AkamaiGtmDomain",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "cnameCoalescingEnabled",
+                "type": "AkamaiGtmDomain",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "loadImbalancePercentage",
+                "type": "AkamaiGtmDomain",
+                "dataType": "number"
+            },
+            {
+                "propertyKey": "was_ingested_by_gtm",
+                "type": "AkamaiGtmDomain",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiGtmDomain",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "loadFeedback",
+                "type": "AkamaiGtmDomain",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "type",
+                "type": "AkamaiGtmDomain",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "name",
+                "type": "AkamaiGtmDomain",
+                "dataType": "string"
+            }
+        ],
+        "AkamaiIamClient": [
+            {
+                "propertyKey": "created_date",
+                "type": "AkamaiIamClient",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "is_locked",
+                "type": "AkamaiIamClient",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "deeplink",
+                "type": "AkamaiIamClient",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiIamClient",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_iam-clients",
+                "type": "AkamaiIamClient",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_iam-clients_at",
+                "type": "AkamaiIamClient",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "clientId",
+                "type": "AkamaiIamClient",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "allow_account_switch",
+                "type": "AkamaiIamClient",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "client_name",
+                "type": "AkamaiIamClient",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "client_description",
+                "type": "AkamaiIamClient",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "authorized_users",
+                "type": "AkamaiIamClient",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "access_token",
+                "type": "AkamaiIamClient",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "active_credential_count",
+                "type": "AkamaiIamClient",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "service_consumer_token",
+                "type": "AkamaiIamClient",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "client_type",
+                "type": "AkamaiIamClient",
+                "dataType": "string"
+            }
+        ],
+        "AkamaiIamUser": [
+            {
+                "propertyKey": "last_ingested_by_iam-users_at",
+                "type": "AkamaiIamUser",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "first_name",
+                "type": "AkamaiIamUser",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "ui_identity_id",
+                "type": "AkamaiIamUser",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_name",
+                "type": "AkamaiIamUser",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "email",
+                "type": "AkamaiIamUser",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "is_locked",
+                "type": "AkamaiIamUser",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "ui_user_name",
+                "type": "AkamaiIamUser",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "additional_authentication_configured",
+                "type": "AkamaiIamUser",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "was_ingested_by_iam-users",
+                "type": "AkamaiIamUser",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiIamUser",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_iam-clients",
+                "type": "AkamaiIamUser",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_iam-clients_at",
+                "type": "AkamaiIamUser",
+                "dataType": "DateTime"
+            }
+        ],
+        "AkamaiIvmPolicy": [
+            {
+                "propertyKey": "user",
+                "type": "AkamaiIvmPolicy",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_by_ivm_at",
+                "type": "AkamaiIvmPolicy",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiIvmPolicy",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "version",
+                "type": "AkamaiIvmPolicy",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "date_created",
+                "type": "AkamaiIvmPolicy",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "video",
+                "type": "AkamaiIvmPolicy",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "policy_id",
+                "type": "AkamaiIvmPolicy",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "unique_id",
+                "type": "AkamaiIvmPolicy",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "was_ingested_by_ivm",
+                "type": "AkamaiIvmPolicy",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "policy_set_id",
+                "type": "AkamaiIvmPolicy",
+                "dataType": "string"
             }
         ],
         "AkamaiIvmPolicySet": [
             {
-                "propertyKey": "was_ingested_by_property",
-                "type": "AkamaiIvmPolicySet",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_property_at",
+                "propertyKey": "last_ingested_at",
                 "type": "AkamaiIvmPolicySet",
                 "dataType": "DateTime"
             },
@@ -4019,26 +4826,112 @@
                 "dataType": "string"
             },
             {
-                "propertyKey": "last_ingested_at",
+                "propertyKey": "last_ingested_by_ivm_at",
                 "type": "AkamaiIvmPolicySet",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_ivm",
+                "type": "AkamaiIvmPolicySet",
+                "dataType": "boolean"
+            }
+        ],
+        "Cidripv4": [
+            {
+                "propertyKey": "cidr",
+                "type": "Cidripv4",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "Cidripv4",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_siteshield",
+                "type": "Cidripv4",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_siteshield_at",
+                "type": "Cidripv4",
                 "dataType": "DateTime"
             }
         ],
-        "AkamaiCertificate": [],
-        "AkamaiEdgeHostname": [],
-        "AkamaiNetstorageAccount": [],
-        "AkamaiNetstorageKey": [],
-        "AkamaiNetstorageGroup": [],
-        "AkamaiRedirectConfig": [],
-        "AkamaiWafPolicy": [],
-        "AkamaiGtmTarget": [],
-        "AkamaiGtmProperty": [],
-        "AkamaiGtmDomain": [],
-        "AkamaiIamClient": [],
-        "AkamaiIamUser": [],
-        "AkamaiIvmPolicy": [],
-        "Cidripv4": [],
-        "AkamaiWafConfig": []
+        "AkamaiWafConfig": [
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiWafConfig",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_waf",
+                "type": "AkamaiWafConfig",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "config_name",
+                "type": "AkamaiWafConfig",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "production_version",
+                "type": "AkamaiWafConfig",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "last_ingested_by_waf_at",
+                "type": "AkamaiWafConfig",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "config_id",
+                "type": "AkamaiWafConfig",
+                "dataType": "bigint"
+            }
+        ],
+        "AkamaiIamCredential": [
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiIamCredential",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "expires_on",
+                "type": "AkamaiIamCredential",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "created_on",
+                "type": "AkamaiIamCredential",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_by_iam-clients_at",
+                "type": "AkamaiIamCredential",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "credential_id",
+                "type": "AkamaiIamCredential",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "was_ingested_by_iam-clients",
+                "type": "AkamaiIamCredential",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "client_token",
+                "type": "AkamaiIamCredential",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "description",
+                "type": "AkamaiIamCredential",
+                "dataType": "string"
+            }
+        ]
     },
     "relationshipTypes": [
         {
@@ -4834,6 +5727,8 @@
             "styleRules": []
         },
         {
+            "id": "REPORTS_ON",
+            "name": "REPORTS_ON",
             "properties": [
                 {
                     "propertyKey": "last_ingested_by_property_at",
@@ -4851,11 +5746,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "REPORTS_ON",
-            "id": "REPORTS_ON",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -4865,8 +5759,43 @@
                     "type": "relationship"
                 }
             ],
+            "captionKeys": [],
+            "styleRules": []
+        },
+        {
+            "id": "AUTHENTICATES_WITH",
+            "name": "AUTHENTICATES_WITH",
+            "properties": [
+                {
+                    "propertyKey": "last_ingested_at",
+                    "type": "AUTHENTICATES_WITH",
+                    "dataType": "DateTime"
+                },
+                {
+                    "propertyKey": "was_ingested_by_iam-clients",
+                    "type": "AUTHENTICATES_WITH",
+                    "dataType": "boolean"
+                },
+                {
+                    "propertyKey": "last_ingested_by_iam-clients_at",
+                    "type": "AUTHENTICATES_WITH",
+                    "dataType": "DateTime"
+                }
+            ],
+            "color": "#848484",
+            "size": 1,
             "textSize": 1,
             "textAlign": "top",
+            "captions": [
+                {
+                    "inTooltip": true,
+                    "isCaption": true,
+                    "styles": [],
+                    "key": "AUTHENTICATES_WITH",
+                    "type": "relationship"
+                }
+            ],
+            "captionKeys": [],
             "styleRules": []
         }
     ],
@@ -4887,7 +5816,7 @@
             "#848484",
             "#D9D9D9"
         ],
-        "currentIndex": 135
+        "currentIndex": 136
     },
     "createdAt": 1706128392325,
     "lastEditedAt": 1706128392325,
@@ -4942,14 +5871,44 @@
     "metadata": {
         "pathSegments": [
             {
-                "source": "AkamaiProperty",
-                "relationshipType": "OFFLOADS_CONFIGURATION_TO",
-                "target": "AkamaiCloudlet"
+                "source": "AkamaiIamClient",
+                "relationshipType": "AUTHENTICATES_WITH",
+                "target": "AkamaiIamCredential"
             },
             {
-                "source": "AkamaiProperty",
-                "relationshipType": "MEDIA_OPTIMIZED_BY",
-                "target": "AkamaiIvmPolicySet"
+                "source": "Endpoint",
+                "relationshipType": "ENCRYPTED_BY",
+                "target": "AkamaiCertificate"
+            },
+            {
+                "source": "AkamaiNetstorageAccount",
+                "relationshipType": "AUTHORIZED_BY",
+                "target": "AkamaiNetstorageKey"
+            },
+            {
+                "source": "AkamaiNetstorageAccount",
+                "relationshipType": "ACCESSES",
+                "target": "AkamaiNetstorageGroup"
+            },
+            {
+                "source": "Endpoint",
+                "relationshipType": "CNAMES_TO",
+                "target": "AkamaiEdgeHostname"
+            },
+            {
+                "source": "AkamaiGtmProperty",
+                "relationshipType": "RETURNS",
+                "target": "AkamaiGtmTarget"
+            },
+            {
+                "source": "AkamaiGtmProperty",
+                "relationshipType": "IN_DOMAIN",
+                "target": "AkamaiGtmDomain"
+            },
+            {
+                "source": "AkamaiWafPolicy",
+                "relationshipType": "INCLUDED_IN",
+                "target": "AkamaiWafConfig"
             },
             {
                 "source": "AkamaiCPCode",
@@ -4957,14 +5916,19 @@
                 "target": "AkamaiProperty"
             },
             {
-                "source": "AkamaiEdgeworker",
-                "relationshipType": "RUNS_CODE_FOR",
-                "target": "AkamaiProperty"
-            },
-            {
                 "source": "AkamaiProperty",
                 "relationshipType": "PROXIES_TO",
                 "target": "Endpoint"
+            },
+            {
+                "source": "AkamaiIamClient",
+                "relationshipType": "MANAGED_BY",
+                "target": "AkamaiIamUser"
+            },
+            {
+                "source": "AkamaiIvmPolicySet",
+                "relationshipType": "CONTAINS",
+                "target": "AkamaiIvmPolicy"
             },
             {
                 "source": "AkamaiProperty",
@@ -4975,6 +5939,61 @@
                 "source": "Endpoint",
                 "relationshipType": "SERVICED_BY",
                 "target": "AkamaiProperty"
+            },
+            {
+                "source": "Endpoint",
+                "relationshipType": "PROTECTED_BY",
+                "target": "AkamaiWafPolicy"
+            },
+            {
+                "source": "Endpoint",
+                "relationshipType": "UPLOADS_TO",
+                "target": "AkamaiNetstorageGroup"
+            },
+            {
+                "source": "AkamaiNetstorageGroup",
+                "relationshipType": "UPLOADS_TO",
+                "target": "Endpoint"
+            },
+            {
+                "source": "Endpoint",
+                "relationshipType": "UPLOADS_TO",
+                "target": "Endpoint"
+            },
+            {
+                "source": "AkamaiNetstorageGroup",
+                "relationshipType": "UPLOADS_TO",
+                "target": "AkamaiNetstorageGroup"
+            },
+            {
+                "source": "AkamaiProperty",
+                "relationshipType": "OFFLOADS_CONFIGURATION_TO",
+                "target": "AkamaiCloudlet"
+            },
+            {
+                "source": "AkamaiSiteshieldMap",
+                "relationshipType": "EGRESS",
+                "target": "Cidripv4"
+            },
+            {
+                "source": "AkamaiProperty",
+                "relationshipType": "MEDIA_OPTIMIZED_BY",
+                "target": "AkamaiIvmPolicySet"
+            },
+            {
+                "source": "AkamaiRedirectConfig",
+                "relationshipType": "REDIRECTS_TO",
+                "target": "Endpoint"
+            },
+            {
+                "source": "AkamaiEdgeworker",
+                "relationshipType": "RUNS_CODE_FOR",
+                "target": "AkamaiProperty"
+            },
+            {
+                "source": "Endpoint",
+                "relationshipType": "REDIRECTS_HANDLED_BY",
+                "target": "AkamaiRedirectConfig"
             }
         ],
         "indexes": [
@@ -4999,11 +6018,11 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_cpcodes_at",
+                        "key": "was_ingested_by_cpcodes",
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_cpcodes",
+                        "key": "last_ingested_by_cpcodes_at",
                         "metadataProp": true
                     },
                     {
@@ -5039,6 +6058,26 @@
                     {
                         "key": "id",
                         "metadataProp": false
+                    },
+                    {
+                        "key": "cipher_suite",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "cn",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "disallowed_tls_versions",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_cps",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_cps_at",
+                        "metadataProp": true
                     }
                 ]
             },
@@ -5055,11 +6094,31 @@
                         "metadataProp": false
                     },
                     {
-                        "key": "was_ingested_by_property",
+                        "key": "description",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_property_at",
+                        "key": "name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "created_by",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "deeplink",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "type",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_cloudlets",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_cloudlets_at",
                         "metadataProp": true
                     }
                 ]
@@ -5075,6 +6134,22 @@
                     {
                         "key": "edge_hostname_id",
                         "metadataProp": false
+                    },
+                    {
+                        "key": "edge_hostname",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "ip_version_behavior",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_ehn_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_ehn",
+                        "metadataProp": true
                     }
                 ]
             },
@@ -5091,11 +6166,43 @@
                         "metadataProp": false
                     },
                     {
-                        "key": "was_ingested_by_property",
+                        "key": "last_ingested_by_edgeworkers_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_property_at",
+                        "key": "last_modified_by",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "deeplink",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_modified_time",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "account_id",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_edgeworkers",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "resource_tier_id",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "group_id",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "active_version",
                         "metadataProp": true
                     }
                 ]
@@ -5111,6 +6218,34 @@
                     {
                         "key": "name",
                         "metadataProp": false
+                    },
+                    {
+                        "key": "last_ingested_by_gtm_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "deeplink",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "cnameCoalescingEnabled",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "loadImbalancePercentage",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_gtm",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "loadFeedback",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "type",
+                        "metadataProp": true
                     }
                 ]
             },
@@ -5125,6 +6260,22 @@
                     {
                         "key": "fqdn",
                         "metadataProp": false
+                    },
+                    {
+                        "key": "type",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_gtm",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_gtm_at",
+                        "metadataProp": true
                     }
                 ]
             },
@@ -5139,6 +6290,14 @@
                     {
                         "key": "target",
                         "metadataProp": false
+                    },
+                    {
+                        "key": "was_ingested_by_gtm",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_gtm_at",
+                        "metadataProp": true
                     }
                 ]
             },
@@ -5153,6 +6312,92 @@
                     {
                         "key": "clientId",
                         "metadataProp": false
+                    },
+                    {
+                        "key": "created_date",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "is_locked",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "deeplink",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_iam-clients",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_iam-clients_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "allow_account_switch",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "client_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "client_description",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "authorized_users",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "access_token",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "active_credential_count",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "service_consumer_token",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "client_type",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "AkamaiIamCredential",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "credential_id",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "expires_on",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "created_on",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_iam-clients_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_iam-clients",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "description",
+                        "metadataProp": true
                     }
                 ]
             },
@@ -5167,6 +6412,46 @@
                     {
                         "key": "ui_user_name",
                         "metadataProp": false
+                    },
+                    {
+                        "key": "last_ingested_by_iam-users_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "first_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "ui_identity_id",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "email",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "is_locked",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "additional_authentication_configured",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_iam-users",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_iam-clients",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_iam-clients_at",
+                        "metadataProp": true
                     }
                 ]
             },
@@ -5183,11 +6468,11 @@
                         "metadataProp": false
                     },
                     {
-                        "key": "was_ingested_by_property",
+                        "key": "last_ingested_by_ivm_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_property_at",
+                        "key": "was_ingested_by_ivm",
                         "metadataProp": true
                     }
                 ]
@@ -5203,6 +6488,38 @@
                     {
                         "key": "unique_id",
                         "metadataProp": false
+                    },
+                    {
+                        "key": "user",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_ivm_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "version",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "date_created",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "video",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "policy_id",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_ivm",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "policy_set_id",
+                        "metadataProp": true
                     }
                 ]
             },
@@ -5217,6 +6534,42 @@
                     {
                         "key": "upload_account_id",
                         "metadataProp": false
+                    },
+                    {
+                        "key": "ssh_enabled",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "rsync_enabled",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "storage_group_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "has_file_manager_access",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "ftp_enabled",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "has_http_api_access",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "aspera_enabled",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_netstorage-account_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_netstorage-account",
+                        "metadataProp": true
                     }
                 ]
             },
@@ -5231,6 +6584,34 @@
                     {
                         "key": "storage_group_id",
                         "metadataProp": false
+                    },
+                    {
+                        "key": "last_ingested_by_netstorage-group_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "estimated_usage_gb",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "domain_prefix",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "storage_group_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_netstorage-group",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_netstorage-account",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_netstorage-account_at",
+                        "metadataProp": true
                     }
                 ]
             },
@@ -5245,6 +6626,26 @@
                     {
                         "key": "id",
                         "metadataProp": false
+                    },
+                    {
+                        "key": "last_ingested_by_netstorage-account_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_netstorage-account",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "type",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_modified_by",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_modified_date",
+                        "metadataProp": true
                     }
                 ]
             },
@@ -5293,6 +6694,18 @@
                     {
                         "key": "policyId",
                         "metadataProp": false
+                    },
+                    {
+                        "key": "name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_redirect_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_redirect",
+                        "metadataProp": true
                     }
                 ]
             },
@@ -5309,7 +6722,35 @@
                         "metadataProp": false
                     },
                     {
+                        "key": "map_alias",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_siteshield_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "acknowledged_by",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "sure_route_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "mcm_map_rule_id",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_siteshield",
+                        "metadataProp": true
+                    },
+                    {
                         "key": "last_ingested_by_property_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "id",
                         "metadataProp": true
                     },
                     {
@@ -5329,6 +6770,22 @@
                     {
                         "key": "config_id",
                         "metadataProp": false
+                    },
+                    {
+                        "key": "was_ingested_by_waf",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "config_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "production_version",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_waf_at",
+                        "metadataProp": true
                     }
                 ]
             },
@@ -5343,6 +6800,26 @@
                     {
                         "key": "policy_id",
                         "metadataProp": false
+                    },
+                    {
+                        "key": "last_ingested_by_waf_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_waf",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "policy_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_appsec-coverage_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_appsec-coverage",
+                        "metadataProp": true
                     }
                 ]
             },
@@ -5357,6 +6834,14 @@
                     {
                         "key": "cidr",
                         "metadataProp": false
+                    },
+                    {
+                        "key": "was_ingested_by_siteshield",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_siteshield_at",
+                        "metadataProp": true
                     }
                 ]
             },
@@ -5373,11 +6858,11 @@
                         "metadataProp": false
                     },
                     {
-                        "key": "last_ingested_by_property_at",
+                        "key": "was_ingested_by_cps",
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_property",
+                        "key": "last_ingested_by_cps_at",
                         "metadataProp": true
                     }
                 ]
@@ -5391,29 +6876,30 @@
         "stats": {
             "labels": {},
             "relationshipTypes": {
-                "SERVICED_BY": 135,
-                "PROXIES_TO": 19,
-                "REDIRECTS_HANDLED_BY": 0,
-                "REDIRECTS_TO": 0,
+                "ACCESSES": 32,
+                "AUTHENTICATES_WITH": 27,
+                "AUTHORIZED_BY": 50,
+                "CNAMES_TO": 212,
+                "CONTAINS": 6,
+                "EGRESS": 19,
+                "ENCRYPTED_BY": 14,
                 "HAS_RECORD": 0,
-                "ACCESSES": 0,
-                "PROTECTED_BY": 0,
-                "EGRESS": 0,
-                "REDIRECTS_IN": 0,
-                "AUTHORIZED_BY": 0,
-                "MANAGED_BY": 0,
-                "CONTAINS": 0,
+                "INCLUDED_IN": 4,
+                "IN_DOMAIN": 5,
+                "MANAGED_BY": 103,
                 "MEDIA_OPTIMIZED_BY": 4,
-                "RUNS_CODE_FOR": 36,
-                "CNAMES_TO": 0,
                 "OFFLOADS_CONFIGURATION_TO": 2,
+                "PROTECTED_BY": 4,
+                "PROXIES_TO": 115,
+                "REDIRECTS_HANDLED_BY": 1,
+                "REDIRECTS_IN": 0,
+                "REDIRECTS_TO": 1,
+                "REPORTS_ON": 111,
+                "RETURNS": 4,
                 "ROUTES_THROUGH": 1,
-                "ENCRYPTED_BY": 0,
-                "INCLUDED_IN": 0,
-                "RETURNS": 0,
-                "IN_DOMAIN": 0,
-                "UPLOADS_TO": 0,
-                "REPORTS_ON": 111
+                "RUNS_CODE_FOR": 36,
+                "SERVICED_BY": 136,
+                "UPLOADS_TO": 231
             }
         }
     },
