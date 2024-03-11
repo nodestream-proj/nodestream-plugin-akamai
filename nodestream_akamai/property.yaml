@@ -19,6 +19,7 @@
         name: !jmespath 'name'
         version: !jmespath 'version'
         rule_format: !jmespath 'ruleFormat'
+        deeplink: !jmespath 'deeplink'
     - type: relationship
       node_type: Endpoint
       node_key: 
@@ -66,3 +67,10 @@
         policyId: !jmespath 'edge_redirector_policies[*]'
       find_many: true
       relationship_type: REDIRECTS_IN
+    - type: relationship
+      node_type: AkamaiCPCode
+      node_key: 
+        id: !jmespath 'cp_codes[*]'
+      find_many: true
+      relationship_type: REPORTS_ON
+      outbound: false

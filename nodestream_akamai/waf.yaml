@@ -20,6 +20,7 @@
         config_id: !jmespath 'configId'
         production_version: !jmespath 'productionVersion'
         status: !jmespath 'status'
+        deeplink: !jmespath 'deeplink'
     - type: relationship
       node_type: AkamaiWafPolicy
       relationship_type: INCLUDED_IN

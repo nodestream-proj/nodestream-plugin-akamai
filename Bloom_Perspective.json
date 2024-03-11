@@ -385,10 +385,35 @@
                     "name": "last_ingested_by_gtm_at",
                     "exclude": false,
                     "dataType": "DateTime"
+                },
+                {
+                    "name": "loadFeedback",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "cnameCoalescingEnabled",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "loadImbalancePercentage",
+                    "exclude": false,
+                    "dataType": "number"
+                },
+                {
+                    "name": "deeplink",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "type",
+                    "exclude": false,
+                    "dataType": "string"
                 }
             ],
             "createdAt": 1684596008106,
-            "lastEditedAt": 1706136528681,
+            "lastEditedAt": 1706818177662,
             "color": "#3b6799",
             "size": 1,
             "icon": "no-icon",
@@ -1179,10 +1204,20 @@
                     "name": "was_ingested_by_redirect",
                     "exclude": false,
                     "dataType": "boolean"
+                },
+                {
+                    "name": "paths",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "type",
+                    "exclude": false,
+                    "dataType": "string"
                 }
             ],
             "createdAt": 1684596218459,
-            "lastEditedAt": 1706139959937,
+            "lastEditedAt": 1707441134124,
             "color": "#57C7E3",
             "size": 1,
             "icon": "no-icon",
@@ -2392,10 +2427,15 @@
                     "name": "was_ingested_by_iam-clients",
                     "exclude": false,
                     "dataType": "boolean"
+                },
+                {
+                    "name": "created_date",
+                    "exclude": false,
+                    "dataType": "string"
                 }
             ],
             "createdAt": 1703287544509,
-            "lastEditedAt": 1706137173883,
+            "lastEditedAt": 1708566080182,
             "color": "#FFC454",
             "size": 1,
             "icon": "no-icon",
@@ -3528,10 +3568,20 @@
                     "name": "cpcode_id",
                     "exclude": false,
                     "dataType": "bigint"
+                },
+                {
+                    "name": "last_ingested_by_property_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "was_ingested_by_property",
+                    "exclude": false,
+                    "dataType": "boolean"
                 }
             ],
             "createdAt": 1706128394687,
-            "lastEditedAt": 1706137173653,
+            "lastEditedAt": 1707417264550,
             "color": "#D9D9D9",
             "size": 1,
             "icon": "no-icon",
@@ -3546,7 +3596,7 @@
                     "type": "label"
                 },
                 {
-                    "inTooltip": false,
+                    "inTooltip": true,
                     "styles": [],
                     "isCaption": false,
                     "key": "contract_id",
@@ -3554,7 +3604,7 @@
                     "isGdsData": false
                 },
                 {
-                    "inTooltip": false,
+                    "inTooltip": true,
                     "styles": [],
                     "isCaption": false,
                     "key": "cpcode_id",
@@ -3594,7 +3644,7 @@
                     "isGdsData": false
                 },
                 {
-                    "inTooltip": false,
+                    "inTooltip": true,
                     "styles": [],
                     "isCaption": false,
                     "key": "purgeable",
@@ -3602,7 +3652,7 @@
                     "isGdsData": false
                 },
                 {
-                    "inTooltip": false,
+                    "inTooltip": true,
                     "styles": [],
                     "isCaption": false,
                     "key": "type",
@@ -3614,6 +3664,22 @@
                     "styles": [],
                     "isCaption": false,
                     "key": "was_ingested_by_cpcodes",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_by_property_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "was_ingested_by_property",
                     "type": "property",
                     "isGdsData": false
                 }
@@ -3764,6 +3830,137 @@
             "captions": [],
             "captionKeys": [],
             "styleRules": []
+        },
+        {
+            "id": 97,
+            "name": "AkamaiIamCredential",
+            "labels": [
+                "AkamaiIamCredential"
+            ],
+            "properties": [
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "expires_on",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "created_on",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "last_ingested_by_iam-clients_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "credential_id",
+                    "exclude": false,
+                    "dataType": "bigint"
+                },
+                {
+                    "name": "was_ingested_by_iam-clients",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "description",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "client_token",
+                    "exclude": false,
+                    "dataType": "string"
+                }
+            ],
+            "createdAt": 1708566166715,
+            "lastEditedAt": 1708623421214,
+            "color": "#569480",
+            "size": 1,
+            "icon": "no-icon",
+            "textSize": 1,
+            "textAlign": "top",
+            "captions": [
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "AkamaiIamCredential",
+                    "type": "label"
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "created_on",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": true,
+                    "key": "credential_id",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "description",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "expires_on",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_by_iam-clients_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "was_ingested_by_iam-clients",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "client_token",
+                    "type": "property",
+                    "isGdsData": false
+                }
+            ],
+            "captionKeys": [],
+            "styleRules": []
         }
     ],
     "name": "Akamai_Scope",
@@ -3771,49 +3968,9 @@
     "labels": {
         "Endpoint": [
             {
-                "propertyKey": "last_ingested_by_redirect_at",
-                "type": "Endpoint",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "last_ingested_by_property_at",
-                "type": "Endpoint",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "last_ingested_by_ehn_at",
-                "type": "Endpoint",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "was_ingested_by_redirect",
-                "type": "Endpoint",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_cps_at",
-                "type": "Endpoint",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "was_ingested_by_property",
-                "type": "Endpoint",
-                "dataType": "boolean"
-            },
-            {
                 "propertyKey": "fqdn",
                 "type": "Endpoint",
                 "dataType": "string"
-            },
-            {
-                "propertyKey": "was_ingested_by_ehn",
-                "type": "Endpoint",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "was_ingested_by_cps",
-                "type": "Endpoint",
-                "dataType": "boolean"
             },
             {
                 "propertyKey": "last_ingested_at",
@@ -3821,12 +3978,12 @@
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "was_ingested_by_appsec-coverage",
+                "propertyKey": "was_ingested_by_cps",
                 "type": "Endpoint",
                 "dataType": "boolean"
             },
             {
-                "propertyKey": "last_ingested_by_appsec-coverage_at",
+                "propertyKey": "last_ingested_by_cps_at",
                 "type": "Endpoint",
                 "dataType": "DateTime"
             }
@@ -3880,14 +4037,24 @@
         ],
         "AkamaiCPCode": [
             {
-                "propertyKey": "last_ingested_by_cpcodes_at",
+                "propertyKey": "was_ingested_by_property",
+                "type": "AkamaiCPCode",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_property_at",
                 "type": "AkamaiCPCode",
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "contract_id",
+                "propertyKey": "was_ingested_by_cpcodes",
                 "type": "AkamaiCPCode",
-                "dataType": "string"
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_cpcodes_at",
+                "type": "AkamaiCPCode",
+                "dataType": "DateTime"
             },
             {
                 "propertyKey": "cpcode_name",
@@ -3895,9 +4062,9 @@
                 "dataType": "string"
             },
             {
-                "propertyKey": "was_ingested_by_cpcodes",
+                "propertyKey": "contract_id",
                 "type": "AkamaiCPCode",
-                "dataType": "boolean"
+                "dataType": "string"
             },
             {
                 "propertyKey": "purgeable",
@@ -3952,14 +4119,14 @@
                 "dataType": "boolean"
             },
             {
-                "propertyKey": "id",
-                "type": "AkamaiCertificate",
-                "dataType": "bigint"
-            },
-            {
                 "propertyKey": "last_ingested_by_cps_at",
                 "type": "AkamaiCertificate",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "id",
+                "type": "AkamaiCertificate",
+                "dataType": "bigint"
             }
         ],
         "AkamaiEdgeHostname": [
@@ -3984,14 +4151,14 @@
                 "dataType": "string"
             },
             {
-                "propertyKey": "was_ingested_by_ehn",
-                "type": "AkamaiEdgeHostname",
-                "dataType": "boolean"
-            },
-            {
                 "propertyKey": "last_ingested_by_ehn_at",
                 "type": "AkamaiEdgeHostname",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_ehn",
+                "type": "AkamaiEdgeHostname",
+                "dataType": "boolean"
             }
         ],
         "AkamaiNetstorageAccount": [
@@ -4031,17 +4198,12 @@
                 "dataType": "boolean"
             },
             {
-                "propertyKey": "aspera_enabled",
-                "type": "AkamaiNetstorageAccount",
-                "dataType": "boolean"
-            },
-            {
                 "propertyKey": "last_ingested_at",
                 "type": "AkamaiNetstorageAccount",
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "was_ingested_by_netstorage-account",
+                "propertyKey": "aspera_enabled",
                 "type": "AkamaiNetstorageAccount",
                 "dataType": "boolean"
             },
@@ -4049,6 +4211,11 @@
                 "propertyKey": "last_ingested_by_netstorage-account_at",
                 "type": "AkamaiNetstorageAccount",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_netstorage-account",
+                "type": "AkamaiNetstorageAccount",
+                "dataType": "boolean"
             }
         ],
         "AkamaiNetstorageKey": [
@@ -4058,14 +4225,14 @@
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "was_ingested_by_netstorage-account",
-                "type": "AkamaiNetstorageKey",
-                "dataType": "boolean"
-            },
-            {
                 "propertyKey": "last_ingested_by_netstorage-account_at",
                 "type": "AkamaiNetstorageKey",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_netstorage-account",
+                "type": "AkamaiNetstorageKey",
+                "dataType": "boolean"
             },
             {
                 "propertyKey": "id",
@@ -4162,17 +4329,12 @@
                 "dataType": "bigint"
             },
             {
-                "propertyKey": "last_ingested_by_property_at",
-                "type": "AkamaiSiteshieldMap",
-                "dataType": "DateTime"
-            },
-            {
                 "propertyKey": "was_ingested_by_siteshield",
                 "type": "AkamaiSiteshieldMap",
                 "dataType": "boolean"
             },
             {
-                "propertyKey": "last_ingested_at",
+                "propertyKey": "last_ingested_by_property_at",
                 "type": "AkamaiSiteshieldMap",
                 "dataType": "DateTime"
             },
@@ -4180,6 +4342,11 @@
                 "propertyKey": "id",
                 "type": "AkamaiSiteshieldMap",
                 "dataType": "bigint"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiSiteshieldMap",
+                "dataType": "DateTime"
             },
             {
                 "propertyKey": "rule_name",
@@ -4204,9 +4371,9 @@
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "was_ingested_by_property",
+                "propertyKey": "rule_format",
                 "type": "AkamaiProperty",
-                "dataType": "boolean"
+                "dataType": "string"
             },
             {
                 "propertyKey": "name",
@@ -4214,9 +4381,9 @@
                 "dataType": "string"
             },
             {
-                "propertyKey": "rule_format",
+                "propertyKey": "was_ingested_by_property",
                 "type": "AkamaiProperty",
-                "dataType": "string"
+                "dataType": "boolean"
             },
             {
                 "propertyKey": "version",
@@ -4283,32 +4450,17 @@
                 "dataType": "string"
             },
             {
-                "propertyKey": "was_ingested_by_appsec-coverage",
-                "type": "AkamaiWafPolicy",
-                "dataType": "boolean"
-            },
-            {
                 "propertyKey": "last_ingested_by_appsec-coverage_at",
                 "type": "AkamaiWafPolicy",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_appsec-coverage",
+                "type": "AkamaiWafPolicy",
+                "dataType": "boolean"
             }
         ],
         "AkamaiEdgeworker": [
-            {
-                "propertyKey": "was_ingested_by_property",
-                "type": "AkamaiEdgeworker",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_property_at",
-                "type": "AkamaiEdgeworker",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "deeplink",
-                "type": "AkamaiEdgeworker",
-                "dataType": "string"
-            },
             {
                 "propertyKey": "last_ingested_by_edgeworkers_at",
                 "type": "AkamaiEdgeworker",
@@ -4320,9 +4472,9 @@
                 "dataType": "string"
             },
             {
-                "propertyKey": "resource_tier_id",
+                "propertyKey": "deeplink",
                 "type": "AkamaiEdgeworker",
-                "dataType": "bigint"
+                "dataType": "string"
             },
             {
                 "propertyKey": "last_modified_time",
@@ -4335,24 +4487,24 @@
                 "dataType": "string"
             },
             {
-                "propertyKey": "group_id",
-                "type": "AkamaiEdgeworker",
-                "dataType": "bigint"
-            },
-            {
                 "propertyKey": "was_ingested_by_edgeworkers",
                 "type": "AkamaiEdgeworker",
                 "dataType": "boolean"
             },
             {
-                "propertyKey": "active_version",
+                "propertyKey": "resource_tier_id",
                 "type": "AkamaiEdgeworker",
-                "dataType": "string"
+                "dataType": "bigint"
             },
             {
                 "propertyKey": "last_ingested_at",
                 "type": "AkamaiEdgeworker",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "group_id",
+                "type": "AkamaiEdgeworker",
+                "dataType": "bigint"
             },
             {
                 "propertyKey": "id",
@@ -4361,6 +4513,11 @@
             },
             {
                 "propertyKey": "name",
+                "type": "AkamaiEdgeworker",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "active_version",
                 "type": "AkamaiEdgeworker",
                 "dataType": "string"
             }
@@ -4421,14 +4578,14 @@
         ],
         "AkamaiGtmDomain": [
             {
-                "propertyKey": "deeplink",
-                "type": "AkamaiGtmDomain",
-                "dataType": "string"
-            },
-            {
                 "propertyKey": "last_ingested_by_gtm_at",
                 "type": "AkamaiGtmDomain",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "deeplink",
+                "type": "AkamaiGtmDomain",
+                "dataType": "string"
             },
             {
                 "propertyKey": "cnameCoalescingEnabled",
@@ -4446,14 +4603,14 @@
                 "dataType": "boolean"
             },
             {
-                "propertyKey": "loadFeedback",
-                "type": "AkamaiGtmDomain",
-                "dataType": "boolean"
-            },
-            {
                 "propertyKey": "last_ingested_at",
                 "type": "AkamaiGtmDomain",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "loadFeedback",
+                "type": "AkamaiGtmDomain",
+                "dataType": "boolean"
             },
             {
                 "propertyKey": "type",
@@ -4467,6 +4624,11 @@
             }
         ],
         "AkamaiIamClient": [
+            {
+                "propertyKey": "created_date",
+                "type": "AkamaiIamClient",
+                "dataType": "string"
+            },
             {
                 "propertyKey": "is_locked",
                 "type": "AkamaiIamClient",
@@ -4612,14 +4774,14 @@
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "version",
-                "type": "AkamaiIvmPolicy",
-                "dataType": "bigint"
-            },
-            {
                 "propertyKey": "last_ingested_at",
                 "type": "AkamaiIvmPolicy",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "version",
+                "type": "AkamaiIvmPolicy",
+                "dataType": "bigint"
             },
             {
                 "propertyKey": "date_created",
@@ -4654,11 +4816,6 @@
         ],
         "AkamaiIvmPolicySet": [
             {
-                "propertyKey": "was_ingested_by_ivm",
-                "type": "AkamaiIvmPolicySet",
-                "dataType": "boolean"
-            },
-            {
                 "propertyKey": "last_ingested_at",
                 "type": "AkamaiIvmPolicySet",
                 "dataType": "DateTime"
@@ -4672,6 +4829,11 @@
                 "propertyKey": "last_ingested_by_ivm_at",
                 "type": "AkamaiIvmPolicySet",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_ivm",
+                "type": "AkamaiIvmPolicySet",
+                "dataType": "boolean"
             }
         ],
         "Cidripv4": [
@@ -4727,10 +4889,54 @@
                 "type": "AkamaiWafConfig",
                 "dataType": "bigint"
             }
+        ],
+        "AkamaiIamCredential": [
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiIamCredential",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "expires_on",
+                "type": "AkamaiIamCredential",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "created_on",
+                "type": "AkamaiIamCredential",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_by_iam-clients_at",
+                "type": "AkamaiIamCredential",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "credential_id",
+                "type": "AkamaiIamCredential",
+                "dataType": "bigint"
+            },
+            {
+                "propertyKey": "was_ingested_by_iam-clients",
+                "type": "AkamaiIamCredential",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "client_token",
+                "type": "AkamaiIamCredential",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "description",
+                "type": "AkamaiIamCredential",
+                "dataType": "string"
+            }
         ]
     },
     "relationshipTypes": [
         {
+            "id": "RETURNS",
+            "name": "RETURNS",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4748,11 +4954,10 @@
                     "dataType": "DateTime"
                 }
             ],
-            "name": "RETURNS",
-            "id": "RETURNS",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -4762,11 +4967,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "IN_DOMAIN",
+            "name": "IN_DOMAIN",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4784,11 +4990,10 @@
                     "dataType": "DateTime"
                 }
             ],
-            "name": "IN_DOMAIN",
-            "id": "IN_DOMAIN",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -4798,11 +5003,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "SERVICED_BY",
+            "name": "SERVICED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_by_property_at",
@@ -4820,11 +5026,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "SERVICED_BY",
-            "id": "SERVICED_BY",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -4834,11 +5039,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "PROXIES_TO",
+            "name": "PROXIES_TO",
             "properties": [
                 {
                     "dataType": "boolean",
@@ -4856,11 +5062,10 @@
                     "type": "PROXIES_TO"
                 }
             ],
-            "name": "PROXIES_TO",
-            "id": "PROXIES_TO",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -4870,11 +5075,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "REDIRECTS_HANDLED_BY",
+            "name": "REDIRECTS_HANDLED_BY",
             "properties": [
                 {
                     "dataType": "DateTime",
@@ -4892,11 +5098,10 @@
                     "type": "REDIRECTS_HANDLED_BY"
                 }
             ],
-            "name": "REDIRECTS_HANDLED_BY",
-            "id": "REDIRECTS_HANDLED_BY",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -4906,11 +5111,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "REDIRECTS_TO",
+            "name": "REDIRECTS_TO",
             "properties": [
                 {
                     "dataType": "DateTime",
@@ -4928,11 +5134,10 @@
                     "type": "REDIRECTS_TO"
                 }
             ],
-            "name": "REDIRECTS_TO",
-            "id": "REDIRECTS_TO",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -4942,11 +5147,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "HAS_RECORD",
+            "name": "HAS_RECORD",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4964,11 +5170,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "HAS_RECORD",
-            "id": "HAS_RECORD",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -4978,11 +5183,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "ACCESSES",
+            "name": "ACCESSES",
             "properties": [
                 {
                     "dataType": "DateTime",
@@ -5000,11 +5206,10 @@
                     "type": "ACCESSES"
                 }
             ],
-            "name": "ACCESSES",
-            "id": "ACCESSES",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5014,11 +5219,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "PROTECTED_BY",
+            "name": "PROTECTED_BY",
             "properties": [
                 {
                     "dataType": "boolean",
@@ -5036,11 +5242,10 @@
                     "type": "PROTECTED_BY"
                 }
             ],
-            "name": "PROTECTED_BY",
-            "id": "PROTECTED_BY",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5050,17 +5255,33 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
-            "properties": [],
-            "name": "EGRESS",
             "id": "EGRESS",
+            "name": "EGRESS",
+            "properties": [
+                {
+                    "dataType": "DateTime",
+                    "propertyKey": "last_ingested_by_siteshield_at",
+                    "type": "EGRESS"
+                },
+                {
+                    "dataType": "DateTime",
+                    "propertyKey": "last_ingested_at",
+                    "type": "EGRESS"
+                },
+                {
+                    "dataType": "boolean",
+                    "propertyKey": "was_ingested_by_siteshield",
+                    "type": "EGRESS"
+                }
+            ],
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5070,11 +5291,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "REDIRECTS_IN",
+            "name": "REDIRECTS_IN",
             "properties": [
                 {
                     "propertyKey": "last_ingested_by_property_at",
@@ -5092,11 +5314,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "REDIRECTS_IN",
-            "id": "REDIRECTS_IN",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5106,11 +5327,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "AUTHORIZED_BY",
+            "name": "AUTHORIZED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5128,11 +5350,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "AUTHORIZED_BY",
-            "id": "AUTHORIZED_BY",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5142,11 +5363,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "MANAGED_BY",
+            "name": "MANAGED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5164,11 +5386,10 @@
                     "dataType": "DateTime"
                 }
             ],
-            "name": "MANAGED_BY",
-            "id": "MANAGED_BY",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5178,11 +5399,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "CONTAINS",
+            "name": "CONTAINS",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5200,11 +5422,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "CONTAINS",
-            "id": "CONTAINS",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5214,11 +5435,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "MEDIA_OPTIMIZED_BY",
+            "name": "MEDIA_OPTIMIZED_BY",
             "properties": [
                 {
                     "dataType": "boolean",
@@ -5236,11 +5458,10 @@
                     "type": "MEDIA_OPTIMIZED_BY"
                 }
             ],
-            "name": "MEDIA_OPTIMIZED_BY",
-            "id": "MEDIA_OPTIMIZED_BY",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5250,11 +5471,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "RUNS_CODE_FOR",
+            "name": "RUNS_CODE_FOR",
             "properties": [
                 {
                     "propertyKey": "last_ingested_by_property_at",
@@ -5272,11 +5494,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "RUNS_CODE_FOR",
-            "id": "RUNS_CODE_FOR",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5286,11 +5507,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "CNAMES_TO",
+            "name": "CNAMES_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5308,11 +5530,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "CNAMES_TO",
-            "id": "CNAMES_TO",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5322,11 +5543,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "OFFLOADS_CONFIGURATION_TO",
+            "name": "OFFLOADS_CONFIGURATION_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_by_property_at",
@@ -5344,11 +5566,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "OFFLOADS_CONFIGURATION_TO",
-            "id": "OFFLOADS_CONFIGURATION_TO",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5358,11 +5579,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "ROUTES_THROUGH",
+            "name": "ROUTES_THROUGH",
             "properties": [
                 {
                     "propertyKey": "last_ingested_by_property_at",
@@ -5380,11 +5602,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "ROUTES_THROUGH",
-            "id": "ROUTES_THROUGH",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5394,11 +5615,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "ENCRYPTED_BY",
+            "name": "ENCRYPTED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5416,11 +5638,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "ENCRYPTED_BY",
-            "id": "ENCRYPTED_BY",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5430,11 +5651,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "INCLUDED_IN",
+            "name": "INCLUDED_IN",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5452,11 +5674,10 @@
                     "dataType": "boolean"
                 }
             ],
-            "name": "INCLUDED_IN",
-            "id": "INCLUDED_IN",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5466,11 +5687,12 @@
                     "type": "relationship"
                 }
             ],
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "styleRules": []
         },
         {
+            "id": "UPLOADS_TO",
+            "name": "UPLOADS_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5488,11 +5710,10 @@
                     "dataType": "DateTime"
                 }
             ],
-            "name": "UPLOADS_TO",
-            "id": "UPLOADS_TO",
             "color": "#848484",
             "size": 1,
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "captions": [
                 {
                     "inTooltip": true,
@@ -5502,8 +5723,79 @@
                     "type": "relationship"
                 }
             ],
+            "captionKeys": [],
+            "styleRules": []
+        },
+        {
+            "id": "REPORTS_ON",
+            "name": "REPORTS_ON",
+            "properties": [
+                {
+                    "propertyKey": "last_ingested_by_property_at",
+                    "type": "REPORTS_ON",
+                    "dataType": "DateTime"
+                },
+                {
+                    "propertyKey": "last_ingested_at",
+                    "type": "REPORTS_ON",
+                    "dataType": "DateTime"
+                },
+                {
+                    "propertyKey": "was_ingested_by_property",
+                    "type": "REPORTS_ON",
+                    "dataType": "boolean"
+                }
+            ],
+            "color": "#848484",
+            "size": 1,
             "textSize": 1,
             "textAlign": "top",
+            "captions": [
+                {
+                    "inTooltip": true,
+                    "isCaption": true,
+                    "styles": [],
+                    "key": "REPORTS_ON",
+                    "type": "relationship"
+                }
+            ],
+            "captionKeys": [],
+            "styleRules": []
+        },
+        {
+            "id": "AUTHENTICATES_WITH",
+            "name": "AUTHENTICATES_WITH",
+            "properties": [
+                {
+                    "propertyKey": "last_ingested_at",
+                    "type": "AUTHENTICATES_WITH",
+                    "dataType": "DateTime"
+                },
+                {
+                    "propertyKey": "was_ingested_by_iam-clients",
+                    "type": "AUTHENTICATES_WITH",
+                    "dataType": "boolean"
+                },
+                {
+                    "propertyKey": "last_ingested_by_iam-clients_at",
+                    "type": "AUTHENTICATES_WITH",
+                    "dataType": "DateTime"
+                }
+            ],
+            "color": "#848484",
+            "size": 1,
+            "textSize": 1,
+            "textAlign": "top",
+            "captions": [
+                {
+                    "inTooltip": true,
+                    "isCaption": true,
+                    "styles": [],
+                    "key": "AUTHENTICATES_WITH",
+                    "type": "relationship"
+                }
+            ],
+            "captionKeys": [],
             "styleRules": []
         }
     ],
@@ -5524,7 +5816,7 @@
             "#848484",
             "#D9D9D9"
         ],
-        "currentIndex": 135
+        "currentIndex": 136
     },
     "createdAt": 1706128392325,
     "lastEditedAt": 1706128392325,
@@ -5579,6 +5871,11 @@
     "metadata": {
         "pathSegments": [
             {
+                "source": "AkamaiIamClient",
+                "relationshipType": "AUTHENTICATES_WITH",
+                "target": "AkamaiIamCredential"
+            },
+            {
                 "source": "Endpoint",
                 "relationshipType": "ENCRYPTED_BY",
                 "target": "AkamaiCertificate"
@@ -5614,6 +5911,11 @@
                 "target": "AkamaiWafConfig"
             },
             {
+                "source": "AkamaiCPCode",
+                "relationshipType": "REPORTS_ON",
+                "target": "AkamaiProperty"
+            },
+            {
                 "source": "AkamaiProperty",
                 "relationshipType": "PROXIES_TO",
                 "target": "Endpoint"
@@ -5644,6 +5946,11 @@
                 "target": "AkamaiWafPolicy"
             },
             {
+                "source": "Endpoint",
+                "relationshipType": "UPLOADS_TO",
+                "target": "AkamaiNetstorageGroup"
+            },
+            {
                 "source": "AkamaiNetstorageGroup",
                 "relationshipType": "UPLOADS_TO",
                 "target": "Endpoint"
@@ -5652,11 +5959,6 @@
                 "source": "Endpoint",
                 "relationshipType": "UPLOADS_TO",
                 "target": "Endpoint"
-            },
-            {
-                "source": "Endpoint",
-                "relationshipType": "UPLOADS_TO",
-                "target": "AkamaiNetstorageGroup"
             },
             {
                 "source": "AkamaiNetstorageGroup",
@@ -5667,6 +5969,11 @@
                 "source": "AkamaiProperty",
                 "relationshipType": "OFFLOADS_CONFIGURATION_TO",
                 "target": "AkamaiCloudlet"
+            },
+            {
+                "source": "AkamaiSiteshieldMap",
+                "relationshipType": "EGRESS",
+                "target": "Cidripv4"
             },
             {
                 "source": "AkamaiProperty",
@@ -5703,11 +6010,19 @@
                         "metadataProp": false
                     },
                     {
-                        "key": "last_ingested_by_cpcodes_at",
+                        "key": "was_ingested_by_property",
                         "metadataProp": true
                     },
                     {
-                        "key": "contract_id",
+                        "key": "last_ingested_by_property_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_cpcodes",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_cpcodes_at",
                         "metadataProp": true
                     },
                     {
@@ -5715,7 +6030,7 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_cpcodes",
+                        "key": "contract_id",
                         "metadataProp": true
                     },
                     {
@@ -5829,11 +6144,11 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_ehn",
+                        "key": "last_ingested_by_ehn_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_ehn_at",
+                        "key": "was_ingested_by_ehn",
                         "metadataProp": true
                     }
                 ]
@@ -5851,18 +6166,6 @@
                         "metadataProp": false
                     },
                     {
-                        "key": "was_ingested_by_property",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_property_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "deeplink",
-                        "metadataProp": true
-                    },
-                    {
                         "key": "last_ingested_by_edgeworkers_at",
                         "metadataProp": true
                     },
@@ -5871,7 +6174,7 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "resource_tier_id",
+                        "key": "deeplink",
                         "metadataProp": true
                     },
                     {
@@ -5883,19 +6186,23 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "group_id",
-                        "metadataProp": true
-                    },
-                    {
                         "key": "was_ingested_by_edgeworkers",
                         "metadataProp": true
                     },
                     {
-                        "key": "active_version",
+                        "key": "resource_tier_id",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "group_id",
                         "metadataProp": true
                     },
                     {
                         "key": "name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "active_version",
                         "metadataProp": true
                     }
                 ]
@@ -5913,11 +6220,11 @@
                         "metadataProp": false
                     },
                     {
-                        "key": "deeplink",
+                        "key": "last_ingested_by_gtm_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_gtm_at",
+                        "key": "deeplink",
                         "metadataProp": true
                     },
                     {
@@ -6007,6 +6314,10 @@
                         "metadataProp": false
                     },
                     {
+                        "key": "created_date",
+                        "metadataProp": true
+                    },
+                    {
                         "key": "is_locked",
                         "metadataProp": true
                     },
@@ -6052,6 +6363,40 @@
                     },
                     {
                         "key": "client_type",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "AkamaiIamCredential",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "credential_id",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "expires_on",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "created_on",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_iam-clients_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_iam-clients",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "description",
                         "metadataProp": true
                     }
                 ]
@@ -6123,11 +6468,11 @@
                         "metadataProp": false
                     },
                     {
-                        "key": "was_ingested_by_ivm",
+                        "key": "last_ingested_by_ivm_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_ivm_at",
+                        "key": "was_ingested_by_ivm",
                         "metadataProp": true
                     }
                 ]
@@ -6219,11 +6564,11 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_netstorage-account",
+                        "key": "last_ingested_by_netstorage-account_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_netstorage-account_at",
+                        "key": "was_ingested_by_netstorage-account",
                         "metadataProp": true
                     }
                 ]
@@ -6283,11 +6628,11 @@
                         "metadataProp": false
                     },
                     {
-                        "key": "was_ingested_by_netstorage-account",
+                        "key": "last_ingested_by_netstorage-account_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_netstorage-account_at",
+                        "key": "was_ingested_by_netstorage-account",
                         "metadataProp": true
                     },
                     {
@@ -6321,7 +6666,7 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_property",
+                        "key": "rule_format",
                         "metadataProp": true
                     },
                     {
@@ -6329,7 +6674,7 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "rule_format",
+                        "key": "was_ingested_by_property",
                         "metadataProp": true
                     },
                     {
@@ -6377,7 +6722,35 @@
                         "metadataProp": false
                     },
                     {
+                        "key": "map_alias",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_siteshield_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "acknowledged_by",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "sure_route_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "mcm_map_rule_id",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_siteshield",
+                        "metadataProp": true
+                    },
+                    {
                         "key": "last_ingested_by_property_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "id",
                         "metadataProp": true
                     },
                     {
@@ -6441,11 +6814,11 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_appsec-coverage",
+                        "key": "last_ingested_by_appsec-coverage_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_appsec-coverage_at",
+                        "key": "was_ingested_by_appsec-coverage",
                         "metadataProp": true
                     }
                 ]
@@ -6463,11 +6836,11 @@
                         "metadataProp": false
                     },
                     {
-                        "key": "last_ingested_by_siteshield_at",
+                        "key": "was_ingested_by_siteshield",
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_siteshield",
+                        "key": "last_ingested_by_siteshield_at",
                         "metadataProp": true
                     }
                 ]
@@ -6485,43 +6858,11 @@
                         "metadataProp": false
                     },
                     {
-                        "key": "last_ingested_by_redirect_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_property_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_ehn_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_redirect",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_cps_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_property",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_ehn",
-                        "metadataProp": true
-                    },
-                    {
                         "key": "was_ingested_by_cps",
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_appsec-coverage",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_appsec-coverage_at",
+                        "key": "last_ingested_by_cps_at",
                         "metadataProp": true
                     }
                 ]
@@ -6535,27 +6876,29 @@
         "stats": {
             "labels": {},
             "relationshipTypes": {
-                "SERVICED_BY": 134,
-                "PROXIES_TO": 19,
-                "REDIRECTS_HANDLED_BY": 1,
-                "REDIRECTS_TO": 1,
-                "HAS_RECORD": 0,
                 "ACCESSES": 32,
-                "PROTECTED_BY": 4,
-                "EGRESS": 0,
-                "REDIRECTS_IN": 0,
+                "AUTHENTICATES_WITH": 27,
                 "AUTHORIZED_BY": 50,
-                "MANAGED_BY": 100,
-                "CONTAINS": 6,
-                "MEDIA_OPTIMIZED_BY": 2,
-                "RUNS_CODE_FOR": 36,
                 "CNAMES_TO": 212,
-                "OFFLOADS_CONFIGURATION_TO": 2,
-                "ROUTES_THROUGH": 1,
+                "CONTAINS": 6,
+                "EGRESS": 19,
                 "ENCRYPTED_BY": 14,
+                "HAS_RECORD": 0,
                 "INCLUDED_IN": 4,
-                "RETURNS": 4,
                 "IN_DOMAIN": 5,
+                "MANAGED_BY": 103,
+                "MEDIA_OPTIMIZED_BY": 4,
+                "OFFLOADS_CONFIGURATION_TO": 2,
+                "PROTECTED_BY": 4,
+                "PROXIES_TO": 115,
+                "REDIRECTS_HANDLED_BY": 1,
+                "REDIRECTS_IN": 0,
+                "REDIRECTS_TO": 1,
+                "REPORTS_ON": 111,
+                "RETURNS": 4,
+                "ROUTES_THROUGH": 1,
+                "RUNS_CODE_FOR": 36,
+                "SERVICED_BY": 136,
                 "UPLOADS_TO": 231
             }
         }

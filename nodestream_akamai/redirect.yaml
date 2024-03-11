@@ -17,6 +17,7 @@
     - type: properties
       properties:
         name: !jmespath 'name'
+        deeplink: !jmespath 'deeplink'
     - type: relationship
       node_type: Endpoint
       node_key: 

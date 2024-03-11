@@ -24,8 +24,10 @@ class PropertyDescription:
     edgeworker_ids: List[int]
     siteshield_maps: List[str]
     image_manager_policysets: List[str]
+    cp_codes: List[str]
     hostnames: List[EdgeHost]
     ruleFormat: str
+    deeplink: str
 
     @property
     def origin_count(self):

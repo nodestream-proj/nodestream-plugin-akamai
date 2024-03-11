@@ -8,17 +8,17 @@
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     before_iteration:
-      - type: relationship
-        node_type: AkamaiGtmDomain
-        relationship_type: IN_DOMAIN
-        node_key: 
-          name:  !jmespath name
-        node_properties:
-          type: !jmespath 'type'
-          loadImbalancePercentage: !jmespath 'loadImbalancePercentage'
-          loadFeedback: !jmespath 'loadFeedback'
-          cnameCoalescingEnabled: !jmespath 'cnameCoalescingEnabled'
-          deeplink: !jmespath 'deeplink'
+    - type: relationship
+      node_type: AkamaiGtmDomain
+      relationship_type: IN_DOMAIN
+      node_key: 
+        name:  !jmespath name
+      node_properties:
+        type: !jmespath 'type'
+        loadImbalancePercentage: !jmespath 'loadImbalancePercentage'
+        loadFeedback: !jmespath 'loadFeedback'
+        cnameCoalescingEnabled: !jmespath 'cnameCoalescingEnabled'
+        deeplink: !jmespath 'deeplink'
     iterate_on: !jmespath properties[*]
     interpretations:
     - type: source_node
@@ -38,3 +38,9 @@
       node_key:
         target: !jmespath 'trafficTargets[*]'
       find_many: true
+    - type: relationship
+      node_type: Endpoint
+      node_key: 
+        fqdn: !jmespath 'fqdn'
+      find_many: true
+      relationship_type: RECORD_OF
