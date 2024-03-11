@@ -1,3 +1,4 @@
+import itertools
 import logging
 import re
 from typing import List, Tuple
@@ -207,6 +208,8 @@ class AkamaiPropertyClient(AkamaiApiClient):
             edgeworker_ids=edgeworker_ids,
             siteshield_maps=siteshield_maps,
             hostnames=hostnames,
+            deeplink=deeplink,
+            cp_codes=cp_codes,
         )
 
     def search_all_properties(self):
@@ -286,14 +289,20 @@ class AkamaiPropertyClient(AkamaiApiClient):
         return list(set(origins))
 
     def collate_origins_with_criteria(self, rules):
+        """
+        This function will find all Origin behaviours in a property and collate any path matches into an
+        accompanying List.
+        """
         origins = []
         jsonpath_expression = parse('$..behaviors[?(@.name=="origin")]')
         jsonpath_result = jsonpath_expression.find(rules)
+        # Parse matched jsonpath behaviours
         for jsonpath_path in jsonpath_result:
             origin_location = str(jsonpath_path.full_path)
             rule_base = re.sub("behaviors.\[[\d]+\]", "", origin_location)
             origin_host = "ERROR"  # Host should be renamed
 
+            # Extract origin behaviour itself and append hostname to list based on origin type
             origin_behavior_match = parse(origin_location)
             origin_search = origin_behavior_match.find(rules)
             origin_behavior = origin_search[0].value
@@ -306,9 +315,11 @@ class AkamaiPropertyClient(AkamaiApiClient):
             elif "mslorigin" in origin_behavior["options"].keys():
                 origin_host = origin_behavior["options"]["mslorigin"]
 
+            # Split JSONPATH into children[X] elements so we can iterate down the path
             location_elements = re.findall("children\.\[[\d]+\]", rule_base)
             parent_location = ""
-            rule_expressions = []
+            combined_rule_paths = []
+            origin_paths = []
             for i in range(len(location_elements)):
                 # Construct rule location from element and optionally parent path
                 if parent_location == "":
@@ -321,57 +332,66 @@ class AkamaiPropertyClient(AkamaiApiClient):
                 if len(rule_search) == 0:
                     raise (Exception(f"No rule found at position '{rule_location}'"))
 
+                # Extract rule by JSONPATH
                 rule = rule_search[0].value
-                criterion_expressions = []
+                criteria_paths = []
+                path_criteria = 0
 
+                # Parse criteria and create list of lists of path matches
                 for criterion in rule["criteria"]:
-                    criterion_matches = []
+                    criterion_paths = []
                     if criterion["name"] == "path":
+                        path_criteria += 1
                         for match in criterion["options"]["values"]:
                             if (
                                 criterion["options"]["matchOperator"]
                                 == "DOES_NOT_MATCH_ONE_OF"
                             ):
                                 match = "!" + match
-                            criterion_matches.append(f"'{match}'")
+                            criterion_paths.append(match)
+                    if len(criterion_paths) > 0:
+                        criteria_paths.append(criterion_paths)
 
-                    if len(criterion_matches) > 0:
-                        if len(criterion_matches) == 1:
-                            criterion_expression = criterion_matches[0]
-                        else:
-                            criterion_expression = " || ".join(criterion_matches)
-                            criterion_expression = f"({criterion_expression})"
-
-                        criterion_expressions.append(criterion_expression)
-
-                if len(criterion_expressions) > 0:
-                    # Join expressions with boolean OR or AND depending on rule option
-                    if len(criterion_expressions) == 1:
-                        rule_expression = criterion_expressions[0]
+                rule_paths = []
+                if len(criteria_paths) > 0:
+                    # Collate path matches into a list of combinations, based on criteria setting
+                    if len(criteria_paths) == 1:
+                        rule_paths = criteria_paths[0]
                     else:
                         if rule["criteriaMustSatisfy"] == "all":
-                            rule_expression = " && ".join(criterion_expressions)
+                            # If using ALL option we must create boolean combos
+                            rule_paths_product = itertools.product(*criteria_paths)
+                            for product in rule_paths_product:
+                                rule_paths.append(" AND ".join(product))
                         else:
-                            rule_expression = " || ".join(criterion_expressions)
-                            rule_expression = f"({rule_expression})"
+                            for criteria_path in criteria_paths:
+                                rule_paths.extend(criteria_path)
 
-                    # Add to rule_expressions
-                    rule_expressions.append(rule_expression)
-
+                # Hold onto rule_paths so we can combine across parent and children at the end
+                if len(rule_paths) > 0:
+                    combined_rule_paths.append(rule_paths)
                 parent_location = rule_location
 
-            # Combine rule expressions to master string
-            paths_expression = " && ".join(rule_expressions)
+            # Combine rule_paths into single list with boolean AND between parent and child
+            origin_paths_product = itertools.product(*combined_rule_paths)
+            for product in origin_paths_product:
+                origin_paths.append(" AND ".join(product))
 
             origins.append(
                 {
-                    # "location": origin_location,
                     "name": origin_host,
-                    "paths": paths_expression,
+                    "paths": origin_paths,
                 }
             )
 
-        return origins
+        # Expand to one origin hostname/path combo per object to simplifyt the pipeline config and avoid
+        # nested looping
+        expanded_origins = []
+        for origin in origins:
+            for path in origin["paths"]:
+                expanded_origins.append({"name": origin["name"], "path": path})
+
+        return expanded_origins
 
     def search_akamai_rule_tree_for_behavior(self, rule_tree, behavior_Name):
         behaviors = []

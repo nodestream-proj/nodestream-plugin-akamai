@@ -10,7 +10,7 @@ class EdgeHost:
 @dataclass(eq=True, frozen=True)
 class Origin:
     name: str
-    paths: List[str]
+    path: str
 
 
 @dataclass
