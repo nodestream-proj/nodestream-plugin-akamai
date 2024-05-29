@@ -31,16 +31,12 @@
         name: !jmespath 'name'
         type: !jmespath 'type'
     - type: relationship
-      node_type: AkamaiGtmTarget
+      node_type: Endpoint
       relationship_type: RETURNS
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
-        target: !jmespath 'trafficTargets[*]'
+        fqdn: !jmespath 'trafficTargets[*]'
       find_many: true
-    - type: relationship
-      node_type: Endpoint
-      node_key: 
-        fqdn: !jmespath 'fqdn'
-      find_many: true
-      relationship_type: RECORD_OF
+      node_properties:
+        type: gtm_target
