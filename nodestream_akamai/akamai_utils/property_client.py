@@ -142,17 +142,6 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
         # Update origins
         origins = self.collate_origins_with_criteria(rule_tree["rules"])
-
-        # Update hostnames
-        # hostnames = set()
-        # hostnames.update(
-        #     self.describe_property_hostnames(
-        #         property_id=property["propertyId"],
-        #         version=property["latestVersion"],
-        #         contractId=property["contractId"],
-        #         groupId=property["groupId"],
-        #     )
-        # )
         hostnames = property["hostnames"]
 
         # Cloudlets

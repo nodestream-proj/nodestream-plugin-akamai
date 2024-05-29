@@ -24,8 +24,12 @@ class AkamaiPropertyExtractor(Extractor):
             for property in properties
             if property["productionVersion"] is not None
         ]
-        for property in production_active_properties:
+        sorted_properties = sorted(
+            production_active_properties, key=lambda p: p["propertyName"]
+        )
+        for property in sorted_properties:
             try:
+                print(f"Parsing property {property['propertyName']}")
                 described_property = self.client.describe_property_by_dict(property)
                 yield described_property.as_eventbus_json()
             except Exception as err:
