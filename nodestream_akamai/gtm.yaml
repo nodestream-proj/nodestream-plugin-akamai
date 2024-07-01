@@ -32,11 +32,31 @@
         type: !jmespath 'type'
     - type: relationship
       node_type: Endpoint
-      relationship_type: RETURNS
+      relationship_type: RESOLVES_TO
       key_normalization:
         do_remove_trailing_dots: true
       node_key:
-        fqdn: !jmespath 'trafficTargets[*]'
+        fqdn: !jmespath 'endpoints[*]'
+      find_many: true
+      node_properties:
+        type: gtm_target
+    - type: relationship
+      node_type: Cidripv4
+      relationship_type: RESOLVES_TO
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        cidr: !jmespath 'Cidripv4[*]'
+      find_many: true
+      node_properties:
+        type: gtm_target
+    - type: relationship
+      node_type: Cidripv6
+      relationship_type: RESOLVES_TO
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        cidr: !jmespath 'Cidripv6[*]'
       find_many: true
       node_properties:
         type: gtm_target

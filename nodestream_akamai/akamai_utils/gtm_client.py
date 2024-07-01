@@ -13,5 +13,5 @@ class AkamaiGtmClient(AkamaiApiClient):
     def get_gtm_domain(self, domain_name: str):
         gtm_domain_path = f"/config-gtm/v1/domains/{domain_name}"
         return self._get_api_from_relative_path(
-            gtm_domain_path, headers={"accept": "application/vnd.config-gtm.v1.5+json"}
+            gtm_domain_path, headers={"accept": "application/vnd.config-gtm.v1.6+json"}
         )
