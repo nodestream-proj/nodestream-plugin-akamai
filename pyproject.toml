@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "nodestream-plugin-akamai"
 version = "0.13.0b1"
-description = ""
+description = "Pipeline Plugin for Akamai Data"
 authors = [
     "Zach Probst <Zach_Probst@intuit.com>",
     "Chad Cloes <Chad_Cloes@intuit.com>",
@@ -12,6 +12,7 @@ authors = [
 packages = [
     { include = "nodestream_akamai" }
 ]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
