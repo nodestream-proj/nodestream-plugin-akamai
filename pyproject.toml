@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nodestream-plugin-akamai"
-version = "0.13.0b1"
+version = "0.13.0"
 description = "Pipeline Plugin for Akamai Data"
 authors = [
     "Zach Probst <Zach_Probst@intuit.com>",
@@ -21,7 +21,7 @@ python-json-logger = "^2.0.2"
 python-dotenv = ">=0.21.0,< 2"
 click = "^8.1.3"
 boto3 = "^1.26.3"
-nodestream = "0.13.0b1"
+nodestream = "^0.13.0"
 jsonpath-ng = "^1.5.3"
 
 [tool.poetry.group.dev.dependencies]

@@ -988,13 +988,13 @@ setuptools = "*"
 
 [[package]]
 name = "nodestream"
-version = "0.13.0b1"
+version = "0.13.0"
 description = "A Fast, Declarative ETL for Graph Databases."
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "nodestream-0.13.0b1-py3-none-any.whl", hash = "sha256:5699490c47d0f1dedfa7a25425f4037c358511b1f147bced88783e8057cbc7b3"},
-    {file = "nodestream-0.13.0b1.tar.gz", hash = "sha256:7116b6fc5060c66bf818d79c125df8ab6919b02ccedb0e3c0ed28cbe8e4466a2"},
+    {file = "nodestream-0.13.0-py3-none-any.whl", hash = "sha256:f3d0fc4264492288415d95236b9437d9c789a5de49598b5dc1aae834c44a5dc1"},
+    {file = "nodestream-0.13.0.tar.gz", hash = "sha256:93ab9802c3c1e9b7efc40bc730ed6c3c67d21ff982717c15c7040a74fc3f942c"},
 ]
 
 [package.dependencies]
@@ -2000,4 +2000,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "9eeb8ca43d01c5a1be8ade0f3f09bd9b999ba072e525ae9eb71dadbd068fc48a"
+content-hash = "23a5d444f414ca27c9654f9eba7e84d55510324a5af8dc971e41a4238f32bfbf"
