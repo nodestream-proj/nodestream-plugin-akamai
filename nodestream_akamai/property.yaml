@@ -33,8 +33,10 @@
       relationship_type: PROXIES_TO
       node_key:
         fqdn: !jmespath name
-      relationship_key:
+      relationship_properties:
         path: !jmespath path
+        hostname: !jmespath hostnames
+        conditional_origin: !jmespath conditional_origin
       node_properties:
         type: origin
     - type: relationship

@@ -50,7 +50,7 @@ class PropertyDescription:
             "origin_count": self.origin_count,
             "cloudlet_policy_count": len(self.cloudlet_policies),
             "hostname_count": self.hostname_count,
-            "origins": [origin for origin in self.origins],
+            "origins": self.origins,
             "cloudlet_policies": self.cloudlet_policies,
             "edge_redirector_policies": self.edge_redirector_policies,
             "edgeworker_ids": self.edgeworker_ids,
