@@ -27,3 +27,11 @@ class AkamaiAppSecClient(AkamaiApiClient):
             f"/appsec/v1/export/configs/{config_id}/versions/{config_version}"
         )
         return self._get_api_from_relative_path(export_config_path)
+
+    def list_discovered_apis(self):
+        request_path = "/appsec/v1/api-discovery"
+        return self._get_api_from_relative_path(request_path)["apis"]
+
+    def get_discovered_api(self, hostname, basePath):
+        request_path = f"/appsec/v1/api-discovery/host/{hostname}/basepath/{basePath}"
+        return self._get_api_from_relative_path(request_path)

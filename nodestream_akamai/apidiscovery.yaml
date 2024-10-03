@@ -1,0 +1,41 @@
+- implementation: nodestream_akamai.apidiscovery:AkamaiAPIDiscoveryExtractor
+  arguments:
+    base_url: !config 'base_url'
+    client_token: !config 'client_token'
+    client_secret: !config 'client_secret'
+    access_token: !config 'access_token'
+    account_key: !config 'account_key'
+- implementation: nodestream.interpreting:Interpreter
+  arguments:
+    interpretations:
+    - type: source_node
+      node_type: AkamaiDiscoveredAPI
+      normalization:
+        do_remove_trailing_dots: true
+      key:
+        id: !jmespath 'id'
+    - type: properties
+      properties:
+        host: !jmespath 'host'
+        basePath: !jmespath 'basePath'
+        requests: !jmespath 'enrichment.requests'
+        successes: !jmespath 'enrichment.successes'
+        totalErrors: !jmespath 'enrichment.totalErrors'
+        dateFirstSeen: !jmespath 'enrichment.dateFirstSeen'
+        dateLastModified: !jmespath 'enrichment.dateLastModified'
+        dateLastSeen: !jmespath 'enrichment.dateLastSeen'
+        requestsLastDay: !jmespath 'enrichment.requestsLastDay'
+        gets: !jmespath 'enrichment.gets'
+        posts: !jmespath 'enrichment.posts'
+        puts: !jmespath 'enrichment.puts'
+        options: !jmespath 'enrichment.options'
+    - type: relationship
+      node_type: Endpoint
+      node_key: 
+        fqdn: !jmespath 'host'
+      find_many: true
+      relationship_type: SERVICED_BY
+      outbound: false
+      relationship_properties:
+        path: !jmespath 'basePath'
+        
