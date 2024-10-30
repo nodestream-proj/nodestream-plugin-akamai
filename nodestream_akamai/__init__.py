@@ -1,3 +1,4 @@
+from .apidiscovery import AkamaiAPIDiscoveryExtractor
 from .appsec_coverage import AkamaiAppSecCoverageExtractor
 from .cloudlets import AkamaiCloudletExtractor
 from .cpcodes import AkamaiCpCodesExtractor
@@ -19,6 +20,7 @@ from .waf import AkamaiWafExtractor
 
 __all__ = (
     "AkamaiPlugin",
+    "AkamaiAPIDiscoveryExtractor",
     "AkamaiAppSecCoverageExtractor",
     "AkamaiCloudletExtractor",
     "AkamaiCpCodesExtractor",

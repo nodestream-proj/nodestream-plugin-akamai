@@ -1,3 +1,4 @@
+import json
 import logging
 from ipaddress import IPv4Address, ip_address
 
@@ -10,8 +11,14 @@ class AkamaiEdnsExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
         self.client = AkamaiEdnsClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
+        self.SUPPORTED_RECORD_TYPES = ["A", "AAAA", "CNAME", "NS", "CAA"]
+        self.ADDRESS_FORMAT_TO_NODE_TYPE = {
+            "ipv4": "Cidripv4",
+            "ipv6": "Cidripv6",
+            "endpoint": "Endpoint",
+        }
 
-    def get_address_format(self, address):
+    def _get_address_format(self, address):
         try:
             if type(ip_address(address)) is IPv4Address:
                 return "ipv4"
@@ -24,7 +31,6 @@ class AkamaiEdnsExtractor(Extractor):
                 return "endpoint"
 
     async def extract_records(self):
-        supported_record_types = ["A", "AAAA", "CNAME", "NS", "CAA"]
         for zone in self.client.list_zones():
             try:
                 zone["recordsets"] = self.client.list_recordsets(zone["zone"])
@@ -33,35 +39,20 @@ class AkamaiEdnsExtractor(Extractor):
                     f"Failed to list record sets for zone: {zone['zone']}"
                 )
             for i in range(len(zone["recordsets"])):
-                if zone["recordsets"][i]["type"] in supported_record_types:
+                if zone["recordsets"][i]["type"] in self.SUPPORTED_RECORD_TYPES:
+                    for (
+                        supported_node_type
+                    ) in self.ADDRESS_FORMAT_TO_NODE_TYPE.values():
+                        zone["recordsets"][i][supported_node_type] = []
                     zone["recordsets"][i]["key"] = (
                         zone["recordsets"][i]["name"]
                         + "/"
                         + zone["recordsets"][i]["type"]
                     )
                     zone["recordsets"][i]["zone"] = zone["zone"]
-                    if zone["recordsets"][i]["type"] == "A":
-                        zone["recordsets"][i]["Cidripv4"] = zone["recordsets"][i][
-                            "rdata"
-                        ]
-                    if zone["recordsets"][i]["type"] == "AAAA":
-                        zone["recordsets"][i]["Cidripv6"] = zone["recordsets"][i][
-                            "rdata"
-                        ]
-                    if zone["recordsets"][i]["type"] == "CNAME":
-                        zone["recordsets"][i]["Endpoint"] = zone["recordsets"][i][
-                            "rdata"
-                        ]
-                    if zone["recordsets"][i]["type"] == "NS":
-                        zone["recordsets"][i]["Cidripv4"] = []
-                        zone["recordsets"][i]["Cidripv6"] = []
-                        zone["recordsets"][i]["Endpoint"] = []
-                        for record in zone["recordsets"][i]["rdata"]:
-                            address_format = self.get_address_format(record)
-                            if address_format == "ipv4":
-                                zone["recordsets"][i]["Cidripv4"].append(record)
-                            elif address_format == "ipv6":
-                                zone["recordsets"][i]["Cidripv6"].append(record)
-                            elif address_format == "endpoint":
-                                zone["recordsets"][i]["Endpoint"].append(record)
+                    for record in zone["recordsets"][i]["rdata"]:
+                        address_format = self._get_address_format(record)
+                        node_type = self.ADDRESS_FORMAT_TO_NODE_TYPE.get(address_format)
+                        if node_type:
+                            zone["recordsets"][i][node_type].append(record)
             yield zone
