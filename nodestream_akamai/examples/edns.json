@@ -1,0 +1,139 @@
+[
+    {
+        "contractId": "A-1B23CD",
+        "zone": "one.example.com",
+        "category": "general",
+        "type": "PRIMARY",
+        "aliasCount": 0,
+        "signAndServe": false,
+        "subzoneGrants": false,
+        "recordsets": [
+            {
+                "name": "one.example.com",
+                "type": "NS",
+                "ttl": 86400,
+                "rdata": [
+                    "a1-161.akam.net.",
+                    "a2-64.akam.net.",
+                    "a26-64.akam.net.",
+                    "a22-66.akam.net.",
+                    "a3-65.akam.net.",
+                    "a5-67.akam.net."
+                ],
+                "Cidripv4": [],
+                "Cidripv6": [],
+                "Endpoint": [
+                    "a1-161.akam.net.",
+                    "a2-64.akam.net.",
+                    "a26-64.akam.net.",
+                    "a22-66.akam.net.",
+                    "a3-65.akam.net.",
+                    "a5-67.akam.net."
+                ],
+                "key": "one.example.com/NS",
+                "zone": "one.example.com"
+            },
+            {
+                "name": "one.example.com",
+                "type": "SOA",
+                "ttl": 86400,
+                "rdata": [
+                    "a1-161.akam.net. hostmaster.one.example.com. 2022120500 3600 600 604800 300"
+                ]
+            }
+        ]
+    },
+    {
+        "contractId": "A-1B23CD",
+        "zone": "two.example.com",
+        "category": "general",
+        "type": "PRIMARY",
+        "aliasCount": 0,
+        "signAndServe": false,
+        "subzoneGrants": false,
+        "recordsets": [
+            {
+                "name": "two.example.com",
+                "type": "NS",
+                "ttl": 86400,
+                "rdata": [
+                    "a1-161.akam.net.",
+                    "a2-64.akam.net.",
+                    "a26-64.akam.net.",
+                    "a22-66.akam.net.",
+                    "a3-65.akam.net.",
+                    "a5-67.akam.net."
+                ],
+                "Cidripv4": [],
+                "Cidripv6": [],
+                "Endpoint": [
+                    "a1-161.akam.net.",
+                    "a2-64.akam.net.",
+                    "a26-64.akam.net.",
+                    "a22-66.akam.net.",
+                    "a3-65.akam.net.",
+                    "a5-67.akam.net."
+                ],
+                "key": "two.example.com/NS",
+                "zone": "two.example.com"
+            },
+            {
+                "name": "two.example.com",
+                "type": "SOA",
+                "ttl": 86400,
+                "rdata": [
+                    "a1-161.akam.net. hostmaster.two.example.com. 2024062700 3600 600 604800 300"
+                ]
+            },
+            {
+                "name": "6.two.example.com",
+                "type": "AAAA",
+                "ttl": 1800,
+                "rdata": [
+                    "2001:ab8:85b3:0:0:8a1e:370:7225",
+                    "1756:ab8:85b3:0:0:8a1e:233:1497"
+                ],
+                "Cidripv4": [],
+                "Cidripv6": [
+                    "2001:ab8:85b3:0:0:8a1e:370:7225",
+                    "1756:ab8:85b3:0:0:8a1e:233:1497"
+                ],
+                "Endpoint": [],
+                "key": "6.two.example.com/AAAA",
+                "zone": "two.example.com"
+            },
+            {
+                "name": "api.two.example.com",
+                "type": "CNAME",
+                "ttl": 1800,
+                "rdata": [
+                    "api.example.com."
+                ],
+                "Cidripv4": [],
+                "Cidripv6": [],
+                "Endpoint": [
+                    "api.example.com."
+                ],
+                "key": "api.two.example.com/CNAME",
+                "zone": "two.example.com"
+            },
+            {
+                "name": "www.two.example.com",
+                "type": "A",
+                "ttl": 1800,
+                "rdata": [
+                    "1.2.3.4",
+                    "2.3.4.5"
+                ],
+                "Cidripv4": [
+                    "1.2.3.4",
+                    "2.3.4.5"
+                ],
+                "Cidripv6": [],
+                "Endpoint": [],
+                "key": "www.two.example.com/A",
+                "zone": "two.example.com"
+            }
+        ]
+    }
+]

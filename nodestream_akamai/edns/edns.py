@@ -1,4 +1,3 @@
-import json
 import logging
 from ipaddress import IPv4Address, ip_address
 
