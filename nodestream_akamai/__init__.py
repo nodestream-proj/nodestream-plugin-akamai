@@ -4,6 +4,7 @@ from .cloudlets import AkamaiCloudletExtractor
 from .cpcodes import AkamaiCpCodesExtractor
 from .cps import AkamaiCpsExtractor
 from .edgeworkers import AkamaiEdgeworkersExtractor
+from .edns import AkamaiEdnsExtractor
 from .ehn import AkamaiEhnExtractor
 from .gtm import AkamaiGtmExtractor
 from .iam_clients import AkamaiIamClientExtractor
@@ -25,6 +26,7 @@ __all__ = (
     "AkamaiCpCodesExtractor",
     "AkamaiCpsExtractor",
     "AkamaiEdgeworkersExtractor",
+    "AkamaiEdnsExtractor",
     "AkamaiEhnExtractor",
     "AkamaiGtmExtractor",
     "AkamaiIvmExtractor",
