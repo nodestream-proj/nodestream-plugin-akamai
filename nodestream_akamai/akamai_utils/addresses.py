@@ -36,9 +36,9 @@ def get_format(address: int | str | bytes | IPv4Address | IPv6Address) -> Addres
         ip_addr = address
 
     match ip_addr:
-        case IPv4Address(_):
+        case IPv4Address():
             return AddressFormat.IPV4
-        case IPv6Address(_):
+        case IPv6Address():
             return AddressFormat.IPV6
         case other if " " in other:
             return AddressFormat.INVALID
