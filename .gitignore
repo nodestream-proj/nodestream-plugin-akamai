@@ -10,3 +10,6 @@ working_dir
 __pycache__/
 *.py[cod]
 dist/
+
+.idea/
+.python-version
