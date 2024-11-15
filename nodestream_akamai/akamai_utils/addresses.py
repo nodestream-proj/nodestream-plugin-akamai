@@ -1,6 +1,6 @@
 """Common utils for getting information about addresses."""
 from enum import StrEnum
-from ipaddress import ip_address, IPv4Address, IPv6Address
+from ipaddress import IPv4Address, IPv6Address, ip_address
 
 
 class AddressNodeType(StrEnum):
