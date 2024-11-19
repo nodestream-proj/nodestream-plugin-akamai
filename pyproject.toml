@@ -1,13 +1,15 @@
 [tool.poetry]
 name = "nodestream-plugin-akamai"
-version = "0.13.0"
+version = "0.13.1"
 description = "Pipeline Plugin for Akamai Data"
 authors = [
     "Zach Probst <Zach_Probst@intuit.com>",
     "Chad Cloes <Chad_Cloes@intuit.com>",
     "Bryan Norman <Bryan_Norman@intuit.com>",
     "Gabe Gallagher <Gabe_Gallagher@intuit.com>",
-    "Grant Hoffman <Grant_Hoffman@intuit.com>"
+    "Grant Hoffman <Grant_Hoffman@intuit.com>",
+    "Stuart Macleod <SMacleod@akamai.com>",
+    "Jon Bristow <Jonathan_Bristow@intuit.com>"
 ]
 packages = [
     { include = "nodestream_akamai" }
