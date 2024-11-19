@@ -8,6 +8,7 @@ authors = [
     "Bryan Norman <Bryan_Norman@intuit.com>",
     "Gabe Gallagher <Gabe_Gallagher@intuit.com>",
     "Grant Hoffman <Grant_Hoffman@intuit.com>",
+    "Stuart Macleod <SMacleod@akamai.com>",
     "Jon Bristow <Jonathan_Bristow@intuit.com>"
 ]
 packages = [
