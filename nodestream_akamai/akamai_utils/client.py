@@ -106,7 +106,7 @@ class AkamaiApiClient:
         }
 
         if isinstance(headers, dict):
-            for header in headers.keys():
+            for header in headers:
                 request_headers[header] = headers[header]
 
         for sleepy_seconds in range(5):
@@ -140,7 +140,8 @@ class AkamaiApiClient:
             yield elem
             seen.add(k)
 
-    def _resilient_session_factory(self, timeout=300, retry_count=5) -> Session:
+    @staticmethod
+    def _resilient_session_factory(timeout=300, retry_count=5) -> Session:
         session = Session()
         retries = Retry(
             total=retry_count, backoff_factor=0.5, status_forcelist=[500, 502, 503, 504]

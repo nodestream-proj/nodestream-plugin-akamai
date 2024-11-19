@@ -1,57 +1,65 @@
+import asyncio
 import logging
-from ipaddress import IPv4Address, ip_address
 
 from nodestream.pipeline.extractors import Extractor
 
+from ..akamai_utils import addresses
 from ..akamai_utils.edns_client import AkamaiEdnsClient
+
+SUPPORTED_RECORD_TYPES = [
+    "A",
+    "AAAA",
+    "CNAME",
+    "NS",
+    "CAA",
+]
 
 
 class AkamaiEdnsExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
         self.client = AkamaiEdnsClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
-        self.SUPPORTED_RECORD_TYPES = ["A", "AAAA", "CNAME", "NS", "CAA"]
-        self.ADDRESS_FORMAT_TO_NODE_TYPE = {
-            "ipv4": "Cidripv4",
-            "ipv6": "Cidripv6",
-            "endpoint": "Endpoint",
-        }
 
-    def _get_address_format(self, address):
+    def _extract_recordset(self, recordset, zone):
+        self.logger.debug(
+            "Extracting recordset %s/%s for zone %s",
+            recordset.get("name"),
+            recordset.get("type"),
+            zone,
+        )
+        recordset["key"] = f'{recordset["name"]}/{recordset["type"]}'
+        recordset["zone"] = zone
+        for record in recordset["rdata"]:
+            address_format = addresses.get_format(record)
+            node_type = address_format.node_type
+            if node_type:
+                recordset.get(node_type, []).append(record)
+        return recordset
+
+    async def _extract_zone(self, zone):
         try:
-            if type(ip_address(address)) is IPv4Address:
-                return "ipv4"
-            else:
-                return "ipv6"
-        except ValueError:
-            if " " in address:
-                return "Invalid"
-            else:
-                return "endpoint"
+            record_sets = self.client.list_recordsets(zone["zone"])
+        except Exception as e:
+            self.logger.error(
+                "Failed to list record sets for zone: %s",
+                zone["zone"],
+                exc_info=True,
+            )
+            raise e
+
+        zone["recordsets"] = [
+            self._extract_recordset(rs, zone["zone"])
+            for rs in record_sets
+            if rs["type"] in SUPPORTED_RECORD_TYPES
+        ]
+        return zone
 
     async def extract_records(self):
-        for zone in self.client.list_zones():
-            try:
-                zone["recordsets"] = self.client.list_recordsets(zone["zone"])
-            except Exception:
-                self.logger.error(
-                    f"Failed to list record sets for zone: {zone['zone']}"
-                )
-            for i in range(len(zone["recordsets"])):
-                if zone["recordsets"][i]["type"] in self.SUPPORTED_RECORD_TYPES:
-                    for (
-                        supported_node_type
-                    ) in self.ADDRESS_FORMAT_TO_NODE_TYPE.values():
-                        zone["recordsets"][i][supported_node_type] = []
-                    zone["recordsets"][i]["key"] = (
-                        zone["recordsets"][i]["name"]
-                        + "/"
-                        + zone["recordsets"][i]["type"]
-                    )
-                    zone["recordsets"][i]["zone"] = zone["zone"]
-                    for record in zone["recordsets"][i]["rdata"]:
-                        address_format = self._get_address_format(record)
-                        node_type = self.ADDRESS_FORMAT_TO_NODE_TYPE.get(address_format)
-                        if node_type:
-                            zone["recordsets"][i][node_type].append(record)
-            yield zone
+        try:
+            zones = self.client.list_zones()
+        except Exception as e:
+            self.logger.error("problem fetching zones: %s", e, exc_info=True)
+            raise e
+
+        for zone in asyncio.as_completed(self._extract_zone(z) for z in zones):
+            yield await zone
