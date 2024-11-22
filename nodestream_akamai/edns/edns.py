@@ -33,7 +33,9 @@ class AkamaiEdnsExtractor(Extractor):
             address_format = addresses.get_format(record)
             node_type = address_format.node_type
             if node_type:
-                recordset.get(node_type, []).append(record)
+                node_type_list = recordset.get(node_type, [])
+                node_type_list.append(record)
+                recordset[node_type] = node_type_list
         return recordset
 
     async def _extract_zone(self, zone):

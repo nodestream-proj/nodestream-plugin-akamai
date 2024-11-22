@@ -15,6 +15,10 @@ run:
 
 .PHONY: fmt
 fmt:
-	poetry run isort nodestream_akamai
-	poetry run black nodestream_akamai
+	poetry run isort nodestream_akamai tests
+	poetry run black nodestream_akamai tests
+
+.PHONY: test
+test:
+	poetry run pytest
 
