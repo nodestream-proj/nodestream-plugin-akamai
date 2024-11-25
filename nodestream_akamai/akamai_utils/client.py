@@ -35,7 +35,6 @@ class AkamaiApiClient:
         self, path, params=None, headers=None, backoff_index=None
     ):
         full_url = urljoin(self.base_url, path)
-        logger.info("Exec: %s", full_url)
 
         backoff_delays = [5, 10, 20, 60, 180]
         if backoff_index is None:
@@ -92,7 +91,6 @@ class AkamaiApiClient:
 
     def _post_api_from_relative_path(self, path, body, params=None, headers=None):
         full_url = urljoin(self.base_url, path)
-        logger.info("Exec: %s", full_url)
 
         # Insert account switch key
         if self.account_key is not None:
