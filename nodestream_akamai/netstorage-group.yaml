@@ -74,3 +74,10 @@
       node_key:
         fqdn: !jmespath 'uploadDomains.http'
       outbound: false
+    - type: relationship
+      node_type: Endpoint
+      relationship_type: DOWNLOAD_THROUGH
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        fqdn: !jmespath 'downloadDomain'
