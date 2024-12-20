@@ -14,6 +14,8 @@ def edns_extractor():
         client_token="ctoken",
         client_secret="secret",
         access_token="atoken",
+        retry_wait_seconds_min=0,
+        retry_wait_seconds_max=0,
     )
 
 
@@ -25,7 +27,8 @@ async def to_list_async(generator: AsyncGenerator):
 
 
 @responses.activate
-def test_extract_records(edns_extractor):
+@pytest.mark.asyncio
+async def test_extract_records(edns_extractor):
     """Happy path check"""
     rsp1 = responses.Response(
         method="GET",
@@ -83,7 +86,8 @@ def test_extract_records(edns_extractor):
     )
     responses.add(rsp3)
 
-    result = asyncio.run(to_list_async(edns_extractor.extract_records()))
+    result = await to_list_async(edns_extractor.extract_records())
+    result = sorted(result, key=lambda r: r["zone"])
     assert result == [
         {
             "recordsets": [
