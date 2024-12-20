@@ -1,23 +1,43 @@
 import functools
 import logging
-import time
 from urllib.parse import urljoin
 
+import requests
 from akamai.edgegrid import EdgeGridAuth
 from requests import Session
 from requests.adapters import HTTPAdapter
+from tenacity import (
+    Retrying,
+    after_log,
+    before_sleep_log,
+    retry_if_exception_type,
+    stop_after_attempt,
+    wait_exponential,
+)
 from urllib3.util.retry import Retry
-
-logger = logging.getLogger(__name__)
 
 PROTOCOL_HTTP = "http://"
 PROTOCOL_HTTPS = "https://"
 CREDENTIAL_TIMEOUT_SECONDS = 300
 
 
+class AkamaiClientException(IOError):
+    def __init__(self, msg, text):
+        super(AkamaiClientException, self).__init__(msg)
+        self.text = text
+
+
 class AkamaiApiClient:
     def __init__(
-        self, base_url, client_token, client_secret, access_token, account_key=None
+        self,
+        base_url,
+        client_token,
+        client_secret,
+        access_token,
+        account_key=None,
+        max_retries=5,
+        retry_wait_seconds_min=5,
+        retry_wait_seconds_max=180,
     ):
         self.base_url = base_url
         self.error_count = 0
@@ -30,66 +50,85 @@ class AkamaiApiClient:
             max_body=128 * 1024,  # TODO: Completely Arbitrary Currently
         )
         self.account_key = account_key
+        self.max_retries = max_retries
+        self.retry_wait_seconds_min = retry_wait_seconds_min
+        self.retry_wait_seconds_max = retry_wait_seconds_max
+        self.logger = logging.getLogger(f"{self.__module__}.{self.__class__.__name__}")
+
+    @property
+    def _retryer(self):
+        return Retrying(
+            retry=retry_if_exception_type(
+                (requests.exceptions.HTTPError, AkamaiClientException)
+            ),
+            wait=wait_exponential(
+                min=self.retry_wait_seconds_min, max=self.retry_wait_seconds_max
+            ),
+            stop=stop_after_attempt(self.max_retries),
+            before_sleep=before_sleep_log(self.logger, logging.WARNING),
+            after=after_log(self.logger, logging.ERROR),
+            reraise=True,
+        )
 
     def _get_api_from_relative_path(
-        self, path, params=None, headers=None, backoff_index=None
+        self,
+        path,
+        params=None,
+        headers=None,
     ):
-        full_url = urljoin(self.base_url, path)
+        response = self._retryer(
+            self._retrying_get_api_from_relative_path,
+            path,
+            params,
+            headers,
+        )
+        return response.json()
 
-        backoff_delays = [5, 10, 20, 60, 180]
-        if backoff_index is None:
-            backoff_index = 0
+    def _retrying_get_api_from_relative_path(
+        self, path, params=None, headers=None
+    ) -> requests.Response:
+        full_url = urljoin(self.base_url, path)
 
         # Insert account switch key
         if self.account_key is not None:
             if params is None:
                 params = {}
             params["accountSwitchKey"] = self.account_key
+        self.logger.debug(
+            "_get_api_from_relative_path(path=%s, params=%s, headers=%s)",
+            path,
+            params,
+            headers,
+        )
+        response = self.session.get(full_url, params=params, headers=headers)
+        response.raise_for_status()
+        # Return body if 200
+        if response.status_code == requests.codes.ok:
+            return response
 
-        for sleepy_seconds in range(5):
-            if sleepy_seconds:
-                time.sleep(sleepy_seconds)
-            response = self.session.get(full_url, params=params, headers=headers)
-            # Retry once for temporary 500 errors
-            if response.status_code == 500:
-                logger.error(f"Received 500 response for 'GET {full_url}'. Retrying...")
-                response = self.session.get(full_url, params=params, headers=headers)
-
-            # Back off for rate limit 429
-            if response.status_code == 429:
-                # Increase bacoff for next attempt
-                next_backoff_index = backoff_index + 1
-                if next_backoff_index > len(backoff_delays):
-                    logger.error(
-                        f"Received 429 response for 'GET {full_url}' and backoff limit exceeded."
-                    )
-                else:
-                    backoff = backoff_delays[backoff_index]
-                    logger.error(
-                        f"Received 429 response for 'GET {full_url}'. Waiting for {backoff} seconds before retrying"
-                    )
-                    time.sleep(backoff)
-                    response = self._get_api_from_relative_path(
-                        path,
-                        params=params,
-                        headers=headers,
-                        backoff_index=next_backoff_index,
-                    )
-
-            # Return body if 200
-            if response.status_code == 200:
-                return response.json()
-            self.error_count += 1
-            logger.error(
-                "response.status_code: %s, response.text: %s",
-                response.status_code,
-                response.text,
-            )
         response.raise_for_status()
         # raise for status only handles: 400 <= status_code < 600
-        raise Exception(f"response.status_code: {response.status_code}", response.text)
+        raise AkamaiClientException(
+            f"response.status_code: {response.status_code}", response.text
+        )
 
     def _post_api_from_relative_path(self, path, body, params=None, headers=None):
+        response = self._retryer(
+            self._retrying_post_api_from_relative_path,
+            path,
+            body,
+            params,
+            headers,
+        )
+        return response.json()
+
+    def _retrying_post_api_from_relative_path(
+        self,
+        path,
+        body,
+        params=None,
+        headers=None,
+    ):
         full_url = urljoin(self.base_url, path)
 
         # Insert account switch key
@@ -106,37 +145,15 @@ class AkamaiApiClient:
         if isinstance(headers, dict):
             for header in headers:
                 request_headers[header] = headers[header]
+        response = self.session.post(
+            full_url, params=params, headers=request_headers, json=body
+        )
 
-        for sleepy_seconds in range(5):
-            if sleepy_seconds:
-                time.sleep(sleepy_seconds)
-            response = self.session.post(
-                full_url, params=params, headers=request_headers, json=body
-            )
-            if response.status_code == 200:
-                return response.json()
-            self.error_count += 1
-            logger.error(
-                "response.status_code: %s, response.text: %s",
-                response.status_code,
-                response.text,
-            )
         response.raise_for_status()
         # raise for status only handles: 400 <= status_code < 600
-        raise Exception(f"response.status_code: {response.status_code}", response.text)
-
-    def keep_first(self, iterable, key=None):
-        if key is None:
-            key = lambda x: x
-
-        seen = set()
-        for elem in iterable:
-            k = key(elem)
-            if k in seen:
-                continue
-
-            yield elem
-            seen.add(k)
+        raise AkamaiClientException(
+            f"response.status_code: {response.status_code}", response.text
+        )
 
     @staticmethod
     def _resilient_session_factory(timeout=300, retry_count=5) -> Session:

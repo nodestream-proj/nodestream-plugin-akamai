@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-from nodestream.pipeline.extractors import Extractor
+from nodestream.pipeline import Extractor
 
 from ..akamai_utils import addresses
 from ..akamai_utils.edns_client import AkamaiEdnsClient
@@ -18,7 +18,7 @@ SUPPORTED_RECORD_TYPES = [
 class AkamaiEdnsExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
         self.client = AkamaiEdnsClient(**akamai_client_kwargs)
-        self.logger = logging.getLogger(self.__class__.__name__)
+        self.logger = logging.getLogger(f"{self.__module__}.{self.__class__.__name__}")
 
     def _extract_recordset(self, recordset, zone):
         self.logger.debug(
