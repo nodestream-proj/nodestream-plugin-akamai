@@ -27,7 +27,9 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
     def contracts_by_group(self) -> List[Tuple[str, str]]:
         groups_list_api_path = "/papi/v1/groups"
-        response_json = self._get_api_from_relative_path(groups_list_api_path, headers=self.headers)
+        response_json = self._get_api_from_relative_path(
+            groups_list_api_path, headers=self.headers
+        )
         return [
             (group["groupId"], contract_id)
             for group in response_json["groups"]["items"]
@@ -36,10 +38,14 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
     def list_contracts(self) -> List[str]:
         contracts_list_api_path = "/papi/v1/contracts"
-        response_json = self._get_api_from_relative_path(contracts_list_api_path, headers=self.headers)
+        response_json = self._get_api_from_relative_path(
+            contracts_list_api_path, headers=self.headers
+        )
         return response_json["contracts"]["items"]
 
-    def property_ids_for_contract_group(self, group_id: str, contract_id: str) -> List[str]:
+    def property_ids_for_contract_group(
+        self, group_id: str, contract_id: str
+    ) -> List[str]:
         property_list_api_path = "/papi/v1/properties"
         query_params = {
             "groupId": group_id,
@@ -48,31 +54,48 @@ class AkamaiPropertyClient(AkamaiApiClient):
         response_json = self._get_api_from_relative_path(
             property_list_api_path, params=query_params, headers=self.headers
         )
-        return [property["propertyId"] for property in response_json["properties"]["items"]]
+        return [
+            property["propertyId"] for property in response_json["properties"]["items"]
+        ]
 
-    def get_rule_tree(self, property_id: str, version: int, contractId=None, groupId=None):
-        rule_tree_api_path = f"/papi/v1/properties/{property_id}/versions/{version}/rules"
+    def get_rule_tree(
+        self, property_id: str, version: int, contractId=None, groupId=None
+    ):
+        rule_tree_api_path = (
+            f"/papi/v1/properties/{property_id}/versions/{version}/rules"
+        )
         params = {}
         if contractId is not None and groupId is not None:
             params = {"contractId": contractId, "groupId": groupId}
-        return self._get_api_from_relative_path(rule_tree_api_path, params=params, headers=self.headers)
+        return self._get_api_from_relative_path(
+            rule_tree_api_path, params=params, headers=self.headers
+        )
 
     def get_property(self, property_id: str, contractId=None, groupId=None):
         property_path = f"/papi/v1/properties/{property_id}"
         params = {}
         if contractId is not None and groupId is not None:
             params = {"contractId": contractId, "groupId": groupId}
-        return self._get_api_from_relative_path(property_path, params=params, headers=self.headers)["properties"][
-            "items"
-        ][0]
+        return self._get_api_from_relative_path(
+            property_path, params=params, headers=self.headers
+        )["properties"]["items"][0]
 
-    def describe_property_hostnames(self, property_id: str, version: int, contractId=None, groupId=None):
-        hosts_api_path = f"/papi/v1/properties/{property_id}/versions/{version}/hostnames"
+    def describe_property_hostnames(
+        self, property_id: str, version: int, contractId=None, groupId=None
+    ):
+        hosts_api_path = (
+            f"/papi/v1/properties/{property_id}/versions/{version}/hostnames"
+        )
         params = {}
         if contractId is not None and groupId is not None:
             params = {"contractId": contractId, "groupId": groupId}
-        hosts_api_response = self._get_api_from_relative_path(hosts_api_path, params=params, headers=self.headers)
-        return [EdgeHost(name=edge_host["cnameFrom"]) for edge_host in hosts_api_response["hostnames"]["items"]]
+        hosts_api_response = self._get_api_from_relative_path(
+            hosts_api_path, params=params, headers=self.headers
+        )
+        return [
+            EdgeHost(name=edge_host["cnameFrom"])
+            for edge_host in hosts_api_response["hostnames"]["items"]
+        ]
 
     def pull_host_entries(self, property_id: str, versions: set):
         origins = set()
@@ -89,13 +112,15 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
     def describe_property_by_id(self, property_id: str) -> PropertyDescription:
         describe_property_api_path = f"/papi/v1/properties/{property_id}"
-        property_description = self._get_api_from_relative_path(describe_property_api_path, headers=self.headers)[
-            "properties"
-        ]["items"][0]
+        property_description = self._get_api_from_relative_path(
+            describe_property_api_path, headers=self.headers
+        )["properties"]["items"][0]
         property_name = property_description["propertyName"]
         production_version_number = property_description["productionVersion"]
         staging_version_number = property_description["stagingVersion"]
-        origins, hostnames = self.pull_host_entries(property_id, {production_version_number, staging_version_number})
+        origins, hostnames = self.pull_host_entries(
+            property_id, {production_version_number, staging_version_number}
+        )
 
         return PropertyDescription(
             id=property_id,
@@ -130,7 +155,9 @@ class AkamaiPropertyClient(AkamaiApiClient):
         )
 
         # Cloudlets
-        cloudlet_policies = self.search_akamai_rule_tree_for_cloudlets(rule_tree=rule_tree["rules"])
+        cloudlet_policies = self.search_akamai_rule_tree_for_cloudlets(
+            rule_tree=rule_tree["rules"]
+        )
 
         # Specific data for Edge Redirector, flter for legacy only
         edge_redirector_policies = self.search_akamai_rule_tree_for_cloudlet(
@@ -138,19 +165,29 @@ class AkamaiPropertyClient(AkamaiApiClient):
         )
 
         # IVM
-        image_manager_policysets = self.search_akamai_rule_tree_for_ivm(rule_tree=rule_tree)
+        image_manager_policysets = self.search_akamai_rule_tree_for_ivm(
+            rule_tree=rule_tree
+        )
 
         # EdgeWorkers
-        edgeworker_ids = self.search_akamai_rule_tree_for_edge_workers(rule_tree=rule_tree["rules"])
+        edgeworker_ids = self.search_akamai_rule_tree_for_edge_workers(
+            rule_tree=rule_tree["rules"]
+        )
 
         # Siteshield
-        siteshield_maps = self.search_akamai_rule_tree_for_siteshield(rule_tree=rule_tree["rules"])
+        siteshield_maps = self.search_akamai_rule_tree_for_siteshield(
+            rule_tree=rule_tree["rules"]
+        )
 
         # Siteshield
-        cp_codes = self.search_akamai_rule_tree_for_cp_codes(rule_tree=rule_tree["rules"])
+        cp_codes = self.search_akamai_rule_tree_for_cp_codes(
+            rule_tree=rule_tree["rules"]
+        )
 
         # Deeplink
-        deeplink_prefix = "https://control.akamai.com/apps/property-manager/#/property-version/"
+        deeplink_prefix = (
+            "https://control.akamai.com/apps/property-manager/#/property-version/"
+        )
         deeplink = "{prefix}{assetId}/{version}/edit?gid={groupId}".format(
             prefix=deeplink_prefix,
             assetId=property["assetId"],
@@ -203,7 +240,9 @@ class AkamaiPropertyClient(AkamaiApiClient):
         property_ids = list(set(raw_property_ids))
         results = []
         for property_id in property_ids:
-            matching_hostname = [h for h in hostnames if h["propertyId"] == property_id][0]
+            matching_hostname = [
+                h for h in hostnames if h["propertyId"] == property_id
+            ][0]
 
             contract_id = matching_hostname["contractId"]
             group_id = matching_hostname["groupId"]
@@ -263,9 +302,15 @@ class AkamaiPropertyClient(AkamaiApiClient):
                 for criteria in direct_criteria:
                     for criterion in criteria.value:
                         if criterion["name"] == "path":
-                            if criterion["options"]["matchOperator"] == "MATCHES_ONE_OF":
+                            if (
+                                criterion["options"]["matchOperator"]
+                                == "MATCHES_ONE_OF"
+                            ):
                                 path_matches.extend(criterion["options"]["values"])
-                            elif criterion["options"]["matchOperator"] == "DOES_NOT_MATCH_ONE_OF":
+                            elif (
+                                criterion["options"]["matchOperator"]
+                                == "DOES_NOT_MATCH_ONE_OF"
+                            ):
                                 for match in criterion["options"]["values"]:
                                     path_matches.append("!" + match)
 
@@ -277,7 +322,9 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
     def search_akamai_rule_tree_for_behavior(self, rule_tree, behavior_Name):
         behaviors = []
-        jsonpath_expression = parse('$..behaviors[?(@.name=="{b}")]'.format(b=behavior_Name))
+        jsonpath_expression = parse(
+            '$..behaviors[?(@.name=="{b}")]'.format(b=behavior_Name)
+        )
         jsonpath_result = jsonpath_expression.find(rule_tree)
         for match in jsonpath_result:
             behaviors.append(match.value)
@@ -286,7 +333,9 @@ class AkamaiPropertyClient(AkamaiApiClient):
     def search_akamai_rule_tree_for_edge_redirector(self, rule_tree):
         return self.search_akamai_rule_tree_for_cloudlet(rule_tree, "edgeRedirector")
 
-    def search_akamai_rule_tree_for_cloudlet(self, rule_tree, behavior_name, shared=None):
+    def search_akamai_rule_tree_for_cloudlet(
+        self, rule_tree, behavior_name, shared=None
+    ):
         # If shared is None, both shared and legacy behaviors will be matched
         instances = self.search_akamai_rule_tree_for_behavior(rule_tree, behavior_name)
         policy_ids = []
@@ -309,7 +358,9 @@ class AkamaiPropertyClient(AkamaiApiClient):
     def search_akamai_rule_tree_for_cloudlets(self, rule_tree):
         instances = []
         for CLOUDLET_TYPE in self.CLOUDLET_TYPES:
-            instances.extend(self.search_akamai_rule_tree_for_behavior(rule_tree, CLOUDLET_TYPE))
+            instances.extend(
+                self.search_akamai_rule_tree_for_behavior(rule_tree, CLOUDLET_TYPE)
+            )
         policy_ids = []
         for behavior in instances:
             if behavior["options"]["enabled"]:
@@ -323,12 +374,18 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
     def search_akamai_rule_tree_for_siteshield(self, rule_tree):
         instances = self.search_akamai_rule_tree_for_behavior(rule_tree, "siteShield")
-        map_names = [siteshield["options"]["ssmap"]["value"] for siteshield in instances]
+        map_names = [
+            siteshield["options"]["ssmap"]["value"] for siteshield in instances
+        ]
         return map_names
 
     def search_akamai_rule_tree_for_ivm(self, rule_tree):
-        image_instances = self.search_akamai_rule_tree_for_behavior(rule_tree, "imageManager")
-        video_instances = self.search_akamai_rule_tree_for_behavior(rule_tree, "imageManagerVideo")
+        image_instances = self.search_akamai_rule_tree_for_behavior(
+            rule_tree, "imageManager"
+        )
+        video_instances = self.search_akamai_rule_tree_for_behavior(
+            rule_tree, "imageManagerVideo"
+        )
         instances = image_instances + video_instances
 
         for instance in instances:
