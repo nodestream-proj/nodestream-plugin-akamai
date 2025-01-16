@@ -272,7 +272,13 @@ class AkamaiPropertyClient(AkamaiApiClient):
         for behavior in behaviors:
             if behavior.get("name") == "origin":
                 origin_options = behavior["options"]
-                hostname = origin_options.get("hostname")
+                hostname = None
+                if origin_options["originType"] == "CUSTOMER":
+                    hostname = origin_options.get("hostname")
+                elif origin_options["originType"] == "NET_STORAGE":
+                    hostname = origin_options["netStorage"].get("downloadDomainName")
+                elif origin_options["originType"] == "MEDIA_SERVICE_LIVE":
+                    hostname = origin_options.get("mslorigin")
                 if hostname is not None:
                     origins.append(Origin(name=hostname))
 
