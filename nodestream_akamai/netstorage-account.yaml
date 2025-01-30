@@ -42,5 +42,6 @@
       iterate_on: !jmespath 'combinedKeys[*]'
       node_properties:
         type: !jmespath 'type'
+        http_sha256: !jmespath 'http_sha256'
         last_modified_by: !jmespath 'lastModifiedBy'
         last_modified_date: !jmespath 'lastModifiedDate'
