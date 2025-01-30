@@ -12,3 +12,13 @@ clean-pyc:
 run: 
 	poetry install
 	poetry run python main.py
+
+.PHONY: fmt
+fmt:
+	poetry run isort nodestream_akamai tests
+	poetry run black nodestream_akamai tests
+
+.PHONY: test
+test:
+	poetry run pytest
+

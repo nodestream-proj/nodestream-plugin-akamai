@@ -1,8 +1,10 @@
+from .apidiscovery import AkamaiAPIDiscoveryExtractor
 from .appsec_coverage import AkamaiAppSecCoverageExtractor
 from .cloudlets import AkamaiCloudletExtractor
 from .cpcodes import AkamaiCpCodesExtractor
 from .cps import AkamaiCpsExtractor
 from .edgeworkers import AkamaiEdgeworkersExtractor
+from .edns import AkamaiEdnsExtractor
 from .ehn import AkamaiEhnExtractor
 from .gtm import AkamaiGtmExtractor
 from .iam_clients import AkamaiIamClientExtractor
@@ -18,11 +20,13 @@ from .waf import AkamaiWafExtractor
 
 __all__ = (
     "AkamaiPlugin",
+    "AkamaiAPIDiscoveryExtractor",
     "AkamaiAppSecCoverageExtractor",
     "AkamaiCloudletExtractor",
     "AkamaiCpCodesExtractor",
     "AkamaiCpsExtractor",
     "AkamaiEdgeworkersExtractor",
+    "AkamaiEdnsExtractor",
     "AkamaiEhnExtractor",
     "AkamaiGtmExtractor",
     "AkamaiIvmExtractor",

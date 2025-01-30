@@ -33,8 +33,7 @@
             "color": "#57C7E3",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -76,7 +75,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -127,8 +127,7 @@
             "color": "#F79767",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -194,7 +193,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -245,8 +245,7 @@
             "color": "#C990C0",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -312,7 +311,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -388,8 +388,7 @@
             "color": "#FFE081",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -495,7 +494,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -541,8 +541,7 @@
             "color": "#1b0085",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -600,7 +599,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -651,8 +651,7 @@
             "color": "#a20001",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -718,7 +717,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -769,8 +769,7 @@
             "color": "#569480",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -836,7 +835,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -897,8 +897,7 @@
             "color": "#DA7194",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -980,7 +979,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -1051,8 +1051,7 @@
             "color": "#FFC454",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -1150,7 +1149,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -1196,8 +1196,7 @@
             "color": "#4C8EDA",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -1255,7 +1254,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -1326,8 +1326,7 @@
             "color": "#ECB5C9",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -1425,7 +1424,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -1501,8 +1501,7 @@
             "color": "#8DCC93",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -1608,7 +1607,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -1664,8 +1664,7 @@
             "color": "#D9C8AE",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -1739,7 +1738,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -1830,8 +1830,7 @@
             "color": "#F16667",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -1961,7 +1960,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -1997,8 +1997,7 @@
             "color": "#57C7E3",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -2040,7 +2039,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -2126,8 +2126,7 @@
             "color": "#F79767",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -2249,7 +2248,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -2295,8 +2295,7 @@
             "color": "#C990C0",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -2354,7 +2353,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -2450,8 +2450,7 @@
             "color": "#FFE081",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -2589,7 +2588,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -2655,8 +2655,7 @@
             "color": "#b7a4b7",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -2746,7 +2745,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -2792,8 +2792,7 @@
             "color": "#210000",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -2851,7 +2850,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -2912,8 +2912,7 @@
             "color": "#569480",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -2995,7 +2994,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -3051,8 +3051,7 @@
             "color": "#DA7194",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -3126,7 +3125,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -4542,8 +4542,6 @@
             "styleRules": []
         },
         {
-            "id": "SERVICED_BY",
-            "name": "SERVICED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4561,10 +4559,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "SERVICED_BY",
+            "id": "SERVICED_BY",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -4574,12 +4573,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "PROXIES_TO",
-            "name": "PROXIES_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4602,10 +4600,11 @@
                     "dataType": "string"
                 }
             ],
+            "name": "PROXIES_TO",
+            "id": "PROXIES_TO",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -4613,46 +4612,13 @@
                     "styles": [],
                     "key": "PROXIES_TO",
                     "type": "relationship"
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_property_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "path",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_property",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "REDIRECTS_HANDLED_BY",
-            "name": "REDIRECTS_HANDLED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4670,10 +4636,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "REDIRECTS_HANDLED_BY",
+            "id": "REDIRECTS_HANDLED_BY",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -4683,12 +4650,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "REDIRECTS_TO",
-            "name": "REDIRECTS_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4706,10 +4672,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "REDIRECTS_TO",
+            "id": "REDIRECTS_TO",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -4719,12 +4686,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "ACCESSES",
-            "name": "ACCESSES",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4742,10 +4708,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "ACCESSES",
+            "id": "ACCESSES",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -4755,12 +4722,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "EGRESS",
-            "name": "EGRESS",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4778,10 +4744,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "EGRESS",
+            "id": "EGRESS",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -4791,17 +4758,17 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "REDIRECTS_IN",
-            "name": "REDIRECTS_IN",
             "properties": [],
+            "name": "REDIRECTS_IN",
+            "id": "REDIRECTS_IN",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -4811,12 +4778,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "AUTHORIZED_BY",
-            "name": "AUTHORIZED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4834,10 +4800,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "AUTHORIZED_BY",
+            "id": "AUTHORIZED_BY",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -4847,12 +4814,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "MANAGED_BY",
-            "name": "MANAGED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4870,10 +4836,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "MANAGED_BY",
+            "id": "MANAGED_BY",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -4883,12 +4850,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "CONTAINS",
-            "name": "CONTAINS",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4906,10 +4872,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "CONTAINS",
+            "id": "CONTAINS",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -4919,12 +4886,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "MEDIA_OPTIMIZED_BY",
-            "name": "MEDIA_OPTIMIZED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4942,10 +4908,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "MEDIA_OPTIMIZED_BY",
+            "id": "MEDIA_OPTIMIZED_BY",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -4955,12 +4922,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "RUNS_CODE_FOR",
-            "name": "RUNS_CODE_FOR",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -4978,10 +4944,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "RUNS_CODE_FOR",
+            "id": "RUNS_CODE_FOR",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -4991,12 +4958,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "CNAMES_TO",
-            "name": "CNAMES_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5014,10 +4980,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "CNAMES_TO",
+            "id": "CNAMES_TO",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5027,12 +4994,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "OFFLOADS_CONFIGURATION_TO",
-            "name": "OFFLOADS_CONFIGURATION_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5050,10 +5016,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "OFFLOADS_CONFIGURATION_TO",
+            "id": "OFFLOADS_CONFIGURATION_TO",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5063,12 +5030,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "ROUTES_THROUGH",
-            "name": "ROUTES_THROUGH",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5086,10 +5052,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "ROUTES_THROUGH",
+            "id": "ROUTES_THROUGH",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5099,12 +5066,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "ENCRYPTED_BY",
-            "name": "ENCRYPTED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5122,10 +5088,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "ENCRYPTED_BY",
+            "id": "ENCRYPTED_BY",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5135,12 +5102,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "INCLUDED_IN",
-            "name": "INCLUDED_IN",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5158,10 +5124,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "INCLUDED_IN",
+            "id": "INCLUDED_IN",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5171,12 +5138,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "RETURNS",
-            "name": "RETURNS",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5194,10 +5160,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "RETURNS",
+            "id": "RETURNS",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5207,12 +5174,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "IN_DOMAIN",
-            "name": "IN_DOMAIN",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5230,10 +5196,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "IN_DOMAIN",
+            "id": "IN_DOMAIN",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5243,12 +5210,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "UPLOADS_TO",
-            "name": "UPLOADS_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5266,10 +5232,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "UPLOADS_TO",
+            "id": "UPLOADS_TO",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5279,17 +5246,17 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "REPORTS_ON",
-            "name": "REPORTS_ON",
             "properties": [],
+            "name": "REPORTS_ON",
+            "id": "REPORTS_ON",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5299,12 +5266,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "AUTHENTICATES_WITH",
-            "name": "AUTHENTICATES_WITH",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5322,10 +5288,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "AUTHENTICATES_WITH",
+            "id": "AUTHENTICATES_WITH",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5335,12 +5302,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "RECORD_OF",
-            "name": "RECORD_OF",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5358,10 +5324,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "RECORD_OF",
+            "id": "RECORD_OF",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5371,7 +5338,8 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         }
     ],
@@ -6568,30 +6536,30 @@
         "stats": {
             "labels": {},
             "relationshipTypes": {
+                "SERVICED_BY": 136,
+                "PROXIES_TO": 124,
+                "REDIRECTS_HANDLED_BY": 1,
+                "REDIRECTS_TO": 1,
                 "ACCESSES": 32,
-                "AUTHENTICATES_WITH": 26,
-                "AUTHORIZED_BY": 50,
-                "CNAMES_TO": 214,
-                "CONTAINS": 6,
+                "PROTECTED_BY": 4,
                 "EGRESS": 19,
+                "REDIRECTS_IN": 0,
+                "AUTHORIZED_BY": 50,
+                "MANAGED_BY": 103,
+                "CONTAINS": 6,
+                "MEDIA_OPTIMIZED_BY": 4,
+                "RUNS_CODE_FOR": 36,
+                "CNAMES_TO": 214,
+                "OFFLOADS_CONFIGURATION_TO": 2,
+                "ROUTES_THROUGH": 1,
                 "ENCRYPTED_BY": 16,
                 "INCLUDED_IN": 4,
-                "IN_DOMAIN": 5,
-                "MANAGED_BY": 103,
-                "MEDIA_OPTIMIZED_BY": 4,
-                "OFFLOADS_CONFIGURATION_TO": 2,
-                "PROTECTED_BY": 4,
-                "PROXIES_TO": 124,
-                "RECORD_OF": 5,
-                "REDIRECTS_HANDLED_BY": 1,
-                "REDIRECTS_IN": 0,
-                "REDIRECTS_TO": 1,
-                "REPORTS_ON": 0,
                 "RETURNS": 4,
-                "ROUTES_THROUGH": 1,
-                "RUNS_CODE_FOR": 36,
-                "SERVICED_BY": 136,
-                "UPLOADS_TO": 231
+                "IN_DOMAIN": 5,
+                "UPLOADS_TO": 231,
+                "REPORTS_ON": 0,
+                "AUTHENTICATES_WITH": 26,
+                "RECORD_OF": 5
             }
         }
     },

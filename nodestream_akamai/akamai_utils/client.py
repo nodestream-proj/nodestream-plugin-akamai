@@ -31,9 +31,14 @@ class AkamaiApiClient:
         )
         self.account_key = account_key
 
-    def _get_api_from_relative_path(self, path, params=None, headers=None):
+    def _get_api_from_relative_path(
+        self, path, params=None, headers=None, backoff_index=None
+    ):
         full_url = urljoin(self.base_url, path)
-        logger.info("Exec: %s", full_url)
+
+        backoff_delays = [5, 10, 20, 60, 180]
+        if backoff_index is None:
+            backoff_index = 0
 
         # Insert account switch key
         if self.account_key is not None:
@@ -45,6 +50,33 @@ class AkamaiApiClient:
             if sleepy_seconds:
                 time.sleep(sleepy_seconds)
             response = self.session.get(full_url, params=params, headers=headers)
+            # Retry once for temporary 500 errors
+            if response.status_code == 500:
+                logger.error(f"Received 500 response for 'GET {full_url}'. Retrying...")
+                response = self.session.get(full_url, params=params, headers=headers)
+
+            # Back off for rate limit 429
+            if response.status_code == 429:
+                # Increase bacoff for next attempt
+                next_backoff_index = backoff_index + 1
+                if next_backoff_index > len(backoff_delays):
+                    logger.error(
+                        f"Received 429 response for 'GET {full_url}' and backoff limit exceeded."
+                    )
+                else:
+                    backoff = backoff_delays[backoff_index]
+                    logger.error(
+                        f"Received 429 response for 'GET {full_url}'. Waiting for {backoff} seconds before retrying"
+                    )
+                    time.sleep(backoff)
+                    response = self._get_api_from_relative_path(
+                        path,
+                        params=params,
+                        headers=headers,
+                        backoff_index=next_backoff_index,
+                    )
+
+            # Return body if 200
             if response.status_code == 200:
                 return response.json()
             self.error_count += 1
@@ -59,7 +91,6 @@ class AkamaiApiClient:
 
     def _post_api_from_relative_path(self, path, body, params=None, headers=None):
         full_url = urljoin(self.base_url, path)
-        logger.info("Exec: %s", full_url)
 
         # Insert account switch key
         if self.account_key is not None:
@@ -73,7 +104,7 @@ class AkamaiApiClient:
         }
 
         if isinstance(headers, dict):
-            for header in headers.keys():
+            for header in headers:
                 request_headers[header] = headers[header]
 
         for sleepy_seconds in range(5):
@@ -107,7 +138,8 @@ class AkamaiApiClient:
             yield elem
             seen.add(k)
 
-    def _resilient_session_factory(self, timeout=300, retry_count=5) -> Session:
+    @staticmethod
+    def _resilient_session_factory(timeout=300, retry_count=5) -> Session:
         session = Session()
         retries = Retry(
             total=retry_count, backoff_factor=0.5, status_forcelist=[500, 502, 503, 504]

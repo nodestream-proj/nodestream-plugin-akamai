@@ -263,16 +263,16 @@ class AkamaiPropertyClient(AkamaiApiClient):
         ]
         for behavior in behaviors:
             if behavior.get("name") == "origin":
-                if "hostname" in behavior["options"].keys():
-                    origin_host = behavior["options"]["hostname"]
-                elif "netStorage" in behavior["options"].keys():
-                    origin_host = behavior["options"]["netStorage"][
-                        "downloadDomainName"
-                    ]
-                elif "mslorigin" in behavior["options"].keys():
-                    origin_host = behavior["options"]["mslorigin"]
-
-                origins.append(Origin(name=origin_host))
+                origin_options = behavior["options"]
+                hostname = None
+                if origin_options["originType"] == "CUSTOMER":
+                    hostname = origin_options.get("hostname")
+                elif origin_options["originType"] == "NET_STORAGE":
+                    hostname = origin_options["netStorage"].get("downloadDomainName")
+                elif origin_options["originType"] == "MEDIA_SERVICE_LIVE":
+                    hostname = origin_options.get("mslorigin")
+                if hostname is not None:
+                    origins.append(Origin(name=hostname))
 
         # TODO: Maybe find a less terrible way to get unique list of origins - check as you go?
         return list(set(origins))
