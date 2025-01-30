@@ -1,438 +1,6 @@
 {
     "categories": [
         {
-            "id": 127,
-            "name": "Cidripv6",
-            "labels": [
-                "Cidripv6"
-            ],
-            "properties": [
-                {
-                    "name": "cidr",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "last_ingested_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                },
-                {
-                    "name": "was_ingested_by_edns",
-                    "exclude": false,
-                    "dataType": "boolean"
-                },
-                {
-                    "name": "last_ingested_by_edns_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
-                }
-            ],
-            "createdAt": 1730330192663,
-            "lastEditedAt": 1730330197124,
-            "color": "#569480",
-            "size": 1,
-            "icon": "no-icon",
-            "captionKeys": [],
-            "captions": [
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "Cidripv6",
-                    "type": "label"
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": true,
-                    "key": "cidr",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_edns_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_edns",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "constraints",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "indexes",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "name",
-                    "type": "property",
-                    "isGdsData": false
-                }
-            ],
-            "textSize": 1,
-            "textAlign": "top",
-            "styleRules": []
-        },
-        {
-            "id": 126,
-            "name": "AkamaiEdnsZone",
-            "labels": [
-                "AkamaiEdnsZone"
-            ],
-            "properties": [
-                {
-                    "name": "was_ingested_by_edns",
-                    "exclude": false,
-                    "dataType": "boolean"
-                },
-                {
-                    "name": "last_ingested_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                },
-                {
-                    "name": "sign_and_serve",
-                    "exclude": false,
-                    "dataType": "boolean"
-                },
-                {
-                    "name": "last_ingested_by_edns_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                },
-                {
-                    "name": "zone",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "alias_count",
-                    "exclude": false,
-                    "dataType": "bigint"
-                },
-                {
-                    "name": "contract_id",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "type",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
-                }
-            ],
-            "createdAt": 1730330185172,
-            "lastEditedAt": 1730330197142,
-            "color": "#DA7194",
-            "size": 1,
-            "icon": "no-icon",
-            "captionKeys": [],
-            "captions": [
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "AkamaiEdnsZone",
-                    "type": "label"
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "alias_count",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "contract_id",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_edns_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "sign_and_serve",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "type",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_edns",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": true,
-                    "key": "zone",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "constraints",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "indexes",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "name",
-                    "type": "property",
-                    "isGdsData": false
-                }
-            ],
-            "textSize": 1,
-            "textAlign": "top",
-            "styleRules": []
-        },
-        {
-            "id": 125,
-            "name": "AkamaiEdnsRecordSet",
-            "labels": [
-                "AkamaiEdnsRecordSet"
-            ],
-            "properties": [
-                {
-                    "name": "key",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "last_ingested_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "last_ingested_by_edns_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                },
-                {
-                    "name": "ttl",
-                    "exclude": false,
-                    "dataType": "bigint"
-                },
-                {
-                    "name": "type",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "was_ingested_by_edns",
-                    "exclude": false,
-                    "dataType": "boolean"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
-                }
-            ],
-            "createdAt": 1730330174918,
-            "lastEditedAt": 1730330197157,
-            "color": "#FFC454",
-            "size": 1,
-            "icon": "no-icon",
-            "captionKeys": [],
-            "captions": [
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "AkamaiEdnsRecordSet",
-                    "type": "label"
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "key",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_edns_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": true,
-                    "key": "name",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "ttl",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "type",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_edns",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "constraints",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "indexes",
-                    "type": "property",
-                    "isGdsData": false
-                }
-            ],
-            "textSize": 1,
-            "textAlign": "top",
-            "styleRules": []
-        },
-        {
             "id": 119,
             "name": "Cidripv4",
             "labels": [
@@ -458,40 +26,14 @@
                     "name": "was_ingested_by_siteshield",
                     "exclude": false,
                     "dataType": "boolean"
-                },
-                {
-                    "name": "last_ingested_by_edns_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                },
-                {
-                    "name": "was_ingested_by_edns",
-                    "exclude": false,
-                    "dataType": "boolean"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264553693,
-            "lastEditedAt": 1730330070810,
+            "lastEditedAt": 1710264553699,
             "color": "#57C7E3",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -531,49 +73,10 @@
                     "key": "was_ingested_by_siteshield",
                     "type": "property",
                     "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "constraints",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "indexes",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_edns_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "name",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_edns",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -617,30 +120,14 @@
                     "name": "was_ingested_by_appsec-coverage",
                     "exclude": false,
                     "dataType": "boolean"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264548766,
-            "lastEditedAt": 1730330070812,
+            "lastEditedAt": 1710264548775,
             "color": "#F79767",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -706,7 +193,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -750,30 +238,14 @@
                     "name": "config_id",
                     "exclude": false,
                     "dataType": "bigint"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264547011,
-            "lastEditedAt": 1730330070815,
+            "lastEditedAt": 1710264547020,
             "color": "#C990C0",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -839,7 +311,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -908,30 +381,14 @@
                     "name": "was_ingested_by_property",
                     "exclude": false,
                     "dataType": "boolean"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264545884,
-            "lastEditedAt": 1730330070818,
+            "lastEditedAt": 1710264545891,
             "color": "#FFE081",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -1037,7 +494,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -1076,25 +534,14 @@
                     "name": "was_ingested_by_redirect",
                     "exclude": false,
                     "dataType": "boolean"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264544699,
-            "lastEditedAt": 1730330070821,
+            "lastEditedAt": 1710264544705,
             "color": "#1b0085",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -1152,7 +599,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -1196,30 +644,14 @@
                     "name": "id",
                     "exclude": false,
                     "dataType": "string"
-                },
-                {
-                    "name": "deeplink",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264543441,
-            "lastEditedAt": 1730330070824,
+            "lastEditedAt": 1710264543453,
             "color": "#a20001",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -1285,7 +717,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -1329,30 +762,14 @@
                     "name": "last_modified_date",
                     "exclude": false,
                     "dataType": "string"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264542134,
-            "lastEditedAt": 1730330070828,
+            "lastEditedAt": 1710264542140,
             "color": "#569480",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -1418,7 +835,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -1472,30 +890,14 @@
                     "name": "last_ingested_by_netstorage-account_at",
                     "exclude": false,
                     "dataType": "DateTime"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264540949,
-            "lastEditedAt": 1730330070830,
+            "lastEditedAt": 1710264540958,
             "color": "#DA7194",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -1577,7 +979,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -1641,30 +1044,14 @@
                     "name": "was_ingested_by_netstorage-account",
                     "exclude": false,
                     "dataType": "boolean"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264539719,
-            "lastEditedAt": 1730330070834,
+            "lastEditedAt": 1710264539725,
             "color": "#FFC454",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -1762,7 +1149,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -1801,30 +1189,14 @@
                     "name": "id",
                     "exclude": false,
                     "dataType": "string"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264538430,
-            "lastEditedAt": 1730330070836,
+            "lastEditedAt": 1710264538437,
             "color": "#4C8EDA",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -1882,7 +1254,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -1946,30 +1319,14 @@
                     "name": "perceptual_quality",
                     "exclude": false,
                     "dataType": "string"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264536277,
-            "lastEditedAt": 1730330070839,
+            "lastEditedAt": 1710264555975,
             "color": "#ECB5C9",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -2067,7 +1424,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -2136,30 +1494,14 @@
                     "name": "last_ingested_by_iam-clients_at",
                     "exclude": false,
                     "dataType": "DateTime"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264535078,
-            "lastEditedAt": 1730330070842,
+            "lastEditedAt": 1710264535085,
             "color": "#8DCC93",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -2265,7 +1607,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -2314,30 +1657,14 @@
                     "name": "description",
                     "exclude": false,
                     "dataType": "string"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264533884,
-            "lastEditedAt": 1730330070845,
+            "lastEditedAt": 1710264533890,
             "color": "#D9C8AE",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -2411,7 +1738,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -2495,30 +1823,14 @@
                     "name": "client_type",
                     "exclude": false,
                     "dataType": "string"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264532386,
-            "lastEditedAt": 1730330070848,
+            "lastEditedAt": 1710264532400,
             "color": "#F16667",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -2648,23 +1960,87 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
             "id": 105,
             "name": "AkamaiGtmTarget",
-            "labels": [],
-            "properties": [],
+            "labels": [
+                "AkamaiGtmTarget"
+            ],
+            "properties": [
+                {
+                    "name": "target",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
+                    "name": "last_ingested_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                },
+                {
+                    "name": "was_ingested_by_gtm",
+                    "exclude": false,
+                    "dataType": "boolean"
+                },
+                {
+                    "name": "last_ingested_by_gtm_at",
+                    "exclude": false,
+                    "dataType": "DateTime"
+                }
+            ],
             "createdAt": 1710264531259,
-            "lastEditedAt": 1727975923709,
+            "lastEditedAt": 1710264531264,
             "color": "#57C7E3",
             "size": 1,
             "icon": "no-icon",
+            "captionKeys": [],
+            "captions": [
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "AkamaiGtmTarget",
+                    "type": "label"
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "last_ingested_by_gtm_at",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": true,
+                    "key": "target",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
+                    "inTooltip": false,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "was_ingested_by_gtm",
+                    "type": "property",
+                    "isGdsData": false
+                }
+            ],
             "textSize": 1,
             "textAlign": "top",
-            "captions": [],
-            "captionKeys": [],
             "styleRules": []
         },
         {
@@ -2743,25 +2119,14 @@
                     "name": "name",
                     "exclude": false,
                     "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264530091,
-            "lastEditedAt": 1730330070851,
+            "lastEditedAt": 1710264530097,
             "color": "#F79767",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -2883,7 +2248,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -2922,30 +2288,14 @@
                     "name": "was_ingested_by_ehn",
                     "exclude": false,
                     "dataType": "boolean"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264528769,
-            "lastEditedAt": 1730330070853,
+            "lastEditedAt": 1710264528775,
             "color": "#C990C0",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -3003,7 +2353,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -3092,25 +2443,14 @@
                     "name": "was_ingested_by_property",
                     "exclude": false,
                     "dataType": "boolean"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264527232,
-            "lastEditedAt": 1730330070857,
+            "lastEditedAt": 1710265950436,
             "color": "#FFE081",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -3248,7 +2588,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -3307,40 +2648,14 @@
                     "name": "cpcode_id",
                     "exclude": false,
                     "dataType": "bigint"
-                },
-                {
-                    "name": "was_ingested_by_property",
-                    "exclude": false,
-                    "dataType": "boolean"
-                },
-                {
-                    "name": "last_ingested_by_property_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264525749,
-            "lastEditedAt": 1730330070860,
+            "lastEditedAt": 1710264525755,
             "color": "#b7a4b7",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -3430,7 +2745,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -3469,25 +2785,14 @@
                     "name": "last_ingested_by_gtm_at",
                     "exclude": false,
                     "dataType": "DateTime"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264438815,
-            "lastEditedAt": 1730330070863,
+            "lastEditedAt": 1710264438823,
             "color": "#210000",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -3545,7 +2850,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -3599,25 +2905,14 @@
                     "name": "name",
                     "exclude": false,
                     "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264435373,
-            "lastEditedAt": 1730330070865,
+            "lastEditedAt": 1710264435379,
             "color": "#569480",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -3699,7 +2994,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -3748,30 +3044,14 @@
                     "name": "expiry",
                     "exclude": false,
                     "dataType": "string"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1710264394538,
-            "lastEditedAt": 1730330070868,
+            "lastEditedAt": 1710264555996,
             "color": "#DA7194",
             "size": 1,
             "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": false,
@@ -3845,7 +3125,8 @@
                     "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
@@ -4008,6 +3289,11 @@
                     "dataType": "boolean"
                 },
                 {
+                    "name": "type",
+                    "exclude": false,
+                    "dataType": "string"
+                },
+                {
                     "name": "was_ingested_by_gtm",
                     "exclude": false,
                     "dataType": "boolean"
@@ -4016,45 +3302,10 @@
                     "name": "last_ingested_by_gtm_at",
                     "exclude": false,
                     "dataType": "DateTime"
-                },
-                {
-                    "name": "was_ingested_by_apidiscovery",
-                    "exclude": false,
-                    "dataType": "boolean"
-                },
-                {
-                    "name": "last_ingested_by_apidiscovery_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                },
-                {
-                    "name": "last_ingested_by_edns_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                },
-                {
-                    "name": "was_ingested_by_edns",
-                    "exclude": false,
-                    "dataType": "boolean"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
                 }
             ],
             "createdAt": 1684596218459,
-            "lastEditedAt": 1730330070871,
+            "lastEditedAt": 1710264321955,
             "color": "#57C7E3",
             "size": 1,
             "icon": "no-icon",
@@ -4181,6 +3432,14 @@
                     "isGdsData": false
                 },
                 {
+                    "inTooltip": true,
+                    "styles": [],
+                    "isCaption": false,
+                    "key": "type",
+                    "type": "property",
+                    "isGdsData": false
+                },
+                {
                     "inTooltip": false,
                     "styles": [],
                     "isCaption": false,
@@ -4203,285 +3462,6 @@
                 "fqdn"
             ],
             "styleRules": []
-        },
-        {
-            "id": 123,
-            "name": "AkamaiAPI",
-            "labels": [],
-            "properties": [],
-            "createdAt": 1727913208209,
-            "lastEditedAt": 1727913208209,
-            "color": "#ECB5C9",
-            "size": 1,
-            "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
-            "captions": [],
-            "captionKeys": [],
-            "styleRules": []
-        },
-        {
-            "id": 124,
-            "name": "AkamaiDiscoveredAPI",
-            "labels": [
-                "AkamaiDiscoveredAPI"
-            ],
-            "properties": [
-                {
-                    "name": "dateFirstSeen",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "totalErrors",
-                    "exclude": false,
-                    "dataType": "number"
-                },
-                {
-                    "name": "was_ingested_by_apidiscovery",
-                    "exclude": false,
-                    "dataType": "boolean"
-                },
-                {
-                    "name": "requestsLastDay",
-                    "exclude": false,
-                    "dataType": "bigint"
-                },
-                {
-                    "name": "requests",
-                    "exclude": false,
-                    "dataType": "bigint"
-                },
-                {
-                    "name": "last_ingested_by_apidiscovery_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                },
-                {
-                    "name": "gets",
-                    "exclude": false,
-                    "dataType": "bigint"
-                },
-                {
-                    "name": "posts",
-                    "exclude": false,
-                    "dataType": "bigint"
-                },
-                {
-                    "name": "dateLastSeen",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "puts",
-                    "exclude": false,
-                    "dataType": "bigint"
-                },
-                {
-                    "name": "dateLastModified",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "basePath",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "successes",
-                    "exclude": false,
-                    "dataType": "bigint"
-                },
-                {
-                    "name": "last_ingested_at",
-                    "exclude": false,
-                    "dataType": "DateTime"
-                },
-                {
-                    "name": "options",
-                    "exclude": false,
-                    "dataType": "bigint"
-                },
-                {
-                    "name": "host",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "id",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "name",
-                    "exclude": false,
-                    "dataType": "string"
-                },
-                {
-                    "name": "indexes",
-                    "exclude": false,
-                    "dataType": "array"
-                },
-                {
-                    "name": "constraints",
-                    "exclude": false,
-                    "dataType": "array"
-                }
-            ],
-            "createdAt": 1727975919207,
-            "lastEditedAt": 1730330070874,
-            "color": "#4C8EDA",
-            "size": 1,
-            "icon": "no-icon",
-            "textSize": 1,
-            "textAlign": "top",
-            "captions": [
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "AkamaiDiscoveredAPI",
-                    "type": "label"
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "basePath",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "dateFirstSeen",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "dateLastModified",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "dateLastSeen",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "gets",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "host",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": true,
-                    "key": "id",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_apidiscovery_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "options",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "posts",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "puts",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "requests",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "requestsLastDay",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "successes",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": true,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "totalErrors",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_apidiscovery",
-                    "type": "property",
-                    "isGdsData": false
-                }
-            ],
-            "captionKeys": [],
-            "styleRules": []
         }
     ],
     "name": "Akamai_Scope",
@@ -4489,9 +3469,49 @@
     "labels": {
         "Endpoint": [
             {
+                "propertyKey": "last_ingested_by_redirect_at",
+                "type": "Endpoint",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "last_ingested_by_property_at",
+                "type": "Endpoint",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "last_ingested_by_ehn_at",
+                "type": "Endpoint",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_redirect",
+                "type": "Endpoint",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_cps_at",
+                "type": "Endpoint",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_property",
+                "type": "Endpoint",
+                "dataType": "boolean"
+            },
+            {
                 "propertyKey": "fqdn",
                 "type": "Endpoint",
                 "dataType": "string"
+            },
+            {
+                "propertyKey": "was_ingested_by_ehn",
+                "type": "Endpoint",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "was_ingested_by_cps",
+                "type": "Endpoint",
+                "dataType": "boolean"
             },
             {
                 "propertyKey": "last_ingested_at",
@@ -4499,12 +3519,12 @@
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "was_ingested_by_edns",
+                "propertyKey": "was_ingested_by_appsec-coverage",
                 "type": "Endpoint",
                 "dataType": "boolean"
             },
             {
-                "propertyKey": "last_ingested_by_edns_at",
+                "propertyKey": "last_ingested_by_appsec-coverage_at",
                 "type": "Endpoint",
                 "dataType": "DateTime"
             }
@@ -4558,19 +3578,9 @@
         ],
         "AkamaiCPCode": [
             {
-                "propertyKey": "last_ingested_by_property_at",
-                "type": "AkamaiCPCode",
-                "dataType": "DateTime"
-            },
-            {
                 "propertyKey": "deeplink",
                 "type": "AkamaiCPCode",
                 "dataType": "string"
-            },
-            {
-                "propertyKey": "was_ingested_by_property",
-                "type": "AkamaiCPCode",
-                "dataType": "boolean"
             },
             {
                 "propertyKey": "last_ingested_by_cpcodes_at",
@@ -4593,14 +3603,14 @@
                 "dataType": "string"
             },
             {
-                "propertyKey": "purgeable",
-                "type": "AkamaiCPCode",
-                "dataType": "boolean"
-            },
-            {
                 "propertyKey": "last_ingested_at",
                 "type": "AkamaiCPCode",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "purgeable",
+                "type": "AkamaiCPCode",
+                "dataType": "boolean"
             },
             {
                 "propertyKey": "type",
@@ -4860,17 +3870,12 @@
                 "dataType": "string"
             },
             {
-                "propertyKey": "id",
-                "type": "AkamaiSiteshieldMap",
-                "dataType": "bigint"
-            },
-            {
                 "propertyKey": "last_ingested_by_property_at",
                 "type": "AkamaiSiteshieldMap",
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "mcm_map_rule_id",
+                "propertyKey": "id",
                 "type": "AkamaiSiteshieldMap",
                 "dataType": "bigint"
             },
@@ -4878,6 +3883,11 @@
                 "propertyKey": "last_ingested_at",
                 "type": "AkamaiSiteshieldMap",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "mcm_map_rule_id",
+                "type": "AkamaiSiteshieldMap",
+                "dataType": "bigint"
             },
             {
                 "propertyKey": "rule_name",
@@ -4902,12 +3912,12 @@
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "name",
+                "propertyKey": "rule_format",
                 "type": "AkamaiProperty",
                 "dataType": "string"
             },
             {
-                "propertyKey": "id",
+                "propertyKey": "name",
                 "type": "AkamaiProperty",
                 "dataType": "string"
             },
@@ -4922,12 +3932,7 @@
                 "dataType": "bigint"
             },
             {
-                "propertyKey": "rule_format",
-                "type": "AkamaiProperty",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "deeplink",
+                "propertyKey": "id",
                 "type": "AkamaiProperty",
                 "dataType": "string"
             }
@@ -5071,6 +4076,28 @@
                 "propertyKey": "name",
                 "type": "AkamaiEdgeworker",
                 "dataType": "string"
+            }
+        ],
+        "AkamaiGtmTarget": [
+            {
+                "propertyKey": "target",
+                "type": "AkamaiGtmTarget",
+                "dataType": "string"
+            },
+            {
+                "propertyKey": "last_ingested_at",
+                "type": "AkamaiGtmTarget",
+                "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_gtm",
+                "type": "AkamaiGtmTarget",
+                "dataType": "boolean"
+            },
+            {
+                "propertyKey": "last_ingested_by_gtm_at",
+                "type": "AkamaiGtmTarget",
+                "dataType": "DateTime"
             }
         ],
         "AkamaiGtmProperty": [
@@ -5387,14 +4414,14 @@
                 "dataType": "DateTime"
             },
             {
-                "propertyKey": "was_ingested_by_edns",
-                "type": "Cidripv4",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_edns_at",
+                "propertyKey": "last_ingested_by_siteshield_at",
                 "type": "Cidripv4",
                 "dataType": "DateTime"
+            },
+            {
+                "propertyKey": "was_ingested_by_siteshield",
+                "type": "Cidripv4",
+                "dataType": "boolean"
             }
         ],
         "AkamaiWafConfig": [
@@ -5475,194 +4502,6 @@
                 "type": "AkamaiIamCredential",
                 "dataType": "string"
             }
-        ],
-        "AkamaiEdnsZone": [
-            {
-                "propertyKey": "was_ingested_by_edns",
-                "type": "AkamaiEdnsZone",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiEdnsZone",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "sign_and_serve",
-                "type": "AkamaiEdnsZone",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_edns_at",
-                "type": "AkamaiEdnsZone",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "zone",
-                "type": "AkamaiEdnsZone",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "alias_count",
-                "type": "AkamaiEdnsZone",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "contract_id",
-                "type": "AkamaiEdnsZone",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "type",
-                "type": "AkamaiEdnsZone",
-                "dataType": "string"
-            }
-        ],
-        "Cidripv6": [
-            {
-                "propertyKey": "cidr",
-                "type": "Cidripv6",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "Cidripv6",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "was_ingested_by_edns",
-                "type": "Cidripv6",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_edns_at",
-                "type": "Cidripv6",
-                "dataType": "DateTime"
-            }
-        ],
-        "AkamaiEdnsRecordSet": [
-            {
-                "propertyKey": "key",
-                "type": "AkamaiEdnsRecordSet",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiEdnsRecordSet",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "name",
-                "type": "AkamaiEdnsRecordSet",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_by_edns_at",
-                "type": "AkamaiEdnsRecordSet",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "ttl",
-                "type": "AkamaiEdnsRecordSet",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "type",
-                "type": "AkamaiEdnsRecordSet",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "was_ingested_by_edns",
-                "type": "AkamaiEdnsRecordSet",
-                "dataType": "boolean"
-            }
-        ],
-        "AkamaiDiscoveredAPI": [
-            {
-                "propertyKey": "options",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "host",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "dateLastModified",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "basePath",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "dateLastSeen",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "puts",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "successes",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "requestsLastDay",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "requests",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "gets",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "posts",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "bigint"
-            },
-            {
-                "propertyKey": "dateFirstSeen",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "totalErrors",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "number"
-            },
-            {
-                "propertyKey": "was_ingested_by_apidiscovery",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "boolean"
-            },
-            {
-                "propertyKey": "last_ingested_by_apidiscovery_at",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "DateTime"
-            },
-            {
-                "propertyKey": "id",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "string"
-            },
-            {
-                "propertyKey": "last_ingested_at",
-                "type": "AkamaiDiscoveredAPI",
-                "dataType": "DateTime"
-            }
         ]
     },
     "relationshipTypes": [
@@ -5703,8 +4542,6 @@
             "styleRules": []
         },
         {
-            "id": "SERVICED_BY",
-            "name": "SERVICED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5720,27 +4557,13 @@
                     "propertyKey": "last_ingested_by_property_at",
                     "type": "SERVICED_BY",
                     "dataType": "DateTime"
-                },
-                {
-                    "dataType": "boolean",
-                    "propertyKey": "was_ingested_by_apidiscovery",
-                    "type": "SERVICED_BY"
-                },
-                {
-                    "dataType": "DateTime",
-                    "propertyKey": "last_ingested_by_apidiscovery_at",
-                    "type": "SERVICED_BY"
-                },
-                {
-                    "dataType": "string",
-                    "propertyKey": "path",
-                    "type": "SERVICED_BY"
                 }
             ],
+            "name": "SERVICED_BY",
+            "id": "SERVICED_BY",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5750,12 +4573,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "PROXIES_TO",
-            "name": "PROXIES_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5771,12 +4593,18 @@
                     "propertyKey": "last_ingested_by_property_at",
                     "type": "PROXIES_TO",
                     "dataType": "DateTime"
+                },
+                {
+                    "propertyKey": "path",
+                    "type": "PROXIES_TO",
+                    "dataType": "string"
                 }
             ],
+            "name": "PROXIES_TO",
+            "id": "PROXIES_TO",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5784,38 +4612,13 @@
                     "styles": [],
                     "key": "PROXIES_TO",
                     "type": "relationship"
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "last_ingested_by_property_at",
-                    "type": "property",
-                    "isGdsData": false
-                },
-                {
-                    "inTooltip": false,
-                    "styles": [],
-                    "isCaption": false,
-                    "key": "was_ingested_by_property",
-                    "type": "property",
-                    "isGdsData": false
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "REDIRECTS_HANDLED_BY",
-            "name": "REDIRECTS_HANDLED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5833,10 +4636,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "REDIRECTS_HANDLED_BY",
+            "id": "REDIRECTS_HANDLED_BY",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5846,12 +4650,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "REDIRECTS_TO",
-            "name": "REDIRECTS_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5869,10 +4672,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "REDIRECTS_TO",
+            "id": "REDIRECTS_TO",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5882,12 +4686,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "ACCESSES",
-            "name": "ACCESSES",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5905,10 +4708,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "ACCESSES",
+            "id": "ACCESSES",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5918,12 +4722,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "EGRESS",
-            "name": "EGRESS",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5941,10 +4744,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "EGRESS",
+            "id": "EGRESS",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5954,12 +4758,31 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "AUTHORIZED_BY",
-            "name": "AUTHORIZED_BY",
+            "properties": [],
+            "name": "REDIRECTS_IN",
+            "id": "REDIRECTS_IN",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [],
+            "captions": [
+                {
+                    "inTooltip": true,
+                    "isCaption": true,
+                    "styles": [],
+                    "key": "REDIRECTS_IN",
+                    "type": "relationship"
+                }
+            ],
+            "textSize": 1,
+            "textAlign": "top",
+            "styleRules": []
+        },
+        {
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -5977,10 +4800,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "AUTHORIZED_BY",
+            "id": "AUTHORIZED_BY",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -5990,12 +4814,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "MANAGED_BY",
-            "name": "MANAGED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -6013,10 +4836,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "MANAGED_BY",
+            "id": "MANAGED_BY",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -6026,12 +4850,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "CONTAINS",
-            "name": "CONTAINS",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -6049,10 +4872,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "CONTAINS",
+            "id": "CONTAINS",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -6062,12 +4886,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "MEDIA_OPTIMIZED_BY",
-            "name": "MEDIA_OPTIMIZED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -6085,10 +4908,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "MEDIA_OPTIMIZED_BY",
+            "id": "MEDIA_OPTIMIZED_BY",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -6098,12 +4922,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "RUNS_CODE_FOR",
-            "name": "RUNS_CODE_FOR",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -6121,10 +4944,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "RUNS_CODE_FOR",
+            "id": "RUNS_CODE_FOR",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -6134,12 +4958,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "CNAMES_TO",
-            "name": "CNAMES_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -6157,10 +4980,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "CNAMES_TO",
+            "id": "CNAMES_TO",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -6170,12 +4994,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "OFFLOADS_CONFIGURATION_TO",
-            "name": "OFFLOADS_CONFIGURATION_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -6193,10 +5016,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "OFFLOADS_CONFIGURATION_TO",
+            "id": "OFFLOADS_CONFIGURATION_TO",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -6206,12 +5030,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "ROUTES_THROUGH",
-            "name": "ROUTES_THROUGH",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -6229,10 +5052,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "ROUTES_THROUGH",
+            "id": "ROUTES_THROUGH",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -6242,12 +5066,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "ENCRYPTED_BY",
-            "name": "ENCRYPTED_BY",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -6265,10 +5088,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "ENCRYPTED_BY",
+            "id": "ENCRYPTED_BY",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -6278,12 +5102,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "INCLUDED_IN",
-            "name": "INCLUDED_IN",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -6301,10 +5124,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "INCLUDED_IN",
+            "id": "INCLUDED_IN",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -6314,12 +5138,47 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "IN_DOMAIN",
-            "name": "IN_DOMAIN",
+            "properties": [
+                {
+                    "propertyKey": "last_ingested_at",
+                    "type": "RETURNS",
+                    "dataType": "DateTime"
+                },
+                {
+                    "propertyKey": "last_ingested_by_gtm_at",
+                    "type": "RETURNS",
+                    "dataType": "DateTime"
+                },
+                {
+                    "propertyKey": "was_ingested_by_gtm",
+                    "type": "RETURNS",
+                    "dataType": "boolean"
+                }
+            ],
+            "name": "RETURNS",
+            "id": "RETURNS",
+            "color": "#848484",
+            "size": 1,
+            "captionKeys": [],
+            "captions": [
+                {
+                    "inTooltip": true,
+                    "isCaption": true,
+                    "styles": [],
+                    "key": "RETURNS",
+                    "type": "relationship"
+                }
+            ],
+            "textSize": 1,
+            "textAlign": "top",
+            "styleRules": []
+        },
+        {
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -6337,10 +5196,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "IN_DOMAIN",
+            "id": "IN_DOMAIN",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -6350,12 +5210,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "UPLOADS_TO",
-            "name": "UPLOADS_TO",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -6373,10 +5232,11 @@
                     "dataType": "boolean"
                 }
             ],
+            "name": "UPLOADS_TO",
+            "id": "UPLOADS_TO",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -6386,33 +5246,17 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "REPORTS_ON",
+            "properties": [],
             "name": "REPORTS_ON",
-            "properties": [
-                {
-                    "propertyKey": "last_ingested_at",
-                    "type": "REPORTS_ON",
-                    "dataType": "DateTime"
-                },
-                {
-                    "propertyKey": "was_ingested_by_property",
-                    "type": "REPORTS_ON",
-                    "dataType": "boolean"
-                },
-                {
-                    "propertyKey": "last_ingested_by_property_at",
-                    "type": "REPORTS_ON",
-                    "dataType": "DateTime"
-                }
-            ],
+            "id": "REPORTS_ON",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -6422,12 +5266,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "AUTHENTICATES_WITH",
-            "name": "AUTHENTICATES_WITH",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -6445,10 +5288,11 @@
                     "dataType": "DateTime"
                 }
             ],
+            "name": "AUTHENTICATES_WITH",
+            "id": "AUTHENTICATES_WITH",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -6458,12 +5302,11 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
+            "textSize": 1,
+            "textAlign": "top",
             "styleRules": []
         },
         {
-            "id": "RECORD_OF",
-            "name": "RECORD_OF",
             "properties": [
                 {
                     "propertyKey": "last_ingested_at",
@@ -6479,22 +5322,13 @@
                     "propertyKey": "was_ingested_by_gtm",
                     "type": "RECORD_OF",
                     "dataType": "boolean"
-                },
-                {
-                    "propertyKey": "last_ingested_by_edns_at",
-                    "type": "RECORD_OF",
-                    "dataType": "DateTime"
-                },
-                {
-                    "propertyKey": "was_ingested_by_edns",
-                    "type": "RECORD_OF",
-                    "dataType": "boolean"
                 }
             ],
+            "name": "RECORD_OF",
+            "id": "RECORD_OF",
             "color": "#848484",
             "size": 1,
-            "textSize": 1,
-            "textAlign": "top",
+            "captionKeys": [],
             "captions": [
                 {
                     "inTooltip": true,
@@ -6504,43 +5338,8 @@
                     "type": "relationship"
                 }
             ],
-            "captionKeys": [],
-            "styleRules": []
-        },
-        {
-            "id": "RESOLVES_TO",
-            "name": "RESOLVES_TO",
-            "properties": [
-                {
-                    "propertyKey": "last_ingested_at",
-                    "type": "RESOLVES_TO",
-                    "dataType": "DateTime"
-                },
-                {
-                    "propertyKey": "last_ingested_by_edns_at",
-                    "type": "RESOLVES_TO",
-                    "dataType": "DateTime"
-                },
-                {
-                    "propertyKey": "was_ingested_by_edns",
-                    "type": "RESOLVES_TO",
-                    "dataType": "boolean"
-                }
-            ],
-            "color": "#848484",
-            "size": 1,
             "textSize": 1,
             "textAlign": "top",
-            "captions": [
-                {
-                    "inTooltip": true,
-                    "isCaption": true,
-                    "styles": [],
-                    "key": "RESOLVES_TO",
-                    "type": "relationship"
-                }
-            ],
-            "captionKeys": [],
             "styleRules": []
         }
     ],
@@ -6561,7 +5360,7 @@
             "#848484",
             "#D9D9D9"
         ],
-        "currentIndex": 166
+        "currentIndex": 158
     },
     "createdAt": 1706128392325,
     "lastEditedAt": 1706128392325,
@@ -6642,6 +5441,11 @@
             },
             {
                 "source": "AkamaiGtmProperty",
+                "relationshipType": "RETURNS",
+                "target": "AkamaiGtmTarget"
+            },
+            {
+                "source": "AkamaiGtmProperty",
                 "relationshipType": "IN_DOMAIN",
                 "target": "AkamaiGtmDomain"
             },
@@ -6649,11 +5453,6 @@
                 "source": "AkamaiWafPolicy",
                 "relationshipType": "INCLUDED_IN",
                 "target": "AkamaiWafConfig"
-            },
-            {
-                "source": "AkamaiCPCode",
-                "relationshipType": "REPORTS_ON",
-                "target": "AkamaiProperty"
             },
             {
                 "source": "AkamaiProperty",
@@ -6678,11 +5477,6 @@
             {
                 "source": "Endpoint",
                 "relationshipType": "SERVICED_BY",
-                "target": "AkamaiDiscoveredAPI"
-            },
-            {
-                "source": "Endpoint",
-                "relationshipType": "SERVICED_BY",
                 "target": "AkamaiProperty"
             },
             {
@@ -6691,11 +5485,6 @@
                 "target": "AkamaiWafPolicy"
             },
             {
-                "source": "Endpoint",
-                "relationshipType": "UPLOADS_TO",
-                "target": "Endpoint"
-            },
-            {
                 "source": "AkamaiNetstorageGroup",
                 "relationshipType": "UPLOADS_TO",
                 "target": "Endpoint"
@@ -6711,19 +5500,9 @@
                 "target": "AkamaiNetstorageGroup"
             },
             {
-                "source": "AkamaiEdnsRecordSet",
-                "relationshipType": "RESOLVES_TO",
+                "source": "Endpoint",
+                "relationshipType": "UPLOADS_TO",
                 "target": "Endpoint"
-            },
-            {
-                "source": "AkamaiEdnsRecordSet",
-                "relationshipType": "RESOLVES_TO",
-                "target": "Cidripv4"
-            },
-            {
-                "source": "AkamaiEdnsRecordSet",
-                "relationshipType": "RESOLVES_TO",
-                "target": "Cidripv6"
             },
             {
                 "source": "AkamaiProperty",
@@ -6731,24 +5510,9 @@
                 "target": "AkamaiCloudlet"
             },
             {
-                "source": "AkamaiEdnsRecordSet",
-                "relationshipType": "RECORD_OF",
-                "target": "Endpoint"
-            },
-            {
-                "source": "AkamaiEdnsRecordSet",
-                "relationshipType": "RECORD_OF",
-                "target": "AkamaiEdnsZone"
-            },
-            {
                 "source": "AkamaiGtmProperty",
                 "relationshipType": "RECORD_OF",
                 "target": "Endpoint"
-            },
-            {
-                "source": "AkamaiGtmProperty",
-                "relationshipType": "RECORD_OF",
-                "target": "AkamaiEdnsZone"
             },
             {
                 "source": "AkamaiSiteshieldMap",
@@ -6778,29 +5542,73 @@
         ],
         "indexes": [
             {
-                "label": null,
+                "label": "AkamaiCPCode",
                 "type": "native",
-                "propertyKeys": []
-            },
-            {
-                "label": "Endpoint",
-                "type": "native",
-                "isMetadataPropIndex": true,
                 "propertyKeys": [
                     {
                         "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "type",
                         "metadataProp": true
                     },
                     {
-                        "key": "fqdn",
+                        "key": "cpcode_id",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_gtm_at",
+                        "key": "last_ingested_by_cpcodes_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_netstorage-group",
+                        "key": "was_ingested_by_cpcodes",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "contract_id",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "deeplink",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "purgeable",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "cpcode_name",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "AkamaiCertificate",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "cn",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "cipher_suite",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "disallowed_tls_versions",
                         "metadataProp": true
                     },
                     {
@@ -6808,63 +5616,11 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_redirect_at",
-                        "metadataProp": true
-                    },
-                    {
                         "key": "was_ingested_by_cps",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_netstorage-group_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_redirect",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_appsec-coverage",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_apidiscovery_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_appsec-coverage_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_edns_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_edns",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_ehn",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_gtm",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_ehn_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_property",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_property_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_apidiscovery",
+                        "key": "expiry",
                         "metadataProp": true
                     }
                 ]
@@ -6872,18 +5628,17 @@
             {
                 "label": "AkamaiCloudlet",
                 "type": "native",
-                "isMetadataPropIndex": true,
                 "propertyKeys": [
                     {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
                         "key": "id",
-                        "metadataProp": true
+                        "metadataProp": false
                     },
                     {
                         "key": "name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_at",
                         "metadataProp": true
                     },
                     {
@@ -6941,111 +5696,16 @@
                 ]
             },
             {
-                "label": "AkamaiCPCode",
-                "type": "native",
-                "isMetadataPropIndex": true,
-                "propertyKeys": [
-                    {
-                        "key": "id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "cpcode_id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_cpcodes_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_cpcodes",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "contract_id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "purgeable",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "type",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_property",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_property_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "deeplink",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "cpcode_name",
-                        "metadataProp": true
-                    }
-                ]
-            },
-            {
-                "label": "AkamaiCertificate",
-                "type": "native",
-                "isMetadataPropIndex": true,
-                "propertyKeys": [
-                    {
-                        "key": "id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "cn",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "cipher_suite",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "disallowed_tls_versions",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_cps_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_cps",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "expiry",
-                        "metadataProp": true
-                    }
-                ]
-            },
-            {
                 "label": "AkamaiEdgeHostname",
                 "type": "native",
-                "isMetadataPropIndex": true,
                 "propertyKeys": [
                     {
                         "key": "last_ingested_at",
-                        "metadataProp": true
+                        "metadataProp": false
                     },
                     {
                         "key": "edge_hostname_id",
-                        "metadataProp": true
+                        "metadataProp": false
                     },
                     {
                         "key": "edge_hostname",
@@ -7066,309 +5726,19 @@
                 ]
             },
             {
-                "label": "AkamaiNetstorageAccount",
-                "type": "native",
-                "isMetadataPropIndex": true,
-                "propertyKeys": [
-                    {
-                        "key": "last_ingested_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "has_http_api_access",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "ssh_enabled",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "ftp_enabled",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "has_file_manager_access",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "storage_group_name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "aspera_enabled",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "upload_account_id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "rsync_enabled",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_netstorage-account",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_netstorage-account_at",
-                        "metadataProp": true
-                    }
-                ]
-            },
-            {
-                "label": "AkamaiNetstorageKey",
-                "type": "native",
-                "isMetadataPropIndex": true,
-                "propertyKeys": [
-                    {
-                        "key": "id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "type",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_netstorage-account",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_modified_date",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_modified_by",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_netstorage-account_at",
-                        "metadataProp": true
-                    }
-                ]
-            },
-            {
-                "label": "AkamaiNetstorageGroup",
-                "type": "native",
-                "isMetadataPropIndex": true,
-                "propertyKeys": [
-                    {
-                        "key": "last_ingested_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "storage_group_name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "domain_prefix",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "estimated_usage_gb",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_netstorage-group_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "storage_group_id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_netstorage-account",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_netstorage-group",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_netstorage-account_at",
-                        "metadataProp": true
-                    }
-                ]
-            },
-            {
-                "label": "AkamaiSiteshieldMap",
-                "type": "native",
-                "isMetadataPropIndex": true,
-                "propertyKeys": [
-                    {
-                        "key": "id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "sure_route_name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "acknowledged_by",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "mcm_map_rule_id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "map_alias",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "rule_name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_siteshield_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_siteshield",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_property_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_property",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "deeplink",
-                        "metadataProp": true
-                    }
-                ]
-            },
-            {
-                "label": "AkamaiProperty",
-                "type": "native",
-                "isMetadataPropIndex": true,
-                "propertyKeys": [
-                    {
-                        "key": "id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_property",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_property_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "version",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "deeplink",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "rule_format",
-                        "metadataProp": true
-                    }
-                ]
-            },
-            {
-                "label": "AkamaiRedirectConfig",
-                "type": "native",
-                "isMetadataPropIndex": true,
-                "propertyKeys": [
-                    {
-                        "key": "name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "policyId",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_redirect_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_redirect",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "deeplink",
-                        "metadataProp": true
-                    }
-                ]
-            },
-            {
-                "label": "AkamaiWafPolicy",
-                "type": "native",
-                "isMetadataPropIndex": true,
-                "propertyKeys": [
-                    {
-                        "key": "last_ingested_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_waf_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "policy_name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "policy_id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_appsec-coverage",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_waf",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_appsec-coverage_at",
-                        "metadataProp": true
-                    }
-                ]
-            },
-            {
                 "label": "AkamaiEdgeworker",
                 "type": "native",
-                "isMetadataPropIndex": true,
                 "propertyKeys": [
                     {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
                         "key": "id",
-                        "metadataProp": true
+                        "metadataProp": false
                     },
                     {
                         "key": "name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_at",
                         "metadataProp": true
                     },
                     {
@@ -7400,7 +5770,7 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "active_version",
+                        "key": "account_id",
                         "metadataProp": true
                     },
                     {
@@ -7412,38 +5782,7 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "account_id",
-                        "metadataProp": true
-                    }
-                ]
-            },
-            {
-                "label": "AkamaiGtmProperty",
-                "type": "native",
-                "isMetadataPropIndex": true,
-                "propertyKeys": [
-                    {
-                        "key": "name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "fqdn",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "type",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_gtm_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_gtm",
+                        "key": "active_version",
                         "metadataProp": true
                     }
                 ]
@@ -7451,15 +5790,14 @@
             {
                 "label": "AkamaiGtmDomain",
                 "type": "native",
-                "isMetadataPropIndex": true,
                 "propertyKeys": [
                     {
-                        "key": "name",
-                        "metadataProp": true
+                        "key": "last_ingested_at",
+                        "metadataProp": false
                     },
                     {
-                        "key": "last_ingested_at",
-                        "metadataProp": true
+                        "key": "name",
+                        "metadataProp": false
                     },
                     {
                         "key": "type",
@@ -7492,13 +5830,68 @@
                 ]
             },
             {
-                "label": "AkamaiIamClient",
+                "label": "AkamaiGtmProperty",
                 "type": "native",
-                "isMetadataPropIndex": true,
                 "propertyKeys": [
                     {
                         "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "fqdn",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
                         "metadataProp": true
+                    },
+                    {
+                        "key": "type",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_gtm_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_gtm",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "AkamaiGtmTarget",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "target",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "last_ingested_by_gtm_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_gtm",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "AkamaiIamClient",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "clientId",
+                        "metadataProp": false
                     },
                     {
                         "key": "allow_account_switch",
@@ -7514,10 +5907,6 @@
                     },
                     {
                         "key": "last_ingested_by_iam-clients_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "clientId",
                         "metadataProp": true
                     },
                     {
@@ -7559,13 +5948,54 @@
                 ]
             },
             {
-                "label": "AkamaiIamUser",
+                "label": "AkamaiIamCredential",
                 "type": "native",
-                "isMetadataPropIndex": true,
                 "propertyKeys": [
                     {
                         "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "credential_id",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "created_on",
                         "metadataProp": true
+                    },
+                    {
+                        "key": "expires_on",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_iam-clients",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "client_token",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "description",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_iam-clients_at",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "AkamaiIamUser",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "ui_user_name",
+                        "metadataProp": false
                     },
                     {
                         "key": "last_name",
@@ -7573,10 +6003,6 @@
                     },
                     {
                         "key": "first_name",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "ui_user_name",
                         "metadataProp": true
                     },
                     {
@@ -7614,13 +6040,46 @@
                 ]
             },
             {
-                "label": "AkamaiIvmPolicy",
+                "label": "AkamaiIvmPolicySet",
                 "type": "native",
-                "isMetadataPropIndex": true,
                 "propertyKeys": [
                     {
                         "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "was_ingested_by_property",
                         "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_property_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_ivm",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_ivm_at",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "AkamaiIvmPolicy",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "unique_id",
+                        "metadataProp": false
                     },
                     {
                         "key": "version",
@@ -7628,10 +6087,6 @@
                     },
                     {
                         "key": "perceptual_quality",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "unique_id",
                         "metadataProp": true
                     },
                     {
@@ -7665,16 +6120,145 @@
                 ]
             },
             {
-                "label": "AkamaiIvmPolicySet",
+                "label": "AkamaiNetstorageAccount",
                 "type": "native",
-                "isMetadataPropIndex": true,
                 "propertyKeys": [
                     {
-                        "key": "id",
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "upload_account_id",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "has_http_api_access",
                         "metadataProp": true
                     },
                     {
+                        "key": "ssh_enabled",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "ftp_enabled",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "has_file_manager_access",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "storage_group_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "aspera_enabled",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "rsync_enabled",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_netstorage-account",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_netstorage-account_at",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "AkamaiNetstorageGroup",
+                "type": "native",
+                "propertyKeys": [
+                    {
                         "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "storage_group_id",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "storage_group_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "domain_prefix",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "estimated_usage_gb",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_netstorage-group_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_netstorage-account",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_netstorage-group",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_netstorage-account_at",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "AkamaiNetstorageKey",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "type",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_netstorage-account",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_modified_date",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_modified_by",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_netstorage-account_at",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "AkamaiProperty",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
                         "metadataProp": true
                     },
                     {
@@ -7686,26 +6270,75 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_ivm",
+                        "key": "version",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_ivm_at",
+                        "key": "rule_format",
                         "metadataProp": true
                     }
                 ]
             },
             {
-                "label": "Cidripv4",
+                "label": "AkamaiRedirectConfig",
                 "type": "native",
-                "isMetadataPropIndex": true,
                 "propertyKeys": [
                     {
                         "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "policyId",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "name",
                         "metadataProp": true
                     },
                     {
-                        "key": "cidr",
+                        "key": "last_ingested_by_redirect_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_redirect",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "deeplink",
+                        "metadataProp": true
+                    }
+                ]
+            },
+            {
+                "label": "AkamaiSiteshieldMap",
+                "type": "native",
+                "propertyKeys": [
+                    {
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "rule_name",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "id",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "sure_route_name",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "acknowledged_by",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "mcm_map_rule_id",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "map_alias",
                         "metadataProp": true
                     },
                     {
@@ -7717,11 +6350,15 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_edns_at",
+                        "key": "last_ingested_by_property_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_edns",
+                        "key": "was_ingested_by_property",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "deeplink",
                         "metadataProp": true
                     }
                 ]
@@ -7729,11 +6366,14 @@
             {
                 "label": "AkamaiWafConfig",
                 "type": "native",
-                "isMetadataPropIndex": true,
                 "propertyKeys": [
                     {
                         "key": "last_ingested_at",
-                        "metadataProp": true
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "config_id",
+                        "metadataProp": false
                     },
                     {
                         "key": "config_name",
@@ -7748,10 +6388,6 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "config_id",
-                        "metadataProp": true
-                    },
-                    {
                         "key": "deeplink",
                         "metadataProp": true
                     },
@@ -7762,117 +6398,119 @@
                 ]
             },
             {
-                "label": "AkamaiIamCredential",
+                "label": "AkamaiWafPolicy",
                 "type": "native",
-                "isMetadataPropIndex": true,
                 "propertyKeys": [
                     {
                         "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "policy_id",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "last_ingested_by_waf_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "credential_id",
+                        "key": "policy_name",
                         "metadataProp": true
                     },
                     {
-                        "key": "created_on",
+                        "key": "was_ingested_by_appsec-coverage",
                         "metadataProp": true
                     },
                     {
-                        "key": "expires_on",
+                        "key": "was_ingested_by_waf",
                         "metadataProp": true
                     },
                     {
-                        "key": "was_ingested_by_iam-clients",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "client_token",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "description",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_iam-clients_at",
+                        "key": "last_ingested_by_appsec-coverage_at",
                         "metadataProp": true
                     }
                 ]
             },
             {
-                "label": "AkamaiEdnsZone",
+                "label": "Cidripv4",
                 "type": "native",
-                "isMetadataPropIndex": true,
                 "propertyKeys": [
                     {
                         "key": "last_ingested_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "type",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "sign_and_serve",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "contract_id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_edns",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_edns_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "zone",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "alias_count",
-                        "metadataProp": true
-                    }
-                ]
-            },
-            {
-                "label": "Cidripv6",
-                "type": "native",
-                "isMetadataPropIndex": true,
-                "propertyKeys": [
-                    {
-                        "key": "last_ingested_at",
-                        "metadataProp": true
+                        "metadataProp": false
                     },
                     {
                         "key": "cidr",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "last_ingested_by_siteshield_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_edns_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_edns",
+                        "key": "was_ingested_by_siteshield",
                         "metadataProp": true
                     }
                 ]
             },
             {
-                "label": "AkamaiEdnsRecordSet",
+                "label": "Endpoint",
                 "type": "native",
-                "isMetadataPropIndex": true,
                 "propertyKeys": [
                     {
-                        "key": "name",
+                        "key": "last_ingested_at",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "fqdn",
+                        "metadataProp": false
+                    },
+                    {
+                        "key": "last_ingested_by_gtm_at",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_at",
+                        "key": "was_ingested_by_netstorage-group",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_cps_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_redirect_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_cps",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_netstorage-group_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_redirect",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_appsec-coverage",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_appsec-coverage_at",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_ehn",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "was_ingested_by_gtm",
+                        "metadataProp": true
+                    },
+                    {
+                        "key": "last_ingested_by_ehn_at",
                         "metadataProp": true
                     },
                     {
@@ -7880,125 +6518,48 @@
                         "metadataProp": true
                     },
                     {
-                        "key": "key",
+                        "key": "was_ingested_by_property",
                         "metadataProp": true
                     },
                     {
-                        "key": "last_ingested_by_edns_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_edns",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "ttl",
+                        "key": "last_ingested_by_property_at",
                         "metadataProp": true
                     }
                 ]
             },
             {
-                "label": "AkamaiDiscoveredAPI",
+                "label": null,
                 "type": "native",
-                "isMetadataPropIndex": true,
-                "propertyKeys": [
-                    {
-                        "key": "id",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "basePath",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "totalErrors",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "dateFirstSeen",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "posts",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "host",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "gets",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "dateLastModified",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "requestsLastDay",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "puts",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "requests",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "dateLastSeen",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "last_ingested_by_apidiscovery_at",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "successes",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "options",
-                        "metadataProp": true
-                    },
-                    {
-                        "key": "was_ingested_by_apidiscovery",
-                        "metadataProp": true
-                    }
-                ]
+                "propertyKeys": []
             }
         ],
         "stats": {
             "labels": {},
             "relationshipTypes": {
-                "ACCESSES": 32,
-                "AUTHENTICATES_WITH": 16,
-                "AUTHORIZED_BY": 50,
-                "CNAMES_TO": 220,
-                "CONTAINS": 6,
-                "EGRESS": 19,
-                "ENCRYPTED_BY": 20,
-                "INCLUDED_IN": 4,
-                "IN_DOMAIN": 3,
-                "MANAGED_BY": 105,
-                "MEDIA_OPTIMIZED_BY": 4,
-                "OFFLOADS_CONFIGURATION_TO": 2,
-                "PROTECTED_BY": 4,
-                "PROXIES_TO": 24,
-                "RECORD_OF": 9,
+                "SERVICED_BY": 136,
+                "PROXIES_TO": 124,
                 "REDIRECTS_HANDLED_BY": 1,
                 "REDIRECTS_TO": 1,
-                "REPORTS_ON": 113,
-                "RESOLVES_TO": 23,
+                "ACCESSES": 32,
+                "PROTECTED_BY": 4,
+                "EGRESS": 19,
+                "REDIRECTS_IN": 0,
+                "AUTHORIZED_BY": 50,
+                "MANAGED_BY": 103,
+                "CONTAINS": 6,
+                "MEDIA_OPTIMIZED_BY": 4,
+                "RUNS_CODE_FOR": 36,
+                "CNAMES_TO": 214,
+                "OFFLOADS_CONFIGURATION_TO": 2,
                 "ROUTES_THROUGH": 1,
-                "RUNS_CODE_FOR": 40,
-                "SERVICED_BY": 149,
-                "UPLOADS_TO": 231
+                "ENCRYPTED_BY": 16,
+                "INCLUDED_IN": 4,
+                "RETURNS": 4,
+                "IN_DOMAIN": 5,
+                "UPLOADS_TO": 231,
+                "REPORTS_ON": 0,
+                "AUTHENTICATES_WITH": 26,
+                "RECORD_OF": 5
             }
         }
     },
