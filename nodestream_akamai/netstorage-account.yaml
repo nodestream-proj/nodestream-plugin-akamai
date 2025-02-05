@@ -45,3 +45,4 @@
         http_sha256: !jmespath 'http_sha256'
         last_modified_by: !jmespath 'lastModifiedBy'
         last_modified_date: !jmespath 'lastModifiedDate'
+        is_active: !jmespath 'isActive'

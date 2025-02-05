@@ -36,6 +36,7 @@ class AkamaiNetstorageAccountExtractor(Extractor):
                                 "http_sha256": http_sha256,
                                 "lastModifiedBy": key["lastModifiedBy"],
                                 "lastModifiedDate": key["lastModifiedDate"],
+                                "isActive": key["isActive"],
                             }
                             account["combinedKeys"].append(parsed_key)
 
