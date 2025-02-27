@@ -30,8 +30,6 @@ class AkamaiApiClient:
             max_body=128 * 1024,  # TODO: Completely Arbitrary Currently
         )
         self.account_key = account_key
-        self.logger = logging.getLogger(self.__class__.__name__)
-        self.logger.addHandler(logging.NullHandler())
 
     def _get_api_from_relative_path(
         self, path, params=None, headers=None, backoff_index=None
@@ -70,7 +68,7 @@ class AkamaiApiClient:
                     )
                 else:
                     backoff = backoff_delays[backoff_index]
-                    logger.error(
+                    logger.warning(
                         "Received 429 response for 'GET %s'. Waiting for %s seconds before retrying",
                         full_url,
                         backoff,
