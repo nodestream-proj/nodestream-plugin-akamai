@@ -399,7 +399,10 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
         property_ids = {h["propertyId"] for h in hostnames}
         # DeDupe list
-        return [self._get_property_response(property_id, hostnames) for property_id in property_ids]
+        return [
+            self._get_property_response(property_id, hostnames)
+            for property_id in property_ids
+        ]
 
     def search_akamai_rule_tree_for_origins(self, rule_tree) -> List[Origin]:
         behaviors = rule_tree["behaviors"]
@@ -535,8 +538,11 @@ class AkamaiPropertyClient(AkamaiApiClient):
         group_id = property_hostnames[0]["groupId"]
 
         try:
-            property_response = self.get_property(property_id=property_id,
-                contract_id=contract_id, group_id=group_id, )
+            property_response = self.get_property(
+                property_id=property_id,
+                contract_id=contract_id,
+                group_id=group_id,
+            )
         except Exception as err:
             logger.exception("Failed to get property %s: %s", property_id, err)
             return
