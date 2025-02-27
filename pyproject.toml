@@ -37,6 +37,7 @@ freezegun = "^1.2.1"
 responses = "^0.21.0"
 pre-commit = "^2.19.0"
 pytest-snapshot = "^0.9.0"
+ruff = "^0.9.7"
 
 [tool.black]
 line-length = 88
@@ -51,3 +52,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.plugins."nodestream.plugins"]
 projects = "nodestream_akamai.plugin"
+
+[tool.ruff.lint]
+select = ["G","B","SIM","A","EM","S","PIE"]
+

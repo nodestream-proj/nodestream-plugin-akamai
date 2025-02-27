@@ -30,6 +30,8 @@ class AkamaiApiClient:
             max_body=128 * 1024,  # TODO: Completely Arbitrary Currently
         )
         self.account_key = account_key
+        self.logger = logging.getLogger(self.__class__.__name__)
+        self.logger.addHandler(logging.NullHandler())
 
     def _get_api_from_relative_path(
         self, path, params=None, headers=None, backoff_index=None
@@ -52,7 +54,9 @@ class AkamaiApiClient:
             response = self.session.get(full_url, params=params, headers=headers)
             # Retry once for temporary 500 errors
             if response.status_code == 500:
-                logger.error(f"Received 500 response for 'GET {full_url}'. Retrying...")
+                logger.warning(
+                    "Received 500 response for 'GET %s'. Retrying...", full_url
+                )
                 response = self.session.get(full_url, params=params, headers=headers)
 
             # Back off for rate limit 429
@@ -60,13 +64,16 @@ class AkamaiApiClient:
                 # Increase bacoff for next attempt
                 next_backoff_index = backoff_index + 1
                 if next_backoff_index > len(backoff_delays):
-                    logger.error(
-                        f"Received 429 response for 'GET {full_url}' and backoff limit exceeded."
+                    logger.warning(
+                        "Received 429 response for 'GET %s' and backoff limit exceeded.",
+                        full_url,
                     )
                 else:
                     backoff = backoff_delays[backoff_index]
                     logger.error(
-                        f"Received 429 response for 'GET {full_url}'. Waiting for {backoff} seconds before retrying"
+                        "Received 429 response for 'GET %s'. Waiting for %s seconds before retrying",
+                        full_url,
+                        backoff,
                     )
                     time.sleep(backoff)
                     response = self._get_api_from_relative_path(
@@ -87,7 +94,8 @@ class AkamaiApiClient:
             )
         response.raise_for_status()
         # raise for status only handles: 400 <= status_code < 600
-        raise Exception(f"response.status_code: {response.status_code}", response.text)
+        msg = f"response.status_code: {response.status_code}"
+        raise Exception(msg, response.text)
 
     def _post_api_from_relative_path(self, path, body, params=None, headers=None):
         full_url = urljoin(self.base_url, path)
@@ -123,7 +131,8 @@ class AkamaiApiClient:
             )
         response.raise_for_status()
         # raise for status only handles: 400 <= status_code < 600
-        raise Exception(f"response.status_code: {response.status_code}", response.text)
+        msg = f"response.status_code: {response.status_code}"
+        raise Exception(msg, response.text)
 
     def keep_first(self, iterable, key=None):
         if key is None:

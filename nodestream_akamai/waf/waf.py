@@ -28,7 +28,7 @@ class AkamaiWafExtractor(Extractor):
 
         for config in self.client.list_appsec_configs():
             try:
-                if "productionVersion" in config.keys():
+                if "productionVersion" in config:
                     export = self.client.export_appsec_config(
                         config_id=config["id"],
                         config_version=config["productionVersion"],
@@ -49,7 +49,7 @@ class AkamaiWafExtractor(Extractor):
                             "policyName": policy["name"],
                             "attackGroupActions": [],
                         }
-                        if "webApplicationFirewall" in policy.keys():
+                        if "webApplicationFirewall" in policy:
                             for action in policy["webApplicationFirewall"][
                                 "attackGroupActions"
                             ]:
@@ -65,9 +65,11 @@ class AkamaiWafExtractor(Extractor):
                     yield output_config
                 else:
                     self.logger.warning(
-                        f"No production version exists for config {config['name']}"
+                        "No production version exists for config %s.", config["name"]
                     )
             except Exception as err:
-                self.logger.error(
-                    f"Failed to export appsec configuration {config['name']}: {err}"
+                self.logger.exception(
+                    "Failed to export appsec configuration %s: %s",
+                    config["name"],
+                    err,
                 )

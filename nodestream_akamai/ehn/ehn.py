@@ -18,4 +18,5 @@ class AkamaiEhnExtractor(Extractor):
                 )
                 yield edge_hostname
         except Exception as err:
-            self.logger.error("Failed to list edge hostnames: %s", err)
+            self.logger.exception("Failed to list edge hostnames: %s", err)
+            raise err

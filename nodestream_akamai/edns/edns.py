@@ -42,10 +42,9 @@ class AkamaiEdnsExtractor(Extractor):
         try:
             record_sets = self.client.list_recordsets(zone["zone"])
         except Exception as e:
-            self.logger.error(
+            self.logger.exception(
                 "Failed to list record sets for zone: %s",
                 zone["zone"],
-                exc_info=True,
             )
             raise e
 
@@ -60,7 +59,7 @@ class AkamaiEdnsExtractor(Extractor):
         try:
             zones = self.client.list_zones()
         except Exception as e:
-            self.logger.error("problem fetching zones: %s", e, exc_info=True)
+            self.logger.exception("problem fetching zones: %s", e)
             raise e
 
         for zone in asyncio.as_completed(self._extract_zone(z) for z in zones):

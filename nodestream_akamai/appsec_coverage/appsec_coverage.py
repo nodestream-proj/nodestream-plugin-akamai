@@ -14,13 +14,14 @@ class AkamaiAppSecCoverageExtractor(Extractor):
         try:
             configs = self.client.list_appsec_configs()
             for config in configs:
-                if "productionVersion" in config.keys():
+                if "productionVersion" in config:
                     config["policies"] = self.client.list_appsec_policies(
                         config["id"], config["productionVersion"]
                     )
             hostname_coverage = self.client.get_appsec_hostname_coverage()
         except Exception as err:
-            self.logger.error("Failed to get appsec hostname coverage: %s", err)
+            self.logger.exception("Failed to get appsec hostname coverage: %s", err)
+            raise err
 
         for hostname in hostname_coverage:
             # Only care if hostname is covered

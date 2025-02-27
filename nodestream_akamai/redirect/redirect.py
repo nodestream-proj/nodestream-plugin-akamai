@@ -16,5 +16,6 @@ class AkamaiRedirectExtractor(Extractor):
                 policy_tree = self.client.describe_policy_id(policy_id)
                 for item in self.client.get_policy_rule_set(policy_tree):
                     yield item
-            except Exception:
-                self.logger.error("Failed to get policy: %s", policy_id)
+            except Exception as err:
+                self.logger.exception("Failed to get policy: %s", policy_id)
+                raise err

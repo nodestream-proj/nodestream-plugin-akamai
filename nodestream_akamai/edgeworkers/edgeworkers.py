@@ -14,7 +14,8 @@ class AkamaiEdgeworkersExtractor(Extractor):
         try:
             edgeworkers = self.client.list_edgeworkers()
         except Exception as err:
-            self.logger.error("Failed to list edgeworkers: %s", err)
+            self.logger.exception("Failed to list edgeworkers: %s", err)
+            raise err
 
         for edgeworker in edgeworkers:
             active_version = None
@@ -23,8 +24,10 @@ class AkamaiEdgeworkersExtractor(Extractor):
                     edgeworker["edgeWorkerId"]
                 )
             except Exception as err:
-                self.logger.error(
-                    f"""Failed to get production activation info for EW '{edgeworker["name"]}': {err}"""
+                self.logger.exception(
+                    "Failed to get production activation info for EW '%s': %s",
+                    edgeworker["name"],
+                    err,
                 )
 
             # Add deeplink

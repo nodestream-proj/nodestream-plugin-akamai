@@ -18,6 +18,10 @@ fmt:
 	poetry run isort nodestream_akamai tests
 	poetry run black nodestream_akamai tests
 
+.PHONY: lint
+lint:
+	poetry run ruff check nodestream_akamai 
+
 .PHONY: test
 test:
 	poetry run pytest

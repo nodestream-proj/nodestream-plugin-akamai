@@ -14,14 +14,15 @@ class AkamaiNetstorageAccountExtractor(Extractor):
         try:
             upload_accounts = self.client.list_upload_accounts()
         except Exception as err:
-            self.logger.error("Failed to list netstorage upload accounts: %s", err)
+            self.logger.exception("Failed to list netstorage upload accounts: %s", err)
+            raise err
 
         for account in upload_accounts:
             account["combinedKeys"] = []
-            if "keys" in account.keys():
+            if "keys" in account:
                 key_types = ["ftp", "ssh", "rsync", "aspera", "g2o"]
                 for key_type in key_types:
-                    if key_type in account["keys"].keys():
+                    if key_type in account["keys"]:
                         for key in account["keys"][key_type]:
                             parsed_key = {
                                 "type": key_type,
@@ -32,6 +33,6 @@ class AkamaiNetstorageAccountExtractor(Extractor):
                             account["combinedKeys"].append(parsed_key)
 
             # Remove keys element before pushing to database
-            if "keys" in account.keys():
+            if "keys" in account:
                 del account["keys"]
             yield account
