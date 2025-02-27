@@ -26,11 +26,7 @@ class AkamaiGtmExtractor(Extractor):
             try:
                 raw_domain = self.client.get_gtm_domain(domain["name"])
             except Exception as err:
-                self.logger.error(
-                    "Failed to get gtm domain: %s",
-                    domain["name"],
-                    exc_info=True,
-                )
+                self.logger.exception("Failed to get gtm domain: %s", domain["name"])
                 raise err
 
             deeplink = f'{DEEPLINK_PREFIX}{domain["name"]}/properties/list'

@@ -14,7 +14,9 @@ class AkamaiIamClientExtractor(Extractor):
         try:
             clients = self.client.list_api_clients()
         except Exception as err:
-            self.logger.error("Failed to list api clients: %s", err)
+            self.logger.exception("Failed to list api clients: %s", err)
+            raise err
+
         for client in clients:
             client["authorizedUsersList"] = ",".join(client["authorizedUsers"])
             client[
@@ -25,14 +27,16 @@ class AkamaiIamClientExtractor(Extractor):
             if client["activeCredentialCount"] > 0:
                 try:
                     credentials = self.client.list_api_credentials(client["clientId"])
+                    client["credentials"] = [
+                        credential
+                        for credential in credentials
+                        if credential["status"] == "ACTIVE"
+                    ]
                 except Exception as err:
-                    self.logger.error(
-                        f"Failed to list credentials for client '{client['clienId']}': {err}"
+                    self.logger.exception(
+                        "Failed to list credentials for client '%s': %s",
+                        client["clientId"],
+                        err,
                     )
-                client["credentials"] = [
-                    credential
-                    for credential in credentials
-                    if credential["status"] == "ACTIVE"
-                ]
 
             yield client

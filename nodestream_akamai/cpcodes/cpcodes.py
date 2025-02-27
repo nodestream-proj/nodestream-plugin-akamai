@@ -21,4 +21,5 @@ class AkamaiCpCodesExtractor(Extractor):
                 cpcode["deeplink"] = f'{deeplink_prefix}{cpcode["cpcodeId"]}/view'
                 yield cpcode
         except Exception as err:
-            self.logger.error("Failed to list CP Codes: %s", err)
+            self.logger.exception("Failed to list CP Codes: %s", err)
+            raise err

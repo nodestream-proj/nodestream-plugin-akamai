@@ -15,4 +15,5 @@ class AkamaiIamUserExtractor(Extractor):
             for user in self.client.list_users():
                 yield user
         except Exception as err:
-            self.logger.error("Failed to list users: %s", err)
+            self.logger.exception("Failed to list users: %s", err)
+            raise err

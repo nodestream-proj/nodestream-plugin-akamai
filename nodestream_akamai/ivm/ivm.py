@@ -16,9 +16,9 @@ class AkamaiIvmExtractor(Extractor):
         # List contracts
         try:
             contracts = self.contract_client.list_contracts()
-        except Exception:
-            self.logger.error("Failed to list contracts")
-            self.logger.error(err)
+        except Exception as err:
+            self.logger.exception("Failed to list contracts")
+            raise err
 
         # Iterate through contracts to find IVM-enabled
         ivm_contracts = []
@@ -42,9 +42,10 @@ class AkamaiIvmExtractor(Extractor):
         try:
             for contract in ivm_contracts:
                 for policy_set in self.client.list_policy_sets(contract=contract):
-                    if "user" not in policy_set.keys():
+                    if "user" not in policy_set:
                         self.logger.warning(
-                            f"""Policy set '{policy_set["id"]}' does not appear to be valid and will be skipped. Please report this to Akamai support"""
+                            """Policy set '%s' does not appear to be valid and will be skipped. Please report this to Akamai support""",
+                            policy_set["id"],
                         )
                         continue
                     try:
@@ -55,11 +56,11 @@ class AkamaiIvmExtractor(Extractor):
                             policy["uniqueId"] = policy_set["id"] + "/" + policy["id"]
                             yield policy
                     except Exception as err:
-                        self.logger.error(
+                        self.logger.exception(
                             "Failed to list policies of policy set: %s",
                             policy_set["id"],
                         )
                         self.logger.error(err)
         except Exception as err:
-            self.logger.error("Failed to list IVM policy sets")
-            self.logger.error(err)
+            self.logger.exception("Failed to list IVM policy sets")
+            raise err

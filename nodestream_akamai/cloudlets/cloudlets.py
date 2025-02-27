@@ -26,13 +26,13 @@ class AkamaiCloudletExtractor(Extractor):
             for v2_policy in self.client.list_v2_policies():
                 yield self.parse_policy(v2_policy, 2)
         except Exception as err:
-            self.logger.error(f"Failed to list v2 cloudlet policies: {err}")
+            self.logger.exception("Failed to list v2 cloudlet policies: %s", err)
 
         try:
             for v3_policy in self.client.list_v3_policies():
                 yield self.parse_policy(v3_policy, 3)
         except Exception as err:
-            self.logger.error(f"Failed to list v3 cloudlet policies: {err}")
+            self.logger.exception("Failed to list v3 cloudlet policies: %s", err)
 
     def parse_policy(self, policy, version):
         deeplink_prefix = "https://control.akamai.com/apps/cloudlets/#/policies/"
@@ -53,29 +53,28 @@ class AkamaiCloudletExtractor(Extractor):
         else:
             policy["policyType"] = self.map[policy["cloudletType"]]
             policy["isShared"] = True
-            if "currentActivations" in policy.keys():
-                if "production" in policy["currentActivations"].keys():
-                    if "effective" in policy["currentActivations"]["production"].keys():
-                        if (
-                            policy["currentActivations"]["production"]["effective"]
-                            is not None
-                        ):
-                            policy["activeProductionVersion"] = policy[
-                                "currentActivations"
-                            ]["production"]["effective"]["policyVersion"]
-                        else:
-                            policy["activeProductionVersion"] = None
-                if "staging" in policy["currentActivations"].keys():
-                    if "effective" in policy["currentActivations"]["staging"].keys():
-                        if (
-                            policy["currentActivations"]["staging"]["effective"]
-                            is not None
-                        ):
-                            policy["activeStagingVersion"] = policy[
-                                "currentActivations"
-                            ]["staging"]["effective"]["policyVersion"]
-                        else:
-                            policy["activeStagingVersion"] = None
+            if "currentActivations" in policy:
+                current_activations = policy["currentActivations"]
+                if (
+                    "production" in current_activations
+                    and "effective" in current_activations["production"]
+                ):
+                    if current_activations["production"]["effective"] is not None:
+                        policy["activeProductionVersion"] = current_activations[
+                            "production"
+                        ]["effective"]["policyVersion"]
+                    else:
+                        policy["activeProductionVersion"] = None
+                if (
+                    "staging" in current_activations
+                    and "effective" in current_activations["staging"]
+                ):
+                    if current_activations["staging"]["effective"] is not None:
+                        policy["activeStagingVersion"] = current_activations["staging"][
+                            "effective"
+                        ]["policyVersion"]
+                    else:
+                        policy["activeStagingVersion"] = None
             policy["deeplink"] = "{prefix}{id}/versions?gid={gid}&shared=true".format(
                 prefix=deeplink_prefix, id=policy["id"], gid=policy["groupId"]
             )

@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List
 
 
@@ -10,24 +10,26 @@ class EdgeHost:
 @dataclass(eq=True, frozen=True)
 class Origin:
     name: str
-    path: str
+    path: str | None = None
+    hostname: str | None = None
+    conditional_origin: str | None = None
 
 
 @dataclass
 class PropertyDescription:
     id: str
     name: str
-    version: str
     origins: List[Origin]
-    cloudlet_policies: List[int]
-    edge_redirector_policies: List[int]
-    edgeworker_ids: List[int]
-    siteshield_maps: List[str]
-    image_manager_policysets: List[str]
-    cp_codes: List[str]
     hostnames: List[EdgeHost]
-    ruleFormat: str
-    deeplink: str
+    version: str | None = None
+    siteshield_maps: List[str] = field(default_factory=list)
+    rule_format: str | None = None
+    image_manager_policysets: List[str] = field(default_factory=list)
+    edgeworker_ids: List[int] = field(default_factory=list)
+    edge_redirector_policies: List[int] = field(default_factory=list)
+    deeplink: str | None = None
+    cloudlet_policies: List[int] = field(default_factory=list)
+    cp_codes: List[int] = field(default_factory=list)
 
     @property
     def origin_count(self):
@@ -37,16 +39,12 @@ class PropertyDescription:
     def hostname_count(self):
         return len(self.hostnames)
 
-    # @property
-    # def cloudlet_policy_count(self):
-    #     return {"edgeRedirector": len(self.cloudlet_policies["edgeRedirector"])}
-
     def as_eventbus_json(self):
         return {
             "id": f"akamai_property:{self.id}",
             "name": self.name,
             "version": self.version,
-            "ruleFormat": self.ruleFormat,
+            "ruleFormat": self.rule_format,
             "origin_count": self.origin_count,
             "cloudlet_policy_count": len(self.cloudlet_policies),
             "hostname_count": self.hostname_count,

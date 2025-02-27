@@ -1,7 +1,5 @@
 import logging
-import re
 from typing import List
-from urllib.parse import urlparse
 
 from .client import AkamaiApiClient
 

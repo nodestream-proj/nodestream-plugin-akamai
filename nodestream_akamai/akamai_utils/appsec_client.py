@@ -16,9 +16,9 @@ class AkamaiAppSecClient(AkamaiApiClient):
         appsec_configs_path = "/appsec/v1/configs"
         return self._get_api_from_relative_path(appsec_configs_path)["configurations"]
 
-    def list_appsec_policies(self, configId, version):
+    def list_appsec_policies(self, config_id, version):
         appsec_configs_path = "/appsec/v1/configs/{configId}/versions/{versionNumber}/security-policies".format(
-            configId=configId, versionNumber=version
+            configId=config_id, versionNumber=version
         )
         return self._get_api_from_relative_path(appsec_configs_path)["policies"]
 
@@ -32,6 +32,6 @@ class AkamaiAppSecClient(AkamaiApiClient):
         request_path = "/appsec/v1/api-discovery"
         return self._get_api_from_relative_path(request_path)["apis"]
 
-    def get_discovered_api(self, hostname, basePath):
-        request_path = f"/appsec/v1/api-discovery/host/{hostname}/basepath/{basePath}"
+    def get_discovered_api(self, hostname, base_path):
+        request_path = f"/appsec/v1/api-discovery/host/{hostname}/basepath/{base_path}"
         return self._get_api_from_relative_path(request_path)

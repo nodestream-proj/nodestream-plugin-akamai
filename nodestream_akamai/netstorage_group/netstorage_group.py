@@ -30,13 +30,14 @@ class AkamaiNetstorageGroupExtractor(Extractor):
         try:
             netstorage_groups = self.client.list_netstorage_groups()
         except Exception as err:
-            self.logger.error("Failed to list netstorage groups: %s", err)
+            self.logger.exception("Failed to list netstorage groups: %s", err)
+            raise err
 
         for group in netstorage_groups:
             parsed_group = {k: v for k, v in group.items() if k in desired_keys}
             # Add uploadDomains dict
             parsed_group["uploadDomains"] = {}
-            for suffix in upload_domain_suffixes.keys():
+            for suffix in upload_domain_suffixes:
                 parsed_group["uploadDomains"][suffix] = (
                     parsed_group["domainPrefix"] + upload_domain_suffixes[suffix]
                 )
