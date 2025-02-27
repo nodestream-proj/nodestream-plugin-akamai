@@ -33,8 +33,8 @@ class AkamaiPropertyExtractor(Extractor):
                 described_property = self.client.describe_property_by_dict(prop)
                 yield described_property.as_eventbus_json()
             except NoRuleFoundError:
-                self.logger.warning(
-                    "No rules found for property %s (id=%s)",
+                self.logger.exception(
+                    "No rules found for property %s (id=%s). Skipped.",
                     prop["propertyName"],
                     prop["propertyId"],
                 )
