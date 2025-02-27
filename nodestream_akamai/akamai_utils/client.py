@@ -4,7 +4,7 @@ import time
 from urllib.parse import urljoin
 
 from akamai.edgegrid import EdgeGridAuth
-from requests import Session
+from requests import HTTPError, Session
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
@@ -39,7 +39,7 @@ class AkamaiApiClient:
         backoff_delays = [5, 10, 20, 60, 180]
         if backoff_index is None:
             backoff_index = 0
-
+        response = None
         # Insert account switch key
         if self.account_key is not None:
             if params is None:
@@ -90,10 +90,13 @@ class AkamaiApiClient:
                 response.status_code,
                 response.text,
             )
-        response.raise_for_status()
-        # raise for status only handles: 400 <= status_code < 600
-        msg = f"response.status_code: {response.status_code}"
-        raise Exception(msg, response.text)
+        if response:
+            response.raise_for_status()
+            # raise for status only handles: 400 <= status_code < 600
+            msg = f"Unexpected status {response.status_code} for url: {response.url}"
+            raise HTTPError(msg, response=response)
+        msg = "Missing response object in _get_api_from_relative_path"
+        raise SystemError(msg)
 
     def _post_api_from_relative_path(self, path, body, params=None, headers=None):
         full_url = urljoin(self.base_url, path)
@@ -113,6 +116,7 @@ class AkamaiApiClient:
             for header in headers:
                 request_headers[header] = headers[header]
 
+        response = None
         for sleepy_seconds in range(5):
             if sleepy_seconds:
                 time.sleep(sleepy_seconds)
@@ -127,23 +131,13 @@ class AkamaiApiClient:
                 response.status_code,
                 response.text,
             )
-        response.raise_for_status()
-        # raise for status only handles: 400 <= status_code < 600
-        msg = f"response.status_code: {response.status_code}"
-        raise Exception(msg, response.text)
-
-    def keep_first(self, iterable, key=None):
-        if key is None:
-            key = lambda x: x
-
-        seen = set()
-        for elem in iterable:
-            k = key(elem)
-            if k in seen:
-                continue
-
-            yield elem
-            seen.add(k)
+        if response:
+            response.raise_for_status()
+            # raise for status only handles: 400 <= status_code < 600
+            msg = f"Unexpected status {response.status_code} for url: {response.url}"
+            raise HTTPError(msg, response=response)
+        msg = "Missing response object in _post_api_from_relative_path"
+        raise SystemError(msg)
 
     @staticmethod
     def _resilient_session_factory(timeout=300, retry_count=5) -> Session:

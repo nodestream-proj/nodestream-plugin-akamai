@@ -17,5 +17,5 @@ class AkamaiEdgeworkersClient(AkamaiApiClient):
         ]
         if len(activations) > 0:
             return activations[0]
-        else:
-            return None
+
+        return None

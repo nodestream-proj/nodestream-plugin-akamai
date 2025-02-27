@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 class AkamaiCloudletsV2Client(AkamaiApiClient):
-    def cloudlet_policy_ids(self) -> List[int]:
+    def cloudlet_policy_ids(self) -> set[int]:
         cloudlet_list_api_path = "/cloudlets/api/v2/policies"
         offset = 0
         returned_policies = []
@@ -26,7 +26,7 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
 
         return {policy["policyId"] for policy in returned_policies}
 
-    def cloudlet_policy_ids_er(self) -> List[int]:
+    def cloudlet_policy_ids_er(self) -> set[int]:
         cloudlet_list_api_path = "/cloudlets/api/v2/policies?cloudletId=0"
         offset = 0
         returned_policies = []
@@ -64,10 +64,8 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
         policy_tree_api_path = (
             f"/cloudlets/api/v2/policies/{policy_id}/versions/{version}"
         )
-        match_rules = self._get_api_from_relative_path(policy_tree_api_path)[
-            "matchRules"
-        ]
-        return match_rules
+        response = self._get_api_from_relative_path(policy_tree_api_path)
+        return response["matchRules"]
 
     def describe_policy_id(self, policy_id: str):
         policy_tree_api_path = f"/cloudlets/api/v2/policies/{policy_id}"
@@ -98,7 +96,6 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
                 policy_tree["policyId"],
             )
 
-        # return list(self.keep_first(list_of_activations, lambda d: (d["network"], d["policyId"])))
         return list_of_activations
 
     def get_policy_rule_set(self, policy):

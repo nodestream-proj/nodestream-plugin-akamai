@@ -8,6 +8,8 @@ from jsonpath_ng.ext import parse
 from .client import AkamaiApiClient
 from .model import EdgeHost, Origin, PropertyDescription
 
+PATH_AND = " AND "
+
 logger = logging.getLogger(__name__)
 
 
@@ -44,156 +46,60 @@ def _get_policy_set_prefix(options):
     return policy_set_prefix
 
 
-def parse_origin_search(path, rules):
-    """
-    This function parses jsonpath origin search results into a hostname
-    and location elements List
-    """
-    origin_location = str(path.full_path)
-    rule_base = re.sub(r"behaviors.\[\d+]", "", origin_location)
-    origin_host = "ERROR"  # Host should be renamed
-
-    # Extract origin behaviour itself and append hostname to list based on origin type
-    origin_behavior_match = parse(origin_location)
-    origin_search = origin_behavior_match.find(rules)
-    origin_behavior = origin_search[0].value
-    if "hostname" in origin_behavior["options"]:
-        origin_host = origin_behavior["options"]["hostname"]
-    elif "netStorage" in origin_behavior["options"]:
-        origin_host = origin_behavior["options"]["netStorage"]["downloadDomainName"]
-    elif "mslorigin" in origin_behavior["options"]:
-        origin_host = origin_behavior["options"]["mslorigin"]
-
-    # Split JSONPATH into children[X] elements so we can iterate down the path
-    location_elements = re.findall(r"children\.\[\d+]", rule_base)
-    return origin_host, location_elements
+def _extract_origin(behavior):
+    if behavior.get("name") == "origin":
+        origin_options = behavior["options"]
+        match origin_options.get("originType"):
+            case "CUSTOMER":
+                return Origin(name=origin_options.get("hostname"))
+            case "NET_STORAGE":
+                return Origin(
+                    name=origin_options["netStorage"].get("downloadDomainName")
+                )
+            case "MEDIA_SERVICE_LIVE":
+                return Origin(name=origin_options.get("mslorigin"))
+            case _:
+                return None
+    return None
 
 
-def parse_origin_location(rule_location, parent_location, rules):
-    """
-    This function parses origin locations to extract path matches, hostname matches
-    and Conditional Origin IDs
-    """
-    # Construct rule location from element and optionally parent path
-    if parent_location != "":
-        rule_location = parent_location + "." + rule_location
-    rule_match = parse(rule_location)
-    rule_search = rule_match.find(rules)
-
-    if len(rule_search) == 0:
-        msg = f"No rule found at {rule_location}"
-        raise NoRuleFoundError(msg)
-
-    # Extract rule by JSONPATH
-    rule = rule_search[0].value
-
-    # Instantiate results
-    criteria_results = {m: [] for m in MATCH_TYPES}
-    rule_results = {m: [] for m in MATCH_TYPES}
-    location_results = {}
-
-    for match_type in MATCH_TYPES:
-        criteria_results[match_type] = []
-        criterion_results = {}
-
-        # Parse criteria and create list of lists of path matches
-        for rule_criterion in rule["criteria"]:
-            criterion_results[match_type] = []
-
-            if rule_criterion["name"] == match_type:
-                for value in rule_criterion["options"].get("values", []):
-                    if rule_criterion["options"]["matchOperator"] in NEGATIVE_OPERATORS:
-                        value = "!" + value
-                    criterion_results[match_type].append(value)
-
-            if len(criterion_results[match_type]) > 0:
-                criteria_results[match_type].append(criterion_results[match_type])
-
-        if len(criteria_results[match_type]) > 0:
-            # Collate path matches into a list of combinations, based on criteria setting
-            if len(criteria_results[match_type]) == 1:
-                rule_results[match_type] = criteria_results[match_type][0]
-            else:
-                if rule["criteriaMustSatisfy"] == "all":
-                    # If using ALL option we must create boolean combos
-                    rule_product = itertools.product(*criteria_results[match_type])
-                    for product in rule_product:
-                        rule_results[match_type].append(" AND ".join(product))
-                else:
-                    for result in criteria_results[match_type]:
-                        rule_results[match_type].extend(result)
-
-    return location_results
-
-
-def collate_origins_with_criteria(rules) -> list[Origin]:
-    """
-    This function will find all Origin behaviours in a property and collate any relevant criteria
-    into accompanying Lists.
-    """
-    origins = []
-    jsonpath_expression = parse('$..behaviors[?(@.name=="origin")]')
-    jsonpath_result = jsonpath_expression.find(rules)
-    # Parse matched jsonpath behaviours
-    for jsonpath_path in jsonpath_result:
-        origin_host, location_elements = parse_origin_search(jsonpath_path, rules)
-        parent_location = ""
-        combined_rule_paths = []
-        combined_rule_hosts = []
-        combined_rule_cdids = []
-
-        for location in location_elements:
-            location_results = parse_origin_location(location, parent_location, rules)
-            if len(location_results.get("path", [])) > 0:
-                combined_rule_paths.append(location_results["path"])
-            if len(location_results.get("hostname", [])) > 0:
-                combined_rule_hosts.append(location_results["hostname"])
-            if len(location_results.get("cloudOrigin", [])) > 0:
-                combined_rule_cdids.append(location_results["cloudOrigin"])
-            parent_location = location
-
-        # Combine results into single list with boolean AND between parent and child
-        origin_paths = []
-        origin_paths_product = itertools.product(*combined_rule_paths)
-        for path_product in origin_paths_product:
-            origin_paths.append(" AND ".join(path_product))
-
-        origin_hosts = []
-        origin_hosts_product = itertools.product(*combined_rule_hosts)
-        for host_product in origin_hosts_product:
-            origin_hosts.append(" AND ".join(host_product))
-
-        origin_cdids = []
-        origin_cdids_product = itertools.product(*combined_rule_cdids)
-        for cdid_product in origin_cdids_product:
-            origin_cdids.append(" AND ".join(cdid_product))
-
-        origins.append(
-            {
-                "name": origin_host,
-                "paths": origin_paths,
-                "hostnames": origin_hosts,
-                "conditional_origins": origin_cdids,
-            }
-        )
-
-    # Expand to one origin hostname/path combo per object to simplify the pipeline config and avoid
-    # nested looping
-    expanded_origins = []
-    for origin in origins:
-        for path in origin["paths"]:
-            expanded_origins.append(Origin(name=origin["name"], path=path))
-        for hostname in origin["hostnames"]:
-            expanded_origins.append(Origin(name=origin["name"], hostname=hostname))
-        for conditional_origin in origin["conditional_origins"]:
-            expanded_origins.append(
+def _flatten_origins(origin):
+    return list(
+        itertools.chain(
+            (
+                Origin(name=origin["name"], path=path)
+                for path in origin.get("paths", [])
+            ),
+            (
+                Origin(name=origin["name"], hostname=hostname)
+                for hostname in origin.get("hostnames", [])
+            ),
+            (
                 Origin(name=origin["name"], conditional_origin=conditional_origin)
-            )
-
-    return expanded_origins
+                for conditional_origin in origin.get("conditional_origins", [])
+            ),
+        )
+    )
 
 
 class AkamaiPropertyClient(AkamaiApiClient):
+    def __init__(
+        self,
+        base_url,
+        client_token,
+        client_secret,
+        access_token,
+        account_key=None,
+    ):
+        super().__init__(
+            base_url,
+            client_token,
+            client_secret,
+            access_token,
+            account_key,
+        )
+        self.logger = logging.getLogger(self.__class__.__name__)
+
     @property
     def headers(self):
         return {"PAPI-Use-Prefixes": "false"}
@@ -313,7 +219,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
         rule_tree["assetId"] = prop["assetId"]
 
         # Update origins
-        origins = collate_origins_with_criteria(rule_tree["rules"])
+        origins = self.collate_origins_with_criteria(rule_tree["rules"])
         hostnames = prop["hostnames"]
 
         # Cloudlets
@@ -394,8 +300,8 @@ class AkamaiPropertyClient(AkamaiApiClient):
         try:
             hostnames = self.list_account_hostnames()
         except Exception as err:
-            logger.info("Failed to list property hostnames: %s", err)
-            return
+            logger.exception("Failed to list property hostnames: %s", err)
+            return None
 
         property_ids = {h["propertyId"] for h in hostnames}
         # DeDupe list
@@ -404,40 +310,180 @@ class AkamaiPropertyClient(AkamaiApiClient):
             for property_id in property_ids
         ]
 
-    def search_akamai_rule_tree_for_origins(self, rule_tree) -> List[Origin]:
+    def search_akamai_rule_tree_for_origins(self, rule_tree) -> list[Origin]:
         behaviors = rule_tree["behaviors"]
         children = rule_tree["children"]
-        origins = [
+        origins = {
             origin
             for child_rule_tree in children
             for origin in self.search_akamai_rule_tree_for_origins(child_rule_tree)
-        ]
+        }
         for behavior in behaviors:
-            if behavior.get("name") == "origin":
-                origin_options = behavior["options"]
-                hostname = None
-                if origin_options["originType"] == "CUSTOMER":
-                    hostname = origin_options.get("hostname")
-                elif origin_options["originType"] == "NET_STORAGE":
-                    hostname = origin_options["netStorage"].get("downloadDomainName")
-                elif origin_options["originType"] == "MEDIA_SERVICE_LIVE":
-                    hostname = origin_options.get("mslorigin")
-                if hostname is not None:
-                    origins.append(Origin(name=hostname))
+            origins.add(_extract_origin(behavior))
 
-        # TODO: Maybe find a less terrible way to get unique list of origins - check as you go?
-        return list(set(origins))
+        return list(origins)
+
+    def collate_origins_with_criteria(self, rules) -> list[Origin]:
+        """
+        This function will find all Origin behaviours in a property and collate any relevant criteria
+        into accompanying Lists.
+        """
+        jsonpath_expression = parse('$..behaviors[?(@.name=="origin")]')
+        jsonpath_result = jsonpath_expression.find(rules)
+        # Parse matched jsonpath behaviours
+        origins = [
+            self._jsonpath_fetch_origins(jsonpath_path, rules)
+            for jsonpath_path in jsonpath_result
+        ]
+
+        # Expand to one origin hostname/path combo per object to simplify the pipeline config and avoid
+        # nested looping
+
+        return list(
+            itertools.chain.from_iterable(
+                _flatten_origins(origin) for origin in origins
+            )
+        )
+
+    def _jsonpath_fetch_origins(self, jsonpath_path, rules):
+        origin_host, location_elements = self.parse_origin_search(jsonpath_path, rules)
+        parent_location = ""
+        combined_rule_paths = []
+        combined_rule_hosts = []
+        combined_rule_cdids = []
+        for location in location_elements:
+            location_results = self.parse_origin_location(
+                location, parent_location, rules
+            )
+            if len(location_results.get("path", [])) > 0:
+                combined_rule_paths.append(location_results["path"])
+            if len(location_results.get("hostname", [])) > 0:
+                combined_rule_hosts.append(location_results["hostname"])
+            if len(location_results.get("cloudOrigin", [])) > 0:
+                combined_rule_cdids.append(location_results["cloudOrigin"])
+            parent_location = location
+        # Combine results into single list with boolean AND between parent and child
+        return {
+            "name": origin_host,
+            "paths": [
+                PATH_AND.join(path_product)
+                for path_product in itertools.product(*combined_rule_paths)
+            ],
+            "hostnames": [
+                PATH_AND.join(host_product)
+                for host_product in itertools.product(*combined_rule_hosts)
+            ],
+            "conditional_origins": [
+                PATH_AND.join(cdid_product)
+                for cdid_product in itertools.product(*combined_rule_cdids)
+            ],
+        }
+
+    def parse_origin_search(self, path, rules):
+        """
+        This function parses jsonpath origin search results into a hostname
+        and location elements List
+        """
+        self.logger.debug("parse_origin_search(path=%s)", path)
+        origin_location = str(path.full_path)
+        rule_base = re.sub(r"behaviors.\[\d+]", "", origin_location)
+        origin_host = "ERROR"  # Host should be renamed
+
+        # Extract origin behaviour itself and append hostname to list based on origin type
+        origin_behavior_match = parse(origin_location)
+        origin_search = origin_behavior_match.find(rules)
+        origin_behavior = origin_search[0].value
+        if "hostname" in origin_behavior["options"]:
+            origin_host = origin_behavior["options"]["hostname"]
+        elif "netStorage" in origin_behavior["options"]:
+            origin_host = origin_behavior["options"]["netStorage"]["downloadDomainName"]
+        elif "mslorigin" in origin_behavior["options"]:
+            origin_host = origin_behavior["options"]["mslorigin"]
+
+        # Split JSONPATH into children[X] elements so we can iterate down the path
+        location_elements = re.findall(r"children\.\[\d+]", rule_base)
+        return origin_host, location_elements
+
+    def parse_origin_location(self, rule_location, parent_location, rules):
+        """
+        This function parses origin locations to extract path matches, hostname matches
+        and Conditional Origin IDs
+        """
+        self.logger.debug(
+            "parse_origin_location(rule_location=%s, parent_location=%s)",
+            rule_location,
+            parent_location,
+        )
+        # Construct rule location from element and optionally parent path
+        if parent_location != "":
+            rule_location = parent_location + "." + rule_location
+        rule_match = parse(rule_location)
+        rule_search = rule_match.find(rules)
+
+        if rule_search is None or len(rule_search) == 0:
+            msg = f"No rule found at position '{rule_location}'"
+            raise NoRuleFoundError(msg)
+
+        # Define criteria to look at
+        match_types = ["path", "hostname", "cloudletsOrigin"]
+
+        # Define negative criterion matches
+        negative_operators = ["DOES_NOT_MATCH_ONE_OF", "IS_NOT_ONE_OF"]
+
+        # Extract rule by JSONPATH
+        rule = rule_search[0].value
+
+        # Instantiate results
+        criteria_results = {}
+        rule_results = {}
+        location_results = {}
+
+        for match_type in match_types:
+            criteria_results[match_type] = []
+            criterion_results = {}
+
+            # Parse criteria and create list of lists of path matches
+            for rule_criterion in rule["criteria"]:
+                criterion_results[match_type] = []
+
+                if rule_criterion["name"] == match_type:
+                    for value in rule_criterion["options"]["values"]:
+                        if (
+                            rule_criterion["options"]["matchOperator"]
+                            in negative_operators
+                        ):
+                            value = "!" + value
+                        criterion_results[match_type].append(value)
+
+                if len(criterion_results[match_type]) > 0:
+                    criteria_results[match_type].append(criterion_results[match_type])
+
+            if len(criteria_results[match_type]) > 0:
+                # Collate path matches into a list of combinations, based on criteria setting
+                if len(criteria_results[match_type]) == 1:
+                    rule_results[match_type] = criteria_results[match_type][0]
+                else:
+                    if rule["criteriaMustSatisfy"] == "all":
+                        # If using ALL option we must create boolean combos
+                        rule_product = itertools.product(*criteria_results[match_type])
+                        for product in rule_product:
+                            rule_results[match_type].append(" AND ".join(product))
+                    else:
+                        for result in criteria_results[match_type]:
+                            rule_results[match_type].extend(result)
+
+        return location_results
 
     def search_akamai_rule_tree_for_behavior(self, rule_tree, behavior_name):
-        self.logger.debug("searching akamai rule tree for behavior %s", behavior_name)
-        behaviors = []
+        self.logger.debug(
+            "search_akamai_rule_tree_for_behavior(behavior_name=%s)", behavior_name
+        )
         jsonpath_expression = parse(
             '$..behaviors[?(@.name=="{b}")]'.format(b=behavior_name)
         )
         jsonpath_result = jsonpath_expression.find(rule_tree)
-        for match in jsonpath_result:
-            behaviors.append(match.value)
-        return behaviors
+
+        return [match.value for match in jsonpath_result]
 
     def search_akamai_rule_tree_for_edge_redirector(self, rule_tree):
         return self.search_akamai_rule_tree_for_cloudlet(rule_tree, "edgeRedirector")
@@ -483,10 +529,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
     def search_akamai_rule_tree_for_siteshield(self, rule_tree):
         instances = self.search_akamai_rule_tree_for_behavior(rule_tree, "siteShield")
-        map_names = [
-            siteshield["options"]["ssmap"]["value"] for siteshield in instances
-        ]
-        return map_names
+        return [siteshield["options"]["ssmap"]["value"] for siteshield in instances]
 
     def search_akamai_rule_tree_for_ivm(self, rule_tree):
         image_instances = self.search_akamai_rule_tree_for_behavior(
@@ -498,7 +541,6 @@ class AkamaiPropertyClient(AkamaiApiClient):
         instances = image_instances + video_instances
 
         for instance in instances:
-
             # Need to work out policySet if using default or custom options
             options = instance["options"]
             if "policySet" not in options:
@@ -545,7 +587,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
             )
         except Exception as err:
             logger.exception("Failed to get property %s: %s", property_id, err)
-            return
+            return None
 
         property_response["hostnames"] = property_hostnames
         return property_response

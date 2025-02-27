@@ -19,7 +19,6 @@ from .siteshield import AkamaiSiteshieldExtractor
 from .waf import AkamaiWafExtractor
 
 __all__ = (
-    "AkamaiPlugin",
     "AkamaiAPIDiscoveryExtractor",
     "AkamaiAppSecCoverageExtractor",
     "AkamaiCloudletExtractor",
@@ -29,12 +28,13 @@ __all__ = (
     "AkamaiEdnsExtractor",
     "AkamaiEhnExtractor",
     "AkamaiGtmExtractor",
-    "AkamaiIvmExtractor",
     "AkamaiIamClientExtractor",
     "AkamaiIamUserExtractor",
+    "AkamaiIvmExtractor",
+    "AkamaiNetstorageAccountExtractor",
     "AkamaiNetstorageAccountExtractor",
     "AkamaiNetstorageGroupExtractor",
-    "AkamaiNetstorageAccountExtractor",
+    "AkamaiPlugin",
     "AkamaiPropertyExtractor",
     "AkamaiRedirectExtractor",
     "AkamaiSiteshieldExtractor",

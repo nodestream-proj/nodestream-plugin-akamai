@@ -27,21 +27,21 @@ class AkamaiAppSecCoverageExtractor(Extractor):
             # Only care if hostname is covered
             if hostname["status"] == "covered":
                 # Need to find policy ID, so find first locate config from hostname entry
-                covering_config = [
+                covering_config = next(
                     config
                     for config in configs
                     if config["id"] == hostname["configuration"]["id"]
-                ][0]
+                )
                 # Then iterate through policyNames and replace with dict
-                for policyName in hostname["policyNames"]:
-                    covering_policy = [
+                for policy_name in hostname["policyNames"]:
+                    covering_policy = next(
                         policy
                         for policy in covering_config["policies"]
-                        if policy["policyName"] == policyName
-                    ][0]
+                        if policy["policy_name"] == policy_name
+                    )
                     coverage_object = {
                         "hostname": hostname["hostname"],
-                        "policyName": covering_policy["policyName"],
+                        "policy_name": covering_policy["policy_name"],
                         "policyId": covering_policy["policyId"],
                     }
                     yield coverage_object

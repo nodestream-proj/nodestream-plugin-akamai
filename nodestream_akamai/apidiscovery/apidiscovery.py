@@ -20,7 +20,7 @@ class AkamaiAPIDiscoveryExtractor(Extractor):
         for api in discovered_apis:
             try:
                 api_detail = self.client.get_discovered_api(
-                    hostname=api["encodedHost"], basePath=api["encodedBasePath"]
+                    hostname=api["encodedHost"], base_path=api["encodedBasePath"]
                 )
                 api_detail["id"] = f'{api_detail["host"]}{api_detail["basePath"]}'
                 yield api_detail
