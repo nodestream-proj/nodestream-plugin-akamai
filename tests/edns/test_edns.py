@@ -3,7 +3,6 @@ from typing import AsyncGenerator
 
 import pytest
 import responses
-from requests import HTTPError
 
 from nodestream_akamai.edns import edns
 
@@ -154,7 +153,7 @@ def test_extract_records_zone_fetch_fail(edns_extractor):
     )
     responses.add(rsp1)
 
-    with pytest.raises(HTTPError):
+    with pytest.raises(SystemError):
         asyncio.run(to_list_async(edns_extractor.extract_records()))
 
 
@@ -179,5 +178,5 @@ def test_extract_records_recordsets_fetch_fail(edns_extractor):
         status=400,
     )
     responses.add(rsp2)
-    with pytest.raises(HTTPError):
+    with pytest.raises(SystemError):
         asyncio.run(to_list_async(edns_extractor.extract_records()))

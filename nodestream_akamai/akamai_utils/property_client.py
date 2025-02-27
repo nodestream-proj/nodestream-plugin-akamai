@@ -13,10 +13,6 @@ PATH_AND = " AND "
 logger = logging.getLogger(__name__)
 
 
-class NoRuleFoundError(Exception):
-    pass
-
-
 CLOUDLET_TYPES = [
     "applicationLoadBalancer",
     "apiPrioritization",
@@ -64,7 +60,7 @@ def _extract_origin(behavior):
 
 
 def _flatten_origins(origin):
-    return list(
+    flattened = list(
         itertools.chain(
             (
                 Origin(name=origin["name"], path=path)
@@ -80,6 +76,10 @@ def _flatten_origins(origin):
             ),
         )
     )
+    if flattened:
+        return flattened
+
+    return [Origin(name=origin["name"])]
 
 
 class AkamaiPropertyClient(AkamaiApiClient):
@@ -310,18 +310,23 @@ class AkamaiPropertyClient(AkamaiApiClient):
             for property_id in property_ids
         ]
 
-    def search_akamai_rule_tree_for_origins(self, rule_tree) -> list[Origin]:
-        behaviors = rule_tree["behaviors"]
-        children = rule_tree["children"]
-        origins = {
-            origin
-            for child_rule_tree in children
-            for origin in self.search_akamai_rule_tree_for_origins(child_rule_tree)
-        }
-        for behavior in behaviors:
-            origins.add(_extract_origin(behavior))
+    def search_akamai_rule_tree_for_origins(self, rule_tree) -> set[Origin]:
+        behaviors = rule_tree.get("behaviors", [])
+        children = rule_tree.get("children", [])
+        origins = set()
 
-        return list(origins)
+        for child_rule_tree in children:
+            for child_origin in self.search_akamai_rule_tree_for_origins(
+                child_rule_tree
+            ):
+                origins.add(child_origin)
+
+        for behavior in behaviors:
+            extracted = _extract_origin(behavior)
+            if extracted:
+                origins.add(extracted)
+
+        return set(origins)
 
     def collate_origins_with_criteria(self, rules) -> list[Origin]:
         """
@@ -363,28 +368,33 @@ class AkamaiPropertyClient(AkamaiApiClient):
                 combined_rule_cdids.append(location_results["cloudOrigin"])
             parent_location = location
         # Combine results into single list with boolean AND between parent and child
-        return {
-            "name": origin_host,
-            "paths": [
+        output = {"name": origin_host}
+
+        if combined_rule_paths:
+            output["paths"] = [
                 PATH_AND.join(path_product)
                 for path_product in itertools.product(*combined_rule_paths)
-            ],
-            "hostnames": [
+            ]
+        if combined_rule_hosts:
+            output["hostnames"] = [
                 PATH_AND.join(host_product)
                 for host_product in itertools.product(*combined_rule_hosts)
-            ],
-            "conditional_origins": [
+            ]
+
+        if combined_rule_cdids:
+            output["conditional_origins"] = [
                 PATH_AND.join(cdid_product)
                 for cdid_product in itertools.product(*combined_rule_cdids)
-            ],
-        }
+            ]
+
+        return output
 
     def parse_origin_search(self, path, rules):
         """
         This function parses jsonpath origin search results into a hostname
         and location elements List
         """
-        self.logger.debug("parse_origin_search(path=%s)", path)
+        self.logger.debug("parse_origin_search")
         origin_location = str(path.full_path)
         rule_base = re.sub(r"behaviors.\[\d+]", "", origin_location)
         origin_host = "ERROR"  # Host should be renamed
@@ -404,54 +414,49 @@ class AkamaiPropertyClient(AkamaiApiClient):
         location_elements = re.findall(r"children\.\[\d+]", rule_base)
         return origin_host, location_elements
 
-    def parse_origin_location(self, rule_location, parent_location, rules):
+    def parse_origin_location(self, rule_location_input, parent_location, rules):
         """
         This function parses origin locations to extract path matches, hostname matches
         and Conditional Origin IDs
         """
         self.logger.debug(
             "parse_origin_location(rule_location=%s, parent_location=%s)",
-            rule_location,
+            rule_location_input,
             parent_location,
         )
         # Construct rule location from element and optionally parent path
         if parent_location != "":
-            rule_location = parent_location + "." + rule_location
+            rule_location = parent_location + "." + rule_location_input
+        else:
+            rule_location = rule_location_input
+
         rule_match = parse(rule_location)
         rule_search = rule_match.find(rules)
 
         if rule_search is None or len(rule_search) == 0:
-            msg = f"No rule found at position '{rule_location}'"
-            raise NoRuleFoundError(msg)
-
-        # Define criteria to look at
-        match_types = ["path", "hostname", "cloudletsOrigin"]
-
-        # Define negative criterion matches
-        negative_operators = ["DOES_NOT_MATCH_ONE_OF", "IS_NOT_ONE_OF"]
+            self.logger.warning("No rule found at position '%s'", rule_location)
+            return {}
 
         # Extract rule by JSONPATH
         rule = rule_search[0].value
 
         # Instantiate results
         criteria_results = {}
-        rule_results = {}
+        rule_results = {k: [] for k in MATCH_TYPES}
         location_results = {}
 
-        for match_type in match_types:
+        for match_type in MATCH_TYPES:
             criteria_results[match_type] = []
-            criterion_results = {}
+            criterion_results = {k: [] for k in MATCH_TYPES}
 
             # Parse criteria and create list of lists of path matches
             for rule_criterion in rule["criteria"]:
                 criterion_results[match_type] = []
 
                 if rule_criterion["name"] == match_type:
-                    for value in rule_criterion["options"]["values"]:
-                        if (
-                            rule_criterion["options"]["matchOperator"]
-                            in negative_operators
-                        ):
+                    rc_options = rule_criterion["options"]
+                    for value in rc_options.get("values", []):
+                        if rc_options.get("matchOperator") in NEGATIVE_OPERATORS:
                             value = "!" + value
                         criterion_results[match_type].append(value)
 
