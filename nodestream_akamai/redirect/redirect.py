@@ -13,8 +13,9 @@ class AkamaiRedirectExtractor(Extractor):
     async def extract_records(self):
         for policy_id in self.client.cloudlet_policy_ids_er():
             try:
-                policy_tree = self.client.describe_policy_id(policy_id)
+                policy_tree = self.client.describe_policy_id(str(policy_id))
                 for item in self.client.get_policy_rule_set(policy_tree):
                     yield item
-            except Exception:
-                self.logger.error("Failed to get policy: %s", policy_id)
+            except Exception as err:
+                self.logger.exception("Failed to get policy: %s", policy_id)
+                raise err

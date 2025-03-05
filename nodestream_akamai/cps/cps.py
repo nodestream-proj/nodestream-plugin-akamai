@@ -15,7 +15,7 @@ class AkamaiCpsExtractor(Extractor):
         try:
             enrollments = self.client.list_cps_enrollments()
         except Exception as err:
-            self.logger.error("Failed to list certificates: %s", err)
+            self.logger.exception("Failed to list certificates: %s", err)
             return
 
         for enrollment in enrollments:
@@ -34,6 +34,8 @@ class AkamaiCpsExtractor(Extractor):
                     ]
                 yield parsed_enrollment
             except Exception as err:
-                self.logger.error(
-                    f"Failed to get deployment for cert '{enrollment['csr']['cn']}': {err}"
+                self.logger.exception(
+                    "Failed to get deployment for cert '%s': %s",
+                    enrollment["csr"]["cn"],
+                    err,
                 )

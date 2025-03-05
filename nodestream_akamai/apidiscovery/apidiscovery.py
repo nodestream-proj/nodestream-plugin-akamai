@@ -14,17 +14,18 @@ class AkamaiAPIDiscoveryExtractor(Extractor):
         try:
             discovered_apis = self.client.list_discovered_apis()
         except Exception as err:
-            self.logger.error("Failed to list discovered apis: %s", err)
+            self.logger.exception("Failed to list discovered apis: %s", err)
+            raise err
 
         for api in discovered_apis:
             try:
                 api_detail = self.client.get_discovered_api(
-                    hostname=api["encodedHost"], basePath=api["encodedBasePath"]
+                    hostname=api["encodedHost"], base_path=api["encodedBasePath"]
                 )
                 api_detail["id"] = f'{api_detail["host"]}{api_detail["basePath"]}'
                 yield api_detail
             except Exception as err:
-                self.logger.error(
+                self.logger.exception(
                     "Failed to retrieve api '%s - %s': %s",
                     api["encodedHost"],
                     api["encodedBasePath"],
