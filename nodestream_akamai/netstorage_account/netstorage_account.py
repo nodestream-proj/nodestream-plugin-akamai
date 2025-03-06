@@ -1,4 +1,5 @@
 import logging
+from hashlib import sha256
 
 from nodestream.pipeline.extractors import Extractor
 
@@ -24,11 +25,18 @@ class AkamaiNetstorageAccountExtractor(Extractor):
                 for key_type in key_types:
                     if key_type in account["keys"]:
                         for key in account["keys"][key_type]:
+                            http_sha256 = None
+                            if key_type == "g2o":
+                                http_sha256 = sha256(
+                                    key["key"].encode("utf-8")
+                                ).hexdigest()
                             parsed_key = {
                                 "type": key_type,
                                 "id": key["id"],
+                                "http_sha256": http_sha256,
                                 "lastModifiedBy": key["lastModifiedBy"],
                                 "lastModifiedDate": key["lastModifiedDate"],
+                                "isActive": key["isActive"],
                             }
                             account["combinedKeys"].append(parsed_key)
 
