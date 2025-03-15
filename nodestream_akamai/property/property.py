@@ -1,5 +1,8 @@
+import dataclasses
+import json
 import logging
 
+import anyio
 from nodestream.pipeline.extractors import Extractor
 
 from ..akamai_utils.property_client import AkamaiPropertyClient
@@ -28,7 +31,11 @@ class AkamaiPropertyExtractor(Extractor):
             )
             try:
                 described_property = self.client.describe_property_by_dict(prop)
-                yield described_property.as_eventbus_json()
+                async with await anyio.open_file("property.json", "a") as f:
+                    await f.write(
+                        f"{json.dumps(dataclasses.asdict(described_property))}\n"
+                    )
+                yield dataclasses.asdict(described_property)
             except Exception:
                 self.logger.exception(
                     "Failed to get property %s (id=%s)",

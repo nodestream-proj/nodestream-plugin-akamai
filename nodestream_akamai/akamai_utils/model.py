@@ -2,12 +2,12 @@ from dataclasses import dataclass, field
 from typing import List
 
 
-@dataclass(eq=True, frozen=True)
+@dataclass(eq=True, frozen=True, kw_only=True)
 class EdgeHost:
     name: str
 
 
-@dataclass(eq=True, frozen=True)
+@dataclass(eq=True, frozen=True, kw_only=True)
 class Origin:
     name: str
     path: str | None = None
@@ -15,13 +15,13 @@ class Origin:
     conditional_origin: str | None = None
 
 
-@dataclass
+@dataclass(kw_only=True)
 class PropertyDescription:
     id: str
     name: str
-    origins: List[Origin]
     hostnames: List[EdgeHost]
     version: str | None = None
+    origins: List[Origin] = field(default_factory=list)
     siteshield_maps: List[str] = field(default_factory=list)
     rule_format: str | None = None
     image_manager_policysets: List[str] = field(default_factory=list)
@@ -39,7 +39,7 @@ class PropertyDescription:
     def hostname_count(self):
         return len(self.hostnames)
 
-    def as_eventbus_json(self):
+    def dict_factory(self):
         return {
             "id": f"akamai_property:{self.id}",
             "name": self.name,
@@ -54,7 +54,5 @@ class PropertyDescription:
             "edgeworker_ids": self.edgeworker_ids,
             "siteshield_maps": self.siteshield_maps,
             "image_manager_policysets": self.image_manager_policysets,
-            "hostnames": [
-                {"name": hostname["cnameFrom"]} for hostname in self.hostnames
-            ],
+            "hostnames": self.hostnames,
         }

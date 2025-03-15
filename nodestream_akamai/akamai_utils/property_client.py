@@ -220,7 +220,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
         # Update origins
         origins = self.collate_origins_with_criteria(rule_tree["rules"])
-        hostnames = prop["hostnames"]
+        hostnames = [EdgeHost(name=h["cnameFrom"]) for h in prop["hostnames"]]
 
         # Cloudlets
         cloudlet_policies = self.search_akamai_rule_tree_for_cloudlets(
@@ -343,7 +343,6 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
         # Expand to one origin hostname/path combo per object to simplify the pipeline config and avoid
         # nested looping
-
         return list(
             itertools.chain.from_iterable(
                 _flatten_origins(origin) for origin in origins
@@ -364,8 +363,8 @@ class AkamaiPropertyClient(AkamaiApiClient):
                 combined_rule_paths.append(location_results["path"])
             if len(location_results.get("hostname", [])) > 0:
                 combined_rule_hosts.append(location_results["hostname"])
-            if len(location_results.get("cloudOrigin", [])) > 0:
-                combined_rule_cdids.append(location_results["cloudOrigin"])
+            if len(location_results.get("cloudletsOrigin", [])) > 0:
+                combined_rule_cdids.append(location_results["cloudletsOrigin"])
             parent_location = location
         # Combine results into single list with boolean AND between parent and child
         output = {"name": origin_host}
@@ -443,7 +442,6 @@ class AkamaiPropertyClient(AkamaiApiClient):
         # Instantiate results
         criteria_results = {}
         rule_results = {k: [] for k in MATCH_TYPES}
-        location_results = {}
 
         for match_type in MATCH_TYPES:
             criteria_results[match_type] = []
@@ -459,6 +457,8 @@ class AkamaiPropertyClient(AkamaiApiClient):
                         if rc_options.get("matchOperator") in NEGATIVE_OPERATORS:
                             value = "!" + value
                         criterion_results[match_type].append(value)
+                    if "originId" in rc_options:
+                        criterion_results[match_type].append(rc_options["originId"])
 
                 if len(criterion_results[match_type]) > 0:
                     criteria_results[match_type].append(criterion_results[match_type])
@@ -476,8 +476,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
                     else:
                         for result in criteria_results[match_type]:
                             rule_results[match_type].extend(result)
-
-        return location_results
+        return rule_results
 
     def search_akamai_rule_tree_for_behavior(self, rule_tree, behavior_name):
         self.logger.debug(
