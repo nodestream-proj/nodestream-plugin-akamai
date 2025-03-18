@@ -5,6 +5,19 @@ from nodestream.pipeline.extractors import Extractor
 from ..akamai_utils.appsec_client import AkamaiAppSecClient
 
 
+def _extract_policy(covering_config, hostname, policy_name) -> dict[str, str]:
+    covering_policy = next(
+        policy
+        for policy in covering_config["policies"]
+        if policy["policyName"] == policy_name
+    )
+    return {
+        "hostname": hostname["hostname"],
+        "policy_name": covering_policy["policyName"],
+        "policyId": covering_policy["policyId"],
+    }
+
+
 class AkamaiAppSecCoverageExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
         self.client = AkamaiAppSecClient(**akamai_client_kwargs)
@@ -25,7 +38,7 @@ class AkamaiAppSecCoverageExtractor(Extractor):
 
         for hostname in hostname_coverage:
             # Only care if hostname is covered
-            if hostname["status"] == "covered":
+            if hostname.get("status") == "covered":
                 # Need to find policy ID, so find first locate config from hostname entry
                 covering_config = next(
                     config
@@ -34,14 +47,7 @@ class AkamaiAppSecCoverageExtractor(Extractor):
                 )
                 # Then iterate through policyNames and replace with dict
                 for policy_name in hostname["policyNames"]:
-                    covering_policy = next(
-                        policy
-                        for policy in covering_config["policies"]
-                        if policy["policy_name"] == policy_name
+                    coverage_object = _extract_policy(
+                        covering_config, hostname, policy_name
                     )
-                    coverage_object = {
-                        "hostname": hostname["hostname"],
-                        "policy_name": covering_policy["policy_name"],
-                        "policyId": covering_policy["policyId"],
-                    }
                     yield coverage_object

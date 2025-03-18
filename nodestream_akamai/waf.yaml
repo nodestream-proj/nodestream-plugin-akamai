@@ -30,3 +30,5 @@
         policy_id: !jmespath 'policyId'
       outbound: false
       iterate_on: !jmespath 'policies[*]'
+      node_properties:
+        deeplink: !jmespath 'deeplink'
