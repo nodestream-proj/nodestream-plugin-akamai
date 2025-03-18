@@ -17,7 +17,7 @@ packages = [
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.11, <4.0"
 edgegrid-python = "^1.2.1"
 python-json-logger = "^2.0.2"
 python-dotenv = ">=0.21.0,< 2"
