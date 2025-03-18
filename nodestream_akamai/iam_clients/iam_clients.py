@@ -19,10 +19,10 @@ class AkamaiIamClientExtractor(Extractor):
 
         for client in clients:
             client["authorizedUsersList"] = ",".join(client["authorizedUsers"])
-            client[
-                "deeplink"
-            ] = "https://control.akamai.com/apps/identity-management/#/tabs/users/list/api-client/{id}/details".format(
-                id=client["clientId"]
+            client["deeplink"] = (
+                "https://control.akamai.com/apps/identity-management/#/tabs/users/list/api-client/{id}/details".format(
+                    id=client["clientId"]
+                )
             )
             if client["activeCredentialCount"] > 0:
                 try:

@@ -1,4 +1,3 @@
-
 import pytest
 import responses
 
@@ -13,6 +12,7 @@ def edns_extractor():
         client_secret="secret",
         access_token="atoken",
     )
+
 
 @responses.activate
 @pytest.mark.asyncio

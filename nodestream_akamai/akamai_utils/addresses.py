@@ -1,4 +1,5 @@
 """Common utils for getting information about addresses."""
+
 from enum import StrEnum
 from ipaddress import IPv4Address, IPv6Address, ip_address
 
