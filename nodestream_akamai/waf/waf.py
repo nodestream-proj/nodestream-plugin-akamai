@@ -48,6 +48,7 @@ class AkamaiWafExtractor(Extractor):
                             "policyId": policy["id"],
                             "policyName": policy["name"],
                             "attackGroupActions": [],
+                            "deeplink": f'{deeplink_prefix}{config["id"]}/versions/{config["productionVersion"]}/policies/{policy["id"]}',
                         }
                         if "webApplicationFirewall" in policy:
                             for action in policy["webApplicationFirewall"][
