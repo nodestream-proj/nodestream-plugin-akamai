@@ -30,13 +30,17 @@ class AkamaiApiClient:
             max_body=128 * 1024,  # TODO: Completely Arbitrary Currently
         )
         self.account_key = account_key
+        self.backoff_delays = [5, 10, 20, 60, 180]
 
     def _get_api_from_relative_path(
-        self, path, params=None, headers=None, backoff_index=None
+        self,
+        path,
+        params=None,
+        headers=None,
+        backoff_index=None,
     ):
         full_url = urljoin(self.base_url, path)
 
-        backoff_delays = [5, 10, 20, 60, 180]
         if backoff_index is None:
             backoff_index = 0
         response = None
@@ -61,20 +65,20 @@ class AkamaiApiClient:
             if response.status_code == 429:
                 # Increase bacoff for next attempt
                 next_backoff_index = backoff_index + 1
-                if next_backoff_index > len(backoff_delays):
+                if next_backoff_index > len(self.backoff_delays):
                     logger.warning(
                         "Received 429 response for 'GET %s' and backoff limit exceeded.",
                         full_url,
                     )
                 else:
-                    backoff = backoff_delays[backoff_index]
+                    backoff = self.backoff_delays[backoff_index]
                     logger.warning(
                         "Received 429 response for 'GET %s'. Waiting for %s seconds before retrying",
                         full_url,
                         backoff,
                     )
                     time.sleep(backoff)
-                    response = self._get_api_from_relative_path(
+                    return self._get_api_from_relative_path(
                         path,
                         params=params,
                         headers=headers,
