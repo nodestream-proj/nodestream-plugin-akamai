@@ -1,6 +1,3 @@
-import asyncio
-from typing import AsyncGenerator
-
 import pytest
 import responses
 
@@ -17,15 +14,9 @@ def edns_extractor():
     )
 
 
-async def to_list_async(generator: AsyncGenerator):
-    output = []
-    async for record in generator:
-        output.append(record)
-    return output
-
-
 @responses.activate
-def test_extract_records(edns_extractor):
+@pytest.mark.asyncio
+async def test_extract_records(edns_extractor):
     """Happy path check"""
     rsp1 = responses.Response(
         method="GET",
@@ -83,7 +74,7 @@ def test_extract_records(edns_extractor):
     )
     responses.add(rsp3)
 
-    result = asyncio.run(to_list_async(edns_extractor.extract_records()))
+    result = [record async for record in edns_extractor.extract_records()]
     assert result == [
         {
             "recordsets": [
@@ -145,7 +136,8 @@ def test_extract_records(edns_extractor):
 
 
 @responses.activate
-def test_extract_records_zone_fetch_fail(edns_extractor):
+@pytest.mark.asyncio
+async def test_extract_records_zone_fetch_fail(edns_extractor):
     rsp1 = responses.Response(
         method="GET",
         url="https://fake.example.com/config-dns/v2/zones?showAll=true",
@@ -154,11 +146,12 @@ def test_extract_records_zone_fetch_fail(edns_extractor):
     responses.add(rsp1)
 
     with pytest.raises(SystemError):
-        asyncio.run(to_list_async(edns_extractor.extract_records()))
+        _ignored = [r async for r in edns_extractor.extract_records()]
 
 
 @responses.activate
-def test_extract_records_recordsets_fetch_fail(edns_extractor):
+@pytest.mark.asyncio
+async def test_extract_records_recordsets_fetch_fail(edns_extractor):
     rsp1 = responses.Response(
         method="GET",
         url="https://fake.example.com/config-dns/v2/zones?showAll=true",
@@ -179,4 +172,4 @@ def test_extract_records_recordsets_fetch_fail(edns_extractor):
     )
     responses.add(rsp2)
     with pytest.raises(SystemError):
-        asyncio.run(to_list_async(edns_extractor.extract_records()))
+        _ignored = [r async for r in edns_extractor.extract_records()]

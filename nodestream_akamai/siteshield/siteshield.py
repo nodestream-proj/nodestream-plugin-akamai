@@ -21,7 +21,7 @@ class AkamaiSiteshieldExtractor(Extractor):
             deeplink_prefix = (
                 "https://control.akamai.com/apps/siteshield-ui/#/mapRequest/"
             )
-            siteshield_map[
-                "deeplink"
-            ] = f'{deeplink_prefix}{siteshield_map["latestTicketId"]}/status'
+            siteshield_map["deeplink"] = (
+                f'{deeplink_prefix}{siteshield_map["latestTicketId"]}/status'
+            )
             yield siteshield_map

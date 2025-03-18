@@ -31,9 +31,9 @@ class AkamaiEdgeworkersExtractor(Extractor):
                 )
 
             # Add deeplink
-            edgeworker[
-                "deeplink"
-            ] = f'https://control.akamai.com/apps/edgeworkers/#/ids/{edgeworker["edgeWorkerId"]}/versions'
+            edgeworker["deeplink"] = (
+                f'https://control.akamai.com/apps/edgeworkers/#/ids/{edgeworker["edgeWorkerId"]}/versions'
+            )
 
             if active_version is not None:
                 edgeworker["activeVersion"] = active_version["version"]

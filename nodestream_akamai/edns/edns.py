@@ -1,4 +1,3 @@
-import asyncio
 import logging
 
 from nodestream.pipeline.extractors import Extractor
@@ -38,7 +37,7 @@ class AkamaiEdnsExtractor(Extractor):
                 recordset[node_type] = node_type_list
         return recordset
 
-    async def _extract_zone(self, zone):
+    def _extract_zone(self, zone):
         try:
             record_sets = self.client.list_recordsets(zone["zone"])
         except Exception as e:
@@ -62,5 +61,5 @@ class AkamaiEdnsExtractor(Extractor):
             self.logger.exception("problem fetching zones: %s", e)
             raise e
 
-        for zone in asyncio.as_completed(self._extract_zone(z) for z in zones):
-            yield await zone
+        for zone in zones:
+            yield self._extract_zone(zone)
