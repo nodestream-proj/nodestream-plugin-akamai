@@ -16,15 +16,18 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
+          python-version: "3.13"
           cache: 'poetry'
       - name: Install Dependencies
         run: |
           pip install --upgrade pip
           pip install --upgrade setuptools
-          poetry env use "3.11"
+          poetry env use "3.13"
           poetry install
       - name: Run Lints
         run: |
           poetry run black nodestream_akamai --check
           poetry run isort nodestream_akamai --check-only
+      - name: Run Tests
+        run: |
+          poetry run pytest

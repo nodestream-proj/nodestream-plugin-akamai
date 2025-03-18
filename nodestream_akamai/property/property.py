@@ -1,3 +1,4 @@
+import dataclasses
 import logging
 
 from nodestream.pipeline.extractors import Extractor
@@ -28,7 +29,7 @@ class AkamaiPropertyExtractor(Extractor):
             )
             try:
                 described_property = self.client.describe_property_by_dict(prop)
-                yield described_property.as_eventbus_json()
+                yield dataclasses.asdict(described_property)
             except Exception:
                 self.logger.exception(
                     "Failed to get property %s (id=%s)",

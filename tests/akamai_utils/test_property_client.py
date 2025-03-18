@@ -2,7 +2,11 @@ import pytest
 
 from nodestream_akamai.akamai_utils import Origin
 from nodestream_akamai.akamai_utils.property_client import AkamaiPropertyClient
-from tests.akamai_utils.rulesdata import rule_tree_488011, rule_tree_643957
+from tests.akamai_utils.rulesdata import (
+    rule_tree_488011,
+    rule_tree_627844,
+    rule_tree_643957,
+)
 
 CRITERIA_RULE = {
     "rules": {
@@ -65,7 +69,7 @@ def client():
 
 def test_search_akamai_rule_tree_for_origins_simple(client):
     assert client.search_akamai_rule_tree_for_origins(CRITERIA_RULE["rules"]) == {
-        Origin("example.com")
+        Origin(name="example.com")
     }
 
 
@@ -125,20 +129,69 @@ def test_collate_origins_with_criteria(client):
     assert result == [Origin(name="example.com")]
 
 
-def test_collate_live(client):
+def test_collate_live_643957(client):
     assert client.collate_origins_with_criteria(rule_tree_643957["rules"]) == [
-        Origin(name="community.example.com"),
+        Origin(name="c.example.com"),
         Origin(name="sgds.download.akamai.com"),
-        Origin(name="sitemap-cdn.example.com"),
-        Origin(name="sitemap-cdn.example.com"),
-        Origin(name="dcgfr56345.stage.lithium.com"),
-        Origin(name="sh-exp-sgds.example.com"),
-        Origin(name="example-render.example.com"),
-        Origin(name="example-render.example.com"),
-        Origin(name="example-render.example.com"),
+        Origin(name="s.example.com", path="/community/sitemap*.xml"),
+        Origin(name="s.example.com", path="/robots.txt"),
+        Origin(
+            name="dcgfr56345.stage.lithium.com",
+            path="/community AND !/community/sitemap*.xml",
+        ),
+        Origin(
+            name="dcgfr56345.stage.lithium.com",
+            path="/community/* AND !/community/sitemap*.xml",
+        ),
+        Origin(name="s.example.com", path="/example-support"),
+        Origin(name="s.example.com", path="/example-support/en-us"),
+        Origin(name="s.example.com", path="/example-support/en-us/*"),
+        Origin(name="s.example.com", path="/example-support/"),
+        Origin(name="s.example.com", path="/example-support/es-us"),
+        Origin(name="s.example.com", path="/example-support/es-us/*"),
+        Origin(name="e.example.com", path="/community AND !/community/*/amp"),
+        Origin(name="e.example.com", path="/community AND !/community/sitemap*.xml"),
+        Origin(name="e.example.com", path="/community AND !/community/*/help/*/00/*"),
+        Origin(name="e.example.com", path="/community AND !/community/*/help/*/01/*"),
+        Origin(name="e.example.com", path="/community/* AND !/community/*/amp"),
+        Origin(name="e.example.com", path="/community/* AND !/community/sitemap*.xml"),
+        Origin(name="e.example.com", path="/community/* AND !/community/*/help/*/00/*"),
+        Origin(name="e.example.com", path="/community/* AND !/community/*/help/*/01/*"),
+        Origin(name="e.example.com"),
+        Origin(name="e.example.com"),
     ]
+
+
+def test_collate_live_488011(client):
     assert client.collate_origins_with_criteria(rule_tree_488011["rules"]) == [
         Origin(name="example.download.akamai.com")
+    ]
+
+
+def test_collate_live_627844(client):
+    assert client.collate_origins_with_criteria(rule_tree_627844["rules"]) == [
+        Origin(name="w.example.com"),
+        Origin(
+            name="www.mczbf.com",
+            path="/proxydirectory/*",
+        ),
+        Origin(name="examplegpm.download.akamai.com", path="/robots.txt"),
+        Origin(
+            name="examplegpm.download.akamai.com",
+            path="/googlef2feb1480d7429b5.html",
+        ),
+        Origin(name="examplegpm.download.akamai.com", path="/sitemap.xml"),
+        Origin(name="example.download.akamai.com", path="/file/*"),
+        Origin(name="example.download.akamai.com", hostname="t.example.ca"),
+        Origin(name="r.example.com", path="/_next/*"),
+        Origin(name="r.example.com", path="/gwp-components/*"),
+        Origin(name="r.example.com", path="/gwp-cg-components/*"),
+        Origin(name="r.example.com", hostname="t.example.ca"),
+        Origin(name="w.example.com"),
+        Origin(name="w.example.com"),
+        Origin(name="examplegpm.download.akamai.com", conditional_origin="MAINTENANCE"),
+        Origin(name="p.example.ca", conditional_origin="dc1_impot_ca_prod"),
+        Origin(name="c.example.com", conditional_origin="contentmesh"),
     ]
 
 
