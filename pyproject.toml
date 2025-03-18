@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nodestream-plugin-akamai"
-version = "0.14.1"
+version = "0.14.2"
 description = "Pipeline Plugin for Akamai Data"
 authors = [
     "Zach Probst <Zach_Probst@intuit.com>",
