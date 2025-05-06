@@ -145,7 +145,7 @@ class AkamaiCloudletsV2Client(AkamaiApiClient):
                 logger.info("Skipping: %s", block)
 
         inbound_hosts = list(set(inbound_hosts))
-        logger.info("-------------------------------------------------------------")
+        logger.debug("-------------------------------------------------------------")
         logger.info(inbound_hosts)
         return [{"name": host} for host in set(inbound_hosts)]
 
