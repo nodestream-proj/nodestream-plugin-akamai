@@ -15,6 +15,14 @@ PROTOCOL_HTTPS = "https://"
 CREDENTIAL_TIMEOUT_SECONDS = 300
 
 
+class AkamaiAuthenticationError(HTTPError):
+    """Exception raised when Akamai API returns a 401 authentication error."""
+
+    def __init__(self, message, response=None):
+        super().__init__(message, response=response)
+        self.response = response
+
+
 class AkamaiApiClient:
     def __init__(
         self, base_url, client_token, client_secret, access_token, account_key=None
@@ -54,6 +62,14 @@ class AkamaiApiClient:
             if sleepy_seconds:
                 time.sleep(sleepy_seconds)
             response = self.session.get(full_url, params=params, headers=headers)
+            # Immediately fail on 401 authentication errors
+            if response.status_code == 401:
+                error_msg = f"Authentication failed for 'GET {full_url}'"
+                if response.text:
+                    error_msg += f". Response body: {response.text}"
+                logger.error(error_msg)
+                raise AkamaiAuthenticationError(error_msg, response=response)
+
             # Retry once for temporary 500 errors
             if response.status_code == 500:
                 logger.warning(
@@ -127,6 +143,15 @@ class AkamaiApiClient:
             response = self.session.post(
                 full_url, params=params, headers=request_headers, json=body
             )
+
+            # Immediately fail on 401 authentication errors
+            if response.status_code == 401:
+                error_msg = f"Authentication failed for 'POST {full_url}'"
+                if response.text:
+                    error_msg += f". Response body: {response.text}"
+                logger.error(error_msg)
+                raise AkamaiAuthenticationError(error_msg, response=response)
+
             if response.status_code == 200:
                 return response.json()
             self.error_count += 1
