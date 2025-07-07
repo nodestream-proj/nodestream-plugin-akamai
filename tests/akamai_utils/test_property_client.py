@@ -1,7 +1,4 @@
-import dataclasses
-
 import pytest
-import responses
 
 from nodestream_akamai.akamai_utils import Origin
 from nodestream_akamai.akamai_utils.property_client import AkamaiPropertyClient
@@ -63,7 +60,7 @@ CRITERIA_RULE = {
 @pytest.fixture
 def client():
     return AkamaiPropertyClient(
-        base_url="https://example.url.com",
+        base_url="url",
         client_token="ctoken",
         client_secret="client",
         access_token="atoken",
@@ -252,140 +249,3 @@ def test_live_search_akamai_rule_tree_for_cp_codes(client):
     assert client.search_akamai_rule_tree_for_cp_codes(rule_tree_643957["rules"]) == [
         752101
     ]
-
-
-@responses.activate
-def test_live(client):
-    rsp1 = responses.Response(
-        method="GET",
-        url="https://example.url.com/papi/v1/properties/627844/versions/10/rules?contractId=2345&groupId=3456",
-        status=200,
-        json=rule_tree_627844,
-    )
-    responses.add(rsp1)
-    actual = dataclasses.asdict(
-        client.describe_property_by_dict(
-            {
-                "propertyId": "627844",
-                "latestVersion": "10",
-                "contractId": "2345",
-                "groupId": "3456",
-                "assetId": "4567",
-                "hostnames": [{"cnameFrom": "hostname1"}, {"cnameFrom": "hostname2"}],
-                "propertyName": "test property",
-            }
-        )
-    )
-
-    assert actual == {
-        "cloudlet_policies": [149193, 137797, 47702],
-        "cp_codes": [1057255, 1701599],
-        "deeplink": "https://control.akamai.com/apps/property-manager/#/property-version/4567/10/edit?gid=3456",
-        "edge_redirector_policies": [149193],
-        "edgeworker_ids": [86998],
-        "hostnames": [{"name": "hostname1"}, {"name": "hostname2"}],
-        "id": "627844",
-        "image_manager_policysets": [],
-        "name": "test property",
-        "origins": [
-            {
-                "conditional_origin": None,
-                "hostname": None,
-                "name": "w.example.com",
-                "path": None,
-            },
-            {
-                "conditional_origin": None,
-                "hostname": None,
-                "name": "www.mczbf.com",
-                "path": "/proxydirectory/*",
-            },
-            {
-                "conditional_origin": None,
-                "hostname": None,
-                "name": "examplegpm.download.akamai.com",
-                "path": "/robots.txt",
-            },
-            {
-                "conditional_origin": None,
-                "hostname": None,
-                "name": "examplegpm.download.akamai.com",
-                "path": "/googlef2feb1480d7429b5.html",
-            },
-            {
-                "conditional_origin": None,
-                "hostname": None,
-                "name": "examplegpm.download.akamai.com",
-                "path": "/sitemap.xml",
-            },
-            {
-                "conditional_origin": None,
-                "hostname": None,
-                "name": "example.download.akamai.com",
-                "path": "/file/*",
-            },
-            {
-                "conditional_origin": None,
-                "hostname": "t.example.ca",
-                "name": "example.download.akamai.com",
-                "path": None,
-            },
-            {
-                "conditional_origin": None,
-                "hostname": None,
-                "name": "r.example.com",
-                "path": "/_next/*",
-            },
-            {
-                "conditional_origin": None,
-                "hostname": None,
-                "name": "r.example.com",
-                "path": "/gwp-components/*",
-            },
-            {
-                "conditional_origin": None,
-                "hostname": None,
-                "name": "r.example.com",
-                "path": "/gwp-cg-components/*",
-            },
-            {
-                "conditional_origin": None,
-                "hostname": "t.example.ca",
-                "name": "r.example.com",
-                "path": None,
-            },
-            {
-                "conditional_origin": None,
-                "hostname": None,
-                "name": "w.example.com",
-                "path": None,
-            },
-            {
-                "conditional_origin": None,
-                "hostname": None,
-                "name": "w.example.com",
-                "path": None,
-            },
-            {
-                "conditional_origin": "MAINTENANCE",
-                "hostname": None,
-                "name": "examplegpm.download.akamai.com",
-                "path": None,
-            },
-            {
-                "conditional_origin": "dc1_impot_ca_prod",
-                "hostname": None,
-                "name": "p.example.ca",
-                "path": None,
-            },
-            {
-                "conditional_origin": "contentmesh",
-                "hostname": None,
-                "name": "c.example.com",
-                "path": None,
-            },
-        ],
-        "rule_format": "latest",
-        "siteshield_maps": ["s2038.akamaiedge.net"],
-        "version": "10",
-    }

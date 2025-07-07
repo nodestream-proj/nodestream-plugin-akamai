@@ -82,40 +82,6 @@ def _flatten_origins(origin):
     return [Origin(name=origin["name"])]
 
 
-def _criterion_value(match_operator, value):
-    return f"!{value}" if match_operator in NEGATIVE_OPERATORS else value
-
-
-def _criterion_result(rc_options):
-    output = [
-        _criterion_value(rc_options.get("matchOperator"), value)
-        for value in rc_options.get("values", [])
-    ]
-    if "originId" in rc_options:
-        output.append(rc_options["originId"])
-    return output
-
-
-def _criteria_results(match_type, rule):
-    criteria_results = [
-        _criterion_result(rule_criterion["options"])
-        for rule_criterion in rule["criteria"]
-        if rule_criterion["name"] == match_type
-    ]
-
-    if len(criteria_results) == 1:
-        return criteria_results[0]
-
-    if len(criteria_results) > 1 and rule["criteriaMustSatisfy"] == "all":
-        # If using ALL option we must create boolean combos
-        return [
-            " AND ".join(criteria_result)
-            for criteria_result in itertools.product(*criteria_results)
-        ]
-
-    return criteria_results
-
-
 class AkamaiPropertyClient(AkamaiApiClient):
     def __init__(
         self,
@@ -474,10 +440,43 @@ class AkamaiPropertyClient(AkamaiApiClient):
         rule = rule_search[0].value
 
         # Instantiate results
-        return {
-            match_type: _criteria_results(match_type, rule)
-            for match_type in MATCH_TYPES
-        }
+        criteria_results = {}
+        rule_results = {k: [] for k in MATCH_TYPES}
+
+        for match_type in MATCH_TYPES:
+            criteria_results[match_type] = []
+            criterion_results = {k: [] for k in MATCH_TYPES}
+
+            # Parse criteria and create list of lists of path matches
+            for rule_criterion in rule["criteria"]:
+                criterion_results[match_type] = []
+
+                if rule_criterion["name"] == match_type:
+                    rc_options = rule_criterion["options"]
+                    for value in rc_options.get("values", []):
+                        if rc_options.get("matchOperator") in NEGATIVE_OPERATORS:
+                            value = "!" + value
+                        criterion_results[match_type].append(value)
+                    if "originId" in rc_options:
+                        criterion_results[match_type].append(rc_options["originId"])
+
+                if len(criterion_results[match_type]) > 0:
+                    criteria_results[match_type].append(criterion_results[match_type])
+
+            if len(criteria_results[match_type]) > 0:
+                # Collate path matches into a list of combinations, based on criteria setting
+                if len(criteria_results[match_type]) == 1:
+                    rule_results[match_type] = criteria_results[match_type][0]
+                else:
+                    if rule["criteriaMustSatisfy"] == "all":
+                        # If using ALL option we must create boolean combos
+                        rule_product = itertools.product(*criteria_results[match_type])
+                        for product in rule_product:
+                            rule_results[match_type].append(" AND ".join(product))
+                    else:
+                        for result in criteria_results[match_type]:
+                            rule_results[match_type].extend(result)
+        return rule_results
 
     def search_akamai_rule_tree_for_behavior(self, rule_tree, behavior_name):
         self.logger.debug(
