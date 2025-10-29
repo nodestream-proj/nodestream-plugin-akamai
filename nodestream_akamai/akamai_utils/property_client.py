@@ -564,7 +564,11 @@ class AkamaiPropertyClient(AkamaiApiClient):
         instances = self.search_akamai_rule_tree_for_behavior(rule_tree, "edgeWorker")
         ew_ids = []
         for behavior in instances:
-            ew_ids.append(int(behavior["options"]["edgeWorkerId"]))
+            if (
+                "edgeWorkerId" in behavior["options"]
+                and behavior["options"]["edgeWorkerId"]
+            ):
+                ew_ids.append(int(behavior["options"]["edgeWorkerId"]))
 
         return list(set(ew_ids))
 
