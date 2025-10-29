@@ -29,7 +29,6 @@ class AkamaiEdnsExtractor(Extractor):
         recordset["key"] = f'{recordset["name"]}/{recordset["type"]}'
         recordset["zone"] = zone
         # Remove trailing dot from names
-        recordset["name"]
         for record in recordset["rdata"]:
             address_format = addresses.get_format(record)
             node_type = address_format.node_type
