@@ -35,8 +35,7 @@ class AkamaiEdnsExtractor(Extractor):
             if node_type:
                 node_type_list = recordset.get(node_type, [])
                 clean_record = record
-                if clean_record.endswith("."):
-                    clean_record = clean_record[:-1]
+                clean_record = clean_record.removesuffix(".")
                 node_type_list.append(clean_record)
                 recordset[node_type] = node_type_list
         return recordset
