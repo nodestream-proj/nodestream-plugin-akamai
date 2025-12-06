@@ -6,7 +6,7 @@ from nodestream.pipeline.extractors import Extractor
 from ..akamai_utils.property_client import AkamaiPropertyClient
 
 
-class AkamaiPropertyExtractor(Extractor):
+class AkamaiStagingPropertyExtractor(Extractor):
     def __init__(self, **akamai_client_kwargs) -> None:
         self.client = AkamaiPropertyClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
@@ -20,7 +20,7 @@ class AkamaiPropertyExtractor(Extractor):
             raise err
 
         for prop in properties:
-            if prop.get("productionVersion") is None:
+            if prop.get("stagingVersion") is None:
                 continue
             self.logger.info(
                 "extracting property %s (id=%s)",
@@ -29,7 +29,7 @@ class AkamaiPropertyExtractor(Extractor):
             )
             try:
                 described_property = self.client.describe_property_by_dict(
-                    prop=prop, version=prop["productionVersion"]
+                    prop=prop, version=prop["stagingVersion"]
                 )
                 yield dataclasses.asdict(described_property)
             except Exception:
