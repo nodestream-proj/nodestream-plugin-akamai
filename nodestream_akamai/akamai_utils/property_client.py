@@ -208,11 +208,13 @@ class AkamaiPropertyClient(AkamaiApiClient):
             hostnames=list(hostnames),
         )
 
-    def describe_property_by_dict(self, prop: dict) -> PropertyDescription:
+    def describe_property_by_dict(
+        self, prop: dict, version: int
+    ) -> PropertyDescription:
         # Get rule tree
         rule_tree = self.get_rule_tree(
             property_id=prop["propertyId"],
-            version=prop["latestVersion"],
+            version=version,
             contract_id=prop["contractId"],
             group_id=prop["groupId"],
         )
@@ -259,14 +261,14 @@ class AkamaiPropertyClient(AkamaiApiClient):
         deeplink = "{prefix}{assetId}/{version}/edit?gid={groupId}".format(
             prefix=deeplink_prefix,
             assetId=prop["assetId"],
-            version=prop["latestVersion"],
+            version=version,
             groupId=prop["groupId"],
         )
 
         return PropertyDescription(
             id=prop["propertyId"],
             name=prop["propertyName"],
-            version=prop["latestVersion"],
+            version=version,
             rule_format=rule_tree["ruleFormat"],
             origins=origins,
             cloudlet_policies=cloudlet_policies,

@@ -16,6 +16,7 @@ from .plugin import AkamaiPlugin
 from .property import AkamaiPropertyExtractor
 from .redirect import AkamaiRedirectExtractor
 from .siteshield import AkamaiSiteshieldExtractor
+from .staging_property import AkamaiStagingPropertyExtractor
 from .waf import AkamaiWafExtractor
 
 __all__ = (
@@ -38,5 +39,6 @@ __all__ = (
     "AkamaiPropertyExtractor",
     "AkamaiRedirectExtractor",
     "AkamaiSiteshieldExtractor",
+    "AkamaiStagingPropertyExtractor",
     "AkamaiWafExtractor",
 )
