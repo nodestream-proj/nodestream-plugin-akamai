@@ -32,3 +32,4 @@
       iterate_on: !jmespath 'policies[*]'
       node_properties:
         deeplink: !jmespath 'deeplink'
+        policy_name: !jmespath 'policyName'
