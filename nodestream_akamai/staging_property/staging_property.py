@@ -23,7 +23,7 @@ class AkamaiStagingPropertyExtractor(Extractor):
             if prop.get("stagingVersion") is None:
                 continue
             self.logger.info(
-                "extracting property %s (id=%s)",
+                "extracting STAGING property %s (id=%s)",
                 prop.get("propertyName"),
                 prop.get("propertyId"),
             )
