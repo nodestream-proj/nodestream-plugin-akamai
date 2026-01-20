@@ -489,6 +489,7 @@ files = [
     {file = "confluent_kafka-2.12.1-cp39-cp39-manylinux_2_28_aarch64.whl", hash = "sha256:1ca2519bf27ea71ca32feb01859a086183614c44f8d843a917fcc1c135c24706"},
     {file = "confluent_kafka-2.12.1-cp39-cp39-manylinux_2_28_x86_64.whl", hash = "sha256:2b4bb9fefa85462aa0b1f5d96abadffad911d93033b470b3b6fc46d63f2a28e9"},
     {file = "confluent_kafka-2.12.1-cp39-cp39-win_amd64.whl", hash = "sha256:64a5798ec7fe5a101e055c2729c6ac6d6fd9d462a93a1fb3e314866a70ce804b"},
+    {file = "confluent_kafka-2.12.1.tar.gz", hash = "sha256:cfc4ceeb3071a678f7c93cfe1e76216442e1621ee6192584cdf704db1d619894"},
 ]
 
 [package.extras]
@@ -954,6 +955,8 @@ python-versions = "*"
 groups = ["main"]
 files = [
     {file = "jsonpath-ng-1.7.0.tar.gz", hash = "sha256:f6f5f7fd4e5ff79c785f1573b394043b39849fb2bb47bcead935d12b00beab3c"},
+    {file = "jsonpath_ng-1.7.0-py2-none-any.whl", hash = "sha256:898c93fc173f0c336784a3fa63d7434297544b7198124a68f9a3ef9597b0ae6e"},
+    {file = "jsonpath_ng-1.7.0-py3-none-any.whl", hash = "sha256:f3d7f9e848cba1b6da28c55b1c26ff915dc9e0b1ba7e752a53d6da8d5cbd00b6"},
 ]
 
 [package.dependencies]
@@ -1149,14 +1152,14 @@ files = [
 
 [[package]]
 name = "nodestream"
-version = "0.14.17"
+version = "0.15.0a0"
 description = "A Fast, Declarative ETL for Graph Databases."
 optional = false
 python-versions = "<4.0,>=3.10"
 groups = ["main"]
 files = [
-    {file = "nodestream-0.14.17-py3-none-any.whl", hash = "sha256:4387486a4b7242c72f669b206e6c12db5ae88b133617800abd48794d4f76ed44"},
-    {file = "nodestream-0.14.17.tar.gz", hash = "sha256:36148e46f3a111f8868d80824559825ee987e3aa8fa3809461cce8b374aae038"},
+    {file = "nodestream-0.15.0a0-py3-none-any.whl", hash = "sha256:751fa1e2b8b655200943b69b945f5c82a2e2dea259fe0e51b5b9be9f533c38a8"},
+    {file = "nodestream-0.15.0a0.tar.gz", hash = "sha256:b341d8ffa0a77ddd8b03eaaed0107bb6a157791d5346cbc4f7f33b1f1090ef6d"},
 ]
 
 [package.dependencies]
@@ -2284,4 +2287,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11, <4.0"
-content-hash = "0411f0829f255f2d5d44d42999e8b3ffc88da5eb8be4c7ae93a2d0500919f12a"
+content-hash = "b6464f4e02a112ece069f1242b8febc0fcb33a22e8d4299a944e94f93a5ece79"
