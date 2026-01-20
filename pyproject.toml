@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nodestream-plugin-akamai"
-version = "0.14.5"
+version = "0.15.0a0"
 description = "Pipeline Plugin for Akamai Data"
 authors = [
     "Zach Probst <Zach_Probst@intuit.com>",
@@ -19,7 +19,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.11, <4.0"
 edgegrid-python = "^1.2.1"
-nodestream = "^0.14.0"
+nodestream = "^0.15.0a0"
 jsonpath-ng = "^1.5.3"
 requests = "^2.32.4"
 urllib3 = "^2.5.0"
