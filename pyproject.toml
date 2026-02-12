@@ -1,20 +1,22 @@
 [tool.poetry]
 name = "nodestream-plugin-akamai"
-version = "0.15.0a0"
+version = "0.15.0a1"
 description = "Pipeline Plugin for Akamai Data"
 authors = [
-    "Zach Probst <Zach_Probst@intuit.com>",
-    "Chad Cloes <Chad_Cloes@intuit.com>",
-    "Bryan Norman <Bryan_Norman@intuit.com>",
-    "Gabe Gallagher <Gabe_Gallagher@intuit.com>",
-    "Grant Hoffman <Grant_Hoffman@intuit.com>",
-    "Stuart Macleod <SMacleod@akamai.com>",
-    "Jon Bristow <Jonathan_Bristow@intuit.com>"
-]
-packages = [
-    { include = "nodestream_akamai" }
+"Zach Probst <Zach_Probst@intuit.com>",
+"Chad Cloes <Chad_Cloes@intuit.com>",
+"Bryan Norman <Bryan_Norman@intuit.com>",
+"Gabe Gallagher <Gabe_Gallagher@intuit.com>",
+"Grant Hoffman <Grant_Hoffman@intuit.com>",
+"Stuart Macleod <SMacleod@akamai.com>",
+"Jon Bristow <Jonathan_Bristow@intuit.com>"
 ]
 readme = "README.md"
+
+
+[[tool.poetry.packages]]
+include = "nodestream_akamai"
+
 
 [tool.poetry.dependencies]
 python = ">=3.11, <4.0"
@@ -23,6 +25,7 @@ nodestream = "^0.15.0a0"
 jsonpath-ng = "^1.5.3"
 requests = "^2.32.4"
 urllib3 = "^2.5.0"
+
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.3.0"
@@ -38,29 +41,62 @@ ruff = "^0.14.3"
 pytest-asyncio = "^1.1.0"
 pytest = "^8.4.1"
 
+
+[tool.poetry.plugins."nodestream.plugins"]
+projects = "nodestream_akamai.plugin"
+
+
 [tool.black]
 line-length = 88
-target-version = ['py311']
+target-version = [ "py311" ]
+
 
 [tool.isort]
 profile = "black"
 
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.plugins."nodestream.plugins"]
-projects = "nodestream_akamai.plugin"
 
 [tool.pytest.ini_options]
 log_cli = true
 log_cli_level = "DEBUG"
 
+
 [tool.ruff.lint]
-select = ["A", "ARG", "ASYNC", "B", "C4", "DTZ", "E", "EM", "ERA", "F", "FBT", "FURB", "G", "I", "INP", "N", "PIE", "PT", "RET", "RUF", "S", "SIM", "T20", "TC", "UP", ]
-ignore = ["N999", "UP", "E501", "S106", "ERA001"]
-unfixable = ["B"]
+select = [
+"A",
+"ARG",
+"ASYNC",
+"B",
+"C4",
+"DTZ",
+"E",
+"EM",
+"ERA",
+"F",
+"FBT",
+"FURB",
+"G",
+"I",
+"INP",
+"N",
+"PIE",
+"PT",
+"RET",
+"RUF",
+"S",
+"SIM",
+"T20",
+"TC",
+"UP"
+]
+ignore = [ "N999", "UP", "E501", "S106", "ERA001" ]
+unfixable = [ "B" ]
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
+
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["S101", "S106"]
+"tests/*" = [ "S101", "S106" ]
+
+
+[build-system]
+requires = [ "poetry-core>=1.0.0" ]
+build-backend = "poetry.core.masonry.api"
