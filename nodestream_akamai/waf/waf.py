@@ -1,3 +1,4 @@
+import json
 import logging
 
 from nodestream.pipeline.extractors import Extractor
@@ -48,6 +49,7 @@ class AkamaiWafExtractor(Extractor):
                             "policyId": policy["id"],
                             "policyName": policy["name"],
                             "attackGroupActions": [],
+                            "securityControls": json.dumps(policy["securityControls"]),
                             "deeplink": f'{deeplink_prefix}{config["id"]}/versions/{config["productionVersion"]}/policies/{policy["id"]}',
                         }
                         if "webApplicationFirewall" in policy:
