@@ -14,6 +14,14 @@ rule_tree_488011 = json.loads(
     "name": "default",
     "children": [
       {
+        "name": "Tags",
+        "children": [],
+        "behaviors": [],
+        "comments": "{\\"assetId\\": 12345, \\"test\\": \\"true\\"}",
+        "criteria": [],
+        "criteriaMustSatisfy": "all"
+      },
+      {
         "name": "Content Compression",
         "children": [],
         "behaviors": [

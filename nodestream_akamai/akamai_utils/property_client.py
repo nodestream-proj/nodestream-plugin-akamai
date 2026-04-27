@@ -1,4 +1,5 @@
 import itertools
+import json
 import logging
 import re
 from typing import Any, List, Tuple
@@ -254,6 +255,17 @@ class AkamaiPropertyClient(AkamaiApiClient):
             rule_tree=rule_tree["rules"]
         )
 
+        # Tags
+        tags = self.search_akamai_rule_tree_for_tags(rule_tree=rule_tree["rules"])
+        # -- Format
+        if tags:
+            # Attempt to convert to dict, then back to minimised json
+            try:
+                tags_dict = json.loads(tags)
+                tags = json.dumps(tags_dict, separators=(",", ":"))
+            except json.JSONDecodeError:
+                tags = tags.strip()  # If not JSON, just strip whitespace
+
         # Deeplink
         deeplink_prefix = (
             "https://control.akamai.com/apps/property-manager/#/property-version/"
@@ -279,6 +291,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
             hostnames=hostnames,
             deeplink=deeplink,
             cp_codes=cp_codes,
+            tags=tags,
         )
 
     def search_all_properties(self):
@@ -582,6 +595,23 @@ class AkamaiPropertyClient(AkamaiApiClient):
                 cpcode_ids.append(int(behavior["options"]["value"]["id"]))
 
         return list(set(cpcode_ids))
+
+    def search_akamai_rule_tree_for_tags(self, rule_tree: dict) -> str:
+        """
+        Extracts tags from the comments of any top-level rule named tags. Tags are expected to be in JSON format
+        """
+        tags_rule = [
+            rule for rule in rule_tree["children"] if rule["name"].lower() == "tags"
+        ]
+        tags = ""
+        if (
+            len(tags_rule) > 0
+            and "comments" in tags_rule[0]
+            and tags_rule[0]["comments"]
+        ):
+            tags = tags_rule[0]["comments"]
+
+        return tags
 
     def _get_property_response(self, property_id, hostnames):
         property_hostnames = [h for h in hostnames if h["propertyId"] == property_id]

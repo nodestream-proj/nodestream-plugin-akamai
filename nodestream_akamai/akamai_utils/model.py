@@ -30,6 +30,7 @@ class PropertyDescription:
     deeplink: str | None = None
     cloudlet_policies: List[int] = field(default_factory=list)
     cp_codes: List[int] = field(default_factory=list)
+    tags: str | None = None
 
     @property
     def origin_count(self):
