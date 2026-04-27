@@ -51,7 +51,7 @@ CRITERIA_RULE = {
                 "behaviors": [
                     {"name": "gzipResponse", "options": {"behavior": "ALWAYS"}}
                 ],
-            }
+            },
         ],
     }
 }
@@ -74,7 +74,6 @@ def test_search_akamai_rule_tree_for_origins_simple(client):
 
 
 def test_search_akamai_rule_tree_for_origins(client):
-
     rule_tree = {
         "behaviors": [
             {
@@ -249,3 +248,10 @@ def test_live_search_akamai_rule_tree_for_cp_codes(client):
     assert client.search_akamai_rule_tree_for_cp_codes(rule_tree_643957["rules"]) == [
         752101
     ]
+
+
+def test_live_search_akamai_rule_tree_for_tags(client):
+    assert (
+        client.search_akamai_rule_tree_for_tags(rule_tree_488011["rules"])
+        == '{"assetId": 12345, "test": "true"}'
+    )

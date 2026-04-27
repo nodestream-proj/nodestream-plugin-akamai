@@ -20,6 +20,7 @@
         version: !jmespath 'version'
         rule_format: !jmespath 'ruleFormat'
         deeplink: !jmespath 'deeplink'
+        tags: !jmespath 'tags'
     - type: relationship
       node_type: Endpoint
       node_key: 
