@@ -1,5 +1,6 @@
 import functools
 import logging
+import os
 import time
 from urllib.parse import urljoin
 
@@ -169,7 +170,7 @@ class AkamaiApiClient:
         raise SystemError(msg)
 
     @staticmethod
-    def _resilient_session_factory(timeout=300, retry_count=5) -> Session:
+    def _resilient_session_factory(timeout=60, retry_count=2) -> Session:
         session = Session()
         retries = Retry(
             total=retry_count, backoff_factor=0.5, status_forcelist=[500, 502, 503, 504]
@@ -178,4 +179,8 @@ class AkamaiApiClient:
         session.mount(PROTOCOL_HTTPS, HTTPAdapter(max_retries=retries))
         session.request = functools.partial(session.request, timeout=timeout)  # Seconds
         session.send = functools.partial(session.send, timeout=timeout)  # Seconds
+        # Honour the standard REQUESTS_CA_BUNDLE env var so corporate CA chains work locally
+        ca_bundle = os.environ.get("REQUESTS_CA_BUNDLE")
+        if ca_bundle:
+            session.verify = ca_bundle
         return session

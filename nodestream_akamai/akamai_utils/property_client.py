@@ -6,7 +6,7 @@ from typing import Any, List, Tuple
 from jsonpath_ng.ext import parse
 
 from .client import AkamaiApiClient
-from .model import EdgeHost, Origin, PropertyDescription
+from .model import EdgeHost, Origin, PropertyDescription, PropertyRuleRecord
 
 PATH_AND = " AND "
 
@@ -582,6 +582,234 @@ class AkamaiPropertyClient(AkamaiApiClient):
                 cpcode_ids.append(int(behavior["options"]["value"]["id"]))
 
         return list(set(cpcode_ids))
+
+    # ── Rule-level extraction (Proxy schema) ──────────────────────────
+
+    SECURITY_BEHAVIOR_MAP = {
+        "edgeAuth": "AKAMAI_EDGE_AUTH",
+        "tokenAuth": "AKAMAI_TOKEN_AUTH",
+        "siteShield": "AKAMAI_SITE_SHIELD",
+        "requestControl": "AKAMAI_REQUEST_CONTROL",
+    }
+
+    def extractOutboundPath(self, behaviors: list) -> tuple:
+        """Return (outboundPath, baseDirectory) from a rule's behavior list.
+
+        outboundPath encodes the rewriteUrl transformation as a human-readable
+        string so the graph captures what path the origin actually receives:
+
+          REPLACE   → "REPLACE:<match>→<targetPath>"
+          REMOVE    → "REMOVE:<match>"
+          REWRITE   → "REWRITE:<targetUrl>"
+          PREPEND   → "PREPEND:<targetPathPrepend>"
+          REGEX_REPLACE → "REGEX:<matchRegex>→<targetRegex>"
+
+        baseDirectory is the unconditional base path prefix from the
+        baseDirectory behavior (must begin and end with /).
+
+        Both default to None when the respective behavior is absent.
+        """
+        outboundPath = None
+        baseDir = None
+
+        for behavior in behaviors:
+            name = behavior.get("name", "")
+            options = behavior.get("options", {})
+
+            if name == "rewriteUrl" and outboundPath is None:
+                mode = options.get("behavior", "")
+                if mode == "REPLACE":
+                    outboundPath = f"REPLACE:{options.get('match','')}→{options.get('targetPath','')}"
+                elif mode == "REMOVE":
+                    outboundPath = f"REMOVE:{options.get('match','')}"
+                elif mode == "REWRITE":
+                    outboundPath = f"REWRITE:{options.get('targetUrl','')}"
+                elif mode == "PREPEND":
+                    outboundPath = f"PREPEND:{options.get('targetPathPrepend','')}"
+                elif mode == "REGEX_REPLACE":
+                    outboundPath = f"REGEX:{options.get('matchRegex','')}→{options.get('targetRegex','')}"
+
+            elif name == "baseDirectory" and baseDir is None:
+                baseDir = options.get("value")
+
+        return outboundPath, baseDir
+
+    def extractSecurityBehaviors(self, behaviors: list) -> list:
+        """Return normalized security behavior names from a rule's behavior list.
+
+        Only behaviors that are explicitly enabled (or have no ``enabled`` key,
+        which implies always-on) are included.
+        """
+        result = []
+        for behavior in behaviors:
+            mapped = self.SECURITY_BEHAVIOR_MAP.get(behavior.get("name", ""))
+            if mapped and behavior.get("options", {}).get("enabled", True):
+                result.append(mapped)
+        return result
+
+    def extractRuleCriteria(self, rule: dict) -> tuple:
+        """Return (pathCriteria, hostnameCriteria, conditionalOriginId) for one rule.
+
+        pathCriteria and hostnameCriteria are List[str] where each element is a
+        single pattern — positive or !-negated.  They are NOT joined with AND so
+        that callers can pass them directly to micromatch as a pattern array.
+
+        conditionalOriginId is the cloudletsOrigin originId if present, else None.
+        """
+        pathCriteria = []
+        hostnameCriteria = []
+        conditionalOriginId = None
+
+        for criterion in rule.get("criteria", []):
+            name = criterion["name"]
+            options = criterion.get("options", {})
+            negative = options.get("matchOperator") in NEGATIVE_OPERATORS
+
+            if name == "path":
+                for value in options.get("values", []):
+                    pathCriteria.append(f"!{value}" if negative else value)
+            elif name == "hostname":
+                for value in options.get("values", []):
+                    hostnameCriteria.append(f"!{value}" if negative else value)
+            elif name == "cloudletsOrigin":
+                # originId is a scalar, not a list
+                originId = options.get("originId")
+                if originId:
+                    conditionalOriginId = originId
+
+        return pathCriteria, hostnameCriteria, conditionalOriginId
+
+    def extractRuleRecords(
+        self,
+        rule: dict,
+        propertyId: str,
+        propertyName: str,
+        version: int,
+        deeplink: str,
+        depth: int = 0,
+        inheritedPathCriteria: list | None = None,
+        inheritedHostnameCriteria: list | None = None,
+        inheritedOriginHostname: str | None = None,
+        inheritedOriginType: str | None = None,
+        inheritedOutboundPath: str | None = None,
+        inheritedBaseDirectory: str | None = None,
+    ) -> list:
+        """Recursively extract PropertyRuleRecord objects from a rule tree node.
+
+        Criteria from ancestor rules are prepended so that each record carries
+        the full effective criteria for that rule (intersection semantics).
+
+        Origin inheritance
+        ------------------
+        If a rule declares no origin behavior of its own, the nearest ancestor's
+        origin is used. Rules with no resolved origin (no own or inherited) are
+        omitted entirely — they have no genuine ROUTES_TO target.
+
+        Fan-out per positive path glob
+        --------------------------------
+        For rules that are path-eligible (no hostname dimension, no cloudlet
+        conditional), one record is emitted per *positive* (non-negated) path
+        glob. Each record carries ``pathKey = {proxy_id, path: "<glob>"}`` so
+        the pipeline produces one simple Path node per allowlist glob.
+
+        The full ``pathCriteria`` (including negations) is retained on every
+        record so the AkamaiPropertyRule node (keyed on ``ruleKey``) receives
+        the complete compound expression. Because ``ruleKey`` is stable across
+        all fan-out records for the same rule, the Rule node is upserted
+        idempotently.
+
+        Rules with zero positive path globs (pure-negation, hostname-only,
+        cloudlet-conditional, or catch-all) emit exactly one record with
+        ``pathKey = None`` — the Rule node is written but no Path node.
+        """
+        ownPath, ownHostname, conditionalOriginId = self.extractRuleCriteria(rule)
+
+        combinedPath = (inheritedPathCriteria or []) + ownPath
+        combinedHostname = (inheritedHostnameCriteria or []) + ownHostname
+
+        # Origin behavior — own declaration takes precedence, else inherit
+        originHostname = None
+        originType = None
+        for behavior in rule.get("behaviors", []):
+            extracted = _extract_origin(behavior)
+            if extracted:
+                originHostname = extracted.name
+                originType = behavior.get("options", {}).get("originType")
+                break
+        if originHostname is None:
+            originHostname = inheritedOriginHostname
+            originType = inheritedOriginType
+
+        securityBehaviors = self.extractSecurityBehaviors(rule.get("behaviors", []))
+
+        ownOutboundPath, ownBaseDirectory = self.extractOutboundPath(rule.get("behaviors", []))
+        outboundPath = ownOutboundPath if ownOutboundPath is not None else inheritedOutboundPath
+        baseDirectory = ownBaseDirectory if ownBaseDirectory is not None else inheritedBaseDirectory
+
+        ruleName = rule.get("name", "default")
+        ruleKey = {"proxy_id": propertyId, "rule_name": ruleName}
+
+        # Path-eligible: has path criteria and no cloudlet conditional.
+        # Hostname-dimensioned rules still produce Path nodes — the hostname just
+        # scopes which ingress traffic hits the path, but the path glob itself is a
+        # genuine allowlist entry. The AkamaiPropertyRule node retains the full
+        # hostname+path compound expression for rules that need it.
+        pathEligible = bool(combinedPath) and conditionalOriginId is None
+        positiveGlobs = [p for p in combinedPath if not p.startswith("!")] if pathEligible else []
+
+        # One pathKey per positive glob; None when no positive globs exist
+        pathKeys = (
+            [{"proxy_id": propertyId, "path": glob} for glob in positiveGlobs]
+            if positiveGlobs
+            else [None]
+        )
+
+        records = []
+
+        # Only emit records if there is a genuine origin to route to
+        if originHostname is not None:
+            for pathKey in pathKeys:
+                records.append(
+                    PropertyRuleRecord(
+                        proxyId=propertyId,
+                        path=pathKey["path"] if pathKey else None,
+                        pathCriteria=combinedPath,
+                        hostnameCriteria=combinedHostname,
+                        conditionalOriginId=conditionalOriginId,
+                        originHostname=originHostname,
+                        originType=originType,
+                        outboundPath=outboundPath,
+                        baseDirectory=baseDirectory,
+                        ruleName=ruleName,
+                        ruleDepth=depth,
+                        criteriaMustSatisfy=rule.get("criteriaMustSatisfy", "all"),
+                        securityBehaviors=securityBehaviors,
+                        propertyId=propertyId,
+                        propertyName=propertyName,
+                        version=version,
+                        deeplink=deeplink,
+                    )
+                )
+
+        for child in rule.get("children", []):
+            records.extend(
+                self.extractRuleRecords(
+                    rule=child,
+                    propertyId=propertyId,
+                    propertyName=propertyName,
+                    version=version,
+                    deeplink=deeplink,
+                    depth=depth + 1,
+                    inheritedPathCriteria=combinedPath,
+                    inheritedHostnameCriteria=combinedHostname,
+                    inheritedOriginHostname=originHostname,
+                    inheritedOriginType=originType,
+                    inheritedOutboundPath=outboundPath,
+                    inheritedBaseDirectory=baseDirectory,
+                )
+            )
+
+        return records
 
     def _get_property_response(self, property_id, hostnames):
         property_hostnames = [h for h in hostnames if h["propertyId"] == property_id]

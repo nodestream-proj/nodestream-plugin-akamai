@@ -1,0 +1,182 @@
+# AkamaiProperty Proxy schema — rule-level pipeline
+#
+# Records are split into two node types based on criteria dimensionality:
+#
+#   Path-only rules (pathCriteria non-empty, no hostname, no cloudlet):
+#     (AkamaiProperty:Proxy)-[:HAS_PATH]->(Path)-[:ROUTES_TO]->(Endpoint)
+#     — identical key schema to IAGE: (proxy_id, path)
+#     — pathCriteria list is directly micromatch-compatible
+#
+#   All other rules (hostname-dimensional, cloudlet-conditional, catch-all):
+#     (AkamaiProperty:Proxy)-[:HAS_RULE]->(AkamaiPropertyRule)-[:ROUTES_TO]->(Endpoint)
+#     — keyed on (proxy_id, rule_name) since path may be absent
+#
+# The null-key-drop behaviour of the nodestream interpreter is the guard:
+# passes that target Path use isPath=true records; passes targeting
+# AkamaiPropertyRule use isPath=false records. Records with null keys
+# are silently skipped, so each pass only writes what it owns.
+
+- implementation: nodestream_akamai.property_rule:AkamaiPropertyRuleExtractor
+  arguments:
+    base_url: !config 'base_url'
+    client_token: !config 'client_token'
+    client_secret: !config 'client_secret'
+    access_token: !config 'access_token'
+    account_key: !config 'account_key'
+
+- implementation: nodestream.interpreting:Interpreter
+  arguments:
+    interpretations:
+
+    # Pass 1: AkamaiProperty as Proxy source
+    # Ensures the Proxy label is present and version is current.
+    # Runs on every record (one per rule) — idempotent property upsert.
+    - - type: source_node
+        node_type: AkamaiProperty
+        additional_types:
+        - Proxy
+        normalization:
+          do_remove_trailing_dots: true
+        key:
+          id: !jmespath 'propertyId'
+      - type: properties
+        properties:
+          name: !jmespath 'propertyName'
+          version: !jmespath 'version'
+
+    # Pass 2a: AkamaiProperty -[HAS_PATH]-> Path  (path-only rules)
+    # pathKey is non-null only when isPath=true; null keys are dropped,
+    # so this pass silently skips non-path records.
+    - - type: source_node
+        node_type: AkamaiProperty
+        additional_types:
+        - Proxy
+        normalization:
+          do_remove_trailing_dots: true
+        key:
+          id: !jmespath 'propertyId'
+      - type: relationship
+        node_type: Path
+        relationship_type: HAS_PATH
+        key_normalization:
+          do_remove_trailing_dots: true
+        node_key:
+          proxy_id: !jmespath 'pathKey.proxy_id'
+          path: !jmespath 'pathKey.path'
+        node_properties:
+          path_criteria: !jmespath 'pathCriteria'
+          criteria_must_satisfy: !jmespath 'criteriaMustSatisfy'
+          origin_type: !jmespath 'originType'
+          outbound_path: !jmespath 'outboundPath'
+          base_directory: !jmespath 'baseDirectory'
+          version: !jmespath 'version'
+        relationship_properties:
+          rule_name: !jmespath 'ruleName'
+
+    # Pass 2b: AkamaiProperty -[HAS_RULE]-> AkamaiPropertyRule  (non-path rules)
+    # ruleKey is non-null only when isPath=false.
+    - - type: source_node
+        node_type: AkamaiProperty
+        additional_types:
+        - Proxy
+        normalization:
+          do_remove_trailing_dots: true
+        key:
+          id: !jmespath 'propertyId'
+      - type: relationship
+        node_type: AkamaiPropertyRule
+        relationship_type: HAS_RULE
+        key_normalization:
+          do_remove_trailing_dots: true
+        node_key:
+          proxy_id: !jmespath 'ruleKey.proxy_id'
+          rule_name: !jmespath 'ruleKey.rule_name'
+          hostname: !jmespath 'ruleKey.hostname'
+        node_properties:
+          rule_name: !jmespath 'ruleName'
+          rule_depth: !jmespath 'ruleDepth'
+          path_criteria: !jmespath 'pathCriteria'
+          hostname_criteria: !jmespath 'hostnameCriteria'
+          criteria_must_satisfy: !jmespath 'criteriaMustSatisfy'
+          origin_type: !jmespath 'originType'
+          outbound_path: !jmespath 'outboundPath'
+          base_directory: !jmespath 'baseDirectory'
+          version: !jmespath 'version'
+        relationship_properties:
+          rule_name: !jmespath 'ruleName'
+
+    # Pass 3a: Path -[ROUTES_TO]-> backend Endpoint  (path-only rules)
+    - - type: source_node
+        node_type: Path
+        normalization:
+          do_remove_trailing_dots: true
+        key:
+          proxy_id: !jmespath 'pathKey.proxy_id'
+          path: !jmespath 'pathKey.path'
+      - type: relationship
+        node_type: Endpoint
+        relationship_type: ROUTES_TO
+        key_normalization:
+          do_remove_trailing_dots: true
+        node_key:
+          fqdn: !jmespath 'originHostname'
+        relationship_properties:
+          path_criteria: !jmespath 'pathCriteria'
+          origin_type: !jmespath 'originType'
+
+    # Pass 3b: AkamaiPropertyRule -[ROUTES_TO]-> backend Endpoint  (non-path rules)
+    - - type: source_node
+        node_type: AkamaiPropertyRule
+        normalization:
+          do_remove_trailing_dots: true
+        key:
+          proxy_id: !jmespath 'ruleKey.proxy_id'
+          rule_name: !jmespath 'ruleKey.rule_name'
+          hostname: !jmespath 'ruleKey.hostname'
+      - type: relationship
+        node_type: Endpoint
+        relationship_type: ROUTES_TO
+        key_normalization:
+          do_remove_trailing_dots: true
+        node_key:
+          fqdn: !jmespath 'originHostname'
+        relationship_properties:
+          path_criteria: !jmespath 'pathCriteria'
+          hostname_criteria: !jmespath 'hostnameCriteria'
+          origin_type: !jmespath 'originType'
+          conditional_origin_id: !jmespath 'conditionalOriginId'
+
+    # Pass 4a: Path -[USES_AUTHENTICATION_BEHAVIOR]-> AuthenticationPolicy
+    - - type: source_node
+        node_type: Path
+        normalization:
+          do_remove_trailing_dots: true
+        key:
+          proxy_id: !jmespath 'pathKey.proxy_id'
+          path: !jmespath 'pathKey.path'
+      - type: relationship
+        node_type: AuthenticationPolicy
+        relationship_type: USES_AUTHENTICATION_BEHAVIOR
+        key_normalization:
+          do_remove_trailing_dots: true
+        node_key:
+          name: !jmespath 'securityBehaviors[*]'
+        find_many: true
+
+    # Pass 4b: AkamaiPropertyRule -[USES_AUTHENTICATION_BEHAVIOR]-> AuthenticationPolicy
+    - - type: source_node
+        node_type: AkamaiPropertyRule
+        normalization:
+          do_remove_trailing_dots: true
+        key:
+          proxy_id: !jmespath 'ruleKey.proxy_id'
+          rule_name: !jmespath 'ruleKey.rule_name'
+          hostname: !jmespath 'ruleKey.hostname'
+      - type: relationship
+        node_type: AuthenticationPolicy
+        relationship_type: USES_AUTHENTICATION_BEHAVIOR
+        key_normalization:
+          do_remove_trailing_dots: true
+        node_key:
+          name: !jmespath 'securityBehaviors[*]'
+        find_many: true

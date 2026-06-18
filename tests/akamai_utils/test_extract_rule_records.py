@@ -1,0 +1,625 @@
+"""Tests for AkamaiPropertyClient.extractRuleRecords and extractRuleCriteria.
+
+Key invariants verified:
+  1. pathCriteria is a flat List[str] of individual glob patterns (micromatch-ready).
+  2. The path node key equals PATH_AND.join(pathCriteria) — stable, deterministic.
+  3. Ancestor criteria are inherited (prepended) by child rules.
+  4. hostnameCriteria is kept separate from pathCriteria.
+  5. Negated criteria are prefixed with "!" in the list elements.
+  6. isPath flag (computed in the extractor) is True iff path-only, False otherwise.
+  7. Security behaviors are mapped to normalized names.
+"""
+
+import pytest
+
+from nodestream_akamai.akamai_utils.property_client import (
+    PATH_AND,
+    AkamaiPropertyClient,
+)
+from nodestream_akamai.akamai_utils.model import PropertyRuleRecord
+
+
+@pytest.fixture
+def client():
+    return AkamaiPropertyClient(
+        base_url="url",
+        client_token="ctoken",
+        client_secret="secret",
+        access_token="atoken",
+    )
+
+
+def _make_rule(name, criteria=None, behaviors=None, children=None, criteriaMustSatisfy="all"):
+    return {
+        "name": name,
+        "criteria": criteria or [],
+        "behaviors": behaviors or [],
+        "children": children or [],
+        "criteriaMustSatisfy": criteriaMustSatisfy,
+    }
+
+
+def _path_criterion(values, negative=False):
+    return {
+        "name": "path",
+        "options": {
+            "matchOperator": "DOES_NOT_MATCH_ONE_OF" if negative else "MATCHES_ONE_OF",
+            "values": values,
+        },
+    }
+
+
+def _hostname_criterion(values, negative=False):
+    return {
+        "name": "hostname",
+        "options": {
+            "matchOperator": "IS_NOT_ONE_OF" if negative else "IS_ONE_OF",
+            "values": values,
+        },
+    }
+
+
+def _origin_behavior(hostname="backend.example.com", origin_type="CUSTOMER"):
+    return {
+        "name": "origin",
+        "options": {"originType": origin_type, "hostname": hostname},
+    }
+
+
+def _security_behavior(name, enabled=True):
+    return {"name": name, "options": {"enabled": enabled}}
+
+
+# ── extractRuleCriteria ────────────────────────────────────────────────────────
+
+
+def test_extractRuleCriteria_empty_rule(client):
+    rule = _make_rule("default")
+    pathCriteria, hostnameCriteria, conditionalOriginId = client.extractRuleCriteria(rule)
+    assert pathCriteria == []
+    assert hostnameCriteria == []
+    assert conditionalOriginId is None
+
+
+def test_extractRuleCriteria_single_positive_path(client):
+    rule = _make_rule("api", criteria=[_path_criterion(["/v1/*"])])
+    pathCriteria, hostnameCriteria, _ = client.extractRuleCriteria(rule)
+    assert pathCriteria == ["/v1/*"]
+    assert hostnameCriteria == []
+
+
+def test_extractRuleCriteria_multiple_path_values_same_criterion(client):
+    """Multiple values in one criterion block = OR semantics = flat list elements."""
+    rule = _make_rule("api", criteria=[_path_criterion(["/v1/*", "/v2/*"])])
+    pathCriteria, _, _ = client.extractRuleCriteria(rule)
+    # Each value is its own list element — not joined — micromatch-ready
+    assert pathCriteria == ["/v1/*", "/v2/*"]
+
+
+def test_extractRuleCriteria_negative_path_prefixed(client):
+    rule = _make_rule("no-sitemap", criteria=[_path_criterion(["/community/sitemap*.xml"], negative=True)])
+    pathCriteria, _, _ = client.extractRuleCriteria(rule)
+    assert pathCriteria == ["!/community/sitemap*.xml"]
+
+
+def test_extractRuleCriteria_hostname_criterion_separate(client):
+    rule = _make_rule("host-rule", criteria=[_hostname_criterion(["api.example.com"])])
+    pathCriteria, hostnameCriteria, _ = client.extractRuleCriteria(rule)
+    assert pathCriteria == []
+    assert hostnameCriteria == ["api.example.com"]
+
+
+def test_extractRuleCriteria_mixed_path_and_hostname(client):
+    rule = _make_rule(
+        "mixed",
+        criteria=[
+            _path_criterion(["/v1/*"]),
+            _hostname_criterion(["api.example.com"]),
+        ],
+    )
+    pathCriteria, hostnameCriteria, _ = client.extractRuleCriteria(rule)
+    assert pathCriteria == ["/v1/*"]
+    assert hostnameCriteria == ["api.example.com"]
+
+
+def test_extractRuleCriteria_cloudlets_origin_extracted(client):
+    rule = _make_rule(
+        "cloudlet-route",
+        criteria=[
+            {
+                "name": "cloudletsOrigin",
+                "options": {"originId": "dc1_impot_ca_prod"},
+            }
+        ],
+    )
+    _, _, conditionalOriginId = client.extractRuleCriteria(rule)
+    assert conditionalOriginId == "dc1_impot_ca_prod"
+
+
+# ── extractRuleRecords: basic structure ───────────────────────────────────────
+
+
+def test_extractRuleRecords_default_rule_only(client):
+    """Root rule with no criteria and an origin emits one record with path=None."""
+    root = _make_rule("default", behaviors=[_origin_behavior("backend.example.com")])
+    records = client.extractRuleRecords(
+        rule=root,
+        propertyId="prp_123",
+        propertyName="my-property",
+        version=5,
+        deeplink="https://example.com/deeplink",
+    )
+    assert len(records) == 1
+    r = records[0]
+    assert r.proxyId == "prp_123"
+    assert r.path is None          # no criteria at root → no path key
+    assert r.pathCriteria == []
+    assert r.hostnameCriteria == []
+    assert r.originHostname == "backend.example.com"
+    assert r.ruleDepth == 0
+    assert r.ruleName == "default"
+
+
+def test_extractRuleRecords_single_child_path_rule(client):
+    """Child with its own origin; root has no origin so only child is emitted."""
+    child = _make_rule(
+        "v1-api",
+        criteria=[_path_criterion(["/v1/*"])],
+        behaviors=[_origin_behavior("api-backend.example.com")],
+    )
+    root = _make_rule("default", children=[child])
+    records = client.extractRuleRecords(
+        rule=root,
+        propertyId="prp_456",
+        propertyName="api-property",
+        version=3,
+        deeplink="",
+    )
+    # root has no origin → omitted; only child emitted
+    assert len(records) == 1
+    child_record = records[0]
+    assert child_record.pathCriteria == ["/v1/*"]
+    assert child_record.path == "/v1/*"
+    assert child_record.ruleDepth == 1
+    assert child_record.originHostname == "api-backend.example.com"
+
+
+def test_extractRuleRecords_compound_rule_emits_positive_glob_only(client):
+    """A compound rule (positive + negation) emits one record per positive glob.
+
+    path = the individual positive glob; full pathCriteria (including negations)
+    is retained on the record for the Rule node.
+    """
+    child = _make_rule(
+        "community",
+        criteria=[
+            _path_criterion(["/community/*"]),
+            _path_criterion(["/community/sitemap*.xml"], negative=True),
+        ],
+        behaviors=[_origin_behavior("community-backend.example.com")],
+    )
+    root = _make_rule("default", children=[child])
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_789", propertyName="p", version=1, deeplink=""
+    )
+    # Only one positive glob → one record
+    assert len(records) == 1
+    child_record = records[0]
+    # path is just the positive glob, not the AND-join
+    assert child_record.path == "/community/*"
+    # full compound criteria still present on the record
+    assert child_record.pathCriteria == ["/community/*", "!/community/sitemap*.xml"]
+
+
+def test_extractRuleRecords_criteria_inherited_from_ancestors(client):
+    """A grandchild rule's pathCriteria includes criteria from root → parent → child.
+
+    Root and parent have no origin → both omitted. Grandchild has two positive
+    globs (inherited + own) → two records, one per glob.
+    """
+    parent = _make_rule(
+        "community",
+        criteria=[_path_criterion(["/community/*"])],
+        children=[
+            _make_rule(
+                "community-api",
+                criteria=[_path_criterion(["/community/api/*"])],
+                behaviors=[_origin_behavior("community-api-backend.example.com")],
+            )
+        ],
+    )
+    root = _make_rule("default", children=[parent])
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_gc", propertyName="p", version=1, deeplink=""
+    )
+    # Two positive globs: /community/* (inherited) and /community/api/* (own)
+    assert len(records) == 2
+    paths = {r.path for r in records}
+    assert paths == {"/community/*", "/community/api/*"}
+    # Full compound criteria on every record
+    for r in records:
+        assert r.pathCriteria == ["/community/*", "/community/api/*"]
+        assert r.ruleDepth == 2
+
+
+def test_extractRuleRecords_hostname_rule_not_path(client):
+    """A rule with hostname criteria only (no path criteria) emits one record with path=None."""
+    child = _make_rule(
+        "host-rule",
+        criteria=[_hostname_criterion(["api.example.com"])],
+        behaviors=[_origin_behavior("backend.example.com")],
+    )
+    root = _make_rule("default", children=[child])
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_h", propertyName="p", version=1, deeplink=""
+    )
+    # root has no origin → omitted; only child emitted
+    assert len(records) == 1
+    host_record = records[0]
+    assert host_record.pathCriteria == []
+    assert host_record.hostnameCriteria == ["api.example.com"]
+    # No path criteria → not path-eligible → path is None
+    assert host_record.path is None
+
+
+def test_extractRuleRecords_pure_path_rule_is_path_eligible(client):
+    """A rule with only path criteria produces a record with a non-null path (Path-eligible)."""
+    child = _make_rule(
+        "v1",
+        criteria=[_path_criterion(["/v1/*"])],
+        behaviors=[_origin_behavior()],
+    )
+    root = _make_rule("default", children=[child])
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_p", propertyName="p", version=1, deeplink=""
+    )
+    assert len(records) == 1
+    r = records[0]
+    assert r.path == "/v1/*"
+
+
+def test_extractRuleRecords_mixed_path_hostname_is_path_eligible(client):
+    """A rule with both path and hostname criteria still produces a Path node.
+
+    Hostname scopes which ingress traffic hits the path, but the path glob itself
+    is a genuine allowlist entry. The AkamaiPropertyRule retains the full compound
+    expression; the Path node captures the simple allowlist glob.
+    """
+    child = _make_rule(
+        "mixed",
+        criteria=[
+            _path_criterion(["/v1/*"]),
+            _hostname_criterion(["api.example.com"]),
+        ],
+        behaviors=[_origin_behavior()],
+    )
+    root = _make_rule("default", children=[child])
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_m", propertyName="p", version=1, deeplink=""
+    )
+    assert len(records) == 1
+    r = records[0]
+    # path+hostname → path-eligible → path is the positive glob
+    assert r.path == "/v1/*"
+    assert r.hostnameCriteria == ["api.example.com"]
+
+
+# ── Security behaviors ─────────────────────────────────────────────────────────
+
+
+def test_extractSecurityBehaviors_maps_known_names(client):
+    behaviors = [
+        _security_behavior("edgeAuth"),
+        _security_behavior("siteShield"),
+        _security_behavior("tokenAuth"),
+    ]
+    result = client.extractSecurityBehaviors(behaviors)
+    assert set(result) == {"AKAMAI_EDGE_AUTH", "AKAMAI_SITE_SHIELD", "AKAMAI_TOKEN_AUTH"}
+
+
+def test_extractSecurityBehaviors_disabled_excluded(client):
+    behaviors = [_security_behavior("edgeAuth", enabled=False)]
+    assert client.extractSecurityBehaviors(behaviors) == []
+
+
+def test_extractSecurityBehaviors_unknown_behavior_ignored(client):
+    behaviors = [{"name": "gzipResponse", "options": {"enabled": True}}]
+    assert client.extractSecurityBehaviors(behaviors) == []
+
+
+def test_extractRuleRecords_security_behaviors_on_record(client):
+    """Security behaviors found in a rule are included in the record."""
+    child = _make_rule(
+        "protected",
+        criteria=[_path_criterion(["/secure/*"])],
+        behaviors=[
+            _origin_behavior(),
+            _security_behavior("edgeAuth"),
+        ],
+    )
+    root = _make_rule("default", children=[child])
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_s", propertyName="p", version=1, deeplink=""
+    )
+    assert len(records) == 1
+    assert records[0].securityBehaviors == ["AKAMAI_EDGE_AUTH"]
+
+
+# ── Micromatch compatibility invariant ────────────────────────────────────────
+
+
+def test_pathCriteria_elements_have_no_AND_separator(client):
+    """No individual pathCriteria element should contain PATH_AND — that would
+    mean AND-joined strings leaked into the list, making them incompatible with
+    micromatch's pattern-per-element expectation."""
+    child = _make_rule(
+        "complex",
+        criteria=[
+            _path_criterion(["/community/*", "/api/*"]),
+            _path_criterion(["/community/sitemap*.xml"], negative=True),
+        ],
+        behaviors=[_origin_behavior()],
+    )
+    root = _make_rule("default", children=[child])
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_mc", propertyName="p", version=1, deeplink=""
+    )
+    # Two positive globs → two records; check all
+    assert len(records) == 2
+    for r in records:
+        for element in r.pathCriteria:
+            assert PATH_AND not in element, (
+                f"pathCriteria element {element!r} contains PATH_AND — "
+                "would break micromatch compatibility"
+            )
+
+
+def test_path_is_single_positive_glob(client):
+    """path on each record is a single positive glob, not an AND-join."""
+    child = _make_rule(
+        "multi",
+        criteria=[_path_criterion(["/v1/*", "/v2/*"]), _path_criterion(["!/v1/health"], negative=False)],
+        behaviors=[_origin_behavior()],
+    )
+    root = _make_rule("default", children=[child])
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_k", propertyName="p", version=1, deeplink=""
+    )
+    # /v1/*, /v2/*, !/v1/health → two positive globs → two records
+    assert len(records) == 2
+    paths = {r.path for r in records}
+    assert paths == {"/v1/*", "/v2/*"}
+    for r in records:
+        assert PATH_AND not in (r.path or "")
+
+
+# ── Origin inheritance ─────────────────────────────────────────────────────────
+
+
+def test_extractRuleRecords_child_inherits_root_origin(client):
+    """Child with no own origin inherits origin from root (default rule)."""
+    child = _make_rule(
+        "v1-api",
+        criteria=[_path_criterion(["/v1/*"])],
+    )
+    root = _make_rule(
+        "default",
+        behaviors=[_origin_behavior("root-backend.example.com")],
+        children=[child],
+    )
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_inh", propertyName="p", version=1, deeplink=""
+    )
+    # root emits 1 (depth=0, no criteria, path=None) + child inherits origin (depth=1, path="/v1/*")
+    assert len(records) == 2
+    root_record = next(r for r in records if r.ruleDepth == 0)
+    child_record = next(r for r in records if r.ruleDepth == 1)
+    assert root_record.originHostname == "root-backend.example.com"
+    assert root_record.path is None
+    assert child_record.originHostname == "root-backend.example.com"
+    assert child_record.path == "/v1/*"
+    assert child_record.pathCriteria == ["/v1/*"]
+
+
+def test_extractRuleRecords_grandchild_inherits_root_origin(client):
+    """Grandchild inherits origin from root when neither parent nor grandchild re-declare one."""
+    grandchild = _make_rule(
+        "community-api",
+        criteria=[_path_criterion(["/community/api/*"])],
+    )
+    parent = _make_rule(
+        "community",
+        criteria=[_path_criterion(["/community/*"])],
+        children=[grandchild],
+    )
+    root = _make_rule(
+        "default",
+        behaviors=[_origin_behavior("shared-backend.example.com")],
+        children=[parent],
+    )
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_gc_inh", propertyName="p", version=1, deeplink=""
+    )
+    # root: 1 record (path=None)
+    # parent: 1 record (path="/community/*")
+    # grandchild: 2 records (path="/community/*" inherited + path="/community/api/*" own)
+    assert len(records) == 4
+    for r in records:
+        assert r.originHostname == "shared-backend.example.com"
+    gc_records = [r for r in records if r.ruleDepth == 2]
+    assert len(gc_records) == 2
+    gc_paths = {r.path for r in gc_records}
+    assert gc_paths == {"/community/*", "/community/api/*"}
+    for r in gc_records:
+        assert r.pathCriteria == ["/community/*", "/community/api/*"]
+
+
+def test_extractRuleRecords_child_origin_overrides_inherited(client):
+    """Child that re-declares its own origin uses it, not the inherited one."""
+    child = _make_rule(
+        "v1-api",
+        criteria=[_path_criterion(["/v1/*"])],
+        behaviors=[_origin_behavior("child-backend.example.com")],
+    )
+    root = _make_rule(
+        "default",
+        behaviors=[_origin_behavior("root-backend.example.com")],
+        children=[child],
+    )
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_ov", propertyName="p", version=1, deeplink=""
+    )
+    assert len(records) == 2
+    assert records[0].originHostname == "root-backend.example.com"
+    assert records[1].originHostname == "child-backend.example.com"
+
+
+def test_extractRuleRecords_no_origin_anywhere_emits_nothing(client):
+    """A rule tree with no origin behaviors at any level emits zero records."""
+    child = _make_rule("v1-api", criteria=[_path_criterion(["/v1/*"])])
+    root = _make_rule("default", children=[child])
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_noop", propertyName="p", version=1, deeplink=""
+    )
+    assert records == []
+
+
+# ── extractOutboundPath ────────────────────────────────────────────────────────
+
+
+def _rewrite_behavior(mode, **opts):
+    return {"name": "rewriteUrl", "options": {"behavior": mode, **opts}}
+
+
+def _base_directory_behavior(value):
+    return {"name": "baseDirectory", "options": {"value": value}}
+
+
+def test_extractOutboundPath_no_rewrite_behaviors(client):
+    behaviors = [_origin_behavior()]
+    outboundPath, baseDir = client.extractOutboundPath(behaviors)
+    assert outboundPath is None
+    assert baseDir is None
+
+
+def test_extractOutboundPath_rewriteUrl_replace(client):
+    behaviors = [_rewrite_behavior("REPLACE", match="/legacy/", targetPath="/new/")]
+    outboundPath, baseDir = client.extractOutboundPath(behaviors)
+    assert outboundPath == "REPLACE:/legacy/→/new/"
+    assert baseDir is None
+
+
+def test_extractOutboundPath_rewriteUrl_remove(client):
+    behaviors = [_rewrite_behavior("REMOVE", match="/api/")]
+    outboundPath, _ = client.extractOutboundPath(behaviors)
+    assert outboundPath == "REMOVE:/api/"
+
+
+def test_extractOutboundPath_rewriteUrl_rewrite(client):
+    behaviors = [_rewrite_behavior("REWRITE", targetUrl="/internal/page.html")]
+    outboundPath, _ = client.extractOutboundPath(behaviors)
+    assert outboundPath == "REWRITE:/internal/page.html"
+
+
+def test_extractOutboundPath_rewriteUrl_prepend(client):
+    behaviors = [_rewrite_behavior("PREPEND", targetPathPrepend="/v3")]
+    outboundPath, _ = client.extractOutboundPath(behaviors)
+    assert outboundPath == "PREPEND:/v3"
+
+
+def test_extractOutboundPath_rewriteUrl_regex_replace(client):
+    behaviors = [_rewrite_behavior("REGEX_REPLACE", matchRegex="^/api/(.*)", targetRegex="/v3/api/$1")]
+    outboundPath, _ = client.extractOutboundPath(behaviors)
+    assert outboundPath == "REGEX:^/api/(.*)→/v3/api/$1"
+
+
+def test_extractOutboundPath_baseDirectory(client):
+    behaviors = [_base_directory_behavior("/images/")]
+    outboundPath, baseDir = client.extractOutboundPath(behaviors)
+    assert outboundPath is None
+    assert baseDir == "/images/"
+
+
+def test_extractOutboundPath_both_rewrite_and_basedir(client):
+    behaviors = [
+        _rewrite_behavior("PREPEND", targetPathPrepend="/v3"),
+        _base_directory_behavior("/static/"),
+    ]
+    outboundPath, baseDir = client.extractOutboundPath(behaviors)
+    assert outboundPath == "PREPEND:/v3"
+    assert baseDir == "/static/"
+
+
+def test_extractRuleRecords_outbound_path_on_record(client):
+    """rewriteUrl behavior is captured on the emitted record."""
+    child = _make_rule(
+        "v1",
+        criteria=[_path_criterion(["/v1/*"])],
+        behaviors=[
+            _origin_behavior(),
+            _rewrite_behavior("PREPEND", targetPathPrepend="/internal"),
+        ],
+    )
+    root = _make_rule("default", children=[child])
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_rw", propertyName="p", version=1, deeplink=""
+    )
+    assert len(records) == 1
+    assert records[0].outboundPath == "PREPEND:/internal"
+    assert records[0].baseDirectory is None
+
+
+def test_extractRuleRecords_outbound_path_inherited(client):
+    """Child without its own rewriteUrl inherits parent's outboundPath."""
+    grandchild = _make_rule(
+        "grandchild",
+        criteria=[_path_criterion(["/v1/users/*"])],
+        behaviors=[_origin_behavior("gc-backend.example.com")],
+    )
+    parent = _make_rule(
+        "v1",
+        criteria=[_path_criterion(["/v1/*"])],
+        behaviors=[
+            _origin_behavior(),
+            _rewrite_behavior("PREPEND", targetPathPrepend="/internal"),
+        ],
+        children=[grandchild],
+    )
+    root = _make_rule("default", children=[parent])
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_rw2", propertyName="p", version=1, deeplink=""
+    )
+    # parent: 1 record (path="/v1/*")
+    # grandchild: 2 records (inherited /v1/* + own /v1/users/*)
+    assert len(records) == 3
+    for r in records:
+        assert r.outboundPath == "PREPEND:/internal"  # all carry it
+
+
+def test_extractRuleRecords_outbound_path_child_overrides(client):
+    """Child's own rewriteUrl overrides the inherited one."""
+    child = _make_rule(
+        "v1",
+        criteria=[_path_criterion(["/v1/*"])],
+        behaviors=[
+            _origin_behavior(),
+            _rewrite_behavior("REWRITE", targetUrl="/new-path"),
+        ],
+    )
+    root = _make_rule(
+        "default",
+        behaviors=[
+            _origin_behavior("root-backend.example.com"),
+            _rewrite_behavior("PREPEND", targetPathPrepend="/v3"),
+        ],
+        children=[child],
+    )
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_rw3", propertyName="p", version=1, deeplink=""
+    )
+    # root: path=None, child: path="/v1/*"
+    assert len(records) == 2
+    root_record = next(r for r in records if r.path is None)
+    child_record = next(r for r in records if r.path == "/v1/*")
+    assert root_record.outboundPath == "PREPEND:/v3"
+    assert child_record.outboundPath == "REWRITE:/new-path"

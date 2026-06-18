@@ -1152,14 +1152,14 @@ files = [
 
 [[package]]
 name = "nodestream"
-version = "0.15.0"
+version = "0.15.3"
 description = "A Fast, Declarative ETL for Graph Databases."
 optional = false
 python-versions = "<4.0,>=3.10"
 groups = ["main"]
 files = [
-    {file = "nodestream-0.15.0-py3-none-any.whl", hash = "sha256:27cc0c3ac3037b79921032edfc844ff606e7aaacc1f3d5361f5f0d29ac4f548b"},
-    {file = "nodestream-0.15.0.tar.gz", hash = "sha256:742343e5af93ae43c657abc9624b780fe72ec395b9317cd44c440381fb79f3e2"},
+    {file = "nodestream-0.15.3-py3-none-any.whl", hash = "sha256:d7e347ca05429a681c284b6fa60bdfd3b2051f64388d53ca9d6270a1a70fb7e3"},
+    {file = "nodestream-0.15.3.tar.gz", hash = "sha256:af09d927edee0e5955d126db531852dec032bb70fb6e34152ca848e7ce770757"},
 ]
 
 [package.dependencies]

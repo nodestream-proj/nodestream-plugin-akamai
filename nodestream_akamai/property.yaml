@@ -10,6 +10,8 @@
     interpretations:
     - type: source_node
       node_type: AkamaiProperty
+      additional_types:
+      - Proxy
       normalization:
         do_remove_trailing_dots: true
       key:

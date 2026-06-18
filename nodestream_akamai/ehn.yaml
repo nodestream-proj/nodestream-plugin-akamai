@@ -8,19 +8,36 @@
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
+    # The Akamai edge hostname is an Endpoint with an additional AkamaiEdgeHostname
+    # label so it is distinguishable from origin endpoints in the graph.
     - type: source_node
-      node_type: AkamaiEdgeHostname
+      node_type: Endpoint
+      additional_types:
+      - AkamaiEdgeHostname
       normalization:
         do_remove_trailing_dots: true
       key:
-        edge_hostname_id: !jmespath 'edgeHostnameId'
+        fqdn: !jmespath 'edgeHostname'
     - type: properties
       properties:
-        edge_hostname: !jmespath 'edgeHostname'
+        edge_hostname_id: !jmespath 'edgeHostnameId'
         ip_version_behavior: !jmespath 'ipVersionBehavior'
+    # The customer DNS name (recordName) is a CNAME record pointing to the edge hostname.
+    # Matches the Route53 CNAME pattern:
+    #   (CNAME {id: recordName}) -[:RESOLVES_TO]-> (Endpoint:AkamaiEdgeHostname)
+    #   (Endpoint {fqdn: recordName}) -[:DEFINED_BY]-> (CNAME {id: recordName})
+    - type: relationship
+      node_type: CNAME
+      relationship_type: RESOLVES_TO
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
+        id: !jmespath 'recordName'
     - type: relationship
       node_type: Endpoint
-      node_key: 
+      relationship_type: DEFINED_BY
+      key_normalization:
+        do_remove_trailing_dots: true
+      node_key:
         fqdn: !jmespath 'recordName'
-      relationship_type: CNAMES_TO
       outbound: false
