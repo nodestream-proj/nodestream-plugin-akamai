@@ -7,22 +7,18 @@ from ..akamai_utils.property_client import AkamaiPropertyClient
 
 
 class AkamaiPropertyRuleExtractor(Extractor):
-    """Extracts per-positive-glob records from AkamaiProperty rule trees.
+    """Extracts one record per rule node from AkamaiProperty rule trees.
 
-    For path-eligible rules (no hostname dimension, no cloudlet conditional),
-    one record is emitted per positive (non-negated) path glob so the pipeline
-    produces one simple allowlist Path node per glob:
+    For path-eligible rules (has path criteria, no cloudlet conditional),
+    the record produces a Path node keyed by the canonical criteria string:
 
         (AkamaiProperty:Proxy)-[:HAS_PATH]->(Path {path: "/v1/*"})
           -[:ROUTES_TO]->(Endpoint)
 
-    The full compound pathCriteria (including negations) is retained on every
-    record so the AkamaiPropertyRule node receives the complete expression.
-    ruleKey is stable across all fan-out records for the same rule, so the
-    Rule node is upserted idempotently.
-
-    Rules with zero positive globs (pure-negation, hostname-only, cloudlet,
-    catch-all) emit one record with path=None — Rule node only, no Path node.
+    The path key is the full pathCriteria list sorted and joined with AND so
+    that each unique combination of criteria maps to exactly one Path node.
+    Rules with no path criteria (hostname-only, cloudlet, catch-all) emit one
+    record with path=None — Rule node only, no Path node.
     """
 
     def __init__(self, **akamaiClientKwargs) -> None:
@@ -66,8 +62,8 @@ class AkamaiPropertyRuleExtractor(Extractor):
                     deeplink=deeplink,
                 ):
                     d = dataclasses.asdict(record)
-                    # pathKey: non-null iff this record represents a single positive glob.
-                    # path is already set to the individual glob (or None) by extractRuleRecords.
+                    # pathKey: non-null iff path is set (path-eligible rule).
+                    # path is the canonical sorted AND-joined criteria string from extractRuleRecords.
                     d["pathKey"] = {"proxy_id": d["proxyId"], "path": d["path"]} if d["path"] else None
                     # ruleKey includes hostname so that two rules with the same name but
                     # different hostname criteria produce distinct AkamaiPropertyRule nodes.

@@ -755,40 +755,36 @@ class AkamaiPropertyClient(AkamaiApiClient):
         # genuine allowlist entry. The AkamaiPropertyRule node retains the full
         # hostname+path compound expression for rules that need it.
         pathEligible = bool(combinedPath) and conditionalOriginId is None
-        positiveGlobs = [p for p in combinedPath if not p.startswith("!")] if pathEligible else []
 
-        # One pathKey per positive glob; None when no positive globs exist
-        pathKeys = (
-            [{"proxy_id": propertyId, "path": glob} for glob in positiveGlobs]
-            if positiveGlobs
-            else [None]
-        )
+        # Canonical path key: sorted criteria joined with PATH_AND so that the
+        # same set of criteria always produces the same string regardless of rule
+        # tree traversal order.  None when the rule is not path-eligible.
+        pathKey = PATH_AND.join(sorted(combinedPath)) if pathEligible else None
 
         records = []
 
         # Only emit records if there is a genuine origin to route to
         if originHostname is not None:
-            for pathKey in pathKeys:
-                records.append(
-                    PropertyRuleRecord(
-                        proxyId=propertyId,
-                        path=pathKey["path"] if pathKey else None,
-                        pathCriteria=combinedPath,
-                        hostnameCriteria=combinedHostname,
-                        conditionalOriginId=conditionalOriginId,
-                        originHostname=originHostname,
-                        originType=originType,
-                        outboundPath=outboundPath,
-                        baseDirectory=baseDirectory,
-                        ruleName=ruleName,
-                        ruleDepth=depth,
-                        criteriaMustSatisfy=rule.get("criteriaMustSatisfy", "all"),
-                        securityBehaviors=securityBehaviors,
-                        propertyId=propertyId,
-                        propertyName=propertyName,
-                        version=version,
-                        deeplink=deeplink,
-                    )
+            records.append(
+                PropertyRuleRecord(
+                    proxyId=propertyId,
+                    path=pathKey,
+                    pathCriteria=combinedPath,
+                    hostnameCriteria=combinedHostname,
+                    conditionalOriginId=conditionalOriginId,
+                    originHostname=originHostname,
+                    originType=originType,
+                    outboundPath=outboundPath,
+                    baseDirectory=baseDirectory,
+                    ruleName=ruleName,
+                    ruleDepth=depth,
+                    criteriaMustSatisfy=rule.get("criteriaMustSatisfy", "all"),
+                    securityBehaviors=securityBehaviors,
+                    propertyId=propertyId,
+                    propertyName=propertyName,
+                    version=version,
+                    deeplink=deeplink,
+                )
                 )
 
         for child in rule.get("children", []):

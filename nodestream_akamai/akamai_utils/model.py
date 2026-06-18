@@ -71,24 +71,23 @@ class PropertyRuleRecord:
     pattern, possibly !-prefixed for negation.  This maps directly to the
     micromatch(path, patterns) call signature — no post-hoc parsing required.
 
-    The node key ``path`` is the PATH_AND-joined string of pathCriteria (sorted
-    for determinism), matching the format already stored on PROXIES_TO.path in
-    the existing property pipeline.  For single-value rules this is just the
-    pattern itself.
+    The node key ``path`` is the sorted pathCriteria list joined with " AND "
+    so that each unique combination of criteria maps to exactly one Path node,
+    regardless of rule tree traversal order.  One rule → one Path node; no
+    fan-out per positive glob.
 
     Path label eligibility (by design)
     ------------------------------------
-    A rule gets the additional ``Path`` label iff:
+    A rule gets the ``Path`` label (via pathKey being non-null) iff:
       - pathCriteria is non-empty
-      - hostnameCriteria is empty
       - conditionalOriginId is None
-    i.e. the rule matches solely on path patterns with no other dimension.
-    This guarantee is structural — it does not depend on glob content.
+    Hostname-dimensioned rules are still path-eligible — the hostname just
+    scopes inbound traffic; the path glob is a genuine allowlist entry.
     """
 
     # Node key fields (match IAGE Path key structure)
     proxyId: str          # = propertyId (the AkamaiProperty node key value)
-    path: Optional[str]   # PATH_AND-joined pathCriteria; None for the default rule
+    path: Optional[str]   # sorted pathCriteria joined with AND; None when not path-eligible
 
     # Properties surfaced on the node
     pathCriteria: List[str]          # individual glob patterns for micromatch

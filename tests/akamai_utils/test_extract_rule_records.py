@@ -184,11 +184,11 @@ def test_extractRuleRecords_single_child_path_rule(client):
     assert child_record.originHostname == "api-backend.example.com"
 
 
-def test_extractRuleRecords_compound_rule_emits_positive_glob_only(client):
-    """A compound rule (positive + negation) emits one record per positive glob.
+def test_extractRuleRecords_compound_rule_emits_one_record(client):
+    """A compound rule (positive + negation) emits exactly one record.
 
-    path = the individual positive glob; full pathCriteria (including negations)
-    is retained on the record for the Rule node.
+    path = sorted pathCriteria joined with AND; full pathCriteria list
+    is retained on the record for micromatch evaluation.
     """
     child = _make_rule(
         "community",
@@ -202,11 +202,10 @@ def test_extractRuleRecords_compound_rule_emits_positive_glob_only(client):
     records = client.extractRuleRecords(
         rule=root, propertyId="prp_789", propertyName="p", version=1, deeplink=""
     )
-    # Only one positive glob → one record
     assert len(records) == 1
     child_record = records[0]
-    # path is just the positive glob, not the AND-join
-    assert child_record.path == "/community/*"
+    # path is the sorted AND-join of all criteria
+    assert child_record.path == "!/community/sitemap*.xml AND /community/*"
     # full compound criteria still present on the record
     assert child_record.pathCriteria == ["/community/*", "!/community/sitemap*.xml"]
 
@@ -214,8 +213,8 @@ def test_extractRuleRecords_compound_rule_emits_positive_glob_only(client):
 def test_extractRuleRecords_criteria_inherited_from_ancestors(client):
     """A grandchild rule's pathCriteria includes criteria from root → parent → child.
 
-    Root and parent have no origin → both omitted. Grandchild has two positive
-    globs (inherited + own) → two records, one per glob.
+    Root and parent have no origin → both omitted. Grandchild emits one record
+    with path = sorted AND-join of all accumulated criteria.
     """
     parent = _make_rule(
         "community",
@@ -232,14 +231,12 @@ def test_extractRuleRecords_criteria_inherited_from_ancestors(client):
     records = client.extractRuleRecords(
         rule=root, propertyId="prp_gc", propertyName="p", version=1, deeplink=""
     )
-    # Two positive globs: /community/* (inherited) and /community/api/* (own)
-    assert len(records) == 2
-    paths = {r.path for r in records}
-    assert paths == {"/community/*", "/community/api/*"}
-    # Full compound criteria on every record
-    for r in records:
-        assert r.pathCriteria == ["/community/*", "/community/api/*"]
-        assert r.ruleDepth == 2
+    # One record: path = sorted AND-join of inherited + own criteria
+    assert len(records) == 1
+    r = records[0]
+    assert r.path == "/community/* AND /community/api/*"
+    assert r.pathCriteria == ["/community/*", "/community/api/*"]
+    assert r.ruleDepth == 2
 
 
 def test_extractRuleRecords_hostname_rule_not_path(client):
@@ -364,8 +361,8 @@ def test_pathCriteria_elements_have_no_AND_separator(client):
     records = client.extractRuleRecords(
         rule=root, propertyId="prp_mc", propertyName="p", version=1, deeplink=""
     )
-    # Two positive globs → two records; check all
-    assert len(records) == 2
+    # One record (one rule); pathCriteria list elements must never contain PATH_AND
+    assert len(records) == 1
     for r in records:
         for element in r.pathCriteria:
             assert PATH_AND not in element, (
@@ -374,23 +371,22 @@ def test_pathCriteria_elements_have_no_AND_separator(client):
             )
 
 
-def test_path_is_single_positive_glob(client):
-    """path on each record is a single positive glob, not an AND-join."""
+def test_path_is_canonical_sorted_and_join(client):
+    """path is the sorted pathCriteria joined with AND — one record per rule."""
     child = _make_rule(
         "multi",
-        criteria=[_path_criterion(["/v1/*", "/v2/*"]), _path_criterion(["!/v1/health"], negative=False)],
+        criteria=[_path_criterion(["/v1/*", "/v2/*"]), _path_criterion(["/v1/health"], negative=True)],
         behaviors=[_origin_behavior()],
     )
     root = _make_rule("default", children=[child])
     records = client.extractRuleRecords(
         rule=root, propertyId="prp_k", propertyName="p", version=1, deeplink=""
     )
-    # /v1/*, /v2/*, !/v1/health → two positive globs → two records
-    assert len(records) == 2
-    paths = {r.path for r in records}
-    assert paths == {"/v1/*", "/v2/*"}
-    for r in records:
-        assert PATH_AND not in (r.path or "")
+    # One rule → one record; path = sorted AND-join
+    assert len(records) == 1
+    r = records[0]
+    assert r.pathCriteria == ["/v1/*", "/v2/*", "!/v1/health"]
+    assert r.path == "!/v1/health AND /v1/* AND /v2/*"
 
 
 # ── Origin inheritance ─────────────────────────────────────────────────────────
@@ -442,16 +438,14 @@ def test_extractRuleRecords_grandchild_inherits_root_origin(client):
     )
     # root: 1 record (path=None)
     # parent: 1 record (path="/community/*")
-    # grandchild: 2 records (path="/community/*" inherited + path="/community/api/*" own)
-    assert len(records) == 4
+    # grandchild: 1 record (path="/community/* AND /community/api/*")
+    assert len(records) == 3
     for r in records:
         assert r.originHostname == "shared-backend.example.com"
     gc_records = [r for r in records if r.ruleDepth == 2]
-    assert len(gc_records) == 2
-    gc_paths = {r.path for r in gc_records}
-    assert gc_paths == {"/community/*", "/community/api/*"}
-    for r in gc_records:
-        assert r.pathCriteria == ["/community/*", "/community/api/*"]
+    assert len(gc_records) == 1
+    assert gc_records[0].path == "/community/* AND /community/api/*"
+    assert gc_records[0].pathCriteria == ["/community/*", "/community/api/*"]
 
 
 def test_extractRuleRecords_child_origin_overrides_inherited(client):
@@ -590,8 +584,8 @@ def test_extractRuleRecords_outbound_path_inherited(client):
         rule=root, propertyId="prp_rw2", propertyName="p", version=1, deeplink=""
     )
     # parent: 1 record (path="/v1/*")
-    # grandchild: 2 records (inherited /v1/* + own /v1/users/*)
-    assert len(records) == 3
+    # grandchild: 1 record (path="/v1/* AND /v1/users/*")
+    assert len(records) == 2
     for r in records:
         assert r.outboundPath == "PREPEND:/internal"  # all carry it
 
