@@ -18,7 +18,7 @@ from unittest.mock import MagicMock, Mock, patch
 import pytest
 from requests import HTTPError
 
-from nodestream_akamai.akamai_utils.model import PropertyRuleRecord
+from nodestream_akamai.akamai_utils.model import AkamaiPropertyResponse, PropertyRuleRecord
 from nodestream_akamai.property_rule import AkamaiPropertyRuleExtractor
 
 
@@ -41,14 +41,16 @@ def _make_prop(
     contract_id="ctr_ABC",
     group_id="grp_1",
 ):
-    return {
-        "propertyId": property_id,
-        "propertyName": property_name,
-        "productionVersion": production_version,
-        "assetId": asset_id,
-        "contractId": contract_id,
-        "groupId": group_id,
-    }
+    return AkamaiPropertyResponse(
+        propertyId=property_id,
+        propertyName=property_name,
+        productionVersion=production_version,
+        stagingVersion=None,
+        assetId=asset_id,
+        contractId=contract_id,
+        groupId=group_id,
+        hostnames=[],
+    )
 
 
 def _make_record(
@@ -108,27 +110,11 @@ async def test_extract_records_skips_none_prop():
 async def test_extract_records_skips_prop_without_production_version():
     extractor = _make_extractor()
     extractor.client.list_all_properties = Mock(
-        return_value=[{"propertyId": "prp_1", "propertyName": "no-version"}]
+        return_value=[_make_prop(production_version=None)]
     )
     result = [x async for x in extractor.extract_records()]
     assert result == []
     extractor.client.get_rule_tree.assert_not_called()
-
-
-@pytest.mark.asyncio
-async def test_extract_records_skips_prop_with_null_production_version():
-    extractor = _make_extractor()
-    extractor.client.list_all_properties = Mock(
-        return_value=[
-            {
-                "propertyId": "prp_1",
-                "propertyName": "null-version",
-                "productionVersion": None,
-            }
-        ]
-    )
-    result = [x async for x in extractor.extract_records()]
-    assert result == []
 
 
 # ── get_rule_tree / extractRuleRecords failure ────────────────────────────────

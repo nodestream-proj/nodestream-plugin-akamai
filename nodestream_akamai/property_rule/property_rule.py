@@ -34,32 +34,27 @@ class AkamaiPropertyRuleExtractor(Extractor):
             raise
 
         for prop in properties or []:
-            if prop is None or prop.get("productionVersion") is None:
+            if prop is None or prop.productionVersion is None:
                 continue
             self.logger.info(
                 "extracting rule records for property %s (id=%s)",
-                prop.get("propertyName"),
-                prop.get("propertyId"),
+                prop.propertyName,
+                prop.propertyId,
             )
             try:
-                version = prop["productionVersion"]
+                version = prop.productionVersion
                 ruleTree = self.client.get_rule_tree(
-                    property_id=prop["propertyId"],
+                    property_id=prop.propertyId,
                     version=version,
-                    contract_id=prop["contractId"],
-                    group_id=prop["groupId"],
-                )
-                deeplink = (
-                    "https://control.akamai.com/apps/property-manager/"
-                    f"#/property-version/{prop['assetId']}/{version}/edit"
-                    f"?gid={prop['groupId']}"
+                    contract_id=prop.contractId,
+                    group_id=prop.groupId,
                 )
                 for record in self.client.extractRuleRecords(
                     rule=ruleTree["rules"],
-                    propertyId=prop["propertyId"],
-                    propertyName=prop["propertyName"],
+                    propertyId=prop.propertyId,
+                    propertyName=prop.propertyName,
                     version=version,
-                    deeplink=deeplink,
+                    deeplink=prop.deeplink,
                 ):
                     d = dataclasses.asdict(record)
                     # pathKey: non-null iff path is set (path-eligible rule).
@@ -84,6 +79,6 @@ class AkamaiPropertyRuleExtractor(Extractor):
             except Exception:
                 self.logger.exception(
                     "Failed to extract rule records for property %s (id=%s)",
-                    prop.get("propertyName"),
-                    prop.get("propertyId"),
+                    prop.propertyName,
+                    prop.propertyId,
                 )

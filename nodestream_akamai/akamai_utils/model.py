@@ -2,6 +2,41 @@ from dataclasses import dataclass, field
 from typing import List, Optional
 
 
+DEEPLINK_BASE = "https://control.akamai.com/apps/property-manager/#/property-version"
+
+
+@dataclass(kw_only=True)
+class AkamaiPropertyResponse:
+    propertyId: str
+    propertyName: str
+    productionVersion: Optional[int]
+    stagingVersion: Optional[int]
+    assetId: str
+    contractId: str
+    groupId: str
+    hostnames: List[dict]
+
+    @property
+    def deeplink(self) -> str:
+        return (
+            f"{DEEPLINK_BASE}/{self.assetId}/{self.productionVersion}/edit"
+            f"?gid={self.groupId}"
+        )
+
+    @classmethod
+    def fromDict(cls, data: dict) -> "AkamaiPropertyResponse":
+        return cls(
+            propertyId=data["propertyId"],
+            propertyName=data["propertyName"],
+            productionVersion=data.get("productionVersion"),
+            stagingVersion=data.get("stagingVersion"),
+            assetId=data.get("assetId", ""),
+            contractId=data.get("contractId", ""),
+            groupId=data.get("groupId", ""),
+            hostnames=data.get("hostnames", []),
+        )
+
+
 @dataclass(eq=True, frozen=True, kw_only=True)
 class EdgeHost:
     name: str

@@ -6,7 +6,7 @@ from typing import Any, List, Tuple
 from jsonpath_ng.ext import parse
 
 from .client import AkamaiApiClient
-from .model import EdgeHost, Origin, PropertyDescription, PropertyRuleRecord
+from .model import AkamaiPropertyResponse, EdgeHost, Origin, PropertyDescription, PropertyRuleRecord
 
 PATH_AND = " AND "
 
@@ -208,28 +208,28 @@ class AkamaiPropertyClient(AkamaiApiClient):
             hostnames=list(hostnames),
         )
 
-    def describe_property_by_dict(
-        self, prop: dict, version: int
+    def describePropertyByDict(
+        self, prop: AkamaiPropertyResponse, version: int
     ) -> PropertyDescription:
         # Get rule tree
         rule_tree = self.get_rule_tree(
-            property_id=prop["propertyId"],
+            property_id=prop.propertyId,
             version=version,
-            contract_id=prop["contractId"],
-            group_id=prop["groupId"],
+            contract_id=prop.contractId,
+            group_id=prop.groupId,
         )
-        rule_tree["assetId"] = prop["assetId"]
+        rule_tree["assetId"] = prop.assetId
 
         # Update origins
         origins = self.collate_origins_with_criteria(rule_tree["rules"])
-        hostnames = [EdgeHost(name=h["cnameFrom"]) for h in prop["hostnames"]]
+        hostnames = [EdgeHost(name=h["cnameFrom"]) for h in prop.hostnames]
 
         # Cloudlets
         cloudlet_policies = self.search_akamai_rule_tree_for_cloudlets(
             rule_tree=rule_tree["rules"]
         )
 
-        # Specific data for Edge Redirector, flter for legacy only
+        # Specific data for Edge Redirector, filter for legacy only
         edge_redirector_policies = self.search_akamai_rule_tree_for_cloudlet(
             rule_tree=rule_tree["rules"], behavior_name="edgeRedirector", shared=False
         )
@@ -249,25 +249,13 @@ class AkamaiPropertyClient(AkamaiApiClient):
             rule_tree=rule_tree["rules"]
         )
 
-        # Siteshield
         cp_codes = self.search_akamai_rule_tree_for_cp_codes(
             rule_tree=rule_tree["rules"]
         )
 
-        # Deeplink
-        deeplink_prefix = (
-            "https://control.akamai.com/apps/property-manager/#/property-version/"
-        )
-        deeplink = "{prefix}{assetId}/{version}/edit?gid={groupId}".format(
-            prefix=deeplink_prefix,
-            assetId=prop["assetId"],
-            version=version,
-            groupId=prop["groupId"],
-        )
-
         return PropertyDescription(
-            id=prop["propertyId"],
-            name=prop["propertyName"],
+            id=prop.propertyId,
+            name=prop.propertyName,
             version=version,
             rule_format=rule_tree["ruleFormat"],
             origins=origins,
@@ -277,7 +265,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
             edgeworker_ids=edgeworker_ids,
             siteshield_maps=siteshield_maps,
             hostnames=hostnames,
-            deeplink=deeplink,
+            deeplink=prop.deeplink,
             cp_codes=cp_codes,
         )
 
@@ -307,10 +295,14 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
         property_ids = {h["propertyId"] for h in hostnames}
         # DeDupe list
-        return [
-            self._get_property_response(property_id, hostnames)
-            for property_id in property_ids
-        ]
+        results = []
+        for property_id in property_ids:
+            raw = self._get_property_response(property_id, hostnames)
+            if raw is None:
+                results.append(None)
+            else:
+                results.append(AkamaiPropertyResponse.fromDict(raw))
+        return results
 
     def search_akamai_rule_tree_for_origins(self, rule_tree) -> set[Origin]:
         behaviors = rule_tree.get("behaviors", [])
