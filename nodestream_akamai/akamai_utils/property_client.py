@@ -6,7 +6,13 @@ from typing import Any, List, Tuple
 from jsonpath_ng.ext import parse
 
 from .client import AkamaiApiClient
-from .model import EdgeHost, Origin, PropertyDescription, PropertyRuleRecord
+from .model import (
+    AkamaiPropertyResponse,
+    EdgeHost,
+    Origin,
+    PropertyDescription,
+    PropertyRuleRecord,
+)
 
 PATH_AND = " AND "
 
@@ -32,34 +38,32 @@ MATCH_TYPES = ["path", "hostname", "cloudletsOrigin"]
 NEGATIVE_OPERATORS = ["DOES_NOT_MATCH_ONE_OF", "IS_NOT_ONE_OF"]
 
 
-def _get_policy_set_prefix(options):
+def getPolicySetPrefix(options):
     if "policyTokenDefault" in options:
-        policy_set_prefix = options["policyTokenDefault"] + "-"
-    elif "policyToken" in options:
-        policy_set_prefix = options["policyToken"] + "-"
-    else:
-        policy_set_prefix = ""
-    return policy_set_prefix
+        return options["policyTokenDefault"] + "-"
+    if "policyToken" in options:
+        return options["policyToken"] + "-"
+    return ""
 
 
-def _extract_origin(behavior):
+def extractOrigin(behavior):
     if behavior.get("name") == "origin":
-        origin_options = behavior["options"]
-        match origin_options.get("originType"):
+        originOptions = behavior["options"]
+        match originOptions.get("originType"):
             case "CUSTOMER":
-                return Origin(name=origin_options.get("hostname"))
+                return Origin(name=originOptions.get("hostname"))
             case "NET_STORAGE":
                 return Origin(
-                    name=origin_options["netStorage"].get("downloadDomainName")
+                    name=originOptions["netStorage"].get("downloadDomainName")
                 )
             case "MEDIA_SERVICE_LIVE":
-                return Origin(name=origin_options.get("mslorigin"))
+                return Origin(name=originOptions.get("mslorigin"))
             case _:
                 return None
     return None
 
 
-def _flatten_origins(origin):
+def flattenOrigins(origin):
     flattened = list(
         itertools.chain(
             (
@@ -71,8 +75,8 @@ def _flatten_origins(origin):
                 for hostname in origin.get("hostnames", [])
             ),
             (
-                Origin(name=origin["name"], conditional_origin=conditional_origin)
-                for conditional_origin in origin.get("conditional_origins", [])
+                Origin(name=origin["name"], conditional_origin=conditionalOrigin)
+                for conditionalOrigin in origin.get("conditional_origins", [])
             ),
         )
     )
@@ -104,162 +108,146 @@ class AkamaiPropertyClient(AkamaiApiClient):
     def headers(self):
         return {"PAPI-Use-Prefixes": "false"}
 
-    def contracts_by_group(self) -> List[Tuple[str, str]]:
-        groups_list_api_path = "/papi/v1/groups"
-        response_json = self._get_api_from_relative_path(
-            groups_list_api_path, headers=self.headers
+    def contractsByGroup(self) -> List[Tuple[str, str]]:
+        groupsListApiPath = "/papi/v1/groups"
+        responseJson = self._get_api_from_relative_path(
+            groupsListApiPath, headers=self.headers
         )
         return [
-            (group["groupId"], contract_id)
-            for group in response_json["groups"]["items"]
-            for contract_id in group["contractIds"]
+            (group["groupId"], contractId)
+            for group in responseJson["groups"]["items"]
+            for contractId in group["contractIds"]
         ]
 
-    def list_contracts(self) -> List[str]:
-        contracts_list_api_path = "/papi/v1/contracts"
-        response_json = self._get_api_from_relative_path(
-            contracts_list_api_path, headers=self.headers
+    def listContracts(self) -> List[str]:
+        contractsListApiPath = "/papi/v1/contracts"
+        responseJson = self._get_api_from_relative_path(
+            contractsListApiPath, headers=self.headers
         )
-        return response_json["contracts"]["items"]
+        return responseJson["contracts"]["items"]
 
-    def property_ids_for_contract_group(
-        self, group_id: str, contract_id: str
-    ) -> List[str]:
-        property_list_api_path = "/papi/v1/properties"
-        query_params = {
-            "groupId": group_id,
-            "contractId": contract_id,
+    def propertyIdsForContractGroup(self, groupId: str, contractId: str) -> List[str]:
+        propertyListApiPath = "/papi/v1/properties"
+        queryParams = {
+            "groupId": groupId,
+            "contractId": contractId,
         }
-        response_json = self._get_api_from_relative_path(
-            property_list_api_path, params=query_params, headers=self.headers
+        responseJson = self._get_api_from_relative_path(
+            propertyListApiPath, params=queryParams, headers=self.headers
         )
-        return [prop["propertyId"] for prop in response_json["properties"]["items"]]
+        return [prop["propertyId"] for prop in responseJson["properties"]["items"]]
 
     def get_rule_tree(
         self, property_id: str, version: int, contract_id=None, group_id=None
     ):
-        rule_tree_api_path = (
-            f"/papi/v1/properties/{property_id}/versions/{version}/rules"
-        )
+        ruleTreeApiPath = f"/papi/v1/properties/{property_id}/versions/{version}/rules"
         params = {}
         if contract_id is not None and group_id is not None:
             params = {"contractId": contract_id, "groupId": group_id}
         return self._get_api_from_relative_path(
-            rule_tree_api_path, params=params, headers=self.headers
+            ruleTreeApiPath, params=params, headers=self.headers
         )
 
-    def get_property(self, property_id: str, contract_id=None, group_id=None):
-        property_path = f"/papi/v1/properties/{property_id}"
+    def getProperty(self, propertyId: str, contractId=None, groupId=None):
+        propertyPath = f"/papi/v1/properties/{propertyId}"
         params = {}
-        if contract_id is not None and group_id is not None:
-            params = {"contractId": contract_id, "groupId": group_id}
+        if contractId is not None and groupId is not None:
+            params = {"contractId": contractId, "groupId": groupId}
         return self._get_api_from_relative_path(
-            property_path, params=params, headers=self.headers
+            propertyPath, params=params, headers=self.headers
         )["properties"]["items"][0]
 
-    def describe_property_hostnames(
-        self, property_id: str, version: int, contract_id=None, group_id=None
+    def describePropertyHostnames(
+        self, propertyId: str, version: int, contractId=None, groupId=None
     ):
-        hosts_api_path = (
-            f"/papi/v1/properties/{property_id}/versions/{version}/hostnames"
-        )
+        hostsApiPath = f"/papi/v1/properties/{propertyId}/versions/{version}/hostnames"
         params = {}
-        if contract_id is not None and group_id is not None:
-            params = {"contractId": contract_id, "groupId": group_id}
-        hosts_api_response = self._get_api_from_relative_path(
-            hosts_api_path, params=params, headers=self.headers
+        if contractId is not None and groupId is not None:
+            params = {"contractId": contractId, "groupId": groupId}
+        hostsApiResponse = self._get_api_from_relative_path(
+            hostsApiPath, params=params, headers=self.headers
         )
         return [
-            EdgeHost(name=edge_host["cnameFrom"])
-            for edge_host in hosts_api_response["hostnames"]["items"]
+            EdgeHost(name=edgeHost["cnameFrom"])
+            for edgeHost in hostsApiResponse["hostnames"]["items"]
         ]
 
-    def pull_host_entries(
-        self, property_id: str, versions: set
+    def pullHostEntries(
+        self, propertyId: str, versions: set
     ) -> tuple[set[Origin], set[Any], set[EdgeHost]]:
         origins = set()
-        edge_redirector_policies = set()
+        edgeRedirectorPolicies = set()
         hostnames = set()
         for version in versions:
             if version is None:
                 continue
-            rule_tree = self.get_rule_tree(property_id, version)
-            origins.update(self.search_akamai_rule_tree_for_origins(rule_tree))
-            edge_redirector_policies.update()
-            hostnames.update(self.describe_property_hostnames(property_id, version))
-        return origins, edge_redirector_policies, hostnames
+            ruleTree = self.get_rule_tree(propertyId, version)
+            origins.update(self.searchRuleTreeForOrigins(ruleTree))
+            edgeRedirectorPolicies.update()
+            hostnames.update(self.describePropertyHostnames(propertyId, version))
+        return origins, edgeRedirectorPolicies, hostnames
 
-    def describe_property_by_id(self, property_id: str) -> PropertyDescription:
-        describe_property_api_path = f"/papi/v1/properties/{property_id}"
-        property_description = self._get_api_from_relative_path(
-            describe_property_api_path, headers=self.headers
+    def describePropertyById(self, propertyId: str) -> PropertyDescription:
+        describePropertyApiPath = f"/papi/v1/properties/{propertyId}"
+        propertyDescription = self._get_api_from_relative_path(
+            describePropertyApiPath, headers=self.headers
         )["properties"]["items"][0]
-        property_name = property_description["propertyName"]
-        production_version_number = property_description["productionVersion"]
-        staging_version_number = property_description["stagingVersion"]
-        origins, _, hostnames = self.pull_host_entries(
-            property_id, {production_version_number, staging_version_number}
+        propertyName = propertyDescription["propertyName"]
+        productionVersionNumber = propertyDescription["productionVersion"]
+        stagingVersionNumber = propertyDescription["stagingVersion"]
+        origins, _, hostnames = self.pullHostEntries(
+            propertyId, {productionVersionNumber, stagingVersionNumber}
         )
 
         return PropertyDescription(
-            id=property_id,
-            name=property_name,
+            id=propertyId,
+            name=propertyName,
             origins=list(origins),
             hostnames=list(hostnames),
         )
 
-    def describe_property_by_dict(
-        self, prop: dict, version: int
-    ) -> PropertyDescription:
+    def describePropertyByDict(self, prop: dict, version: int) -> PropertyDescription:
         # Get rule tree
-        rule_tree = self.get_rule_tree(
+        ruleTree = self.get_rule_tree(
             property_id=prop["propertyId"],
             version=version,
             contract_id=prop["contractId"],
             group_id=prop["groupId"],
         )
-        rule_tree["assetId"] = prop["assetId"]
+        ruleTree["assetId"] = prop["assetId"]
 
         # Update origins
-        origins = self.collate_origins_with_criteria(rule_tree["rules"])
-        hostnames = [EdgeHost(name=h["cnameFrom"]) for h in prop["hostnames"]]
+        origins = self.collateOriginsWithCriteria(ruleTree["rules"])
+        hostnames = [
+            EdgeHost(name=hostname["cnameFrom"]) for hostname in prop["hostnames"]
+        ]
 
         # Cloudlets
-        cloudlet_policies = self.search_akamai_rule_tree_for_cloudlets(
-            rule_tree=rule_tree["rules"]
-        )
+        cloudletPolicies = self.searchRuleTreeForCloudlets(ruleTree=ruleTree["rules"])
 
-        # Specific data for Edge Redirector, flter for legacy only
-        edge_redirector_policies = self.search_akamai_rule_tree_for_cloudlet(
-            rule_tree=rule_tree["rules"], behavior_name="edgeRedirector", shared=False
+        # Specific data for Edge Redirector, filter for legacy only
+        edgeRedirectorPolicies = self.searchRuleTreeForCloudlet(
+            ruleTree=ruleTree["rules"], behaviorName="edgeRedirector", shared=False
         )
 
         # IVM
-        image_manager_policysets = self.search_akamai_rule_tree_for_ivm(
-            rule_tree=rule_tree
-        )
+        imageManagerPolicysets = self.searchRuleTreeForIvm(ruleTree=ruleTree)
 
         # EdgeWorkers
-        edgeworker_ids = self.search_akamai_rule_tree_for_edge_workers(
-            rule_tree=rule_tree["rules"]
-        )
+        edgeworkerIds = self.searchRuleTreeForEdgeWorkers(ruleTree=ruleTree["rules"])
 
         # Siteshield
-        siteshield_maps = self.search_akamai_rule_tree_for_siteshield(
-            rule_tree=rule_tree["rules"]
-        )
+        siteshieldMaps = self.searchRuleTreeForSiteshield(ruleTree=ruleTree["rules"])
 
-        # Siteshield
-        cp_codes = self.search_akamai_rule_tree_for_cp_codes(
-            rule_tree=rule_tree["rules"]
-        )
+        # CP Codes
+        cpCodes = self.searchRuleTreeForCpCodes(ruleTree=ruleTree["rules"])
 
         # Deeplink
-        deeplink_prefix = (
+        deeplinkPrefix = (
             "https://control.akamai.com/apps/property-manager/#/property-version/"
         )
         deeplink = "{prefix}{assetId}/{version}/edit?gid={groupId}".format(
-            prefix=deeplink_prefix,
+            prefix=deeplinkPrefix,
             assetId=prop["assetId"],
             version=version,
             groupId=prop["groupId"],
@@ -269,319 +257,306 @@ class AkamaiPropertyClient(AkamaiApiClient):
             id=prop["propertyId"],
             name=prop["propertyName"],
             version=version,
-            rule_format=rule_tree["ruleFormat"],
+            rule_format=ruleTree["ruleFormat"],
             origins=origins,
-            cloudlet_policies=cloudlet_policies,
-            edge_redirector_policies=edge_redirector_policies,
-            image_manager_policysets=image_manager_policysets,
-            edgeworker_ids=edgeworker_ids,
-            siteshield_maps=siteshield_maps,
+            cloudlet_policies=cloudletPolicies,
+            edge_redirector_policies=edgeRedirectorPolicies,
+            image_manager_policysets=imageManagerPolicysets,
+            edgeworker_ids=edgeworkerIds,
+            siteshield_maps=siteshieldMaps,
             hostnames=hostnames,
             deeplink=deeplink,
-            cp_codes=cp_codes,
+            cp_codes=cpCodes,
         )
 
-    def search_all_properties(self):
+    def searchAllProperties(self):
         query = "$.name"
-        search_path = "/papi/v1/bulk/rules-search-requests-synch"
-        request_body = {"bulkSearchQuery": {"syntax": "JSONPATH", "match": query}}
-        return self._post_api_from_relative_path(path=search_path, body=request_body)
+        searchPath = "/papi/v1/bulk/rules-search-requests-synch"
+        requestBody = {"bulkSearchQuery": {"syntax": "JSONPATH", "match": query}}
+        return self._post_api_from_relative_path(path=searchPath, body=requestBody)
 
-    def list_account_hostnames(self, network="PRODUCTION"):
-        list_hostnames_path = f"/papi/v1/hostnames?network={network}&offset=0&limit=999"
-        result = self._get_api_from_relative_path(path=list_hostnames_path)
+    def listAccountHostnames(self, network="PRODUCTION"):
+        listHostnamesPath = f"/papi/v1/hostnames?network={network}&offset=0&limit=999"
+        result = self._get_api_from_relative_path(path=listHostnamesPath)
         hostnames = result["hostnames"]["items"]
         while "nextLink" in result["hostnames"]:
-            next_link = result["hostnames"]["nextLink"]
-            result = self._get_api_from_relative_path(path=next_link)
+            nextLink = result["hostnames"]["nextLink"]
+            result = self._get_api_from_relative_path(path=nextLink)
             hostnames.extend(result["hostnames"]["items"])
 
         return hostnames
 
-    def list_all_properties(self):
+    def list_all_properties(self) -> List[AkamaiPropertyResponse] | None:
         try:
-            hostnames = self.list_account_hostnames()
+            hostnames = self.listAccountHostnames()
         except Exception as err:
             logger.exception("Failed to list property hostnames: %s", err)
             return None
 
-        property_ids = {h["propertyId"] for h in hostnames}
-        # DeDupe list
+        propertyIds = {hostname["propertyId"] for hostname in hostnames}
         return [
-            self._get_property_response(property_id, hostnames)
-            for property_id in property_ids
+            self.buildPropertyResponse(propertyId, hostnames)
+            for propertyId in propertyIds
         ]
 
-    def search_akamai_rule_tree_for_origins(self, rule_tree) -> set[Origin]:
-        behaviors = rule_tree.get("behaviors", [])
-        children = rule_tree.get("children", [])
+    def searchRuleTreeForOrigins(self, ruleTree) -> set[Origin]:
+        behaviors = ruleTree.get("behaviors", [])
+        children = ruleTree.get("children", [])
         origins = set()
 
-        for child_rule_tree in children:
-            for child_origin in self.search_akamai_rule_tree_for_origins(
-                child_rule_tree
-            ):
-                origins.add(child_origin)
+        for childRuleTree in children:
+            for childOrigin in self.searchRuleTreeForOrigins(childRuleTree):
+                origins.add(childOrigin)
 
         for behavior in behaviors:
-            extracted = _extract_origin(behavior)
+            extracted = extractOrigin(behavior)
             if extracted:
                 origins.add(extracted)
 
         return set(origins)
 
-    def collate_origins_with_criteria(self, rules) -> list[Origin]:
+    def collateOriginsWithCriteria(self, rules) -> list[Origin]:
         """
         This function will find all Origin behaviours in a property and collate any relevant criteria
         into accompanying Lists.
         """
-        jsonpath_expression = parse('$..behaviors[?(@.name=="origin")]')
-        jsonpath_result = jsonpath_expression.find(rules)
+        jsonpathExpression = parse('$..behaviors[?(@.name=="origin")]')
+        jsonpathResult = jsonpathExpression.find(rules)
         # Parse matched jsonpath behaviours
         origins = [
-            self._jsonpath_fetch_origins(jsonpath_path, rules)
-            for jsonpath_path in jsonpath_result
+            self.fetchOriginsAtJsonpath(jsonpathPath, rules)
+            for jsonpathPath in jsonpathResult
         ]
 
         # Expand to one origin hostname/path combo per object to simplify the pipeline config and avoid
         # nested looping
         return list(
-            itertools.chain.from_iterable(
-                _flatten_origins(origin) for origin in origins
-            )
+            itertools.chain.from_iterable(flattenOrigins(origin) for origin in origins)
         )
 
-    def _jsonpath_fetch_origins(self, jsonpath_path, rules):
-        origin_host, location_elements = self.parse_origin_search(jsonpath_path, rules)
-        parent_location = ""
-        combined_rule_paths = []
-        combined_rule_hosts = []
-        combined_rule_cdids = []
-        for location in location_elements:
-            location_results = self.parse_origin_location(
-                location, parent_location, rules
-            )
-            if len(location_results.get("path", [])) > 0:
-                combined_rule_paths.append(location_results["path"])
-            if len(location_results.get("hostname", [])) > 0:
-                combined_rule_hosts.append(location_results["hostname"])
-            if len(location_results.get("cloudletsOrigin", [])) > 0:
-                combined_rule_cdids.append(location_results["cloudletsOrigin"])
-            parent_location = location
+    def fetchOriginsAtJsonpath(self, jsonpathPath, rules):
+        originHost, locationElements = self.parseOriginSearch(jsonpathPath, rules)
+        parentLocation = ""
+        combinedRulePaths = []
+        combinedRuleHosts = []
+        combinedRuleConditionalOrigins = []
+        for location in locationElements:
+            locationResults = self.parseOriginLocation(location, parentLocation, rules)
+            if len(locationResults.get("path", [])) > 0:
+                combinedRulePaths.append(locationResults["path"])
+            if len(locationResults.get("hostname", [])) > 0:
+                combinedRuleHosts.append(locationResults["hostname"])
+            if len(locationResults.get("cloudletsOrigin", [])) > 0:
+                combinedRuleConditionalOrigins.append(
+                    locationResults["cloudletsOrigin"]
+                )
+            parentLocation = location
         # Combine results into single list with boolean AND between parent and child
-        output = {"name": origin_host}
+        output = {"name": originHost}
 
-        if combined_rule_paths:
+        if combinedRulePaths:
             output["paths"] = [
-                PATH_AND.join(path_product)
-                for path_product in itertools.product(*combined_rule_paths)
+                PATH_AND.join(pathProduct)
+                for pathProduct in itertools.product(*combinedRulePaths)
             ]
-        if combined_rule_hosts:
+        if combinedRuleHosts:
             output["hostnames"] = [
-                PATH_AND.join(host_product)
-                for host_product in itertools.product(*combined_rule_hosts)
+                PATH_AND.join(hostProduct)
+                for hostProduct in itertools.product(*combinedRuleHosts)
             ]
 
-        if combined_rule_cdids:
+        if combinedRuleConditionalOrigins:
             output["conditional_origins"] = [
-                PATH_AND.join(cdid_product)
-                for cdid_product in itertools.product(*combined_rule_cdids)
+                PATH_AND.join(conditionalOriginProduct)
+                for conditionalOriginProduct in itertools.product(
+                    *combinedRuleConditionalOrigins
+                )
             ]
 
         return output
 
-    def parse_origin_search(self, path, rules):
+    def parseOriginSearch(self, path, rules):
         """
         This function parses jsonpath origin search results into a hostname
         and location elements List
         """
-        self.logger.debug("parse_origin_search")
-        origin_location = str(path.full_path)
-        rule_base = re.sub(r"behaviors.\[\d+]", "", origin_location)
-        origin_host = "ERROR"  # Host should be renamed
+        self.logger.debug("parseOriginSearch")
+        originLocation = str(path.full_path)
+        ruleBase = re.sub(r"behaviors.\[\d+]", "", originLocation)
+        originHost = "ERROR"  # Host should be renamed
 
         # Extract origin behaviour itself and append hostname to list based on origin type
-        origin_behavior_match = parse(origin_location)
-        origin_search = origin_behavior_match.find(rules)
-        origin_behavior = origin_search[0].value
-        if "hostname" in origin_behavior["options"]:
-            origin_host = origin_behavior["options"]["hostname"]
-        elif "netStorage" in origin_behavior["options"]:
-            origin_host = origin_behavior["options"]["netStorage"]["downloadDomainName"]
-        elif "mslorigin" in origin_behavior["options"]:
-            origin_host = origin_behavior["options"]["mslorigin"]
+        originBehaviorMatch = parse(originLocation)
+        originSearch = originBehaviorMatch.find(rules)
+        originBehavior = originSearch[0].value
+        if "hostname" in originBehavior["options"]:
+            originHost = originBehavior["options"]["hostname"]
+        elif "netStorage" in originBehavior["options"]:
+            originHost = originBehavior["options"]["netStorage"]["downloadDomainName"]
+        elif "mslorigin" in originBehavior["options"]:
+            originHost = originBehavior["options"]["mslorigin"]
 
         # Split JSONPATH into children[X] elements so we can iterate down the path
-        location_elements = re.findall(r"children\.\[\d+]", rule_base)
-        return origin_host, location_elements
+        locationElements = re.findall(r"children\.\[\d+]", ruleBase)
+        return originHost, locationElements
 
-    def parse_origin_location(self, rule_location_input, parent_location, rules):
+    def parseOriginLocation(self, ruleLocationInput, parentLocation, rules):
         """
         This function parses origin locations to extract path matches, hostname matches
         and Conditional Origin IDs
         """
         self.logger.debug(
-            "parse_origin_location(rule_location=%s, parent_location=%s)",
-            rule_location_input,
-            parent_location,
+            "parseOriginLocation(ruleLocation=%s, parentLocation=%s)",
+            ruleLocationInput,
+            parentLocation,
         )
         # Construct rule location from element and optionally parent path
-        if parent_location != "":
-            rule_location = parent_location + "." + rule_location_input
+        if parentLocation != "":
+            ruleLocation = parentLocation + "." + ruleLocationInput
         else:
-            rule_location = rule_location_input
+            ruleLocation = ruleLocationInput
 
-        rule_match = parse(rule_location)
-        rule_search = rule_match.find(rules)
+        ruleMatch = parse(ruleLocation)
+        ruleSearch = ruleMatch.find(rules)
 
-        if rule_search is None or len(rule_search) == 0:
-            self.logger.warning("No rule found at position '%s'", rule_location)
+        if ruleSearch is None or len(ruleSearch) == 0:
+            self.logger.warning("No rule found at position '%s'", ruleLocation)
             return {}
 
         # Extract rule by JSONPATH
-        rule = rule_search[0].value
+        rule = ruleSearch[0].value
 
         # Instantiate results
-        criteria_results = {}
-        rule_results = {k: [] for k in MATCH_TYPES}
+        criteriaResults = {}
+        ruleResults = {matchType: [] for matchType in MATCH_TYPES}
 
-        for match_type in MATCH_TYPES:
-            criteria_results[match_type] = []
-            criterion_results = {k: [] for k in MATCH_TYPES}
+        for matchType in MATCH_TYPES:
+            criteriaResults[matchType] = []
+            criterionResults = {matchType: [] for matchType in MATCH_TYPES}
 
             # Parse criteria and create list of lists of path matches
-            for rule_criterion in rule["criteria"]:
-                criterion_results[match_type] = []
+            for ruleCriterion in rule["criteria"]:
+                criterionResults[matchType] = []
 
-                if rule_criterion["name"] == match_type:
-                    rc_options = rule_criterion["options"]
-                    for value in rc_options.get("values", []):
-                        if rc_options.get("matchOperator") in NEGATIVE_OPERATORS:
+                if ruleCriterion["name"] == matchType:
+                    criterionOptions = ruleCriterion["options"]
+                    for value in criterionOptions.get("values", []):
+                        if criterionOptions.get("matchOperator") in NEGATIVE_OPERATORS:
                             value = "!" + value
-                        criterion_results[match_type].append(value)
-                    if "originId" in rc_options:
-                        criterion_results[match_type].append(rc_options["originId"])
+                        criterionResults[matchType].append(value)
+                    if "originId" in criterionOptions:
+                        criterionResults[matchType].append(criterionOptions["originId"])
 
-                if len(criterion_results[match_type]) > 0:
-                    criteria_results[match_type].append(criterion_results[match_type])
+                if len(criterionResults[matchType]) > 0:
+                    criteriaResults[matchType].append(criterionResults[matchType])
 
-            if len(criteria_results[match_type]) > 0:
+            if len(criteriaResults[matchType]) > 0:
                 # Collate path matches into a list of combinations, based on criteria setting
-                if len(criteria_results[match_type]) == 1:
-                    rule_results[match_type] = criteria_results[match_type][0]
+                if len(criteriaResults[matchType]) == 1:
+                    ruleResults[matchType] = criteriaResults[matchType][0]
                 else:
                     if rule["criteriaMustSatisfy"] == "all":
                         # If using ALL option we must create boolean combos
-                        rule_product = itertools.product(*criteria_results[match_type])
-                        for product in rule_product:
-                            rule_results[match_type].append(" AND ".join(product))
+                        ruleProduct = itertools.product(*criteriaResults[matchType])
+                        for product in ruleProduct:
+                            ruleResults[matchType].append(" AND ".join(product))
                     else:
-                        for result in criteria_results[match_type]:
-                            rule_results[match_type].extend(result)
-        return rule_results
+                        for result in criteriaResults[matchType]:
+                            ruleResults[matchType].extend(result)
+        return ruleResults
 
-    def search_akamai_rule_tree_for_behavior(self, rule_tree, behavior_name):
-        self.logger.debug(
-            "search_akamai_rule_tree_for_behavior(behavior_name=%s)", behavior_name
+    def searchRuleTreeForBehavior(self, ruleTree, behaviorName):
+        self.logger.debug("searchRuleTreeForBehavior(behaviorName=%s)", behaviorName)
+        jsonpathExpression = parse(
+            '$..behaviors[?(@.name=="{b}")]'.format(b=behaviorName)
         )
-        jsonpath_expression = parse(
-            '$..behaviors[?(@.name=="{b}")]'.format(b=behavior_name)
-        )
-        jsonpath_result = jsonpath_expression.find(rule_tree)
+        jsonpathResult = jsonpathExpression.find(ruleTree)
 
-        return [match.value for match in jsonpath_result]
+        return [match.value for match in jsonpathResult]
 
-    def search_akamai_rule_tree_for_edge_redirector(self, rule_tree):
-        return self.search_akamai_rule_tree_for_cloudlet(rule_tree, "edgeRedirector")
+    def searchRuleTreeForEdgeRedirector(self, ruleTree):
+        return self.searchRuleTreeForCloudlet(ruleTree, "edgeRedirector")
 
-    def search_akamai_rule_tree_for_cloudlet(
-        self, rule_tree, behavior_name, shared=None
-    ):
+    def searchRuleTreeForCloudlet(self, ruleTree, behaviorName, shared=None):
         # If shared is None, both shared and legacy behaviors will be matched
-        instances = self.search_akamai_rule_tree_for_behavior(rule_tree, behavior_name)
-        policy_ids = []
+        instances = self.searchRuleTreeForBehavior(ruleTree, behaviorName)
+        policyIds = []
         for behavior in instances:
             if behavior["options"]["enabled"]:
                 if behavior["options"].get("isSharedPolicy"):
                     # Skip this if shared is False
                     if not shared:
                         continue
-                    policy_id = behavior["options"]["cloudletSharedPolicy"]
+                    policyId = behavior["options"]["cloudletSharedPolicy"]
                 else:
                     # Skip this if shared is True
                     if shared:
                         continue
-                    policy_id = behavior["options"]["cloudletPolicy"]["id"]
-                policy_ids.append(policy_id)
+                    policyId = behavior["options"]["cloudletPolicy"]["id"]
+                policyIds.append(policyId)
 
-        return list(set(policy_ids))
+        return list(set(policyIds))
 
-    def search_akamai_rule_tree_for_cloudlets(self, rule_tree):
+    def searchRuleTreeForCloudlets(self, ruleTree):
         instances = []
-        for cloudlet_type in CLOUDLET_TYPES:
-            instances.extend(
-                self.search_akamai_rule_tree_for_behavior(rule_tree, cloudlet_type)
-            )
-        policy_ids = []
+        for cloudletType in CLOUDLET_TYPES:
+            instances.extend(self.searchRuleTreeForBehavior(ruleTree, cloudletType))
+        policyIds = []
         for behavior in instances:
             if behavior["options"]["enabled"]:
                 if behavior["options"].get("isSharedPolicy"):
-                    policy_id = behavior["options"]["cloudletSharedPolicy"]
+                    policyId = behavior["options"]["cloudletSharedPolicy"]
                 else:
-                    policy_id = behavior["options"]["cloudletPolicy"]["id"]
-                policy_ids.append(policy_id)
+                    policyId = behavior["options"]["cloudletPolicy"]["id"]
+                policyIds.append(policyId)
 
-        return list(set(policy_ids))
+        return list(set(policyIds))
 
-    def search_akamai_rule_tree_for_siteshield(self, rule_tree):
-        instances = self.search_akamai_rule_tree_for_behavior(rule_tree, "siteShield")
+    def searchRuleTreeForSiteshield(self, ruleTree):
+        instances = self.searchRuleTreeForBehavior(ruleTree, "siteShield")
         return [siteshield["options"]["ssmap"]["value"] for siteshield in instances]
 
-    def search_akamai_rule_tree_for_ivm(self, rule_tree):
-        image_instances = self.search_akamai_rule_tree_for_behavior(
-            rule_tree, "imageManager"
-        )
-        video_instances = self.search_akamai_rule_tree_for_behavior(
-            rule_tree, "imageManagerVideo"
-        )
-        instances = image_instances + video_instances
+    def searchRuleTreeForIvm(self, ruleTree):
+        imageInstances = self.searchRuleTreeForBehavior(ruleTree, "imageManager")
+        videoInstances = self.searchRuleTreeForBehavior(ruleTree, "imageManagerVideo")
+        instances = imageInstances + videoInstances
 
         for instance in instances:
             # Need to work out policySet if using default or custom options
             options = instance["options"]
             if "policySet" not in options:
-                policy_set_prefix = _get_policy_set_prefix(options)
-                policy_set = f"{policy_set_prefix}{rule_tree['assetId']}"
+                policySetPrefix = getPolicySetPrefix(options)
+                policySet = f"{policySetPrefix}{ruleTree['assetId']}"
                 if instance["name"] == "imageManagerVideo":
-                    policy_set += "-v"
-                options["policySet"] = policy_set
+                    policySet += "-v"
+                options["policySet"] = policySet
 
-        policy_sets = []
+        policySets = []
         for behavior in instances:
-            policy_sets.append(behavior["options"]["policySet"])
+            policySets.append(behavior["options"]["policySet"])
 
-        return list(set(policy_sets))
+        return list(set(policySets))
 
-    def search_akamai_rule_tree_for_edge_workers(self, rule_tree):
-        instances = self.search_akamai_rule_tree_for_behavior(rule_tree, "edgeWorker")
-        ew_ids = []
+    def searchRuleTreeForEdgeWorkers(self, ruleTree):
+        instances = self.searchRuleTreeForBehavior(ruleTree, "edgeWorker")
+        edgeworkerIds = []
         for behavior in instances:
             if (
                 "edgeWorkerId" in behavior["options"]
                 and behavior["options"]["edgeWorkerId"]
             ):
-                ew_ids.append(int(behavior["options"]["edgeWorkerId"]))
+                edgeworkerIds.append(int(behavior["options"]["edgeWorkerId"]))
 
-        return list(set(ew_ids))
+        return list(set(edgeworkerIds))
 
-    def search_akamai_rule_tree_for_cp_codes(self, rule_tree):
-        instances = self.search_akamai_rule_tree_for_behavior(rule_tree, "cpCode")
-        cpcode_ids = []
+    def searchRuleTreeForCpCodes(self, ruleTree):
+        instances = self.searchRuleTreeForBehavior(ruleTree, "cpCode")
+        cpcodeIds = []
         for behavior in instances:
             if "value" in behavior["options"] and "id" in behavior["options"]["value"]:
-                cpcode_ids.append(int(behavior["options"]["value"]["id"]))
+                cpcodeIds.append(int(behavior["options"]["value"]["id"]))
 
-        return list(set(cpcode_ids))
+        return list(set(cpcodeIds))
 
     # ── Rule-level extraction (Proxy schema) ──────────────────────────
 
@@ -610,13 +585,13 @@ class AkamaiPropertyClient(AkamaiApiClient):
         Both default to None when the respective behavior is absent.
         """
         outboundPath = None
-        baseDir = None
+        baseDirectory = None
 
         for behavior in behaviors:
-            name = behavior.get("name", "")
+            behaviorName = behavior.get("name", "")
             options = behavior.get("options", {})
 
-            if name == "rewriteUrl" and outboundPath is None:
+            if behaviorName == "rewriteUrl" and outboundPath is None:
                 mode = options.get("behavior", "")
                 if mode == "REPLACE":
                     outboundPath = f"REPLACE:{options.get('match','')}→{options.get('targetPath','')}"
@@ -629,10 +604,10 @@ class AkamaiPropertyClient(AkamaiApiClient):
                 elif mode == "REGEX_REPLACE":
                     outboundPath = f"REGEX:{options.get('matchRegex','')}→{options.get('targetRegex','')}"
 
-            elif name == "baseDirectory" and baseDir is None:
-                baseDir = options.get("value")
+            elif behaviorName == "baseDirectory" and baseDirectory is None:
+                baseDirectory = options.get("value")
 
-        return outboundPath, baseDir
+        return outboundPath, baseDirectory
 
     def extractSecurityBehaviors(self, behaviors: list) -> list:
         """Return normalized security behavior names from a rule's behavior list.
@@ -661,23 +636,58 @@ class AkamaiPropertyClient(AkamaiApiClient):
         conditionalOriginId = None
 
         for criterion in rule.get("criteria", []):
-            name = criterion["name"]
+            criterionName = criterion["name"]
             options = criterion.get("options", {})
-            negative = options.get("matchOperator") in NEGATIVE_OPERATORS
+            isNegative = options.get("matchOperator") in NEGATIVE_OPERATORS
 
-            if name == "path":
+            if criterionName == "path":
                 for value in options.get("values", []):
-                    pathCriteria.append(f"!{value}" if negative else value)
-            elif name == "hostname":
+                    pathCriteria.append(f"!{value}" if isNegative else value)
+            elif criterionName == "hostname":
                 for value in options.get("values", []):
-                    hostnameCriteria.append(f"!{value}" if negative else value)
-            elif name == "cloudletsOrigin":
+                    hostnameCriteria.append(f"!{value}" if isNegative else value)
+            elif criterionName == "cloudletsOrigin":
                 # originId is a scalar, not a list
                 originId = options.get("originId")
                 if originId:
                     conditionalOriginId = originId
 
         return pathCriteria, hostnameCriteria, conditionalOriginId
+
+    def resolveOriginFromBehaviors(
+        self,
+        behaviors: list,
+        inheritedOriginHostname: str | None,
+        inheritedOriginType: str | None,
+    ) -> tuple[str | None, str | None]:
+        """Return (originHostname, originType) for this rule.
+
+        Own origin declaration takes precedence over inherited values.
+        """
+        for behavior in behaviors:
+            extracted = extractOrigin(behavior)
+            if extracted:
+                return extracted.name, behavior.get("options", {}).get("originType")
+        return inheritedOriginHostname, inheritedOriginType
+
+    def resolveOutboundPathFromBehaviors(
+        self,
+        behaviors: list,
+        inheritedOutboundPath: str | None,
+        inheritedBaseDirectory: str | None,
+    ) -> tuple[str | None, str | None]:
+        """Return (outboundPath, baseDirectory) for this rule.
+
+        Own declaration takes precedence over inherited values.
+        """
+        ownOutboundPath, ownBaseDirectory = self.extractOutboundPath(behaviors)
+        outboundPath = (
+            ownOutboundPath if ownOutboundPath is not None else inheritedOutboundPath
+        )
+        baseDirectory = (
+            ownBaseDirectory if ownBaseDirectory is not None else inheritedBaseDirectory
+        )
+        return outboundPath, baseDirectory
 
     def extractRuleRecords(
         self,
@@ -705,67 +715,44 @@ class AkamaiPropertyClient(AkamaiApiClient):
         origin is used. Rules with no resolved origin (no own or inherited) are
         omitted entirely — they have no genuine ROUTES_TO target.
 
-        Fan-out per positive path glob
-        --------------------------------
-        For rules that are path-eligible (no hostname dimension, no cloudlet
-        conditional), one record is emitted per *positive* (non-negated) path
-        glob. Each record carries ``pathKey = {proxy_id, path: "<glob>"}`` so
-        the pipeline produces one simple Path node per allowlist glob.
+        Path eligibility
+        ----------------
+        A rule is path-eligible (produces a Path node) iff pathCriteria is
+        non-empty and there is no cloudlet conditional. The canonical path key
+        is the sorted criteria joined with PATH_AND so the same set of criteria
+        always maps to one Path node regardless of traversal order.
 
-        The full ``pathCriteria`` (including negations) is retained on every
-        record so the AkamaiPropertyRule node (keyed on ``ruleKey``) receives
-        the complete compound expression. Because ``ruleKey`` is stable across
-        all fan-out records for the same rule, the Rule node is upserted
-        idempotently.
-
-        Rules with zero positive path globs (pure-negation, hostname-only,
+        Rules with zero path criteria (pure-negation, hostname-only,
         cloudlet-conditional, or catch-all) emit exactly one record with
-        ``pathKey = None`` — the Rule node is written but no Path node.
+        path=None — the Rule node is written but no Path node.
         """
-        ownPath, ownHostname, conditionalOriginId = self.extractRuleCriteria(rule)
+        behaviors = rule.get("behaviors", [])
 
-        combinedPath = (inheritedPathCriteria or []) + ownPath
-        combinedHostname = (inheritedHostnameCriteria or []) + ownHostname
-
-        # Origin behavior — own declaration takes precedence, else inherit
-        originHostname = None
-        originType = None
-        for behavior in rule.get("behaviors", []):
-            extracted = _extract_origin(behavior)
-            if extracted:
-                originHostname = extracted.name
-                originType = behavior.get("options", {}).get("originType")
-                break
-        if originHostname is None:
-            originHostname = inheritedOriginHostname
-            originType = inheritedOriginType
-
-        securityBehaviors = self.extractSecurityBehaviors(rule.get("behaviors", []))
-
-        ownOutboundPath, ownBaseDirectory = self.extractOutboundPath(
-            rule.get("behaviors", [])
+        ownPathCriteria, ownHostnameCriteria, conditionalOriginId = (
+            self.extractRuleCriteria(rule)
         )
-        outboundPath = (
-            ownOutboundPath if ownOutboundPath is not None else inheritedOutboundPath
+
+        combinedPathCriteria = (inheritedPathCriteria or []) + ownPathCriteria
+        combinedHostnameCriteria = (
+            inheritedHostnameCriteria or []
+        ) + ownHostnameCriteria
+
+        originHostname, originType = self.resolveOriginFromBehaviors(
+            behaviors, inheritedOriginHostname, inheritedOriginType
         )
-        baseDirectory = (
-            ownBaseDirectory if ownBaseDirectory is not None else inheritedBaseDirectory
+
+        securityBehaviors = self.extractSecurityBehaviors(behaviors)
+
+        outboundPath, baseDirectory = self.resolveOutboundPathFromBehaviors(
+            behaviors, inheritedOutboundPath, inheritedBaseDirectory
         )
 
         ruleName = rule.get("name", "default")
-        ruleKey = {"proxy_id": propertyId, "rule_name": ruleName}
 
-        # Path-eligible: has path criteria and no cloudlet conditional.
-        # Hostname-dimensioned rules still produce Path nodes — the hostname just
-        # scopes which ingress traffic hits the path, but the path glob itself is a
-        # genuine allowlist entry. The AkamaiPropertyRule node retains the full
-        # hostname+path compound expression for rules that need it.
-        pathEligible = bool(combinedPath) and conditionalOriginId is None
-
-        # Canonical path key: sorted criteria joined with PATH_AND so that the
-        # same set of criteria always produces the same string regardless of rule
-        # tree traversal order.  None when the rule is not path-eligible.
-        pathKey = PATH_AND.join(sorted(combinedPath)) if pathEligible else None
+        isPathEligible = bool(combinedPathCriteria) and conditionalOriginId is None
+        canonicalPath = (
+            PATH_AND.join(sorted(combinedPathCriteria)) if isPathEligible else None
+        )
 
         records = []
 
@@ -773,10 +760,9 @@ class AkamaiPropertyClient(AkamaiApiClient):
         if originHostname is not None:
             records.append(
                 PropertyRuleRecord(
-                    proxyId=propertyId,
-                    path=pathKey,
-                    pathCriteria=combinedPath,
-                    hostnameCriteria=combinedHostname,
+                    path=canonicalPath,
+                    pathCriteria=combinedPathCriteria,
+                    hostnameCriteria=combinedHostnameCriteria,
                     conditionalOriginId=conditionalOriginId,
                     originHostname=originHostname,
                     originType=originType,
@@ -793,17 +779,17 @@ class AkamaiPropertyClient(AkamaiApiClient):
                 )
             )
 
-        for child in rule.get("children", []):
+        for childRule in rule.get("children", []):
             records.extend(
                 self.extractRuleRecords(
-                    rule=child,
+                    rule=childRule,
                     propertyId=propertyId,
                     propertyName=propertyName,
                     version=version,
                     deeplink=deeplink,
                     depth=depth + 1,
-                    inheritedPathCriteria=combinedPath,
-                    inheritedHostnameCriteria=combinedHostname,
+                    inheritedPathCriteria=combinedPathCriteria,
+                    inheritedHostnameCriteria=combinedHostnameCriteria,
                     inheritedOriginHostname=originHostname,
                     inheritedOriginType=originType,
                     inheritedOutboundPath=outboundPath,
@@ -813,21 +799,29 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
         return records
 
-    def _get_property_response(self, property_id, hostnames):
-        property_hostnames = [h for h in hostnames if h["propertyId"] == property_id]
+    def buildPropertyResponse(
+        self, propertyId: str, hostnames: list
+    ) -> AkamaiPropertyResponse | None:
+        """Fetch full property details for one propertyId and return a typed response.
 
-        contract_id = property_hostnames[0]["contractId"]
-        group_id = property_hostnames[0]["groupId"]
+        Returns None if the API call fails (logged as exception).
+        """
+        propertyHostnames = [
+            hostname for hostname in hostnames if hostname["propertyId"] == propertyId
+        ]
+
+        contractId = propertyHostnames[0]["contractId"]
+        groupId = propertyHostnames[0]["groupId"]
 
         try:
-            property_response = self.get_property(
-                property_id=property_id,
-                contract_id=contract_id,
-                group_id=group_id,
+            propertyResponse = self.getProperty(
+                propertyId=propertyId,
+                contractId=contractId,
+                groupId=groupId,
             )
         except Exception as err:
-            logger.exception("Failed to get property %s: %s", property_id, err)
+            logger.exception("Failed to get property %s: %s", propertyId, err)
             return None
 
-        property_response["hostnames"] = property_hostnames
-        return property_response
+        propertyResponse["hostnames"] = propertyHostnames
+        return AkamaiPropertyResponse.fromDict(propertyResponse)

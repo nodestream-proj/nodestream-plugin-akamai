@@ -18,7 +18,10 @@ from unittest.mock import MagicMock, Mock, patch
 import pytest
 from requests import HTTPError
 
-from nodestream_akamai.akamai_utils.model import PropertyRuleRecord
+from nodestream_akamai.akamai_utils.model import (
+    AkamaiPropertyResponse,
+    PropertyRuleRecord,
+)
 from nodestream_akamai.property_rule import AkamaiPropertyRuleExtractor
 
 
@@ -33,7 +36,7 @@ def _make_extractor():
     return extractor
 
 
-def _make_prop(
+def _make_property(
     property_id="prp_123",
     property_name="my-property",
     production_version=5,
@@ -41,18 +44,18 @@ def _make_prop(
     contract_id="ctr_ABC",
     group_id="grp_1",
 ):
-    return {
-        "propertyId": property_id,
-        "propertyName": property_name,
-        "productionVersion": production_version,
-        "assetId": asset_id,
-        "contractId": contract_id,
-        "groupId": group_id,
-    }
+    return AkamaiPropertyResponse(
+        propertyId=property_id,
+        propertyName=property_name,
+        productionVersion=production_version,
+        assetId=asset_id,
+        contractId=contract_id,
+        groupId=group_id,
+    )
 
 
 def _make_record(
-    proxy_id="prp_123",
+    property_id="prp_123",
     path="/v1/*",
     path_criteria=None,
     hostname_criteria=None,
@@ -61,7 +64,6 @@ def _make_record(
     rule_depth=1,
 ):
     return PropertyRuleRecord(
-        proxyId=proxy_id,
         path=path,
         pathCriteria=path_criteria or ["/v1/*"],
         hostnameCriteria=hostname_criteria or [],
@@ -74,7 +76,7 @@ def _make_record(
         ruleDepth=rule_depth,
         criteriaMustSatisfy="all",
         securityBehaviors=[],
-        propertyId=proxy_id,
+        propertyId=property_id,
         propertyName="my-property",
         version=5,
         deeplink="https://example.com/deeplink",
@@ -108,7 +110,7 @@ async def test_extract_records_skips_none_prop():
 async def test_extract_records_skips_prop_without_production_version():
     extractor = _make_extractor()
     extractor.client.list_all_properties = Mock(
-        return_value=[{"propertyId": "prp_1", "propertyName": "no-version"}]
+        return_value=[_make_property(production_version=None)]
     )
     result = [x async for x in extractor.extract_records()]
     assert result == []
@@ -119,13 +121,7 @@ async def test_extract_records_skips_prop_without_production_version():
 async def test_extract_records_skips_prop_with_null_production_version():
     extractor = _make_extractor()
     extractor.client.list_all_properties = Mock(
-        return_value=[
-            {
-                "propertyId": "prp_1",
-                "propertyName": "null-version",
-                "productionVersion": None,
-            }
-        ]
+        return_value=[_make_property(production_version=None)]
     )
     result = [x async for x in extractor.extract_records()]
     assert result == []
@@ -138,7 +134,7 @@ async def test_extract_records_skips_prop_with_null_production_version():
 async def test_extract_records_rule_tree_raises_continues():
     """Exception during rule tree fetch is logged and the property is skipped."""
     extractor = _make_extractor()
-    extractor.client.list_all_properties = Mock(return_value=[_make_prop()])
+    extractor.client.list_all_properties = Mock(return_value=[_make_property()])
     extractor.client.get_rule_tree = Mock(side_effect=RuntimeError("API down"))
     result = [x async for x in extractor.extract_records()]
     assert result == []
@@ -151,9 +147,9 @@ async def test_extract_records_rule_tree_raises_continues():
 async def test_extract_records_path_eligible_rule():
     """A path-eligible record (path set) produces a non-null pathKey."""
     extractor = _make_extractor()
-    prop = _make_prop()
+    property = _make_property()
     record = _make_record(path="/v1/*", path_criteria=["/v1/*"])
-    extractor.client.list_all_properties = Mock(return_value=[prop])
+    extractor.client.list_all_properties = Mock(return_value=[property])
     extractor.client.get_rule_tree = Mock(return_value={"rules": {}})
     extractor.client.extractRuleRecords = Mock(return_value=[record])
 
@@ -173,9 +169,9 @@ async def test_extract_records_path_eligible_rule():
 async def test_extract_records_non_path_rule_pathkey_none():
     """A non-path rule (path=None) produces pathKey=None."""
     extractor = _make_extractor()
-    prop = _make_prop()
+    property = _make_property()
     record = _make_record(path=None, path_criteria=[])
-    extractor.client.list_all_properties = Mock(return_value=[prop])
+    extractor.client.list_all_properties = Mock(return_value=[property])
     extractor.client.get_rule_tree = Mock(return_value={"rules": {}})
     extractor.client.extractRuleRecords = Mock(return_value=[record])
 
@@ -189,12 +185,12 @@ async def test_extract_records_non_path_rule_pathkey_none():
 async def test_extract_records_rulekey_includes_hostname():
     """ruleKey.hostname is the first hostnameCriteria value when present."""
     extractor = _make_extractor()
-    prop = _make_prop()
+    property = _make_property()
     record = _make_record(
         path="/v1/*",
         hostname_criteria=["api.example.com", "api2.example.com"],
     )
-    extractor.client.list_all_properties = Mock(return_value=[prop])
+    extractor.client.list_all_properties = Mock(return_value=[property])
     extractor.client.get_rule_tree = Mock(return_value={"rules": {}})
     extractor.client.extractRuleRecords = Mock(return_value=[record])
 
@@ -207,9 +203,9 @@ async def test_extract_records_rulekey_includes_hostname():
 async def test_extract_records_rulekey_hostname_none_when_no_criteria():
     """ruleKey.hostname is None when hostnameCriteria is empty."""
     extractor = _make_extractor()
-    prop = _make_prop()
+    property = _make_property()
     record = _make_record(path=None, hostname_criteria=[])
-    extractor.client.list_all_properties = Mock(return_value=[prop])
+    extractor.client.list_all_properties = Mock(return_value=[property])
     extractor.client.get_rule_tree = Mock(return_value={"rules": {}})
     extractor.client.extractRuleRecords = Mock(return_value=[record])
 
@@ -222,9 +218,9 @@ async def test_extract_records_rulekey_hostname_none_when_no_criteria():
 async def test_extract_records_deeplink_constructed_correctly():
     """deeplink is built from assetId, version, and groupId."""
     extractor = _make_extractor()
-    prop = _make_prop(asset_id="99999", production_version=7, group_id="grp_42")
+    property = _make_property(asset_id="99999", production_version=7, group_id="grp_42")
     record = _make_record()
-    extractor.client.list_all_properties = Mock(return_value=[prop])
+    extractor.client.list_all_properties = Mock(return_value=[property])
     extractor.client.get_rule_tree = Mock(return_value={"rules": {}})
 
     captured_deeplink = {}
@@ -247,12 +243,12 @@ async def test_extract_records_deeplink_constructed_correctly():
 async def test_extract_records_multiple_records_from_one_property():
     """Multiple rule records from a single property are all yielded."""
     extractor = _make_extractor()
-    prop = _make_prop()
+    property = _make_property()
     records = [
         _make_record(path="/v1/*", rule_name="v1"),
         _make_record(path=None, rule_name="default", rule_depth=0),
     ]
-    extractor.client.list_all_properties = Mock(return_value=[prop])
+    extractor.client.list_all_properties = Mock(return_value=[property])
     extractor.client.get_rule_tree = Mock(return_value={"rules": {}})
     extractor.client.extractRuleRecords = Mock(return_value=records)
 

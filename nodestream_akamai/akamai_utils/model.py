@@ -16,6 +16,46 @@ class Origin:
 
 
 @dataclass(kw_only=True)
+class AkamaiPropertyResponse:
+    """Typed representation of a single PAPI property response item.
+
+    Populated from the raw dict returned by list_account_hostnames /
+    get_property so that downstream code works with attributes instead
+    of string-keyed dict access.
+    """
+
+    propertyId: str
+    propertyName: str
+    productionVersion: Optional[int]
+    stagingVersion: Optional[int] = None
+    assetId: Optional[str] = None
+    contractId: Optional[str] = None
+    groupId: Optional[str] = None
+    hostnames: List[dict] = field(default_factory=list)
+
+    @classmethod
+    def fromDict(cls, raw: dict) -> "AkamaiPropertyResponse":
+        return cls(
+            propertyId=raw["propertyId"],
+            propertyName=raw["propertyName"],
+            productionVersion=raw.get("productionVersion"),
+            stagingVersion=raw.get("stagingVersion"),
+            assetId=raw.get("assetId"),
+            contractId=raw.get("contractId"),
+            groupId=raw.get("groupId"),
+            hostnames=raw.get("hostnames", []),
+        )
+
+    @property
+    def deeplink(self) -> str:
+        return (
+            "https://control.akamai.com/apps/property-manager/"
+            f"#/property-version/{self.assetId}/{self.productionVersion}/edit"
+            f"?gid={self.groupId}"
+        )
+
+
+@dataclass(kw_only=True)
 class PropertyDescription:
     id: str
     name: str
@@ -88,7 +128,6 @@ class PropertyRuleRecord:
     """
 
     # Node key fields (match IAGE Path key structure)
-    proxyId: str  # = propertyId (the AkamaiProperty node key value)
     path: Optional[
         str
     ]  # sorted pathCriteria joined with AND; None when not path-eligible

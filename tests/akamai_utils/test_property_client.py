@@ -67,13 +67,13 @@ def client():
     )
 
 
-def test_search_akamai_rule_tree_for_origins_simple(client):
-    assert client.search_akamai_rule_tree_for_origins(CRITERIA_RULE["rules"]) == {
+def test_searchRuleTreeForOrigins_simple(client):
+    assert client.searchRuleTreeForOrigins(CRITERIA_RULE["rules"]) == {
         Origin(name="example.com")
     }
 
 
-def test_search_akamai_rule_tree_for_origins(client):
+def test_searchRuleTreeForOrigins(client):
 
     rule_tree = {
         "behaviors": [
@@ -115,22 +115,22 @@ def test_search_akamai_rule_tree_for_origins(client):
             {"behaviors": [], "children": []},
         ],
     }
-    assert client.search_akamai_rule_tree_for_origins(rule_tree) == {
+    assert client.searchRuleTreeForOrigins(rule_tree) == {
         Origin(name="customer-hostname"),
         Origin(name="mslorigin"),
         Origin(name="netstorage-downloaddomainname"),
     }
 
 
-def test_collate_origins_with_criteria(client):
+def test_collateOriginsWithCriteria(client):
     rules = CRITERIA_RULE
-    result = client.collate_origins_with_criteria(rules)
+    result = client.collateOriginsWithCriteria(rules)
 
     assert result == [Origin(name="example.com")]
 
 
 def test_collate_live_643957(client):
-    assert client.collate_origins_with_criteria(rule_tree_643957["rules"]) == [
+    assert client.collateOriginsWithCriteria(rule_tree_643957["rules"]) == [
         Origin(name="c.example.com"),
         Origin(name="sgds.download.akamai.com"),
         Origin(name="s.example.com", path="/community/sitemap*.xml"),
@@ -163,13 +163,13 @@ def test_collate_live_643957(client):
 
 
 def test_collate_live_488011(client):
-    assert client.collate_origins_with_criteria(rule_tree_488011["rules"]) == [
+    assert client.collateOriginsWithCriteria(rule_tree_488011["rules"]) == [
         Origin(name="example.download.akamai.com")
     ]
 
 
 def test_collate_live_627844(client):
-    assert client.collate_origins_with_criteria(rule_tree_627844["rules"]) == [
+    assert client.collateOriginsWithCriteria(rule_tree_627844["rules"]) == [
         Origin(name="w.example.com"),
         Origin(
             name="www.mczbf.com",
@@ -195,57 +195,47 @@ def test_collate_live_627844(client):
     ]
 
 
-def test_live_search_akamai_rule_tree_for_cloudlets(client):
-    assert client.search_akamai_rule_tree_for_cloudlets(rule_tree_488011["rules"]) == []
-    assert client.search_akamai_rule_tree_for_cloudlets(rule_tree_643957["rules"]) == [
+def test_live_searchRuleTreeForCloudlets(client):
+    assert client.searchRuleTreeForCloudlets(rule_tree_488011["rules"]) == []
+    assert client.searchRuleTreeForCloudlets(rule_tree_643957["rules"]) == [
         32773,
         116717,
     ]
 
 
-def test_live_search_akamai_rule_tree_for_cloudlet(client):
+def test_live_searchRuleTreeForCloudlet(client):
     assert (
-        client.search_akamai_rule_tree_for_cloudlet(
+        client.searchRuleTreeForCloudlet(
             rule_tree_488011["rules"],
-            behavior_name="edgeRedirector",
+            behaviorName="edgeRedirector",
             shared=False,
         )
         == []
     )
-    assert client.search_akamai_rule_tree_for_cloudlet(
+    assert client.searchRuleTreeForCloudlet(
         rule_tree_643957["rules"],
-        behavior_name="edgeRedirector",
+        behaviorName="edgeRedirector",
         shared=False,
     ) == [116717]
 
 
-def test_live_search_akamai_rule_tree_for_ivm(client):
-    assert client.search_akamai_rule_tree_for_ivm(rule_tree_488011) == []
-    assert client.search_akamai_rule_tree_for_ivm(rule_tree_643957) == []
+def test_live_searchRuleTreeForIvm(client):
+    assert client.searchRuleTreeForIvm(rule_tree_488011) == []
+    assert client.searchRuleTreeForIvm(rule_tree_643957) == []
 
 
-def test_live_search_akamai_rule_tree_for_edge_workers(client):
-    assert (
-        client.search_akamai_rule_tree_for_edge_workers(rule_tree_488011["rules"]) == []
-    )
-    assert (
-        client.search_akamai_rule_tree_for_edge_workers(rule_tree_643957["rules"]) == []
-    )
+def test_live_searchRuleTreeForEdgeWorkers(client):
+    assert client.searchRuleTreeForEdgeWorkers(rule_tree_488011["rules"]) == []
+    assert client.searchRuleTreeForEdgeWorkers(rule_tree_643957["rules"]) == []
 
 
-def test_live_search_akamai_rule_tree_for_siteshield(client):
-    assert (
-        client.search_akamai_rule_tree_for_siteshield(rule_tree_488011["rules"]) == []
-    )
-    assert client.search_akamai_rule_tree_for_siteshield(rule_tree_643957["rules"]) == [
+def test_live_searchRuleTreeForSiteshield(client):
+    assert client.searchRuleTreeForSiteshield(rule_tree_488011["rules"]) == []
+    assert client.searchRuleTreeForSiteshield(rule_tree_643957["rules"]) == [
         "s2604.akamaiedge.net"
     ]
 
 
-def test_live_search_akamai_rule_tree_for_cp_codes(client):
-    assert client.search_akamai_rule_tree_for_cp_codes(rule_tree_488011["rules"]) == [
-        640994
-    ]
-    assert client.search_akamai_rule_tree_for_cp_codes(rule_tree_643957["rules"]) == [
-        752101
-    ]
+def test_live_searchRuleTreeForCpCodes(client):
+    assert client.searchRuleTreeForCpCodes(rule_tree_488011["rules"]) == [640994]
+    assert client.searchRuleTreeForCpCodes(rule_tree_643957["rules"]) == [752101]
