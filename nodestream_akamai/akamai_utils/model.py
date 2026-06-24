@@ -39,7 +39,9 @@ class PropertyDescription:
     def hostname_count(self):
         return len(self.hostnames)
 
-    def dict_factory(self):  # pragma: no cover  # unused; extractor calls dataclasses.asdict
+    def dict_factory(
+        self,
+    ):  # pragma: no cover  # unused; extractor calls dataclasses.asdict
         return {
             "id": f"akamai_property:{self.id}",
             "name": self.name,
@@ -86,27 +88,33 @@ class PropertyRuleRecord:
     """
 
     # Node key fields (match IAGE Path key structure)
-    proxyId: str          # = propertyId (the AkamaiProperty node key value)
-    path: Optional[str]   # sorted pathCriteria joined with AND; None when not path-eligible
+    proxyId: str  # = propertyId (the AkamaiProperty node key value)
+    path: Optional[
+        str
+    ]  # sorted pathCriteria joined with AND; None when not path-eligible
 
     # Properties surfaced on the node
-    pathCriteria: List[str]          # individual glob patterns for micromatch
-    hostnameCriteria: List[str]      # hostname match values (separate dimension)
+    pathCriteria: List[str]  # individual glob patterns for micromatch
+    hostnameCriteria: List[str]  # hostname match values (separate dimension)
     conditionalOriginId: Optional[str]
 
     # Origin routing (populates ROUTES_TO)
     originHostname: Optional[str]
-    originType: Optional[str]        # "CUSTOMER" | "NET_STORAGE" | "MEDIA_SERVICE_LIVE"
+    originType: Optional[str]  # "CUSTOMER" | "NET_STORAGE" | "MEDIA_SERVICE_LIVE"
 
     # Outbound path rewriting (rewriteUrl / baseDirectory behaviors)
-    outboundPath: Optional[str]      # The rewritten path forwarded to origin; None = same as inbound
-    baseDirectory: Optional[str]     # baseDirectory prefix prepended unconditionally; None = no prefix
+    outboundPath: Optional[
+        str
+    ]  # The rewritten path forwarded to origin; None = same as inbound
+    baseDirectory: Optional[
+        str
+    ]  # baseDirectory prefix prepended unconditionally; None = no prefix
 
     # Rule metadata
     ruleName: str
-    ruleDepth: int                   # 0 = default/root rule
-    criteriaMustSatisfy: str         # "all" | "any"
-    securityBehaviors: List[str]     # e.g. ["AKAMAI_EDGE_AUTH"]
+    ruleDepth: int  # 0 = default/root rule
+    criteriaMustSatisfy: str  # "all" | "any"
+    securityBehaviors: List[str]  # e.g. ["AKAMAI_EDGE_AUTH"]
 
     # Property context (carried for pipeline pass 1 keying)
     propertyId: str

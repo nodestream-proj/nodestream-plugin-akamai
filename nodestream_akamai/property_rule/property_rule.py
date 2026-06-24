@@ -33,7 +33,7 @@ class AkamaiPropertyRuleExtractor(Extractor):
             self.logger.exception("Failed to list properties: %s", err)
             raise
 
-        for prop in (properties or []):
+        for prop in properties or []:
             if prop is None or prop.get("productionVersion") is None:
                 continue
             self.logger.info(
@@ -64,12 +64,22 @@ class AkamaiPropertyRuleExtractor(Extractor):
                     d = dataclasses.asdict(record)
                     # pathKey: non-null iff path is set (path-eligible rule).
                     # path is the canonical sorted AND-joined criteria string from extractRuleRecords.
-                    d["pathKey"] = {"proxy_id": d["proxyId"], "path": d["path"]} if d["path"] else None
+                    d["pathKey"] = (
+                        {"proxy_id": d["proxyId"], "path": d["path"]}
+                        if d["path"]
+                        else None
+                    )
                     # ruleKey includes hostname so that two rules with the same name but
                     # different hostname criteria produce distinct AkamaiPropertyRule nodes.
                     # hostname_criteria is None for rules with no hostname dimension.
-                    hostname = d["hostnameCriteria"][0] if d["hostnameCriteria"] else None
-                    d["ruleKey"] = {"proxy_id": d["proxyId"], "rule_name": d["ruleName"], "hostname": hostname}
+                    hostname = (
+                        d["hostnameCriteria"][0] if d["hostnameCriteria"] else None
+                    )
+                    d["ruleKey"] = {
+                        "proxy_id": d["proxyId"],
+                        "rule_name": d["ruleName"],
+                        "hostname": hostname,
+                    }
                     yield d
             except Exception:
                 self.logger.exception(

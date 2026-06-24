@@ -12,11 +12,11 @@ Key invariants verified:
 
 import pytest
 
+from nodestream_akamai.akamai_utils.model import PropertyRuleRecord
 from nodestream_akamai.akamai_utils.property_client import (
     PATH_AND,
     AkamaiPropertyClient,
 )
-from nodestream_akamai.akamai_utils.model import PropertyRuleRecord
 
 
 @pytest.fixture
@@ -29,7 +29,9 @@ def client():
     )
 
 
-def _make_rule(name, criteria=None, behaviors=None, children=None, criteriaMustSatisfy="all"):
+def _make_rule(
+    name, criteria=None, behaviors=None, children=None, criteriaMustSatisfy="all"
+):
     return {
         "name": name,
         "criteria": criteria or [],
@@ -75,7 +77,9 @@ def _security_behavior(name, enabled=True):
 
 def test_extractRuleCriteria_empty_rule(client):
     rule = _make_rule("default")
-    pathCriteria, hostnameCriteria, conditionalOriginId = client.extractRuleCriteria(rule)
+    pathCriteria, hostnameCriteria, conditionalOriginId = client.extractRuleCriteria(
+        rule
+    )
     assert pathCriteria == []
     assert hostnameCriteria == []
     assert conditionalOriginId is None
@@ -97,7 +101,10 @@ def test_extractRuleCriteria_multiple_path_values_same_criterion(client):
 
 
 def test_extractRuleCriteria_negative_path_prefixed(client):
-    rule = _make_rule("no-sitemap", criteria=[_path_criterion(["/community/sitemap*.xml"], negative=True)])
+    rule = _make_rule(
+        "no-sitemap",
+        criteria=[_path_criterion(["/community/sitemap*.xml"], negative=True)],
+    )
     pathCriteria, _, _ = client.extractRuleCriteria(rule)
     assert pathCriteria == ["!/community/sitemap*.xml"]
 
@@ -152,7 +159,7 @@ def test_extractRuleRecords_default_rule_only(client):
     assert len(records) == 1
     r = records[0]
     assert r.proxyId == "prp_123"
-    assert r.path is None          # no criteria at root → no path key
+    assert r.path is None  # no criteria at root → no path key
     assert r.pathCriteria == []
     assert r.hostnameCriteria == []
     assert r.originHostname == "backend.example.com"
@@ -311,7 +318,11 @@ def test_extractSecurityBehaviors_maps_known_names(client):
         _security_behavior("tokenAuth"),
     ]
     result = client.extractSecurityBehaviors(behaviors)
-    assert set(result) == {"AKAMAI_EDGE_AUTH", "AKAMAI_SITE_SHIELD", "AKAMAI_TOKEN_AUTH"}
+    assert set(result) == {
+        "AKAMAI_EDGE_AUTH",
+        "AKAMAI_SITE_SHIELD",
+        "AKAMAI_TOKEN_AUTH",
+    }
 
 
 def test_extractSecurityBehaviors_disabled_excluded(client):
@@ -375,7 +386,10 @@ def test_path_is_canonical_sorted_and_join(client):
     """path is the sorted pathCriteria joined with AND — one record per rule."""
     child = _make_rule(
         "multi",
-        criteria=[_path_criterion(["/v1/*", "/v2/*"]), _path_criterion(["/v1/health"], negative=True)],
+        criteria=[
+            _path_criterion(["/v1/*", "/v2/*"]),
+            _path_criterion(["/v1/health"], negative=True),
+        ],
         behaviors=[_origin_behavior()],
     )
     root = _make_rule("default", children=[child])
@@ -522,7 +536,11 @@ def test_extractOutboundPath_rewriteUrl_prepend(client):
 
 
 def test_extractOutboundPath_rewriteUrl_regex_replace(client):
-    behaviors = [_rewrite_behavior("REGEX_REPLACE", matchRegex="^/api/(.*)", targetRegex="/v3/api/$1")]
+    behaviors = [
+        _rewrite_behavior(
+            "REGEX_REPLACE", matchRegex="^/api/(.*)", targetRegex="/v3/api/$1"
+        )
+    ]
     outboundPath, _ = client.extractOutboundPath(behaviors)
     assert outboundPath == "REGEX:^/api/(.*)→/v3/api/$1"
 

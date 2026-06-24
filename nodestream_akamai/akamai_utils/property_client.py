@@ -742,9 +742,15 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
         securityBehaviors = self.extractSecurityBehaviors(rule.get("behaviors", []))
 
-        ownOutboundPath, ownBaseDirectory = self.extractOutboundPath(rule.get("behaviors", []))
-        outboundPath = ownOutboundPath if ownOutboundPath is not None else inheritedOutboundPath
-        baseDirectory = ownBaseDirectory if ownBaseDirectory is not None else inheritedBaseDirectory
+        ownOutboundPath, ownBaseDirectory = self.extractOutboundPath(
+            rule.get("behaviors", [])
+        )
+        outboundPath = (
+            ownOutboundPath if ownOutboundPath is not None else inheritedOutboundPath
+        )
+        baseDirectory = (
+            ownBaseDirectory if ownBaseDirectory is not None else inheritedBaseDirectory
+        )
 
         ruleName = rule.get("name", "default")
         ruleKey = {"proxy_id": propertyId, "rule_name": ruleName}
@@ -785,7 +791,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
                     version=version,
                     deeplink=deeplink,
                 )
-                )
+            )
 
         for child in rule.get("children", []):
             records.extend(
