@@ -206,20 +206,22 @@ class AkamaiPropertyClient(AkamaiApiClient):
             hostnames=list(hostnames),
         )
 
-    def describePropertyByDict(self, prop: dict, version: int) -> PropertyDescription:
+    def describePropertyByDict(
+        self, prop: AkamaiPropertyResponse, version: int
+    ) -> PropertyDescription:
         # Get rule tree
         ruleTree = self.get_rule_tree(
-            property_id=prop["propertyId"],
+            property_id=prop.propertyId,
             version=version,
-            contract_id=prop["contractId"],
-            group_id=prop["groupId"],
+            contract_id=prop.contractId,
+            group_id=prop.groupId,
         )
-        ruleTree["assetId"] = prop["assetId"]
+        ruleTree["assetId"] = prop.assetId
 
         # Update origins
         origins = self.collateOriginsWithCriteria(ruleTree["rules"])
         hostnames = [
-            EdgeHost(name=hostname["cnameFrom"]) for hostname in prop["hostnames"]
+            EdgeHost(name=hostname["cnameFrom"]) for hostname in prop.hostnames
         ]
 
         # Cloudlets
@@ -242,20 +244,9 @@ class AkamaiPropertyClient(AkamaiApiClient):
         # CP Codes
         cpCodes = self.searchRuleTreeForCpCodes(ruleTree=ruleTree["rules"])
 
-        # Deeplink
-        deeplinkPrefix = (
-            "https://control.akamai.com/apps/property-manager/#/property-version/"
-        )
-        deeplink = "{prefix}{assetId}/{version}/edit?gid={groupId}".format(
-            prefix=deeplinkPrefix,
-            assetId=prop["assetId"],
-            version=version,
-            groupId=prop["groupId"],
-        )
-
         return PropertyDescription(
-            id=prop["propertyId"],
-            name=prop["propertyName"],
+            id=prop.propertyId,
+            name=prop.propertyName,
             version=version,
             rule_format=ruleTree["ruleFormat"],
             origins=origins,
@@ -265,7 +256,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
             edgeworker_ids=edgeworkerIds,
             siteshield_maps=siteshieldMaps,
             hostnames=hostnames,
-            deeplink=deeplink,
+            deeplink=prop.deeplink,
             cp_codes=cpCodes,
         )
 

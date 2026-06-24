@@ -20,21 +20,21 @@ class AkamaiPropertyExtractor(Extractor):
             raise err
 
         for prop in properties:
-            if prop.get("productionVersion") is None:
+            if prop is None or prop.productionVersion is None:
                 continue
             self.logger.info(
                 "extracting property %s (id=%s)",
-                prop.get("propertyName"),
-                prop.get("propertyId"),
+                prop.propertyName,
+                prop.propertyId,
             )
             try:
-                described_property = self.client.describe_property_by_dict(
-                    prop=prop, version=prop["productionVersion"]
+                described_property = self.client.describePropertyByDict(
+                    prop=prop, version=prop.productionVersion
                 )
                 yield dataclasses.asdict(described_property)
             except Exception:
                 self.logger.exception(
                     "Failed to get property %s (id=%s)",
-                    prop["propertyName"],
-                    prop["propertyId"],
+                    prop.propertyName,
+                    prop.propertyId,
                 )
