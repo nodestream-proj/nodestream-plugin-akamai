@@ -657,7 +657,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
         """
         for behavior in behaviors:
             extracted = extractOrigin(behavior)
-            if extracted:
+            if extracted and extracted.name is not None:
                 return extracted.name, behavior.get("options", {}).get("originType")
         return inheritedOriginHostname, inheritedOriginType
 
