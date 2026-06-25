@@ -20,21 +20,21 @@ class AkamaiStagingPropertyExtractor(Extractor):
             raise err
 
         for prop in properties:
-            if prop.get("stagingVersion") is None:
+            if prop is None or prop.stagingVersion is None:
                 continue
             self.logger.info(
                 "extracting STAGING property %s (id=%s)",
-                prop.get("propertyName"),
-                prop.get("propertyId"),
+                prop.propertyName,
+                prop.propertyId,
             )
             try:
-                described_property = self.client.describe_property_by_dict(
-                    prop=prop, version=prop["stagingVersion"]
+                described_property = self.client.describePropertyByDict(
+                    prop=prop, version=prop.stagingVersion
                 )
                 yield dataclasses.asdict(described_property)
             except Exception:
                 self.logger.exception(
                     "Failed to get property %s (id=%s)",
-                    prop["propertyName"],
-                    prop["propertyId"],
+                    prop.propertyName,
+                    prop.propertyId,
                 )

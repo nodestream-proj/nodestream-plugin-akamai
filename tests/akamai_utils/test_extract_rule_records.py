@@ -158,7 +158,7 @@ def test_extractRuleRecords_default_rule_only(client):
     )
     assert len(records) == 1
     r = records[0]
-    assert r.proxyId == "prp_123"
+    assert r.propertyId == "prp_123"
     assert r.path is None  # no criteria at root → no path key
     assert r.pathCriteria == []
     assert r.hostnameCriteria == []
