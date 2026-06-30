@@ -280,12 +280,8 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
         return hostnames
 
-    def list_all_properties(self) -> List[AkamaiPropertyResponse] | None:
-        try:
-            hostnames = self.listAccountHostnames()
-        except Exception as err:
-            logger.exception("Failed to list property hostnames: %s", err)
-            return None
+    def list_all_properties(self) -> List[AkamaiPropertyResponse]:
+        hostnames = self.listAccountHostnames()
 
         propertyIds = {hostname["propertyId"] for hostname in hostnames}
         return [
