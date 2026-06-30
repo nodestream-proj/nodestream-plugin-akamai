@@ -1,20 +1,19 @@
 # AkamaiProperty Proxy schema — rule-level pipeline
 #
-# Records are split into two node types based on criteria dimensionality:
+# Records can create two node views:
 #
-#   Path-only rules (pathCriteria non-empty, no hostname, no cloudlet):
+#   Path-eligible rules additionally create:
 #     (AkamaiProperty:Proxy)-[:HAS_PATH]->(Path)-[:ROUTES_TO]->(Endpoint)
 #     — identical key schema to IAGE: (proxy_id, path)
 #     — pathCriteria list is directly micromatch-compatible
 #
-#   All other rules (hostname-dimensional, cloudlet-conditional, catch-all):
+#   Every emitted Akamai rule creates:
 #     (AkamaiProperty:Proxy)-[:HAS_RULE]->(AkamaiPropertyRule)-[:ROUTES_TO]->(Endpoint)
-#     — keyed on (proxy_id, rule_name) since path may be absent
+#     — keyed on (proxy_id, rule_path) since semantic fields may repeat
 #
-# The null-key-drop behaviour of the nodestream interpreter is the guard:
-# passes that target Path use isPath=true records; passes targeting
-# AkamaiPropertyRule use isPath=false records. Records with null keys
-# are silently skipped, so each pass only writes what it owns.
+# The null-key-drop behaviour of the nodestream interpreter guards Path
+# passes: only path-eligible records have pathKey. AkamaiPropertyRule passes
+# use ruleKey, which every emitted rule record has.
 
 - implementation: nodestream_akamai.property_rule:AkamaiPropertyRuleExtractor
   arguments:
@@ -44,9 +43,9 @@
           name: !jmespath 'propertyName'
           version: !jmespath 'version'
 
-    # Pass 2a: AkamaiProperty -[HAS_PATH]-> Path  (path-only rules)
-    # pathKey is non-null only when isPath=true; null keys are dropped,
-    # so this pass silently skips non-path records.
+    # Pass 2a: AkamaiProperty -[HAS_PATH]-> Path
+    # pathKey is non-null only when the extractor emitted a canonical path;
+    # null keys are dropped, so this pass skips non-path-eligible records.
     - - type: source_node
         node_type: AkamaiProperty
         additional_types:
@@ -73,8 +72,8 @@
         relationship_properties:
           rule_name: !jmespath 'ruleName'
 
-    # Pass 2b: AkamaiProperty -[HAS_RULE]-> AkamaiPropertyRule  (non-path rules)
-    # ruleKey is non-null only when isPath=false.
+    # Pass 2b: AkamaiProperty -[HAS_RULE]-> AkamaiPropertyRule
+    # ruleKey identifies the rule's structural position in the rule tree.
     - - type: source_node
         node_type: AkamaiProperty
         additional_types:
@@ -90,9 +89,9 @@
           do_remove_trailing_dots: true
         node_key:
           proxy_id: !jmespath 'ruleKey.proxy_id'
-          rule_name: !jmespath 'ruleKey.rule_name'
-          hostname: !jmespath 'ruleKey.hostname'
+          rule_path: !jmespath 'ruleKey.rule_path'
         node_properties:
+          rule_path: !jmespath 'rulePath'
           rule_name: !jmespath 'ruleName'
           rule_depth: !jmespath 'ruleDepth'
           path_criteria: !jmespath 'pathCriteria'
@@ -105,7 +104,7 @@
         relationship_properties:
           rule_name: !jmespath 'ruleName'
 
-    # Pass 3a: Path -[ROUTES_TO]-> backend Endpoint  (path-only rules)
+    # Pass 3a: Path -[ROUTES_TO]-> backend Endpoint
     - - type: source_node
         node_type: Path
         normalization:
@@ -124,15 +123,14 @@
           path_criteria: !jmespath 'pathCriteria'
           origin_type: !jmespath 'originType'
 
-    # Pass 3b: AkamaiPropertyRule -[ROUTES_TO]-> backend Endpoint  (non-path rules)
+    # Pass 3b: AkamaiPropertyRule -[ROUTES_TO]-> backend Endpoint
     - - type: source_node
         node_type: AkamaiPropertyRule
         normalization:
           do_remove_trailing_dots: true
         key:
           proxy_id: !jmespath 'ruleKey.proxy_id'
-          rule_name: !jmespath 'ruleKey.rule_name'
-          hostname: !jmespath 'ruleKey.hostname'
+          rule_path: !jmespath 'ruleKey.rule_path'
       - type: relationship
         node_type: Endpoint
         relationship_type: ROUTES_TO
@@ -170,8 +168,7 @@
           do_remove_trailing_dots: true
         key:
           proxy_id: !jmespath 'ruleKey.proxy_id'
-          rule_name: !jmespath 'ruleKey.rule_name'
-          hostname: !jmespath 'ruleKey.hostname'
+          rule_path: !jmespath 'ruleKey.rule_path'
       - type: relationship
         node_type: AuthenticationPolicy
         relationship_type: USES_AUTHENTICATION_BEHAVIOR

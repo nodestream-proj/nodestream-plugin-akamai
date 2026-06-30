@@ -4,7 +4,10 @@ import pytest
 from requests import HTTPError
 
 from nodestream_akamai import AkamaiStagingPropertyExtractor
-from nodestream_akamai.akamai_utils.model import AkamaiPropertyResponse, PropertyDescription
+from nodestream_akamai.akamai_utils.model import (
+    AkamaiPropertyResponse,
+    PropertyDescription,
+)
 
 
 @pytest.fixture
@@ -20,16 +23,16 @@ def extractor():
 
 
 def _make_prop(**kwargs):
-    defaults = dict(
-        propertyId="prp_123",
-        propertyName="test-property",
-        productionVersion=None,
-        stagingVersion=42,
-        assetId="aid_123",
-        contractId="ctr_123",
-        groupId="grp_123",
-        hostnames=[],
-    )
+    defaults = {
+        "propertyId": "prp_123",
+        "propertyName": "test-property",
+        "productionVersion": None,
+        "stagingVersion": 42,
+        "assetId": "aid_123",
+        "contractId": "ctr_123",
+        "groupId": "grp_123",
+        "hostnames": [],
+    }
     defaults.update(kwargs)
     return AkamaiPropertyResponse(**defaults)
 
@@ -58,7 +61,9 @@ async def test_extract_records_fail_other(extractor):
 
 @pytest.mark.asyncio
 async def test_extract_records_success(extractor):
-    mock_prop = _make_prop(stagingVersion=42, propertyName="test-property", propertyId="prp_123")
+    mock_prop = _make_prop(
+        stagingVersion=42, propertyName="test-property", propertyId="prp_123"
+    )
 
     mock_description = PropertyDescription(
         id="prp_123",

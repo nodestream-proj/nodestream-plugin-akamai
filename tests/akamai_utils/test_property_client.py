@@ -1,3 +1,5 @@
+from unittest.mock import Mock
+
 import pytest
 
 from nodestream_akamai.akamai_utils import Origin
@@ -7,6 +9,8 @@ from tests.akamai_utils.rulesdata import (
     rule_tree_627844,
     rule_tree_643957,
 )
+
+# Test names mirror the legacy camelCase client methods they cover.
 
 CRITERIA_RULE = {
     "rules": {
@@ -71,6 +75,13 @@ def test_searchRuleTreeForOrigins_simple(client):
     assert client.searchRuleTreeForOrigins(CRITERIA_RULE["rules"]) == {
         Origin(name="example.com")
     }
+
+
+def test_list_all_properties_propagates_hostname_errors(client):
+    client.listAccountHostnames = Mock(side_effect=RuntimeError("bad base url"))
+
+    with pytest.raises(RuntimeError, match="bad base url"):
+        client.list_all_properties()
 
 
 def test_searchRuleTreeForOrigins(client):
