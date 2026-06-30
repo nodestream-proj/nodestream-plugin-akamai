@@ -6,13 +6,13 @@ Key invariants verified:
   3. Ancestor criteria are inherited (prepended) by child rules.
   4. hostnameCriteria is kept separate from pathCriteria.
   5. Negated criteria are prefixed with "!" in the list elements.
-  6. isPath flag (computed in the extractor) is True iff path-only, False otherwise.
+  6. Path eligibility is true iff path criteria exist and no cloudlet conditional exists.
   7. Security behaviors are mapped to normalized names.
+  8. rule_path is the JSON Pointer location of the rule in the tree.
 """
 
 import pytest
 
-from nodestream_akamai.akamai_utils.model import PropertyRuleRecord
 from nodestream_akamai.akamai_utils.property_client import (
     PATH_AND,
     AkamaiPropertyClient,
@@ -163,6 +163,7 @@ def test_extractRuleRecords_default_rule_only(client):
     assert r.pathCriteria == []
     assert r.hostnameCriteria == []
     assert r.originHostname == "backend.example.com"
+    assert r.rule_path == "/rules"
     assert r.ruleDepth == 0
     assert r.ruleName == "default"
 
@@ -185,6 +186,7 @@ def test_extractRuleRecords_single_child_path_rule(client):
     # root has no origin → omitted; only child emitted
     assert len(records) == 1
     child_record = records[0]
+    assert child_record.rule_path == "/rules/children/0"
     assert child_record.pathCriteria == ["/v1/*"]
     assert child_record.path == "/v1/*"
     assert child_record.ruleDepth == 1
@@ -241,6 +243,7 @@ def test_extractRuleRecords_criteria_inherited_from_ancestors(client):
     # One record: path = sorted AND-join of inherited + own criteria
     assert len(records) == 1
     r = records[0]
+    assert r.rule_path == "/rules/children/0/children/0"
     assert r.path == "/community/* AND /community/api/*"
     assert r.pathCriteria == ["/community/*", "/community/api/*"]
     assert r.ruleDepth == 2
@@ -306,6 +309,47 @@ def test_extractRuleRecords_mixed_path_hostname_is_path_eligible(client):
     # path+hostname → path-eligible → path is the positive glob
     assert r.path == "/v1/*"
     assert r.hostnameCriteria == ["api.example.com"]
+
+
+def test_extract_rule_records_duplicate_semantics_get_distinct_rule_paths(client):
+    first = _make_rule(
+        "Account Manager Cross Domain /app/unsubscribe Redirect ",
+        criteria=[_hostname_criterion(["*.intuit.com"], negative=True)],
+        behaviors=[_origin_behavior("first-backend.example.com")],
+    )
+    second = _make_rule(
+        "Account Manager Cross Domain /app/unsubscribe Redirect ",
+        criteria=[_hostname_criterion(["*.intuit.com"], negative=True)],
+        behaviors=[_origin_behavior("second-backend.example.com")],
+    )
+    root = _make_rule("default", children=[first, second])
+
+    records = client.extractRuleRecords(
+        rule=root, propertyId="501159", propertyName="p", version=1, deeplink=""
+    )
+
+    assert [r.rule_path for r in records] == [
+        "/rules/children/0",
+        "/rules/children/1",
+    ]
+    assert records[0].ruleName == records[1].ruleName
+    assert records[0].hostnameCriteria == records[1].hostnameCriteria
+
+
+def test_extract_rule_records_rule_path_keeps_skipped_child_indexes(client):
+    first = _make_rule("first", behaviors=[_origin_behavior("first.example.com")])
+    skipped = _make_rule("skipped-no-origin")
+    third = _make_rule("third", behaviors=[_origin_behavior("third.example.com")])
+    root = _make_rule("default", children=[first, skipped, third])
+
+    records = client.extractRuleRecords(
+        rule=root, propertyId="prp_skip", propertyName="p", version=1, deeplink=""
+    )
+
+    assert [r.rule_path for r in records] == [
+        "/rules/children/0",
+        "/rules/children/2",
+    ]
 
 
 # ── Security behaviors ─────────────────────────────────────────────────────────

@@ -43,6 +43,24 @@ targets:
 1. Verify nodestream has loaded the pipelines: `poetry run nodestream show`
 1. Use nodestream to run the pipelines: `poetry run nodestream run <pipeline-name> --target my-db`
 
+# Property rule pipeline upgrades
+The `property-rule` pipeline keys `AkamaiPropertyRule` nodes by Akamai rule-tree
+position: `proxy_id + rule_path`. If your database was loaded by an older
+plugin version that keyed these nodes by rule name and hostname, do not rerun
+the pipeline yet. First rebuild the plugin-owned `AkamaiPropertyRule` subgraph,
+then create the new constraint, then rerun the pipeline. Otherwise Neo4j can
+keep the old `rule_path IS NULL` nodes and create a parallel set keyed by
+`rule_path`. Old nodes do not have enough data to reconstruct `rule_path`
+safely.
+
+To find databases that still contain old property-rule data:
+
+```cypher
+MATCH (r:AkamaiPropertyRule)
+WHERE r.rule_path IS NULL
+RETURN count(r) AS old_rule_nodes
+```
+
 # Using make
 1. Install make (ie. `brew install make`)
 1. Run `make run`

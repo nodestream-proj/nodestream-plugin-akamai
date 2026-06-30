@@ -694,6 +694,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
         inheritedOriginType: str | None = None,
         inheritedOutboundPath: str | None = None,
         inheritedBaseDirectory: str | None = None,
+        rule_path: str = "/rules",
     ) -> list:
         """Recursively extract PropertyRuleRecord objects from a rule tree node.
 
@@ -759,6 +760,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
                     originType=originType,
                     outboundPath=outboundPath,
                     baseDirectory=baseDirectory,
+                    rule_path=rule_path,
                     ruleName=ruleName,
                     ruleDepth=depth,
                     criteriaMustSatisfy=rule.get("criteriaMustSatisfy", "all"),
@@ -770,10 +772,10 @@ class AkamaiPropertyClient(AkamaiApiClient):
                 )
             )
 
-        for childRule in rule.get("children", []):
+        for child_index, child_rule in enumerate(rule.get("children", [])):
             records.extend(
                 self.extractRuleRecords(
-                    rule=childRule,
+                    rule=child_rule,
                     propertyId=propertyId,
                     propertyName=propertyName,
                     version=version,
@@ -785,6 +787,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
                     inheritedOriginType=originType,
                     inheritedOutboundPath=outboundPath,
                     inheritedBaseDirectory=baseDirectory,
+                    rule_path=f"{rule_path}/children/{child_index}",
                 )
             )
 
