@@ -91,7 +91,7 @@
           proxy_id: !jmespath 'ruleKey.proxy_id'
           rule_path: !jmespath 'ruleKey.rule_path'
         node_properties:
-          rule_path: !jmespath 'rule_path'
+          rule_path: !jmespath 'rulePath'
           rule_name: !jmespath 'ruleName'
           rule_depth: !jmespath 'ruleDepth'
           path_criteria: !jmespath 'pathCriteria'

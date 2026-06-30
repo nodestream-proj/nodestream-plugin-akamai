@@ -1,7 +1,7 @@
 import itertools
 import logging
 import re
-from typing import Any, List, Tuple
+from typing import Any, ClassVar, List, Tuple
 
 from jsonpath_ng.ext import parse
 
@@ -13,6 +13,9 @@ from .model import (
     PropertyDescription,
     PropertyRuleRecord,
 )
+
+# Client methods and emitted records mirror Akamai/PAPI naming at the boundary.
+# Pipeline YAML maps those API-shaped fields to graph snake_case properties.
 
 PATH_AND = " AND "
 
@@ -551,7 +554,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
     # ── Rule-level extraction (Proxy schema) ──────────────────────────
 
-    SECURITY_BEHAVIOR_MAP = {
+    SECURITY_BEHAVIOR_MAP: ClassVar[dict[str, str]] = {
         "edgeAuth": "AKAMAI_EDGE_AUTH",
         "tokenAuth": "AKAMAI_TOKEN_AUTH",
         "siteShield": "AKAMAI_SITE_SHIELD",
@@ -575,30 +578,30 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
         Both default to None when the respective behavior is absent.
         """
-        outboundPath = None
-        baseDirectory = None
+        outbound_path = None
+        base_directory = None
 
         for behavior in behaviors:
-            behaviorName = behavior.get("name", "")
+            behavior_name = behavior.get("name", "")
             options = behavior.get("options", {})
 
-            if behaviorName == "rewriteUrl" and outboundPath is None:
+            if behavior_name == "rewriteUrl" and outbound_path is None:
                 mode = options.get("behavior", "")
                 if mode == "REPLACE":
-                    outboundPath = f"REPLACE:{options.get('match','')}→{options.get('targetPath','')}"
+                    outbound_path = f"REPLACE:{options.get('match','')}→{options.get('targetPath','')}"
                 elif mode == "REMOVE":
-                    outboundPath = f"REMOVE:{options.get('match','')}"
+                    outbound_path = f"REMOVE:{options.get('match','')}"
                 elif mode == "REWRITE":
-                    outboundPath = f"REWRITE:{options.get('targetUrl','')}"
+                    outbound_path = f"REWRITE:{options.get('targetUrl','')}"
                 elif mode == "PREPEND":
-                    outboundPath = f"PREPEND:{options.get('targetPathPrepend','')}"
+                    outbound_path = f"PREPEND:{options.get('targetPathPrepend','')}"
                 elif mode == "REGEX_REPLACE":
-                    outboundPath = f"REGEX:{options.get('matchRegex','')}→{options.get('targetRegex','')}"
+                    outbound_path = f"REGEX:{options.get('matchRegex','')}→{options.get('targetRegex','')}"
 
-            elif behaviorName == "baseDirectory" and baseDirectory is None:
-                baseDirectory = options.get("value")
+            elif behavior_name == "baseDirectory" and base_directory is None:
+                base_directory = options.get("value")
 
-        return outboundPath, baseDirectory
+        return outbound_path, base_directory
 
     def extractSecurityBehaviors(self, behaviors: list) -> list:
         """Return normalized security behavior names from a rule's behavior list.
@@ -614,7 +617,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
         return result
 
     def extractRuleCriteria(self, rule: dict) -> tuple:
-        """Return (pathCriteria, hostnameCriteria, conditionalOriginId) for one rule.
+        """Return (path_criteria, hostname_criteria, conditional_origin_id) for one rule.
 
         pathCriteria and hostnameCriteria are List[str] where each element is a
         single pattern — positive or !-negated.  They are NOT joined with AND so
@@ -622,28 +625,28 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
         conditionalOriginId is the cloudletsOrigin originId if present, else None.
         """
-        pathCriteria = []
-        hostnameCriteria = []
-        conditionalOriginId = None
+        path_criteria = []
+        hostname_criteria = []
+        conditional_origin_id = None
 
         for criterion in rule.get("criteria", []):
-            criterionName = criterion["name"]
+            criterion_name = criterion["name"]
             options = criterion.get("options", {})
-            isNegative = options.get("matchOperator") in NEGATIVE_OPERATORS
+            is_negative = options.get("matchOperator") in NEGATIVE_OPERATORS
 
-            if criterionName == "path":
+            if criterion_name == "path":
                 for value in options.get("values", []):
-                    pathCriteria.append(f"!{value}" if isNegative else value)
-            elif criterionName == "hostname":
+                    path_criteria.append(f"!{value}" if is_negative else value)
+            elif criterion_name == "hostname":
                 for value in options.get("values", []):
-                    hostnameCriteria.append(f"!{value}" if isNegative else value)
-            elif criterionName == "cloudletsOrigin":
+                    hostname_criteria.append(f"!{value}" if is_negative else value)
+            elif criterion_name == "cloudletsOrigin":
                 # originId is a scalar, not a list
-                originId = options.get("originId")
-                if originId:
-                    conditionalOriginId = originId
+                origin_id = options.get("originId")
+                if origin_id:
+                    conditional_origin_id = origin_id
 
-        return pathCriteria, hostnameCriteria, conditionalOriginId
+        return path_criteria, hostname_criteria, conditional_origin_id
 
     def resolveOriginFromBehaviors(
         self,
@@ -671,14 +674,18 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
         Own declaration takes precedence over inherited values.
         """
-        ownOutboundPath, ownBaseDirectory = self.extractOutboundPath(behaviors)
-        outboundPath = (
-            ownOutboundPath if ownOutboundPath is not None else inheritedOutboundPath
+        own_outbound_path, own_base_directory = self.extractOutboundPath(behaviors)
+        outbound_path = (
+            own_outbound_path
+            if own_outbound_path is not None
+            else inheritedOutboundPath
         )
-        baseDirectory = (
-            ownBaseDirectory if ownBaseDirectory is not None else inheritedBaseDirectory
+        base_directory = (
+            own_base_directory
+            if own_base_directory is not None
+            else inheritedBaseDirectory
         )
-        return outboundPath, baseDirectory
+        return outbound_path, base_directory
 
     def extractRuleRecords(
         self,
@@ -720,51 +727,53 @@ class AkamaiPropertyClient(AkamaiApiClient):
         """
         behaviors = rule.get("behaviors", [])
 
-        ownPathCriteria, ownHostnameCriteria, conditionalOriginId = (
+        own_path_criteria, own_hostname_criteria, conditional_origin_id = (
             self.extractRuleCriteria(rule)
         )
 
-        combinedPathCriteria = (inheritedPathCriteria or []) + ownPathCriteria
-        combinedHostnameCriteria = (
+        combined_path_criteria = (inheritedPathCriteria or []) + own_path_criteria
+        combined_hostname_criteria = (
             inheritedHostnameCriteria or []
-        ) + ownHostnameCriteria
+        ) + own_hostname_criteria
 
-        originHostname, originType = self.resolveOriginFromBehaviors(
+        origin_hostname, origin_type = self.resolveOriginFromBehaviors(
             behaviors, inheritedOriginHostname, inheritedOriginType
         )
 
-        securityBehaviors = self.extractSecurityBehaviors(behaviors)
+        security_behaviors = self.extractSecurityBehaviors(behaviors)
 
-        outboundPath, baseDirectory = self.resolveOutboundPathFromBehaviors(
+        outbound_path, base_directory = self.resolveOutboundPathFromBehaviors(
             behaviors, inheritedOutboundPath, inheritedBaseDirectory
         )
 
-        ruleName = rule.get("name", "default")
+        rule_name = rule.get("name", "default")
 
-        isPathEligible = bool(combinedPathCriteria) and conditionalOriginId is None
-        canonicalPath = (
-            PATH_AND.join(sorted(combinedPathCriteria)) if isPathEligible else None
+        is_path_eligible = (
+            bool(combined_path_criteria) and conditional_origin_id is None
+        )
+        canonical_path = (
+            PATH_AND.join(sorted(combined_path_criteria)) if is_path_eligible else None
         )
 
         records = []
 
         # Only emit records if there is a genuine origin to route to
-        if originHostname is not None:
+        if origin_hostname is not None:
             records.append(
                 PropertyRuleRecord(
-                    path=canonicalPath,
-                    pathCriteria=combinedPathCriteria,
-                    hostnameCriteria=combinedHostnameCriteria,
-                    conditionalOriginId=conditionalOriginId,
-                    originHostname=originHostname,
-                    originType=originType,
-                    outboundPath=outboundPath,
-                    baseDirectory=baseDirectory,
-                    rule_path=rule_path,
-                    ruleName=ruleName,
+                    path=canonical_path,
+                    pathCriteria=combined_path_criteria,
+                    hostnameCriteria=combined_hostname_criteria,
+                    conditionalOriginId=conditional_origin_id,
+                    originHostname=origin_hostname,
+                    originType=origin_type,
+                    outboundPath=outbound_path,
+                    baseDirectory=base_directory,
+                    rulePath=rule_path,
+                    ruleName=rule_name,
                     ruleDepth=depth,
                     criteriaMustSatisfy=rule.get("criteriaMustSatisfy", "all"),
-                    securityBehaviors=securityBehaviors,
+                    securityBehaviors=security_behaviors,
                     propertyId=propertyId,
                     propertyName=propertyName,
                     version=version,
@@ -781,12 +790,12 @@ class AkamaiPropertyClient(AkamaiApiClient):
                     version=version,
                     deeplink=deeplink,
                     depth=depth + 1,
-                    inheritedPathCriteria=combinedPathCriteria,
-                    inheritedHostnameCriteria=combinedHostnameCriteria,
-                    inheritedOriginHostname=originHostname,
-                    inheritedOriginType=originType,
-                    inheritedOutboundPath=outboundPath,
-                    inheritedBaseDirectory=baseDirectory,
+                    inheritedPathCriteria=combined_path_criteria,
+                    inheritedHostnameCriteria=combined_hostname_criteria,
+                    inheritedOriginHostname=origin_hostname,
+                    inheritedOriginType=origin_type,
+                    inheritedOutboundPath=outbound_path,
+                    inheritedBaseDirectory=base_directory,
                     rule_path=f"{rule_path}/children/{child_index}",
                 )
             )

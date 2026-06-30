@@ -71,7 +71,7 @@ def _make_record(
         originType="CUSTOMER",
         outboundPath=None,
         baseDirectory=None,
-        rule_path=rule_path,
+        rulePath=rule_path,
         ruleName=rule_name,
         ruleDepth=rule_depth,
         criteriaMustSatisfy="all",
@@ -158,6 +158,8 @@ async def test_extract_records_path_eligible_rule():
     assert len(results) == 1
     d = results[0]
     assert d["pathKey"] == {"proxy_id": "prp_123", "path": "/v1/*"}
+    assert d["rulePath"] == "/rules/children/0"
+    assert "rule_path" not in d
     assert d["ruleKey"] == {"proxy_id": "prp_123", "rule_path": "/rules/children/0"}
 
 
@@ -216,10 +218,10 @@ async def test_extract_records_rulekey_excludes_rule_name_and_hostname():
 
 def test_build_rulekey_distinguishes_duplicate_semantics_by_rule_path():
     extractor = _make_extractor()
-    first = {"propertyId": "501159", "rule_path": "/rules/children/0"}
-    second = {"propertyId": "501159", "rule_path": "/rules/children/1"}
+    first = {"propertyId": "501159", "rulePath": "/rules/children/0"}
+    second = {"propertyId": "501159", "rulePath": "/rules/children/1"}
 
-    assert extractor.buildRuleKey(first) != extractor.buildRuleKey(second)
+    assert extractor.build_rule_key(first) != extractor.build_rule_key(second)
 
 
 @pytest.mark.asyncio

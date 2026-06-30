@@ -20,16 +20,16 @@ def extractor():
 
 
 def _make_prop(**kwargs):
-    defaults = dict(
-        propertyId="prp_1234",
-        propertyName="test-name",
-        productionVersion=1,
-        stagingVersion=None,
-        assetId="aid_1",
-        contractId="ctr_1",
-        groupId="grp_1",
-        hostnames=[],
-    )
+    defaults = {
+        "propertyId": "prp_1234",
+        "propertyName": "test-name",
+        "productionVersion": 1,
+        "stagingVersion": None,
+        "assetId": "aid_1",
+        "contractId": "ctr_1",
+        "groupId": "grp_1",
+        "hostnames": [],
+    }
     defaults.update(kwargs)
     return AkamaiPropertyResponse(**defaults)
 
@@ -46,7 +46,9 @@ async def test_extract_records_fail_other(extractor):
     extractor.client.list_all_properties = Mock(
         return_value=[
             None,
-            _make_prop(productionVersion=1, propertyName="test-name", propertyId="1234"),
+            _make_prop(
+                productionVersion=1, propertyName="test-name", propertyId="1234"
+            ),
         ]
     )
     extractor.client.describePropertyByDict = Mock(side_effect=KeyError)

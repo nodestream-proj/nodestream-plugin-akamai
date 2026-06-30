@@ -25,11 +25,11 @@ class AkamaiPropertyRuleExtractor(Extractor):
     names and criteria are not unique in Akamai rule trees.
     """
 
-    def __init__(self, **akamaiClientKwargs) -> None:
-        self.client = AkamaiPropertyClient(**akamaiClientKwargs)
+    def __init__(self, **akamai_client_kwargs) -> None:
+        self.client = AkamaiPropertyClient(**akamai_client_kwargs)
         self.logger = logging.getLogger(self.__class__.__name__)
 
-    def buildPathKey(self, record: dict) -> dict | None:
+    def build_path_key(self, record: dict) -> dict | None:
         """Return the pathKey dict for a path-eligible rule, or None.
 
         pathKey is non-null iff path is set (path-eligible rule). The path
@@ -40,40 +40,42 @@ class AkamaiPropertyRuleExtractor(Extractor):
             return None
         return {"proxy_id": record["propertyId"], "path": record["path"]}
 
-    def buildRuleKey(self, record: dict) -> dict:
+    def build_rule_key(self, record: dict) -> dict:
         """Return the ruleKey dict for an AkamaiPropertyRule node.
 
         rule_path is the rule's JSON Pointer position in the Akamai rule tree.
         """
         return {
             "proxy_id": record["propertyId"],
-            "rule_path": record["rule_path"],
+            "rule_path": record["rulePath"],
         }
 
-    async def extractRecordsForProperty(self, akamai_property: AkamaiPropertyResponse):
+    async def extract_records_for_property(
+        self, akamai_property: AkamaiPropertyResponse
+    ):
         """Yield pipeline dicts for every rule record in one property."""
         self.logger.info(
             "extracting rule records for property %s (id=%s)",
             akamai_property.propertyName,
             akamai_property.propertyId,
         )
-        ruleTree = self.client.get_rule_tree(
+        rule_tree = self.client.get_rule_tree(
             property_id=akamai_property.propertyId,
             version=akamai_property.productionVersion,
             contract_id=akamai_property.contractId,
             group_id=akamai_property.groupId,
         )
-        for ruleRecord in self.client.extractRuleRecords(
-            rule=ruleTree["rules"],
+        for rule_record in self.client.extractRuleRecords(
+            rule=rule_tree["rules"],
             propertyId=akamai_property.propertyId,
             propertyName=akamai_property.propertyName,
             version=akamai_property.productionVersion,
             deeplink=akamai_property.deeplink,
         ):
-            recordDict = dataclasses.asdict(ruleRecord)
-            recordDict["pathKey"] = self.buildPathKey(recordDict)
-            recordDict["ruleKey"] = self.buildRuleKey(recordDict)
-            yield recordDict
+            record_dict = dataclasses.asdict(rule_record)
+            record_dict["pathKey"] = self.build_path_key(record_dict)
+            record_dict["ruleKey"] = self.build_rule_key(record_dict)
+            yield record_dict
 
     async def extract_records(self):
         self.logger.debug("extracting property rule records")
@@ -87,8 +89,10 @@ class AkamaiPropertyRuleExtractor(Extractor):
             if akamai_property is None or akamai_property.productionVersion is None:
                 continue
             try:
-                async for recordDict in self.extractRecordsForProperty(akamai_property):
-                    yield recordDict
+                async for record_dict in self.extract_records_for_property(
+                    akamai_property
+                ):
+                    yield record_dict
             except Exception:
                 self.logger.exception(
                     "Failed to extract rule records for property %s (id=%s)",

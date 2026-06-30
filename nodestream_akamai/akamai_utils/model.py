@@ -1,6 +1,9 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
 
+# Akamai/PAPI-facing records intentionally keep API-shaped field names.
+# Pipeline YAML maps those emitted keys to graph snake_case properties.
+
 
 @dataclass(eq=True, frozen=True, kw_only=True)
 class EdgeHost:
@@ -150,8 +153,8 @@ class PropertyRuleRecord:
     ]  # baseDirectory prefix prepended unconditionally; None = no prefix
 
     # Rule metadata
-    # snake_case mirrors the graph property; API-shaped fields keep existing names.
-    rule_path: str  # JSON Pointer path in the rule tree, e.g. /rules/children/0
+    # Output field stays API-shaped; YAML maps it onto graph property rule_path.
+    rulePath: str  # JSON Pointer path in the rule tree, e.g. /rules/children/0
     ruleName: str
     ruleDepth: int  # 0 = default/root rule
     criteriaMustSatisfy: str  # "all" | "any"

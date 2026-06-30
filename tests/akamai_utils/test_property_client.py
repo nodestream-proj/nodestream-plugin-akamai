@@ -8,6 +8,8 @@ from tests.akamai_utils.rulesdata import (
     rule_tree_643957,
 )
 
+# Test names mirror the legacy camelCase client methods they cover.
+
 CRITERIA_RULE = {
     "rules": {
         "name": "default",
