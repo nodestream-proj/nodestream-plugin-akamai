@@ -13,7 +13,7 @@ breadcrumb) as a readable property. It also makes Path XOR AkamaiPropertyRule
 (a rule is one node type, never both).
 
 These tests run the REAL extractor (AkamaiPropertyClient.extractRuleRecords +
-AkamaiPropertyRuleExtractor.buildPathKey/buildRuleKey) against real, downloaded
+AkamaiPropertyRuleExtractor.build_path_key/build_rule_key) against real, downloaded
 production rule trees and assert:
 
   1. the OLD key (proxy_id, rule_name, hostname) COLLIDES (documents the bug),
@@ -64,8 +64,8 @@ def _extract(tree):
         deeplink="",
     ):
         rec = dataclasses.asdict(rr)
-        rec["pathKey"] = ext.buildPathKey(rec)
-        rec["ruleKey"] = ext.buildRuleKey(rec)
+        rec["pathKey"] = ext.build_path_key(rec)
+        rec["ruleKey"] = ext.build_rule_key(rec)
         records.append(rec)
     return records
 

@@ -12,8 +12,7 @@ Covers all branches of extract_records:
   - rule with no hostname criteria → ruleKey.hostname is None
 """
 
-import dataclasses
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, Mock
 
 import pytest
 from requests import HTTPError
@@ -152,11 +151,11 @@ async def test_extract_records_path_eligible_rule():
     """A path-eligible record (path set) produces a non-null pathKey and,
     because Path XOR Rule, a NULL ruleKey (it is a Path node only)."""
     extractor = _make_extractor()
-    property = _make_property()
+    akamai_property = _make_property()
     record = _make_record(
         path="/v1/*", path_criteria=["/v1/*"], rule_path="/rules/children/0"
     )
-    extractor.client.list_all_properties = Mock(return_value=[property])
+    extractor.client.list_all_properties = Mock(return_value=[akamai_property])
     extractor.client.get_rule_tree = Mock(return_value={"rules": {}})
     extractor.client.extractRuleRecords = Mock(return_value=[record])
 
@@ -174,11 +173,11 @@ async def test_extract_records_non_path_rule_becomes_rule_node_keyed_on_rule_pat
     """A non-path rule (path=None) produces pathKey=None and a ruleKey keyed on
     (proxy_id, rule_path) — the tree position, NOT rule_name/hostname."""
     extractor = _make_extractor()
-    property = _make_property()
+    akamai_property = _make_property()
     record = _make_record(
         path=None, path_criteria=[], rule_path="/rules/children/3/children/1"
     )
-    extractor.client.list_all_properties = Mock(return_value=[property])
+    extractor.client.list_all_properties = Mock(return_value=[akamai_property])
     extractor.client.get_rule_tree = Mock(return_value={"rules": {}})
     extractor.client.extractRuleRecords = Mock(return_value=[record])
 
@@ -201,7 +200,7 @@ async def test_extract_records_rule_key_is_unique_by_tree_position():
     """Two rules with the SAME name+hostname but different tree positions must
     get DISTINCT ruleKeys — the exact collision the old key produced."""
     extractor = _make_extractor()
-    property = _make_property()
+    akamai_property = _make_property()
     # same rule_name, same (empty) hostname, different rule_path — a real
     # collision under the old (proxy_id, rule_name, hostname) key.
     records = [
@@ -212,7 +211,7 @@ async def test_extract_records_rule_key_is_unique_by_tree_position():
             path=None, rule_name="US", rule_path="/rules/children/3/children/0"
         ),
     ]
-    extractor.client.list_all_properties = Mock(return_value=[property])
+    extractor.client.list_all_properties = Mock(return_value=[akamai_property])
     extractor.client.get_rule_tree = Mock(return_value={"rules": {}})
     extractor.client.extractRuleRecords = Mock(return_value=records)
 
@@ -230,13 +229,13 @@ async def test_extract_records_rule_key_is_unique_by_tree_position():
 async def test_extract_records_full_path_surfaced_on_record():
     """full_path (name breadcrumb) is carried through as a record field."""
     extractor = _make_extractor()
-    property = _make_property()
+    akamai_property = _make_property()
     record = _make_record(
         path=None,
         rule_path="/rules/children/2/children/0",
         full_path="default/Origin mappings/qal/leadgen",
     )
-    extractor.client.list_all_properties = Mock(return_value=[property])
+    extractor.client.list_all_properties = Mock(return_value=[akamai_property])
     extractor.client.get_rule_tree = Mock(return_value={"rules": {}})
     extractor.client.extractRuleRecords = Mock(return_value=[record])
 
@@ -249,9 +248,11 @@ async def test_extract_records_full_path_surfaced_on_record():
 async def test_extract_records_deeplink_constructed_correctly():
     """deeplink is built from assetId, version, and groupId."""
     extractor = _make_extractor()
-    property = _make_property(asset_id="99999", production_version=7, group_id="grp_42")
+    akamai_property = _make_property(
+        asset_id="99999", production_version=7, group_id="grp_42"
+    )
     record = _make_record()
-    extractor.client.list_all_properties = Mock(return_value=[property])
+    extractor.client.list_all_properties = Mock(return_value=[akamai_property])
     extractor.client.get_rule_tree = Mock(return_value={"rules": {}})
 
     captured_deeplink = {}
@@ -274,12 +275,12 @@ async def test_extract_records_deeplink_constructed_correctly():
 async def test_extract_records_multiple_records_from_one_property():
     """Multiple rule records from a single property are all yielded."""
     extractor = _make_extractor()
-    property = _make_property()
+    akamai_property = _make_property()
     records = [
         _make_record(path="/v1/*", rule_name="v1"),
         _make_record(path=None, rule_name="default", rule_depth=0),
     ]
-    extractor.client.list_all_properties = Mock(return_value=[property])
+    extractor.client.list_all_properties = Mock(return_value=[akamai_property])
     extractor.client.get_rule_tree = Mock(return_value={"rules": {}})
     extractor.client.extractRuleRecords = Mock(return_value=records)
 
