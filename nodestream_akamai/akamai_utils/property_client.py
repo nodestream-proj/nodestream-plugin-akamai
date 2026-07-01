@@ -16,6 +16,18 @@ from .model import (
 
 PATH_AND = " AND "
 
+# full_path joins rule names with "/", but Akamai rule names are free text and
+# may themselves contain "/". Replace "/" with "_" in each name segment ONLY when
+# building the human-readable full_path property, so the separator is unambiguous.
+# This does NOT affect rule_path (the key), rule_name, or any other field.
+FULL_PATH_SEPARATOR = "/"
+
+
+def sanitize_full_path_segment(name: str) -> str:
+    """Replace the full_path separator inside a single rule-name segment."""
+    return name.replace(FULL_PATH_SEPARATOR, "_")
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -741,7 +753,11 @@ class AkamaiPropertyClient(AkamaiApiClient):
         )
 
         ruleName = rule.get("name", "default")
-        thisFullPath = fullPath if fullPath is not None else ruleName
+        # full_path only: sanitize "/" in the name so the separator is unambiguous.
+        # rule_name (below) keeps the raw Akamai name.
+        thisFullPath = (
+            fullPath if fullPath is not None else sanitize_full_path_segment(ruleName)
+        )
 
         isPathEligible = bool(combinedPathCriteria) and conditionalOriginId is None
         canonicalPath = (
@@ -784,7 +800,8 @@ class AkamaiPropertyClient(AkamaiApiClient):
             # given property version.
             childRulePath = f"{rulePath}/children/{childIndex}"
             childName = childRule.get("name", "default")
-            childFullPath = f"{thisFullPath}/{childName}"
+            # full_path only: sanitize "/" in the child name segment.
+            childFullPath = f"{thisFullPath}/{sanitize_full_path_segment(childName)}"
             records.extend(
                 self.extractRuleRecords(
                     rule=childRule,

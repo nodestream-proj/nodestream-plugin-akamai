@@ -161,9 +161,11 @@ class PropertyRuleRecord:
     # repeats across the tree and must NOT be a key part.
     rulePath: str
     # Human-readable breadcrumb of rule names from root to this rule, e.g.
-    # "default/Origin mappings/qal/origin - leadgen". NOTE: unlike rulePath this
-    # is name-based and can collide when sibling rules share a name, so it is
-    # carried as a queryable node property only, never as a key.
+    # "default/Origin mappings/qal/origin - leadgen". Rule names are free text
+    # and may contain "/", so each name segment has "/" replaced with "_" here
+    # to keep the "/" level-separator unambiguous (rule_name keeps the raw name).
+    # NOTE: unlike rulePath this is name-based and can collide when sibling rules
+    # share a name, so it is a queryable node property only, never a key.
     fullPath: str
     criteriaMustSatisfy: str  # "all" | "any"
     securityBehaviors: List[str]  # e.g. ["AKAMAI_EDGE_AUTH"]

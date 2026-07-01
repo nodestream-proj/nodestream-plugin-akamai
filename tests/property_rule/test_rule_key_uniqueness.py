@@ -104,7 +104,59 @@ def test_full_path_is_populated_and_contains_rule_name(tree_name):
     records = _extract(_load(tree_name))
     for r in records:
         assert r["fullPath"], f"empty full_path for {r['ruleName']}"
-        assert r["ruleName"] in r["fullPath"]
+        # full_path sanitizes "/" in names to "_", so compare the sanitized name
+        assert r["ruleName"].replace("/", "_") in r["fullPath"]
+
+
+def test_full_path_sanitizes_slashes_in_rule_names():
+    """Rule names are free text and may contain '/'. In full_path (only), each
+    name segment's '/' is replaced with '_' so the '/' separator is unambiguous.
+    rule_name and rule_path are unaffected."""
+    tree = {
+        "propertyId": "prp_x",
+        "propertyName": "p",
+        "propertyVersion": 1,
+        "rules": {
+            "name": "default",
+            "behaviors": [
+                {
+                    "name": "origin",
+                    "options": {"originType": "CUSTOMER", "hostname": "o.example.com"},
+                }
+            ],
+            "criteria": [],
+            "children": [
+                {
+                    "name": "option/1",  # <- slash inside the name
+                    "behaviors": [],
+                    "criteria": [],
+                    "children": [
+                        {
+                            "name": "leaf/a/b",
+                            "behaviors": [],
+                            "criteria": [],
+                            "children": [],
+                        }
+                    ],
+                }
+            ],
+        },
+    }
+    records = _extract(tree)
+    by_name = {r["ruleName"]: r for r in records}
+
+    # rule_name stays raw (unsanitized)
+    assert "option/1" in by_name
+    assert "leaf/a/b" in by_name
+
+    # full_path replaces "/" within each name segment with "_", keeping "/" only
+    # as the genuine level separator
+    assert by_name["option/1"]["fullPath"] == "default/option_1"
+    assert by_name["leaf/a/b"]["fullPath"] == "default/option_1/leaf_a_b"
+
+    # rule_path (the key) is unaffected — pure index JSON Pointer
+    assert by_name["option/1"]["rulePath"] == "/rules/children/0"
+    assert by_name["leaf/a/b"]["rulePath"] == "/rules/children/0/children/0"
 
 
 def test_old_key_collides_but_new_key_does_not():
