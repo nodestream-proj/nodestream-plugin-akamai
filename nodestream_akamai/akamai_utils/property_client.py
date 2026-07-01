@@ -688,7 +688,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
         version: int,
         deeplink: str,
         depth: int = 0,
-        rulePath: str = "ROOT",
+        rulePath: str = "/rules",
         fullPath: str | None = None,
         inheritedPathCriteria: list | None = None,
         inheritedHostnameCriteria: list | None = None,
@@ -776,13 +776,13 @@ class AkamaiPropertyClient(AkamaiApiClient):
             )
 
         for childIndex, childRule in enumerate(rule.get("children", [])):
-            # rulePath is the ordinal index path: root is "ROOT", its children are
-            # "0", "1", ...; grandchildren "0.0", "0.1", ... This is unique per
-            # rule regardless of names, and stable across ingests for a given
-            # property version.
-            childRulePath = (
-                str(childIndex) if rulePath == "ROOT" else f"{rulePath}.{childIndex}"
-            )
+            # rulePath is the rule's JSON Pointer (RFC 6901) position in the rule
+            # tree: root is "/rules", its children are "/rules/children/0", ...;
+            # grandchildren "/rules/children/0/children/2". It is unique per rule
+            # regardless of names (it is index-based, not name-based), navigable
+            # back into the raw rule-tree JSON, and stable across ingests for a
+            # given property version.
+            childRulePath = f"{rulePath}/children/{childIndex}"
             childName = childRule.get("name", "default")
             childFullPath = f"{thisFullPath}/{childName}"
             records.extend(

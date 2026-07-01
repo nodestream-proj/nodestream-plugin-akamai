@@ -10,7 +10,8 @@
 #     (AkamaiProperty:Proxy)-[:HAS_RULE]->(AkamaiPropertyRule)-[:ROUTES_TO]->(Endpoint)
 #     — keyed (proxy_id, rule_path)
 #
-# rule_path is the rule's ordinal tree position ("ROOT", "3.0", "3.0.1", ...).
+# rule_path is the rule's JSON Pointer tree position ("/rules",
+# "/rules/children/0", "/rules/children/0/children/2", ...).
 # It is unique by construction (a rule tree is an ordered array), so it can back
 # a NODE KEY constraint. rule_name is a human label that repeats across a tree
 # and hostname is null for most rules, so (proxy_id, rule_name, hostname) is NOT

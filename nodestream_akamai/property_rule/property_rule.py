@@ -41,7 +41,7 @@ class AkamaiPropertyRuleExtractor(Extractor):
     def buildRuleKey(self, record: dict) -> dict | None:
         """Return the ruleKey dict for an AkamaiPropertyRule node, or None.
 
-        Keyed on (proxy_id, rule_path) — the rule's ordinal tree position — which
+        Keyed on (proxy_id, rule_path) — the rule's JSON Pointer tree position — which
         is unique by construction. rule_name is a human label that repeats across
         a property's rule tree (many rules are named "US", "default", etc.), and
         hostname is null for the majority of rules (those not under a hostname

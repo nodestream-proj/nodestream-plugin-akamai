@@ -62,7 +62,7 @@ def _make_record(
     origin_hostname="backend.example.com",
     rule_name="v1-api",
     rule_depth=1,
-    rule_path="0",
+    rule_path="/rules/children/0",
     full_path="default/v1-api",
 ):
     return PropertyRuleRecord(
@@ -153,7 +153,9 @@ async def test_extract_records_path_eligible_rule():
     because Path XOR Rule, a NULL ruleKey (it is a Path node only)."""
     extractor = _make_extractor()
     property = _make_property()
-    record = _make_record(path="/v1/*", path_criteria=["/v1/*"], rule_path="0")
+    record = _make_record(
+        path="/v1/*", path_criteria=["/v1/*"], rule_path="/rules/children/0"
+    )
     extractor.client.list_all_properties = Mock(return_value=[property])
     extractor.client.get_rule_tree = Mock(return_value={"rules": {}})
     extractor.client.extractRuleRecords = Mock(return_value=[record])
@@ -173,7 +175,9 @@ async def test_extract_records_non_path_rule_becomes_rule_node_keyed_on_rule_pat
     (proxy_id, rule_path) — the tree position, NOT rule_name/hostname."""
     extractor = _make_extractor()
     property = _make_property()
-    record = _make_record(path=None, path_criteria=[], rule_path="3.1")
+    record = _make_record(
+        path=None, path_criteria=[], rule_path="/rules/children/3/children/1"
+    )
     extractor.client.list_all_properties = Mock(return_value=[property])
     extractor.client.get_rule_tree = Mock(return_value={"rules": {}})
     extractor.client.extractRuleRecords = Mock(return_value=[record])
@@ -183,7 +187,10 @@ async def test_extract_records_non_path_rule_becomes_rule_node_keyed_on_rule_pat
     assert len(results) == 1
     d = results[0]
     assert d["pathKey"] is None
-    assert d["ruleKey"] == {"proxy_id": "prp_123", "rule_path": "3.1"}
+    assert d["ruleKey"] == {
+        "proxy_id": "prp_123",
+        "rule_path": "/rules/children/3/children/1",
+    }
     # rule_name / hostname must NOT be part of the key (they are not unique)
     assert "rule_name" not in d["ruleKey"]
     assert "hostname" not in d["ruleKey"]
@@ -198,8 +205,12 @@ async def test_extract_records_rule_key_is_unique_by_tree_position():
     # same rule_name, same (empty) hostname, different rule_path — a real
     # collision under the old (proxy_id, rule_name, hostname) key.
     records = [
-        _make_record(path=None, rule_name="US", rule_path="2.0.0"),
-        _make_record(path=None, rule_name="US", rule_path="2.1.0"),
+        _make_record(
+            path=None, rule_name="US", rule_path="/rules/children/2/children/0"
+        ),
+        _make_record(
+            path=None, rule_name="US", rule_path="/rules/children/3/children/0"
+        ),
     ]
     extractor.client.list_all_properties = Mock(return_value=[property])
     extractor.client.get_rule_tree = Mock(return_value={"rules": {}})
@@ -208,7 +219,10 @@ async def test_extract_records_rule_key_is_unique_by_tree_position():
     results = [x async for x in extractor.extract_records()]
 
     keys = [r["ruleKey"]["rule_path"] for r in results]
-    assert keys == ["2.0.0", "2.1.0"]
+    assert keys == [
+        "/rules/children/2/children/0",
+        "/rules/children/3/children/0",
+    ]
     assert len(set(keys)) == 2  # distinct — no collision
 
 
@@ -219,7 +233,7 @@ async def test_extract_records_full_path_surfaced_on_record():
     property = _make_property()
     record = _make_record(
         path=None,
-        rule_path="2.0.0",
+        rule_path="/rules/children/2/children/0",
         full_path="default/Origin mappings/qal/leadgen",
     )
     extractor.client.list_all_properties = Mock(return_value=[property])

@@ -152,15 +152,18 @@ class PropertyRuleRecord:
     # Rule metadata
     ruleName: str
     ruleDepth: int  # 0 = default/root rule
-    # Stable tree-position identity. rulePath is the ordinal index path from the
-    # root ("ROOT" for the default rule, "3.0", "3.0.1", ...). It is unique by
-    # construction — a rule tree is an ordered array, so no two rules share a
-    # position — and is what the AkamaiPropertyRule node is keyed on. rule_name
-    # is a human label that repeats across the tree and must NOT be a key part.
+    # Stable tree-position identity. rulePath is the rule's JSON Pointer
+    # (RFC 6901) position in the rule tree: "/rules" for the default rule,
+    # "/rules/children/0", "/rules/children/0/children/2", ... It is unique by
+    # construction — it is index-based (not name-based), so no two rules share a
+    # position — navigable back into the raw rule-tree JSON, and is what the
+    # AkamaiPropertyRule node is keyed on. rule_name is a human label that
+    # repeats across the tree and must NOT be a key part.
     rulePath: str
     # Human-readable breadcrumb of rule names from root to this rule, e.g.
-    # "default/Origin mappings/qal/martech-qal.intuit.com origin - leadgen".
-    # Carried as a queryable node property (not a key).
+    # "default/Origin mappings/qal/origin - leadgen". NOTE: unlike rulePath this
+    # is name-based and can collide when sibling rules share a name, so it is
+    # carried as a queryable node property only, never as a key.
     fullPath: str
     criteriaMustSatisfy: str  # "all" | "any"
     securityBehaviors: List[str]  # e.g. ["AKAMAI_EDGE_AUTH"]

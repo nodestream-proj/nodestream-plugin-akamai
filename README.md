@@ -43,6 +43,34 @@ targets:
 1. Verify nodestream has loaded the pipelines: `poetry run nodestream show`
 1. Use nodestream to run the pipelines: `poetry run nodestream run <pipeline-name> --target my-db`
 
+# Property rule pipeline: AkamaiPropertyRule keying
+
+As of 0.16.2 the `property-rule` pipeline keys `AkamaiPropertyRule` nodes on the
+rule's position in the Akamai rule tree: `(proxy_id, rule_path)`, where
+`rule_path` is the ordinal index path from the root (`ROOT`, `3.0`, `3.0.1`, …).
+The rule's human-readable name breadcrumb is stored as the `full_path` property.
+
+Previously these nodes were keyed on `(proxy_id, rule_name, hostname)`, which is
+not unique — Akamai rule names repeat across a property's tree and most rules
+have no hostname criterion — so the NODE KEY constraint could not be created
+(`Neo.DatabaseError.Schema.ConstraintCreationFailed`). A path-eligible rule is
+also now written as a `Path` node **only** (never both a `Path` and an
+`AkamaiPropertyRule`).
+
+If a database was loaded by an older plugin version that used the old key, do
+**not** just rerun the pipeline: the old nodes have no `rule_path`, so a rerun
+creates a parallel set of correctly-keyed nodes and leaves the old ones behind.
+Instead, drop the plugin-owned `AkamaiPropertyRule` subgraph, (re)create the
+constraint, then rerun the pipeline so nodes repopulate under the new key.
+
+Find databases that still hold old property-rule nodes:
+
+```cypher
+MATCH (r:AkamaiPropertyRule)
+WHERE r.rule_path IS NULL
+RETURN count(r) AS old_rule_nodes
+```
+
 # Using make
 1. Install make (ie. `brew install make`)
 1. Run `make run`
