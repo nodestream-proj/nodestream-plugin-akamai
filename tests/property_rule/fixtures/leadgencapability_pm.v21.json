@@ -1,0 +1,314 @@
+{
+    "accountId": "act_1-17WC",
+    "contractId": "ctr_C-19XSR8V",
+    "groupId": "grp_59340",
+    "ruleFormat": "latest",
+    "propertyId": "prp_1317086",
+    "propertyName": "leadgencapability_pm",
+    "propertyVersion": 21,
+    "rules": {
+        "name": "default",
+        "children": [
+            {
+                "name": "Redirects",
+                "children": [
+                    {
+                        "name": " LeadGen - prospect ",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "allowPost", "options": { "enabled": true, "allowWithoutContentLength": false } },
+                            { "name": "rewriteUrl", "options": { "behavior": "REWRITE", "targetUrl": "/v1/mkt_lead" } }
+                        ],
+                        "criteria": [
+                            { "name": "path", "options": { "matchOperator": "MATCHES_ONE_OF", "values": ["/v1/prospect"] } },
+                            { "name": "requestMethod", "options": { "matchOperator": "IS", "value": "POST" } }
+                        ],
+                        "criteriaMustSatisfy": "all"
+                    },
+                    {
+                        "name": " LeadGen - prospect v2",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "allowPost", "options": { "enabled": true, "allowWithoutContentLength": false } },
+                            { "name": "rewriteUrl", "options": { "behavior": "REPLACE", "match": "/v2/prospect/", "targetPath": "/v2/mkt_leads/" } }
+                        ],
+                        "criteria": [
+                            { "name": "path", "options": { "matchOperator": "MATCHES_ONE_OF", "values": ["/v2/prospect/*"] } },
+                            { "name": "requestMethod", "options": { "matchOperator": "IS", "value": "POST" } }
+                        ],
+                        "criteriaMustSatisfy": "all"
+                    },
+                    {
+                        "name": " LeadGen - activity",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "allowPost", "options": { "enabled": true } },
+                            { "name": "rewriteUrl", "options": { "behavior": "REGEX_REPLACE", "matchRegex": "\\/v1\\/lead_activity\\/?", "targetRegex": "/v1/marketo_new_lead_activity" } }
+                        ],
+                        "criteria": [
+                            { "name": "path", "options": { "matchOperator": "MATCHES_ONE_OF", "values": ["/v1/lead_activity", "/v1/lead_activity/"] } }
+                        ],
+                        "criteriaMustSatisfy": "all"
+                    },
+                    {
+                        "name": " LeadGen - marketo lead activity- qal",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "allowPost", "options": { "enabled": true } },
+                            { "name": "rewriteUrl", "options": { "behavior": "REGEX_REPLACE", "matchRegex": "\\/qal\\/v1\\/lead_activity\\/?", "targetRegex": "/v1/marketo_new_lead_activity" } },
+                            { "name": "setVariable", "options": { "valueSource": "EXPRESSION", "variableName": "PMUSER_API_ENV", "variableValue": "lgqal" } }
+                        ],
+                        "criteria": [
+                            { "name": "path", "options": { "matchOperator": "MATCHES_ONE_OF", "values": ["/qal/v1/lead_activity", "/qal/v1/lead_activity/"] } }
+                        ],
+                        "criteriaMustSatisfy": "all"
+                    },
+                    {
+                        "name": " LeadGen - flow service - qal/e2e",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "allowPost", "options": { "enabled": true } },
+                            { "name": "rewriteUrl", "options": { "behavior": "REGEX_REPLACE", "matchRegex": "/flow-service/(.*)/v1/(.*)/(.*)", "targetRegex": "/v1/$2/$3" } },
+                            { "name": "setVariable", "options": { "valueSource": "EXPRESSION", "variableName": "PMUSER_API_ENV", "variableValue": "{{builtin.AK_PATH}}" } }
+                        ],
+                        "criteria": [
+                            { "name": "path", "options": { "matchOperator": "MATCHES_ONE_OF", "values": ["/flow-service/qal/v1/*/getServiceDefinition", "/flow-service/e2e/v1/*/getServiceDefinition", "/flow-service/qal/v1/*/submitAsyncAction", "/flow-service/e2e/v1/*/submitAsyncAction", "/flow-service/qal/v1/*/status", "/flow-service/e2e/v1/*/status", "/flow-service/qal/v1/*/openapi.json", "/flow-service/e2e/v1/*/openapi.json"] } }
+                        ],
+                        "criteriaMustSatisfy": "all"
+                    }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all"
+            },
+            {
+                "name": "Augment insights",
+                "children": [
+                    { "name": "Traffic reporting", "children": [], "behaviors": [{ "name": "cpCode", "options": { "value": { "id": 1962249, "name": "martech.intuit.com" } } }], "criteria": [], "criteriaMustSatisfy": "all" },
+                    { "name": "mPulse RUM", "children": [], "behaviors": [{ "name": "mPulse", "options": { "enabled": true, "loaderVersion": "V12" } }], "criteria": [], "criteriaMustSatisfy": "all" },
+                    { "name": "Geolocation", "children": [], "behaviors": [{ "name": "edgeScape", "options": { "enabled": false } }], "criteria": [{ "name": "requestType", "options": { "matchOperator": "IS", "value": "CLIENT_REQ" } }], "criteriaMustSatisfy": "all" },
+                    { "name": "Log delivery", "children": [], "behaviors": [{ "name": "report", "options": { "logHost": false } }], "criteria": [], "criteriaMustSatisfy": "all" }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all"
+            },
+            {
+                "name": "Origin mappings",
+                "children": [
+                    {
+                        "name": "qal",
+                        "children": [
+                            {
+                                "name": "martech-qal.intuit.com origin - leadgen",
+                                "children": [],
+                                "behaviors": [
+                                    { "name": "origin", "options": { "originType": "CUSTOMER", "hostname": "leadgencapability-qal.api.intuit.com" } },
+                                    { "name": "cpCode", "options": { "value": { "id": 1962250, "name": "martech-e2e.intuit.com" } } },
+                                    { "name": "modifyOutgoingRequestHeader", "options": { "action": "MODIFY", "customHeaderName": "Authorization" } }
+                                ],
+                                "criteria": [
+                                    { "name": "hostname", "options": { "matchOperator": "IS_ONE_OF", "values": ["martech-e2e.intuit.com"] } },
+                                    { "name": "matchVariable", "options": { "matchOperator": "IS", "variableName": "PMUSER_API_ENV", "variableExpression": "lgqal" } }
+                                ],
+                                "criteriaMustSatisfy": "all"
+                            },
+                            {
+                                "name": "martech-qal.intuit.com origin - flowservice",
+                                "children": [],
+                                "behaviors": [
+                                    { "name": "origin", "options": { "originType": "CUSTOMER", "hostname": "marketing-flow-svc-qal.api.intuit.com" } },
+                                    { "name": "cpCode", "options": { "value": { "id": 1962250, "name": "martech-e2e.intuit.com" } } }
+                                ],
+                                "criteria": [
+                                    { "name": "hostname", "options": { "matchOperator": "IS_ONE_OF", "values": ["martech-e2e.intuit.com"] } },
+                                    { "name": "matchVariable", "options": { "matchOperator": "IS", "variableName": "PMUSER_API_ENV", "variableExpression": "fsqal" } }
+                                ],
+                                "criteriaMustSatisfy": "all"
+                            }
+                        ],
+                        "behaviors": [],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all"
+                    },
+                    {
+                        "name": "e2e",
+                        "children": [
+                            {
+                                "name": "martech-e2e.intuit.com origin - leadGen",
+                                "children": [],
+                                "behaviors": [
+                                    { "name": "origin", "options": { "originType": "CUSTOMER", "hostname": "leadgencapability-e2e.api.intuit.com" } },
+                                    { "name": "cpCode", "options": { "value": { "id": 1962250, "name": "martech-e2e.intuit.com" } } }
+                                ],
+                                "criteria": [
+                                    { "name": "hostname", "options": { "matchOperator": "IS_ONE_OF", "values": ["martech-e2e.intuit.com"] } },
+                                    { "name": "matchVariable", "options": { "matchOperator": "IS", "variableName": "PMUSER_API_ENV", "variableExpression": "NULL" } }
+                                ],
+                                "criteriaMustSatisfy": "all"
+                            },
+                            {
+                                "name": "martech-e2e.intuit.com origin - flowservice",
+                                "children": [],
+                                "behaviors": [
+                                    { "name": "origin", "options": { "originType": "CUSTOMER", "hostname": "marketing-flow-svc-e2e.api.intuit.com" } },
+                                    { "name": "cpCode", "options": { "value": { "id": 1962250, "name": "martech-e2e.intuit.com" } } }
+                                ],
+                                "criteria": [
+                                    { "name": "hostname", "options": { "matchOperator": "IS_ONE_OF", "values": ["martech-e2e.intuit.com"] } },
+                                    { "name": "matchVariable", "options": { "matchOperator": "IS", "variableName": "PMUSER_API_ENV", "variableExpression": "fse2e" } }
+                                ],
+                                "criteriaMustSatisfy": "all"
+                            }
+                        ],
+                        "behaviors": [],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all"
+                    }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all"
+            },
+            {
+                "name": "Accelerate delivery",
+                "children": [
+                    { "name": "Origin connectivity", "children": [], "behaviors": [{ "name": "dnsAsyncRefresh", "options": { "enabled": true } }], "criteria": [], "criteriaMustSatisfy": "all" },
+                    { "name": "Protocol optimizations", "children": [], "behaviors": [{ "name": "http3", "options": { "enable": false } }], "criteria": [], "criteriaMustSatisfy": "all" },
+                    {
+                        "name": "Prefetching",
+                        "children": [
+                            {
+                                "name": "Prefetching objects",
+                                "children": [
+                                    { "name": "Bots", "children": [], "behaviors": [{ "name": "prefetch", "options": { "enabled": false } }], "criteria": [{ "name": "userAgent", "options": { "matchOperator": "IS_ONE_OF", "matchWildcard": true, "values": ["*bot*", "*crawl*", "*spider*"] } }], "criteriaMustSatisfy": "all" }
+                                ],
+                                "behaviors": [{ "name": "prefetch", "options": { "enabled": true } }],
+                                "criteria": [],
+                                "criteriaMustSatisfy": "all"
+                            },
+                            { "name": "Prefetchable objects", "children": [], "behaviors": [{ "name": "prefetchable", "options": { "enabled": true } }], "criteria": [{ "name": "fileExtension", "options": { "matchOperator": "IS_ONE_OF", "values": ["css","js","png"] } }], "criteriaMustSatisfy": "all" }
+                        ],
+                        "behaviors": [],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all"
+                    },
+                    { "name": "Adaptive acceleration", "children": [], "behaviors": [{ "name": "adaptiveAcceleration", "options": { "source": "MPULSE" } }], "criteria": [], "criteriaMustSatisfy": "all" }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all"
+            },
+            {
+                "name": "Block Origin Request",
+                "children": [],
+                "behaviors": [
+                    { "name": "constructResponse", "options": { "enabled": true, "responseCode": 404, "body": "Not a valid request." } }
+                ],
+                "criteria": [
+                    { "name": "path", "options": { "matchOperator": "DOES_NOT_MATCH_ONE_OF", "values": ["/v1/prospect", "/v2/prospect/*", "/v1/lead_activity", "/v1/lead_activity/", "/qal/v1/lead_activity", "/flow-service/qal/v1/*/submitAsyncAction", "/flow-service/e2e/v1/*/submitAsyncAction", "/flow-service/qal/v1/*/getServiceDefinition", "/flow-service/qal/v1/*/status", "/flow-service/e2e/v1/*/status", "/flow-service/qal/v1/*/openapi.json", "/flow-service/e2e/v1/*/openapi.json", "/flow-service/e2e/v1/*/getServiceDefinition"] } }
+                ],
+                "criteriaMustSatisfy": "all"
+            },
+            {
+                "name": "Security",
+                "children": [
+                    {
+                        "name": "CORS - OPTION",
+                        "children": [],
+                        "behaviors": [{ "name": "constructResponse", "options": { "enabled": true, "responseCode": 200, "body": "OK" } }],
+                        "criteria": [
+                            { "name": "path", "options": { "matchOperator": "MATCHES_ONE_OF", "values": ["/v1/prospect", "/v2/prospect/*", "/v1/lead_activity", "/v1/lead_activity/"] } },
+                            { "name": "requestMethod", "options": { "matchOperator": "IS", "value": "OPTIONS" } }
+                        ],
+                        "criteriaMustSatisfy": "all"
+                    },
+                    {
+                        "name": "Default CORS Policy",
+                        "children": [],
+                        "behaviors": [{ "name": "modifyOutgoingResponseHeader", "options": { "action": "MODIFY", "standardModifyHeaderName": "ACCESS_CONTROL_ALLOW_ORIGIN" } }],
+                        "criteria": [
+                            { "name": "path", "options": { "matchOperator": "MATCHES_ONE_OF", "values": ["/v1/prospect", "/v1/lead_activity/", "/v1/lead_activity", "/v2/prospect/*"] } }
+                        ],
+                        "criteriaMustSatisfy": "all"
+                    },
+                    {
+                        "name": "CORS origin variable",
+                        "children": [],
+                        "behaviors": [{ "name": "setVariable", "options": { "valueSource": "EXTRACT", "variableName": "PMUSER_CORS_ORIGIN" } }],
+                        "criteria": [{ "name": "requestHeader", "options": { "matchOperator": "IS_ONE_OF", "headerName": "Origin", "values": ["https://quickbooks.intuit.com"] } }],
+                        "criteriaMustSatisfy": "all"
+                    }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all"
+            },
+            {
+                "name": "Offload origin",
+                "children": [
+                    { "name": "CSS and JavaScript", "children": [], "behaviors": [{ "name": "caching", "options": { "behavior": "MAX_AGE", "ttl": "7d" } }], "criteria": [{ "name": "fileExtension", "options": { "matchOperator": "IS_ONE_OF", "values": ["css","js"] } }], "criteriaMustSatisfy": "any" },
+                    { "name": "Images", "children": [], "behaviors": [{ "name": "caching", "options": { "behavior": "MAX_AGE", "ttl": "30d" } }], "criteria": [{ "name": "fileExtension", "options": { "matchOperator": "IS_ONE_OF", "values": ["jpg","png","gif"] } }], "criteriaMustSatisfy": "any" },
+                    { "name": "GraphQL", "children": [], "behaviors": [{ "name": "graphqlCaching", "options": { "enabled": false } }], "criteria": [{ "name": "path", "options": { "matchOperator": "MATCHES_ONE_OF", "values": ["/graphql"] } }], "criteriaMustSatisfy": "all" },
+                    { "name": "Uncacheable objects", "children": [], "behaviors": [{ "name": "downstreamCache", "options": { "behavior": "BUST" } }], "criteria": [{ "name": "cacheability", "options": { "matchOperator": "IS_NOT", "value": "CACHEABLE" } }], "criteriaMustSatisfy": "all" }
+                ],
+                "behaviors": [{ "name": "caching", "options": { "behavior": "NO_STORE" } }],
+                "criteria": [],
+                "criteriaMustSatisfy": "all"
+            },
+            {
+                "name": "Strengthen security",
+                "children": [
+                    {
+                        "name": "Allowed methods",
+                        "children": [
+                            { "name": "POST", "children": [], "behaviors": [{ "name": "allowPost", "options": { "enabled": true } }], "criteria": [], "criteriaMustSatisfy": "all" },
+                            { "name": "OPTIONS", "children": [], "behaviors": [{ "name": "allowOptions", "options": { "enabled": true } }], "criteria": [], "criteriaMustSatisfy": "all" },
+                            { "name": "PUT", "children": [], "behaviors": [{ "name": "allowPut", "options": { "enabled": false } }], "criteria": [], "criteriaMustSatisfy": "all" },
+                            { "name": "DELETE", "children": [], "behaviors": [{ "name": "allowDelete", "options": { "enabled": false } }], "criteria": [], "criteriaMustSatisfy": "all" },
+                            { "name": "PATCH", "children": [], "behaviors": [{ "name": "allowPatch", "options": { "enabled": false } }], "criteria": [], "criteriaMustSatisfy": "all" }
+                        ],
+                        "behaviors": [{ "name": "allHttpInCacheHierarchy", "options": { "enabled": true } }],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all"
+                    },
+                    { "name": "Obfuscate debug info", "children": [], "behaviors": [{ "name": "cacheTagVisible", "options": { "behavior": "PRAGMA_HEADER" } }], "criteria": [], "criteriaMustSatisfy": "all" },
+                    { "name": "HSTS", "children": [], "behaviors": [{ "name": "httpStrictTransportSecurity", "options": { "enable": false } }], "criteria": [], "criteriaMustSatisfy": "all" }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all"
+            },
+            {
+                "name": "Increase availability",
+                "children": [
+                    { "name": "Site failover", "children": [], "behaviors": [{ "name": "failAction", "options": { "enabled": false } }], "criteria": [{ "name": "originTimeout", "options": { "matchOperator": "ORIGIN_TIMED_OUT" } }], "criteriaMustSatisfy": "any" },
+                    { "name": "Origin health", "children": [], "behaviors": [{ "name": "healthDetection", "options": { "retryCount": 3 } }], "criteria": [], "criteriaMustSatisfy": "all" }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all"
+            },
+            {
+                "name": "Minimize payload",
+                "children": [
+                    { "name": "Compressible objects", "children": [], "behaviors": [{ "name": "gzipResponse", "options": { "behavior": "ALWAYS" } }], "criteria": [{ "name": "contentType", "options": { "matchOperator": "IS_ONE_OF", "matchWildcard": true, "values": ["text/*", "application/*json*"] } }], "criteriaMustSatisfy": "all" }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all"
+            }
+        ],
+        "behaviors": [
+            { "name": "origin", "options": { "originType": "CUSTOMER", "hostname": "leadgencapability.api.intuit.com" } },
+            { "name": "allowPost", "options": { "enabled": true, "allowWithoutContentLength": true } },
+            { "name": "modifyOutgoingRequestHeader", "options": { "action": "MODIFY", "customHeaderName": "Authorization" } }
+        ],
+        "options": { "is_secure": true },
+        "variables": [
+            { "name": "PMUSER_API_ENV", "value": "NULL" },
+            { "name": "PMUSER_CORS_ORIGIN", "value": "" }
+        ],
+        "comments": "Default Rule template."
+    }
+}

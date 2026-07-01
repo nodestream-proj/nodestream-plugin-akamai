@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nodestream-plugin-akamai"
-version = "0.16.1"
+version = "0.16.2"
 description = "Pipeline Plugin for Akamai Data"
 authors = [
 "Zach Probst <Zach_Probst@intuit.com>",
@@ -95,6 +95,12 @@ dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = [ "S101", "S106" ]
+# Akamai/PAPI-facing records keep API-shaped names; pipeline YAML maps them to
+# graph snake_case properties.
+"nodestream_akamai/akamai_utils/model.py" = [ "N802", "N815" ]
+"nodestream_akamai/akamai_utils/property_client.py" = [ "N802", "N803", "N806" ]
+# These tests mirror legacy camelCase client method names.
+"tests/akamai_utils/test_property_client.py" = [ "N802" ]
 
 
 [build-system]

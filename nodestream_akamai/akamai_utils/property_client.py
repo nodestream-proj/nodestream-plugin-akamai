@@ -1,7 +1,7 @@
 import itertools
 import logging
 import re
-from typing import Any, List, Tuple
+from typing import Any, ClassVar, List, Tuple
 
 from jsonpath_ng.ext import parse
 
@@ -15,6 +15,18 @@ from .model import (
 )
 
 PATH_AND = " AND "
+
+# full_path joins rule names with "/", but Akamai rule names are free text and
+# may themselves contain "/". Replace "/" with "_" in each name segment ONLY when
+# building the human-readable full_path property, so the separator is unambiguous.
+# This does NOT affect rule_path (the key), rule_name, or any other field.
+FULL_PATH_SEPARATOR = "/"
+
+
+def sanitize_full_path_segment(name: str) -> str:
+    """Replace the full_path separator inside a single rule-name segment."""
+    return name.replace(FULL_PATH_SEPARATOR, "_")
+
 
 logger = logging.getLogger(__name__)
 
@@ -551,7 +563,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
     # ── Rule-level extraction (Proxy schema) ──────────────────────────
 
-    SECURITY_BEHAVIOR_MAP = {
+    SECURITY_BEHAVIOR_MAP: ClassVar[dict[str, str]] = {
         "edgeAuth": "AKAMAI_EDGE_AUTH",
         "tokenAuth": "AKAMAI_TOKEN_AUTH",
         "siteShield": "AKAMAI_SITE_SHIELD",
@@ -688,6 +700,8 @@ class AkamaiPropertyClient(AkamaiApiClient):
         version: int,
         deeplink: str,
         depth: int = 0,
+        rulePath: str = "/rules",
+        fullPath: str | None = None,
         inheritedPathCriteria: list | None = None,
         inheritedHostnameCriteria: list | None = None,
         inheritedOriginHostname: str | None = None,
@@ -739,6 +753,11 @@ class AkamaiPropertyClient(AkamaiApiClient):
         )
 
         ruleName = rule.get("name", "default")
+        # full_path only: sanitize "/" in the name so the separator is unambiguous.
+        # rule_name (below) keeps the raw Akamai name.
+        thisFullPath = (
+            fullPath if fullPath is not None else sanitize_full_path_segment(ruleName)
+        )
 
         isPathEligible = bool(combinedPathCriteria) and conditionalOriginId is None
         canonicalPath = (
@@ -761,6 +780,8 @@ class AkamaiPropertyClient(AkamaiApiClient):
                     baseDirectory=baseDirectory,
                     ruleName=ruleName,
                     ruleDepth=depth,
+                    rulePath=rulePath,
+                    fullPath=thisFullPath,
                     criteriaMustSatisfy=rule.get("criteriaMustSatisfy", "all"),
                     securityBehaviors=securityBehaviors,
                     propertyId=propertyId,
@@ -770,7 +791,17 @@ class AkamaiPropertyClient(AkamaiApiClient):
                 )
             )
 
-        for childRule in rule.get("children", []):
+        for childIndex, childRule in enumerate(rule.get("children", [])):
+            # rulePath is the rule's JSON Pointer (RFC 6901) position in the rule
+            # tree: root is "/rules", its children are "/rules/children/0", ...;
+            # grandchildren "/rules/children/0/children/2". It is unique per rule
+            # regardless of names (it is index-based, not name-based), navigable
+            # back into the raw rule-tree JSON, and stable across ingests for a
+            # given property version.
+            childRulePath = f"{rulePath}/children/{childIndex}"
+            childName = childRule.get("name", "default")
+            # full_path only: sanitize "/" in the child name segment.
+            childFullPath = f"{thisFullPath}/{sanitize_full_path_segment(childName)}"
             records.extend(
                 self.extractRuleRecords(
                     rule=childRule,
@@ -779,6 +810,8 @@ class AkamaiPropertyClient(AkamaiApiClient):
                     version=version,
                     deeplink=deeplink,
                     depth=depth + 1,
+                    rulePath=childRulePath,
+                    fullPath=childFullPath,
                     inheritedPathCriteria=combinedPathCriteria,
                     inheritedHostnameCriteria=combinedHostnameCriteria,
                     inheritedOriginHostname=originHostname,
