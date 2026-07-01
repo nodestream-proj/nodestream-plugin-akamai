@@ -1,7 +1,7 @@
 import itertools
 import logging
 import re
-from typing import Any, List, Tuple
+from typing import Any, ClassVar, List, Tuple
 
 from jsonpath_ng.ext import parse
 
@@ -551,7 +551,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
 
     # ── Rule-level extraction (Proxy schema) ──────────────────────────
 
-    SECURITY_BEHAVIOR_MAP = {
+    SECURITY_BEHAVIOR_MAP: ClassVar[dict[str, str]] = {
         "edgeAuth": "AKAMAI_EDGE_AUTH",
         "tokenAuth": "AKAMAI_TOKEN_AUTH",
         "siteShield": "AKAMAI_SITE_SHIELD",
