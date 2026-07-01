@@ -1,0 +1,735 @@
+{
+    "accountId": "act_1-17WC",
+    "contractId": "ctr_C-19XSR8V",
+    "groupId": "grp_305482",
+    "ruleFormat": "latest",
+    "propertyId": "prp_1350855",
+    "propertyName": "mcp.quickbooks.intuit.com_ion_pm",
+    "propertyVersion": 4,
+    "rules": {
+        "name": "default",
+        "children": [
+            {
+                "name": "Auth Bearer",
+                "children": [],
+                "behaviors": [
+                    {
+                        "name": "modifyOutgoingRequestHeader",
+                        "options": {
+                            "action": "ADD",
+                            "standardAddHeaderName": "OTHER",
+                            "headerValue": "Intuit_IAM_Authentication intuit_appid=\"Intuit.qb.in.3p.qbomcpakamaiclient\",intuit_app_secret=\"REDACTED\",intuit_token_type=\"IAM-Ticket\"",
+                            "customHeaderName": "Authorization"
+                        }
+                    }
+                ],
+                "criteria": [
+                    {
+                        "name": "requestHeader",
+                        "options": {
+                            "matchOperator": "DOES_NOT_EXIST",
+                            "matchWildcardName": false,
+                            "headerName": "Authorization"
+                        }
+                    }
+                ],
+                "criteriaMustSatisfy": "all",
+                "comments": ""
+            },
+            {
+                "name": "Augment insights",
+                "children": [
+                    {
+                        "name": "Traffic reporting",
+                        "children": [],
+                        "behaviors": [
+                            {
+                                "name": "cpCode",
+                                "options": {
+                                    "enableDefaultContentProviderCode": false,
+                                    "value": {
+                                        "id": 2007118,
+                                        "description": "mcp.quickbooks.intuit.com",
+                                        "products": ["Fresca"],
+                                        "name": "mcp.quickbooks.intuit.com"
+                                    }
+                                }
+                            }
+                        ],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Identify your main traffic segments."
+                    },
+                    {
+                        "name": "mPulse RUM",
+                        "children": [],
+                        "behaviors": [
+                            {
+                                "name": "mPulse",
+                                "options": {
+                                    "apiKey": "",
+                                    "enabled": true,
+                                    "loaderVersion": "V12"
+                                }
+                            }
+                        ],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Collect and analyze real-user data."
+                    },
+                    {
+                        "name": "Geolocation",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "edgeScape", "options": { "enabled": false } }
+                        ],
+                        "criteria": [
+                            {
+                                "name": "requestType",
+                                "options": { "matchOperator": "IS", "value": "CLIENT_REQ" }
+                            }
+                        ],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Receive geolocation data."
+                    },
+                    {
+                        "name": "Log delivery",
+                        "children": [],
+                        "behaviors": [
+                            {
+                                "name": "report",
+                                "options": {
+                                    "logAcceptLanguage": false,
+                                    "logCookies": "OFF",
+                                    "logCustomLogField": false,
+                                    "logEdgeIP": false,
+                                    "logHost": false,
+                                    "logReferer": false,
+                                    "logUserAgent": false,
+                                    "logXForwardedFor": false
+                                }
+                            }
+                        ],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Specify log detail level."
+                    }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all",
+                "comments": "Monitoring and reporting."
+            },
+            {
+                "name": "Accelerate delivery",
+                "children": [
+                    {
+                        "name": "Origin connectivity",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "dnsAsyncRefresh", "options": { "enabled": true, "timeout": "1h" } }
+                        ],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Optimize edge-to-origin connection."
+                    },
+                    {
+                        "name": "Protocol optimizations",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "enhancedAkamaiProtocol", "options": { "display": "" } },
+                            { "name": "http3", "options": { "enable": true } },
+                            { "name": "http2", "options": { "enabled": "" } },
+                            { "name": "allowTransferEncoding", "options": { "enabled": true } },
+                            { "name": "sureRoute", "options": { "enabled": false, "srDownloadLinkTitle": "" } }
+                        ],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Modern fast protocols."
+                    },
+                    {
+                        "name": "Prefetching",
+                        "children": [
+                            {
+                                "name": "Prefetching objects",
+                                "children": [
+                                    {
+                                        "name": "Bots",
+                                        "children": [],
+                                        "behaviors": [
+                                            { "name": "prefetch", "options": { "enabled": false } }
+                                        ],
+                                        "criteria": [
+                                            {
+                                                "name": "userAgent",
+                                                "options": {
+                                                    "matchCaseSensitive": false,
+                                                    "matchOperator": "IS_ONE_OF",
+                                                    "matchWildcard": true,
+                                                    "values": ["*bot*", "*crawl*", "*spider*"]
+                                                }
+                                            }
+                                        ],
+                                        "criteriaMustSatisfy": "all",
+                                        "comments": "Disable prefetch for bots."
+                                    }
+                                ],
+                                "behaviors": [
+                                    { "name": "prefetch", "options": { "enabled": true } }
+                                ],
+                                "criteria": [],
+                                "criteriaMustSatisfy": "all",
+                                "comments": "Enable prefetch for HTML pages."
+                            },
+                            {
+                                "name": "Prefetchable objects",
+                                "children": [],
+                                "behaviors": [
+                                    { "name": "prefetchable", "options": { "enabled": true } }
+                                ],
+                                "criteria": [
+                                    {
+                                        "name": "fileExtension",
+                                        "options": {
+                                            "matchCaseSensitive": false,
+                                            "matchOperator": "IS_ONE_OF",
+                                            "values": ["css","js","jpg","jpeg","jp2","png","gif","svg","svgz","webp","eot","woff","woff2","otf","ttf"]
+                                        }
+                                    }
+                                ],
+                                "criteriaMustSatisfy": "all",
+                                "comments": "Which resources to prefetch."
+                            }
+                        ],
+                        "behaviors": [],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Prefetch embedded resources."
+                    },
+                    {
+                        "name": "Adaptive acceleration",
+                        "children": [],
+                        "behaviors": [
+                            {
+                                "name": "adaptiveAcceleration",
+                                "options": {
+                                    "abLogic": "DISABLED",
+                                    "enableBrotliCompression": true,
+                                    "enablePreconnect": true,
+                                    "enablePush": true,
+                                    "preloadEnable": true,
+                                    "source": "MPULSE"
+                                }
+                            }
+                        ],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "ML performance optimizations."
+                    }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all",
+                "comments": "Performance of delivering objects."
+            },
+            {
+                "name": "Offload origin",
+                "children": [
+                    {
+                        "name": "CSS and JavaScript",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "caching", "options": { "behavior": "MAX_AGE", "mustRevalidate": false, "ttl": "7d" } }
+                        ],
+                        "criteria": [
+                            {
+                                "name": "fileExtension",
+                                "options": { "matchCaseSensitive": false, "matchOperator": "IS_ONE_OF", "values": ["css","js"] }
+                            }
+                        ],
+                        "criteriaMustSatisfy": "any",
+                        "comments": "Cache CSS/JS."
+                    },
+                    {
+                        "name": "Fonts",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "caching", "options": { "behavior": "MAX_AGE", "mustRevalidate": false, "ttl": "30d" } }
+                        ],
+                        "criteria": [
+                            {
+                                "name": "fileExtension",
+                                "options": { "matchCaseSensitive": false, "matchOperator": "IS_ONE_OF", "values": ["eot","woff","woff2","otf","ttf"] }
+                            }
+                        ],
+                        "criteriaMustSatisfy": "any",
+                        "comments": "Cache fonts."
+                    },
+                    {
+                        "name": "Images",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "caching", "options": { "behavior": "MAX_AGE", "mustRevalidate": false, "ttl": "30d" } }
+                        ],
+                        "criteria": [
+                            {
+                                "name": "fileExtension",
+                                "options": { "matchCaseSensitive": false, "matchOperator": "IS_ONE_OF", "values": ["jpg","jpeg","png","gif","webp","jp2","ico","svg","svgz"] }
+                            }
+                        ],
+                        "criteriaMustSatisfy": "any",
+                        "comments": "Cache images."
+                    },
+                    {
+                        "name": "Files",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "caching", "options": { "behavior": "MAX_AGE", "mustRevalidate": false, "ttl": "7d" } }
+                        ],
+                        "criteria": [
+                            {
+                                "name": "fileExtension",
+                                "options": { "matchCaseSensitive": false, "matchOperator": "IS_ONE_OF", "values": ["pdf","doc","docx","odt"] }
+                            }
+                        ],
+                        "criteriaMustSatisfy": "any",
+                        "comments": "Cache files."
+                    },
+                    {
+                        "name": "Other static objects",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "caching", "options": { "behavior": "MAX_AGE", "mustRevalidate": false, "ttl": "7d" } }
+                        ],
+                        "criteria": [
+                            {
+                                "name": "fileExtension",
+                                "options": { "matchCaseSensitive": false, "matchOperator": "IS_ONE_OF", "values": ["aif","aiff","au","avi","bin","bmp","txt","zip","tif","tiff","mid","jar"] }
+                            }
+                        ],
+                        "criteriaMustSatisfy": "any",
+                        "comments": "Cache other static."
+                    },
+                    {
+                        "name": "HTML pages",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "caching", "options": { "behavior": "NO_STORE" } },
+                            {
+                                "name": "cacheKeyQueryParams",
+                                "options": {
+                                    "behavior": "IGNORE",
+                                    "exactMatch": true,
+                                    "parameters": ["gclid","fbclid","utm_source","utm_campaign","utm_medium","utm_content"]
+                                }
+                            }
+                        ],
+                        "criteria": [
+                            {
+                                "name": "fileExtension",
+                                "options": { "matchCaseSensitive": false, "matchOperator": "IS_ONE_OF", "values": ["html","htm","php","jsp","aspx","EMPTY_STRING"] }
+                            }
+                        ],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Cache HTML."
+                    },
+                    {
+                        "name": "Redirects",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "cacheRedirect", "options": { "enabled": "false" } }
+                        ],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Cache redirects."
+                    },
+                    {
+                        "name": "POST responses",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "cachePost", "options": { "enabled": false } }
+                        ],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Cache POST."
+                    },
+                    {
+                        "name": "GraphQL",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "graphqlCaching", "options": { "enabled": false } }
+                        ],
+                        "criteria": [
+                            {
+                                "name": "path",
+                                "options": {
+                                    "matchCaseSensitive": false,
+                                    "matchOperator": "MATCHES_ONE_OF",
+                                    "normalize": false,
+                                    "values": ["/graphql"]
+                                }
+                            }
+                        ],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Cache GraphQL."
+                    },
+                    {
+                        "name": "Uncacheable objects",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "downstreamCache", "options": { "behavior": "BUST" } }
+                        ],
+                        "criteria": [
+                            {
+                                "name": "cacheability",
+                                "options": { "matchOperator": "IS_NOT", "value": "CACHEABLE" }
+                            }
+                        ],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Uncacheable content."
+                    }
+                ],
+                "behaviors": [
+                    { "name": "caching", "options": { "behavior": "NO_STORE" } },
+                    { "name": "tieredDistribution", "options": { "enabled": false } }
+                ],
+                "criteria": [],
+                "criteriaMustSatisfy": "all",
+                "comments": "Caching at edge and browser."
+            },
+            {
+                "name": "Strengthen security",
+                "children": [
+                    {
+                        "name": "Allowed methods",
+                        "children": [
+                            {
+                                "name": "POST",
+                                "children": [],
+                                "behaviors": [
+                                    { "name": "allowPost", "options": { "allowWithoutContentLength": false, "enabled": true } }
+                                ],
+                                "criteria": [],
+                                "criteriaMustSatisfy": "all",
+                                "comments": "Allow POST."
+                            },
+                            {
+                                "name": "OPTIONS",
+                                "children": [],
+                                "behaviors": [
+                                    { "name": "allowOptions", "options": { "enabled": true } }
+                                ],
+                                "criteria": [],
+                                "criteriaMustSatisfy": "all",
+                                "comments": "Allow OPTIONS."
+                            },
+                            {
+                                "name": "PUT",
+                                "children": [],
+                                "behaviors": [
+                                    { "name": "allowPut", "options": { "enabled": false } }
+                                ],
+                                "criteria": [],
+                                "criteriaMustSatisfy": "all",
+                                "comments": "Allow PUT."
+                            },
+                            {
+                                "name": "DELETE",
+                                "children": [],
+                                "behaviors": [
+                                    { "name": "allowDelete", "options": { "enabled": false } }
+                                ],
+                                "criteria": [],
+                                "criteriaMustSatisfy": "all",
+                                "comments": "Allow DELETE."
+                            },
+                            {
+                                "name": "PATCH",
+                                "children": [],
+                                "behaviors": [
+                                    { "name": "allowPatch", "options": { "enabled": false } }
+                                ],
+                                "criteria": [],
+                                "criteriaMustSatisfy": "all",
+                                "comments": "Allow PATCH."
+                            }
+                        ],
+                        "behaviors": [
+                            { "name": "allHttpInCacheHierarchy", "options": { "enabled": true } }
+                        ],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Allow HTTP methods."
+                    },
+                    {
+                        "name": "Obfuscate debug info",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "cacheTagVisible", "options": { "behavior": "PRAGMA_HEADER" } }
+                        ],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Hide back-end info."
+                    },
+                    {
+                        "name": "Obfuscate backend info",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "modifyOutgoingResponseHeader", "options": { "action": "DELETE", "customHeaderName": "X-Powered-By", "standardDeleteHeaderName": "OTHER" } },
+                            { "name": "modifyOutgoingResponseHeader", "options": { "action": "DELETE", "customHeaderName": "Server", "standardDeleteHeaderName": "OTHER" } }
+                        ],
+                        "criteria": [
+                            {
+                                "name": "requestHeader",
+                                "options": {
+                                    "headerName": "X-Akamai-Debug",
+                                    "matchCaseSensitiveValue": true,
+                                    "matchOperator": "IS_NOT_ONE_OF",
+                                    "matchWildcardName": false,
+                                    "matchWildcardValue": false,
+                                    "values": ["true"]
+                                }
+                            }
+                        ],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Hide back-end info unless secret header."
+                    },
+                    {
+                        "name": "HSTS",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "httpStrictTransportSecurity", "options": { "enable": false } }
+                        ],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Require HTTPS."
+                    }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all",
+                "comments": "Minimize info shared with clients."
+            },
+            {
+                "name": "Increase availability",
+                "children": [
+                    {
+                        "name": "Simulate failover",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "breakConnection", "options": { "enabled": true } }
+                        ],
+                        "criteria": [
+                            { "name": "contentDeliveryNetwork", "options": { "matchOperator": "IS", "network": "STAGING" } },
+                            {
+                                "name": "requestHeader",
+                                "options": {
+                                    "headerName": "breakconnection",
+                                    "matchCaseSensitiveValue": true,
+                                    "matchOperator": "IS_ONE_OF",
+                                    "matchWildcardName": false,
+                                    "matchWildcardValue": false,
+                                    "values": ["Your-Secret-Here"]
+                                }
+                            }
+                        ],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Simulate origin problem on staging."
+                    },
+                    {
+                        "name": "Site failover",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "failAction", "options": { "enabled": false } }
+                        ],
+                        "criteria": [
+                            { "name": "originTimeout", "options": { "matchOperator": "ORIGIN_TIMED_OUT" } }
+                        ],
+                        "criteriaMustSatisfy": "any",
+                        "comments": "Respond when origin unavailable."
+                    },
+                    {
+                        "name": "Origin health",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "healthDetection", "options": { "maximumReconnects": 2, "retryCount": 3, "retryInterval": "10s" } }
+                        ],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Monitor origin health."
+                    },
+                    {
+                        "name": "Script management",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "scriptManagement", "options": { "enabled": false } }
+                        ],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Manage third-party JS."
+                    }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all",
+                "comments": "Respond when origin/3p slow or down."
+            },
+            {
+                "name": "Minimize payload",
+                "children": [
+                    {
+                        "name": "Compressible objects",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "gzipResponse", "options": { "behavior": "ALWAYS" } }
+                        ],
+                        "criteria": [
+                            {
+                                "name": "contentType",
+                                "options": {
+                                    "matchCaseSensitive": false,
+                                    "matchOperator": "IS_ONE_OF",
+                                    "matchWildcard": true,
+                                    "values": ["application/*javascript*","application/*json*","application/*xml*","text/*","font/otf","image/svg+xml"]
+                                }
+                            }
+                        ],
+                        "criteriaMustSatisfy": "all",
+                        "comments": "Gzip text formats."
+                    }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all",
+                "comments": "Reduce content size."
+            },
+            {
+                "name": "Origins",
+                "children": [
+                    {
+                        "name": "Cloudfront",
+                        "children": [],
+                        "behaviors": [
+                            {
+                                "name": "origin",
+                                "options": {
+                                    "originType": "CUSTOMER",
+                                    "forwardHostHeader": "ORIGIN_HOSTNAME",
+                                    "cacheKeyHostname": "ORIGIN_HOSTNAME",
+                                    "ipVersion": "IPV4",
+                                    "compress": true,
+                                    "enableTrueClientIp": true,
+                                    "trueClientIpHeader": "True-Client-IP",
+                                    "verificationMode": "CUSTOM",
+                                    "originSni": true,
+                                    "httpPort": 80,
+                                    "httpsPort": 443,
+                                    "minTlsVersion": "DYNAMIC",
+                                    "hostname": "d2l8cmvpwpdfrn.cloudfront.net",
+                                    "customValidCnValues": ["{{Origin Hostname}}", "{{Forward Host Header}}"],
+                                    "originCertsToHonor": "STANDARD_CERTIFICATE_AUTHORITIES",
+                                    "standardCertificateAuthorities": ["akamai-permissive"]
+                                }
+                            }
+                        ],
+                        "criteria": [
+                            {
+                                "name": "path",
+                                "options": {
+                                    "matchOperator": "MATCHES_ONE_OF",
+                                    "matchCaseSensitive": false,
+                                    "normalize": false,
+                                    "values": ["/web_assets/*"]
+                                }
+                            }
+                        ],
+                        "criteriaMustSatisfy": "all",
+                        "comments": ""
+                    }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all",
+                "comments": ""
+            },
+            {
+                "name": "IP Allow List",
+                "children": [],
+                "behaviors": [
+                    {
+                        "name": "requestControl",
+                        "options": {
+                            "enabled": true,
+                            "isSharedPolicy": true,
+                            "enableBranded403": false,
+                            "cloudletSharedPolicy": 317486
+                        }
+                    }
+                ],
+                "criteria": [
+                    {
+                        "name": "hostname",
+                        "options": {
+                            "matchOperator": "IS_ONE_OF",
+                            "values": ["mcp.quickbooks.intuit.com"]
+                        }
+                    },
+                    {
+                        "name": "path",
+                        "options": {
+                            "matchOperator": "DOES_NOT_MATCH_ONE_OF",
+                            "matchCaseSensitive": false,
+                            "normalize": false,
+                            "values": ["/web_assets/*"]
+                        }
+                    }
+                ],
+                "criteriaMustSatisfy": "all",
+                "comments": ""
+            }
+        ],
+        "behaviors": [
+            {
+                "name": "origin",
+                "options": {
+                    "cacheKeyHostname": "REQUEST_HOST_HEADER",
+                    "compress": true,
+                    "enableTrueClientIp": true,
+                    "forwardHostHeader": "REQUEST_HOST_HEADER",
+                    "httpPort": 80,
+                    "httpsPort": 443,
+                    "minTlsVersion": "DYNAMIC",
+                    "originSni": true,
+                    "originType": "CUSTOMER",
+                    "verificationMode": "CUSTOM",
+                    "trueClientIpHeader": "True-Client-IP",
+                    "hostname": "qbo-mcp-federation.api.intuit.com",
+                    "ipVersion": "IPV4",
+                    "customValidCnValues": ["{{Origin Hostname}}", "{{Forward Host Header}}"],
+                    "originCertsToHonor": "STANDARD_CERTIFICATE_AUTHORITIES",
+                    "standardCertificateAuthorities": ["akamai-permissive"]
+                }
+            },
+            {
+                "name": "enhancedDebug",
+                "options": { "enableDebug": true, "generateGrn": true, "disablePragma": true }
+            },
+            {
+                "name": "cpCode",
+                "options": {
+                    "enableDefaultContentProviderCode": false,
+                    "value": { "id": 2007090, "description": "mcp.quickbooks.intuit.com", "products": ["Fresca"], "name": "mcp.quickbooks.intuit.com" }
+                }
+            },
+            {
+                "name": "siteShield",
+                "options": {
+                    "ssmap": { "name": "ss_prod_apigw (s2990.akamaiedge.net)", "value": "s2990.akamaiedge.net" }
+                }
+            }
+        ],
+        "options": { "is_secure": true },
+        "variables": [],
+        "comments": "Default Rule template."
+    }
+}

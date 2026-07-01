@@ -1,20 +1,25 @@
 # AkamaiProperty Proxy schema — rule-level pipeline
 #
-# Records are split into two node types based on criteria dimensionality:
+# Each rule becomes EXACTLY ONE node (Path XOR AkamaiPropertyRule):
 #
-#   Path-only rules (pathCriteria non-empty, no hostname, no cloudlet):
+#   Path-eligible rules (pathCriteria non-empty, no cloudlet conditional):
 #     (AkamaiProperty:Proxy)-[:HAS_PATH]->(Path)-[:ROUTES_TO]->(Endpoint)
-#     — identical key schema to IAGE: (proxy_id, path)
-#     — pathCriteria list is directly micromatch-compatible
+#     — keyed (proxy_id, path); pathCriteria is micromatch-compatible
 #
-#   All other rules (hostname-dimensional, cloudlet-conditional, catch-all):
+#   All other rules (hostname-only, cloudlet-conditional, catch-all, behaviour):
 #     (AkamaiProperty:Proxy)-[:HAS_RULE]->(AkamaiPropertyRule)-[:ROUTES_TO]->(Endpoint)
-#     — keyed on (proxy_id, rule_name) since path may be absent
+#     — keyed (proxy_id, rule_path)
 #
-# The null-key-drop behaviour of the nodestream interpreter is the guard:
-# passes that target Path use isPath=true records; passes targeting
-# AkamaiPropertyRule use isPath=false records. Records with null keys
-# are silently skipped, so each pass only writes what it owns.
+# rule_path is the rule's ordinal tree position ("ROOT", "3.0", "3.0.1", ...).
+# It is unique by construction (a rule tree is an ordered array), so it can back
+# a NODE KEY constraint. rule_name is a human label that repeats across a tree
+# and hostname is null for most rules, so (proxy_id, rule_name, hostname) is NOT
+# unique — it caused ConstraintCreationFailed. full_path (the name breadcrumb) is
+# carried as a readable property for querying.
+#
+# Path XOR Rule: the extractor sets pathKey XOR ruleKey per record (never both),
+# so each rule is written by exactly one pass. The interpreter drops null-key
+# records, so each pass only writes the records it owns.
 
 - implementation: nodestream_akamai.property_rule:AkamaiPropertyRuleExtractor
   arguments:
@@ -90,10 +95,10 @@
           do_remove_trailing_dots: true
         node_key:
           proxy_id: !jmespath 'ruleKey.proxy_id'
-          rule_name: !jmespath 'ruleKey.rule_name'
-          hostname: !jmespath 'ruleKey.hostname'
+          rule_path: !jmespath 'ruleKey.rule_path'
         node_properties:
           rule_name: !jmespath 'ruleName'
+          full_path: !jmespath 'fullPath'
           rule_depth: !jmespath 'ruleDepth'
           path_criteria: !jmespath 'pathCriteria'
           hostname_criteria: !jmespath 'hostnameCriteria'
@@ -131,8 +136,7 @@
           do_remove_trailing_dots: true
         key:
           proxy_id: !jmespath 'ruleKey.proxy_id'
-          rule_name: !jmespath 'ruleKey.rule_name'
-          hostname: !jmespath 'ruleKey.hostname'
+          rule_path: !jmespath 'ruleKey.rule_path'
       - type: relationship
         node_type: Endpoint
         relationship_type: ROUTES_TO
@@ -170,8 +174,7 @@
           do_remove_trailing_dots: true
         key:
           proxy_id: !jmespath 'ruleKey.proxy_id'
-          rule_name: !jmespath 'ruleKey.rule_name'
-          hostname: !jmespath 'ruleKey.hostname'
+          rule_path: !jmespath 'ruleKey.rule_path'
       - type: relationship
         node_type: AuthenticationPolicy
         relationship_type: USES_AUTHENTICATION_BEHAVIOR

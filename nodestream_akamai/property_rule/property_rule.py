@@ -31,26 +31,33 @@ class AkamaiPropertyRuleExtractor(Extractor):
 
         pathKey is non-null iff path is set (path-eligible rule). The path
         value is the canonical sorted AND-joined criteria string produced by
-        extractRuleRecords.
+        extractRuleRecords. A path-eligible rule becomes a Path node ONLY —
+        buildRuleKey returns None for it (Path XOR Rule).
         """
         if record["path"] is None:
             return None
         return {"proxy_id": record["propertyId"], "path": record["path"]}
 
-    def buildRuleKey(self, record: dict) -> dict:
-        """Return the ruleKey dict for an AkamaiPropertyRule node.
+    def buildRuleKey(self, record: dict) -> dict | None:
+        """Return the ruleKey dict for an AkamaiPropertyRule node, or None.
 
-        hostname is included so that two rules with the same name but different
-        hostname criteria produce distinct AkamaiPropertyRule nodes. It is None
-        for rules with no hostname dimension.
+        Keyed on (proxy_id, rule_path) — the rule's ordinal tree position — which
+        is unique by construction. rule_name is a human label that repeats across
+        a property's rule tree (many rules are named "US", "default", etc.), and
+        hostname is null for the majority of rules (those not under a hostname
+        section), so (proxy_id, rule_name, hostname) is NOT unique and cannot back
+        a NODE KEY constraint. rule_path always can.
+
+        Returns None for path-eligible rules so that each rule is EITHER a Path
+        node OR an AkamaiPropertyRule, never both (Path XOR Rule). Previously
+        ruleKey was always built, so every path-bearing rule was written as both
+        a Path and an AkamaiPropertyRule.
         """
-        firstHostname = (
-            record["hostnameCriteria"][0] if record["hostnameCriteria"] else None
-        )
+        if record["path"] is not None:
+            return None
         return {
             "proxy_id": record["propertyId"],
-            "rule_name": record["ruleName"],
-            "hostname": firstHostname,
+            "rule_path": record["rulePath"],
         }
 
     async def extractRecordsForProperty(self, property: AkamaiPropertyResponse):

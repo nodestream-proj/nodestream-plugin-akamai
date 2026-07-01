@@ -1,0 +1,54 @@
+{
+    "accountId": "act_TEST",
+    "contractId": "ctr_TEST",
+    "groupId": "grp_TEST",
+    "ruleFormat": "latest",
+    "propertyId": "prp_collision",
+    "propertyName": "collision_repro",
+    "propertyVersion": 1,
+    "rules": {
+        "name": "default",
+        "children": [
+            {
+                "name": "Prod",
+                "children": [
+                    {
+                        "name": "US",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "origin", "options": { "originType": "CUSTOMER", "hostname": "prod-us.example.com" } }
+                        ],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all"
+                    }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all"
+            },
+            {
+                "name": "Pre-Prod",
+                "children": [
+                    {
+                        "name": "US",
+                        "children": [],
+                        "behaviors": [
+                            { "name": "origin", "options": { "originType": "CUSTOMER", "hostname": "preprod-us.example.com" } }
+                        ],
+                        "criteria": [],
+                        "criteriaMustSatisfy": "all"
+                    }
+                ],
+                "behaviors": [],
+                "criteria": [],
+                "criteriaMustSatisfy": "all"
+            }
+        ],
+        "behaviors": [
+            { "name": "origin", "options": { "originType": "CUSTOMER", "hostname": "root.example.com" } }
+        ],
+        "criteria": [],
+        "criteriaMustSatisfy": "all",
+        "comments": "Minimal repro: two rules named 'US' at different tree positions, no path, no hostname. The OLD key (proxy_id, rule_name, hostname) makes them collide; the NEW key (proxy_id, rule_path) keeps them distinct."
+    }
+}

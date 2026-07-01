@@ -688,6 +688,8 @@ class AkamaiPropertyClient(AkamaiApiClient):
         version: int,
         deeplink: str,
         depth: int = 0,
+        rulePath: str = "ROOT",
+        fullPath: str | None = None,
         inheritedPathCriteria: list | None = None,
         inheritedHostnameCriteria: list | None = None,
         inheritedOriginHostname: str | None = None,
@@ -739,6 +741,7 @@ class AkamaiPropertyClient(AkamaiApiClient):
         )
 
         ruleName = rule.get("name", "default")
+        thisFullPath = fullPath if fullPath is not None else ruleName
 
         isPathEligible = bool(combinedPathCriteria) and conditionalOriginId is None
         canonicalPath = (
@@ -761,6 +764,8 @@ class AkamaiPropertyClient(AkamaiApiClient):
                     baseDirectory=baseDirectory,
                     ruleName=ruleName,
                     ruleDepth=depth,
+                    rulePath=rulePath,
+                    fullPath=thisFullPath,
                     criteriaMustSatisfy=rule.get("criteriaMustSatisfy", "all"),
                     securityBehaviors=securityBehaviors,
                     propertyId=propertyId,
@@ -770,7 +775,16 @@ class AkamaiPropertyClient(AkamaiApiClient):
                 )
             )
 
-        for childRule in rule.get("children", []):
+        for childIndex, childRule in enumerate(rule.get("children", [])):
+            # rulePath is the ordinal index path: root is "ROOT", its children are
+            # "0", "1", ...; grandchildren "0.0", "0.1", ... This is unique per
+            # rule regardless of names, and stable across ingests for a given
+            # property version.
+            childRulePath = (
+                str(childIndex) if rulePath == "ROOT" else f"{rulePath}.{childIndex}"
+            )
+            childName = childRule.get("name", "default")
+            childFullPath = f"{thisFullPath}/{childName}"
             records.extend(
                 self.extractRuleRecords(
                     rule=childRule,
@@ -779,6 +793,8 @@ class AkamaiPropertyClient(AkamaiApiClient):
                     version=version,
                     deeplink=deeplink,
                     depth=depth + 1,
+                    rulePath=childRulePath,
+                    fullPath=childFullPath,
                     inheritedPathCriteria=combinedPathCriteria,
                     inheritedHostnameCriteria=combinedHostnameCriteria,
                     inheritedOriginHostname=originHostname,
