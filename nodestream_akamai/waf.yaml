@@ -33,3 +33,4 @@
       node_properties:
         deeplink: !jmespath 'deeplink'
         policy_name: !jmespath 'policyName'
+        security_controls: !jmespath 'securityControls'
