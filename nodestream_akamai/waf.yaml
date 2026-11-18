@@ -1,3 +1,25 @@
+# Akamai App Security (WAF) configs, security policies, rate policies,
+# attack groups and client reputation profiles
+#
+#   (AkamaiWafPolicy)-[:INCLUDED_IN]->(AkamaiWafConfig)
+#   (AkamaiRatePolicy)-[:INCLUDED_IN]->(AkamaiWafConfig)
+#   (AkamaiReputationProfile)-[:INCLUDED_IN]->(AkamaiWafConfig)
+#   (AkamaiWafPolicy)-[:HAS_RATE_POLICY {ipv4_action, ipv6_action}]->(AkamaiRatePolicy)
+#   (AkamaiWafPolicy)-[:HAS_ATTACK_GROUP {action}]->(AkamaiAttackGroup)
+#   (AkamaiWafPolicy)-[:HAS_REPUTATION_PROFILE {action}]->(AkamaiReputationProfile)
+#
+# Rate policies and reputation profiles are defined once per config; attack
+# groups are Akamai-defined and shared by every policy (keyed on group code).
+# Each security policy sets its own action for each one, so the action lives
+# on the HAS_* relationship. The export omits reputation profiles whose action
+# is "none", so a missing HAS_REPUTATION_PROFILE means the profile is off.
+#
+# The extractor yields two record shapes:
+#   - config records (top-level configId)       -> Pass 1
+#   - policy records (top-level policyId only)  -> Pass 2
+# The interpreter drops records whose source key is null, so each pass only
+# writes the records it owns.
+
 - implementation: nodestream_akamai.waf:AkamaiWafExtractor
   arguments:
     base_url: !config 'base_url'
@@ -8,28 +30,114 @@
 - implementation: nodestream.interpreting:Interpreter
   arguments:
     interpretations:
-    - type: source_node
-      node_type: AkamaiWafConfig
-      normalization:
-        do_remove_trailing_dots: true
-      key:
-        config_id: !jmespath 'configId'
-    - type: properties
-      properties:
-        config_name: !jmespath 'configName'
-        config_id: !jmespath 'configId'
-        production_version: !jmespath 'productionVersion'
-        status: !jmespath 'status'
-        deeplink: !jmespath 'deeplink'
-    - type: relationship
-      node_type: AkamaiWafPolicy
-      relationship_type: INCLUDED_IN
-      key_normalization:
-        do_remove_trailing_dots: true
-      node_key:
-        policy_id: !jmespath 'policyId'
-      outbound: false
-      iterate_on: !jmespath 'policies[*]'
-      node_properties:
-        deeplink: !jmespath 'deeplink'
-        policy_name: !jmespath 'policyName'
+
+    # Pass 1: AkamaiWafConfig and everything INCLUDED_IN it (config records):
+    # its AkamaiWafPolicy nodes, and every AkamaiRatePolicy and
+    # AkamaiReputationProfile defined in the config, including unused ones.
+    - - type: source_node
+        node_type: AkamaiWafConfig
+        normalization:
+          do_remove_trailing_dots: true
+        key:
+          config_id: !jmespath 'configId'
+      - type: properties
+        properties:
+          config_name: !jmespath 'configName'
+          config_id: !jmespath 'configId'
+          production_version: !jmespath 'productionVersion'
+          status: !jmespath 'status'
+          deeplink: !jmespath 'deeplink'
+      - type: relationship
+        node_type: AkamaiWafPolicy
+        relationship_type: INCLUDED_IN
+        key_normalization:
+          do_remove_trailing_dots: true
+        node_key:
+          policy_id: !jmespath 'policyId'
+        outbound: false
+        iterate_on: !jmespath 'policies[*]'
+        node_properties:
+          deeplink: !jmespath 'deeplink'
+          policy_name: !jmespath 'policyName'
+          rate_controls_enabled: !jmespath 'rateControlsEnabled'
+          bot_manager_enabled: !jmespath 'botManagerEnabled'
+          reputation_controls_enabled: !jmespath 'reputationControlsEnabled'
+      - type: relationship
+        node_type: AkamaiRatePolicy
+        relationship_type: INCLUDED_IN
+        key_normalization:
+          do_remove_trailing_dots: true
+        node_key:
+          config_id: !jmespath 'configId'
+          rate_policy_id: !jmespath 'ratePolicyId'
+        outbound: false
+        iterate_on: !jmespath 'ratePolicies[*]'
+        node_properties:
+          name: !jmespath 'name'
+          type: !jmespath 'type'
+          average_threshold: !jmespath 'averageThreshold'
+          burst_threshold: !jmespath 'burstThreshold'
+          burst_window: !jmespath 'burstWindow'
+          match_type: !jmespath 'matchType'
+          used: !jmespath 'used'
+      - type: relationship
+        node_type: AkamaiReputationProfile
+        relationship_type: INCLUDED_IN
+        key_normalization:
+          do_remove_trailing_dots: true
+        node_key:
+          config_id: !jmespath 'configId'
+          reputation_profile_id: !jmespath 'reputationProfileId'
+        outbound: false
+        iterate_on: !jmespath 'reputationProfiles[*]'
+        node_properties:
+          name: !jmespath 'name'
+          context: !jmespath 'context'
+          context_readable: !jmespath 'contextReadable'
+          enabled: !jmespath 'enabled'
+          threshold: !jmespath 'threshold'
+          shared_ip_handling: !jmespath 'sharedIpHandling'
+
+    # Pass 2: AkamaiWafPolicy -[HAS_RATE_POLICY | HAS_ATTACK_GROUP |
+    # HAS_REPUTATION_PROFILE]-> ... (policy records)
+    - - type: source_node
+        node_type: AkamaiWafPolicy
+        normalization:
+          do_remove_trailing_dots: true
+        key:
+          policy_id: !jmespath 'policyId'
+      - type: relationship
+        node_type: AkamaiRatePolicy
+        relationship_type: HAS_RATE_POLICY
+        key_normalization:
+          do_remove_trailing_dots: true
+        node_key:
+          config_id: !jmespath 'configId'
+          rate_policy_id: !jmespath 'ratePolicyId'
+        iterate_on: !jmespath 'ratePolicyActions[*]'
+        relationship_properties:
+          ipv4_action: !jmespath 'ipv4Action'
+          ipv6_action: !jmespath 'ipv6Action'
+      - type: relationship
+        node_type: AkamaiAttackGroup
+        relationship_type: HAS_ATTACK_GROUP
+        key_normalization:
+          do_remove_trailing_dots: true
+        node_key:
+          group: !jmespath 'group'
+        iterate_on: !jmespath 'attackGroupActions[*]'
+        node_properties:
+          group_name: !jmespath 'groupName'
+        relationship_properties:
+          action: !jmespath 'action'
+      - type: relationship
+        node_type: AkamaiReputationProfile
+        relationship_type: HAS_REPUTATION_PROFILE
+        key_normalization:
+          do_remove_trailing_dots: true
+        node_key:
+          config_id: !jmespath 'configId'
+          reputation_profile_id: !jmespath 'reputationProfileId'
+        iterate_on: !jmespath 'reputationProfileActions[*]'
+        relationship_properties:
+          action: !jmespath 'action'
